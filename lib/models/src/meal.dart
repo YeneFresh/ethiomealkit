@@ -22,3 +22,4 @@ class Meal with _$Meal {
 }
 
 
+

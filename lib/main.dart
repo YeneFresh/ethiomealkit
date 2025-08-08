@@ -31,15 +31,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final router = GoRouter(initialLocation: '/meals', routes: [
-      GoRoute(path: '/onboarding', builder: (context, state) => const OnboardingFlow()),
-      GoRoute(path: '/home', builder: (context, state) => const HomeScreen()),
-      GoRoute(path: '/meals', builder: (context, state) => const MealsListScreen()),
-      GoRoute(path: '/meals/:id', builder: (context, state) => MealDetailScreen(id: state.pathParameters['id']!)),
-      GoRoute(path: '/cart', builder: (context, state) => const CartScreen()),
-      GoRoute(path: '/checkout', builder: (context, state) => const CheckoutScreen()),
-      GoRoute(path: '/orders', builder: (context, state) => const OrdersScreen()),
-    ]);
+    final router = appRouter;
 
     return MaterialApp.router(
       title: 'Ethio Meal Kit',

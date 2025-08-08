@@ -1,0 +1,26 @@
+import 'package:flutter/material.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+class ProfileMenu extends StatelessWidget {
+  const ProfileMenu({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return PopupMenuButton<String>(
+      onSelected: (value) async {
+        if (value == 'signout') {
+          await Supabase.instance.client.auth.signOut();
+          if (context.mounted) {
+            Navigator.of(context).pushNamedAndRemoveUntil('/signin', (_) => false);
+          }
+        }
+      },
+      itemBuilder: (context) => const [
+        PopupMenuItem(value: 'signout', child: Text('Sign out')),
+      ],
+    );
+  }
+}
+
+
+

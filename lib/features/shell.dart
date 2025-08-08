@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../features/profile/profile_menu.dart';
 
 class ShellScaffold extends StatelessWidget {
   final Widget child;
@@ -17,6 +18,7 @@ class ShellScaffold extends StatelessWidget {
     final location = GoRouterState.of(context).uri.toString();
     final index = _indexForLocation(location);
     return Scaffold(
+      appBar: AppBar(title: const Text('Ethio Meal Kit'), actions: const [ProfileMenu()]),
       body: child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: index,
