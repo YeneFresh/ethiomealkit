@@ -1,0 +1,9 @@
+[
+  {"id":"kit1","title":"Doro Wat with Injera","description":"Classic Ethiopian chicken stew with berbere and injera.","priceCents":1200,"imageUrl":"https://picsum.photos/seed/doro/600/400"},
+  {"id":"kit2","title":"Shiro Tegamino","description":"Chickpea flour stew, veggie friendly.","priceCents":900,"imageUrl":"https://picsum.photos/seed/shiro/600/400"},
+  {"id":"kit3","title":"Tibs with Injera","description":"Pan-seared beef tibs with awaze.","priceCents":1100,"imageUrl":"https://picsum.photos/seed/tibs/600/400"},
+  {"id":"kit4","title":"Gomen Besiga","description":"Collard greens with beef.","priceCents":1000,"imageUrl":"https://picsum.photos/seed/gomen/600/400"},
+  {"id":"kit5","title":"Firfir","description":"Spiced shredded injera with berbere.","priceCents":800,"imageUrl":"https://picsum.photos/seed/firfir/600/400"},
+  {"id":"kit6","title":"Kitfo","description":"Seasoned minced beef with mitmita.","priceCents":1300,"imageUrl":"https://picsum.photos/seed/kitfo/600/400"}
+]
+
