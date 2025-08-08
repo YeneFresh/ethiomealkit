@@ -33,6 +33,16 @@ migrate_working_dir/
 .pub/
 /build/
 
+# Env config
+**/lib/.env.dart
+**/.env
+**/.env.local
+**/.env.*.local
+
+# Supabase local generated data
+supabase/.branches
+supabase/.temp
+
 # Symbolication related
 app.*.symbols
 
