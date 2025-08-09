@@ -10,19 +10,26 @@ import 'repo/meals_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: '.env', isOptional: true);
-  // TODO: Replace with your Supabase project URL and anon key
-  final supabaseUrl = Env.supabaseUrl;
-  final supabaseAnonKey = Env.supabaseAnonKey;
-  if (supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty) {
-    await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey);
-  }
-  final useMocks = Env.useMocks || supabaseUrl.isEmpty;
+  await Env.load();
+
+  // Fail fast if not configured
+  assert(Env.supabaseUrl.startsWith('https://') && Env.supabaseUrl.contains('.supabase.co'));
+  assert(Env.supabaseAnonKey.isNotEmpty);
+
+  await Supabase.initialize(
+    url: Env.supabaseUrl,
+    anonKey: Env.supabaseAnonKey,
+  );
+
+  final useMocks = Env.useMocks;
   final apiClient = useMocks ? MockApiClient() : SupabaseApiClient(Supabase.instance.client);
 
-  runApp(ProviderScope(overrides: [
-    apiClientProvider.overrideWithValue(apiClient),
-  ], child: const MyApp()));
+  runApp(
+    ProviderScope(
+      overrides: [apiClientProvider.overrideWithValue(apiClient)],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {

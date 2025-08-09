@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'dart:io';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -26,6 +27,10 @@ class _SignInScreenState extends State<SignInScreen> {
       await Supabase.instance.client.auth.signInWithOtp(email: email, emailRedirectTo: null);
       setState(() {
         _message = 'Check your email for a magic link';
+      });
+    } on SocketException {
+      setState(() {
+        _message = 'No internet connection or DNS lookup failed. Please check your network.';
       });
     } on AuthException catch (e) {
       setState(() {
