@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'dart:io';
+import '../../supabase_client.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -24,7 +25,13 @@ class _SignInScreenState extends State<SignInScreen> {
       if (email.isEmpty) {
         throw const AuthException('Please enter your email');
       }
-      await Supabase.instance.client.auth.signInWithOtp(email: email, emailRedirectTo: null);
+      
+      final client = SupabaseConfig.client;
+      if (client == null) {
+        throw const AuthException('Authentication service is not available. Please check your configuration.');
+      }
+      
+      await client.auth.signInWithOtp(email: email, emailRedirectTo: null);
       setState(() {
         _message = 'Check your email for a magic link';
       });

@@ -12,17 +12,29 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Env.load();
 
-  // Fail fast if not configured
-  assert(Env.supabaseUrl.startsWith('https://') && Env.supabaseUrl.contains('.supabase.co'));
-  assert(Env.supabaseAnonKey.isNotEmpty);
+  // Check if environment variables are properly configured (not placeholders)
+  final hasValidSupabaseUrl = Env.supabaseUrl.isNotEmpty && 
+      !Env.supabaseUrl.contains('<your-ref>') &&
+      Env.supabaseUrl.startsWith('https://') && 
+      Env.supabaseUrl.contains('.supabase.co');
+  final hasValidSupabaseKey = Env.supabaseAnonKey.isNotEmpty && 
+      !Env.supabaseAnonKey.contains('<your-anon-public-key>');
+  
+  final shouldUseSupabase = hasValidSupabaseUrl && hasValidSupabaseKey && !Env.useMocks;
 
-  await Supabase.initialize(
-    url: Env.supabaseUrl,
-    anonKey: Env.supabaseAnonKey,
-  );
+  if (shouldUseSupabase) {
+    await Supabase.initialize(
+      url: Env.supabaseUrl,
+      anonKey: Env.supabaseAnonKey,
+    );
+    print('✅ Using Supabase backend');
+  } else {
+    print('🔧 Using mock backend (update .env with real Supabase credentials to use live backend)');
+  }
 
-  final useMocks = Env.useMocks;
-  final apiClient = useMocks ? MockApiClient() : SupabaseApiClient(Supabase.instance.client);
+  final apiClient = shouldUseSupabase 
+      ? SupabaseApiClient(Supabase.instance.client) 
+      : MockApiClient();
 
   runApp(
     ProviderScope(
