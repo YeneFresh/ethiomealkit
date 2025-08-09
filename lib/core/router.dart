@@ -8,7 +8,7 @@ import '../features/orders/orders_screen.dart';
 import '../main.dart';
 import '../features/shell.dart';
 import '../features/auth/sign_in_screen.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
+import '../supabase_client.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/meals',
@@ -23,7 +23,8 @@ final GoRouter appRouter = GoRouter(
           path: '/meals',
           builder: (context, state) => const MealsListScreen(),
           redirect: (context, state) {
-            final user = Supabase.instance.client.auth.currentUser;
+            final client = SupabaseConfig.client;
+            final user = client?.auth.currentUser;
             if (user == null) return '/signin';
             return null;
           },
@@ -35,17 +36,26 @@ final GoRouter appRouter = GoRouter(
         GoRoute(
           path: '/cart',
           builder: (context, state) => const CartScreen(),
-          redirect: (context, state) => Supabase.instance.client.auth.currentUser == null ? '/signin' : null,
+          redirect: (context, state) {
+            final client = SupabaseConfig.client;
+            return client?.auth.currentUser == null ? '/signin' : null;
+          },
         ),
         GoRoute(
           path: '/checkout',
           builder: (context, state) => const CheckoutScreen(),
-          redirect: (context, state) => Supabase.instance.client.auth.currentUser == null ? '/signin' : null,
+          redirect: (context, state) {
+            final client = SupabaseConfig.client;
+            return client?.auth.currentUser == null ? '/signin' : null;
+          },
         ),
         GoRoute(
           path: '/orders',
           builder: (context, state) => const OrdersScreen(),
-          redirect: (context, state) => Supabase.instance.client.auth.currentUser == null ? '/signin' : null,
+          redirect: (context, state) {
+            final client = SupabaseConfig.client;
+            return client?.auth.currentUser == null ? '/signin' : null;
+          },
         ),
       ],
     ),

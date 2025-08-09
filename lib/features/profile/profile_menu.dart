@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../supabase_client.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({super.key});
@@ -9,7 +10,10 @@ class ProfileMenu extends StatelessWidget {
     return PopupMenuButton<String>(
       onSelected: (value) async {
         if (value == 'signout') {
-          await Supabase.instance.client.auth.signOut();
+          final client = SupabaseConfig.client;
+          if (client != null) {
+            await client.auth.signOut();
+          }
           if (context.mounted) {
             Navigator.of(context).pushNamedAndRemoveUntil('/signin', (_) => false);
           }
