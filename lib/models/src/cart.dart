@@ -21,6 +21,7 @@ class Cart with _$Cart {
   const Cart._();
 
   int get totalCents => items.fold(0, (sum, i) => sum + i.mealKit.priceCents * i.quantity);
+  int get totalItems => items.fold(0, (sum, item) => sum + item.quantity);
 
   factory Cart.fromJson(Map<String, dynamic> json) => _$CartFromJson(json);
 }

@@ -24,7 +24,8 @@ create table if not exists public.addresses (
   latitude double precision,
   longitude double precision,
   instructions text,
-  is_default boolean default false
+  is_default boolean default false,
+  notes text
 );
 
 -- Meals (for browsing; public readable)
@@ -46,6 +47,16 @@ create table if not exists public.meal_kits (
   image_url text
 );
 
+-- Cart table for storing user's cart items
+create table if not exists public.cart (
+  id uuid primary key default gen_random_uuid(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  meal_kit_id text not null references public.meal_kits(id),
+  quantity int not null check (quantity > 0),
+  created_at timestamptz default now(),
+  unique(user_id, meal_kit_id)
+);
+
 -- Delivery windows
 create table if not exists public.delivery_windows (
   id text primary key,
@@ -63,6 +74,7 @@ create table if not exists public.orders (
   delivery_window_id text references public.delivery_windows(id),
   status text not null default 'pending',
   total_cents int not null default 0,
+  cash_on_delivery boolean default false,
   created_at timestamptz default now()
 );
 
@@ -71,7 +83,7 @@ create table if not exists public.order_items (
   id uuid primary key default gen_random_uuid(),
   order_id uuid not null references public.orders(id) on delete cascade,
   meal_kit_id text not null references public.meal_kits(id),
-  qty int not null check (qty > 0),
+  quantity int not null check (quantity > 0),
   unit_price_cents int not null
 );
 
@@ -82,6 +94,7 @@ alter table public.orders enable row level security;
 alter table public.order_items enable row level security;
 alter table public.meals enable row level security;
 alter table public.meal_kits enable row level security;
+alter table public.cart enable row level security;
 
 -- Users can manage their own profile
 create policy if not exists "own profile" on public.users
@@ -89,6 +102,10 @@ create policy if not exists "own profile" on public.users
 
 -- Users own addresses
 create policy if not exists "own addresses" on public.addresses
+  for all using (user_id = auth.uid()) with check (user_id = auth.uid());
+
+-- Users own cart items
+create policy if not exists "own cart items" on public.cart
   for all using (user_id = auth.uid()) with check (user_id = auth.uid());
 
 -- Users own orders
@@ -130,12 +147,12 @@ begin
   for v_item in select * from jsonb_array_elements(p_items)
   loop
     v_meal_kit_id := (v_item->>'meal_kit_id');
-    v_qty := coalesce((v_item->>'qty')::int, 1);
+    v_qty := coalesce((v_item->>'quantity')::int, 1);
     select price_cents into v_unit from public.meal_kits where id = v_meal_kit_id;
     if v_unit is null then
       raise exception 'Unknown meal_kit_id %', v_meal_kit_id;
     end if;
-    insert into public.order_items(order_id, meal_kit_id, qty, unit_price_cents)
+    insert into public.order_items(order_id, meal_kit_id, quantity, unit_price_cents)
     values (v_order_id, v_meal_kit_id, v_qty, v_unit);
     v_total := v_total + (v_unit * v_qty);
   end loop;
