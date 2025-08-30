@@ -40,6 +40,7 @@ This directory contains the database schema and migrations for the EthioMealKit 
 **Not migrations** - run manually for development and verification:
 
 - `scripts/dev_verification.sql` - Comprehensive database verification and testing
+- `scripts/dev_seed_data.sql` - Development data seeding with test users and sample data
 
 ## Schema Overview
 
@@ -89,7 +90,10 @@ psql -f scripts/dev_verification.sql
 
 ## Next Steps
 
-1. Seed sample data using `tools/seed_meals.dart`
-2. Configure environment variables in Flutter app
-3. Implement Supabase API client to replace mock data
-4. Test end-to-end functionality
+1. **Deploy migrations**: `supabase db push` or manual SQL execution
+2. **Verify deployment**: `psql -f scripts/dev_verification.sql`
+3. **Seed development data**: `psql -f scripts/dev_seed_data.sql` (includes test users)
+4. **Seed meal kits**: `dart run tools/seed_meals.dart` (production-safe)
+5. **Configure Flutter app**: Set up `.env` with Supabase credentials
+6. **Implement API client**: Replace mock data with Supabase queries
+7. **Test end-to-end**: Full app functionality with real backend
