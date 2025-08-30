@@ -1,18 +1,21 @@
--- Slug hardening for recipes
--- Adds slug column, unique constraints, format validation, and immutable triggers
+-- Slug hardening for recipes (consolidated migration)
+-- Adds slug column, unique constraints, format validation, and flag-aware immutable triggers
 
 -- Create app schema for internal functions
 create schema if not exists app;
 
--- Add slug column to recipes
+-- Add slug column to recipes (idempotent)
 alter table public.recipes 
   add column if not exists slug text;
 
--- Create unique index on slug (excluding null values)
-create unique index if not exists recipes_slug_unique 
+-- Create unique index on slug (idempotent, excluding null values)
+drop index if exists recipes_slug_unique;
+create unique index recipes_slug_unique 
   on public.recipes(slug) where slug is not null;
 
--- Add slug format constraint (lowercase, alphanumeric + hyphens, no leading/trailing hyphens)
+-- Add slug format constraint (idempotent)
+alter table public.recipes 
+  drop constraint if exists recipes_slug_format;
 alter table public.recipes 
   add constraint recipes_slug_format 
   check (slug ~ '^[a-z0-9]([a-z0-9-]*[a-z0-9])?$');
@@ -53,12 +56,12 @@ create table if not exists app.slug_config (
     value boolean not null default true
 );
 
--- Insert default config
+-- Insert default config (idempotent)
 insert into app.slug_config (key, value) 
 values ('enforce_slug_immutability', true)
 on conflict (key) do nothing;
 
--- Function to check if slug changes are allowed
+-- Function to check if slug changes are allowed (flag-aware)
 create or replace function app.slug_immutability_enabled()
 returns boolean as $$
 declare
@@ -72,8 +75,8 @@ begin
 end;
 $$ language plpgsql stable;
 
--- Trigger function for slug management
-create or replace function app.handle_recipe_slug()
+-- Flag-aware trigger function for slug immutability prevention
+create or replace function app.prevent_slug_update()
 returns trigger as $$
 begin
     -- Generate slug if not provided on INSERT
@@ -84,7 +87,7 @@ begin
         return new;
     end if;
     
-    -- Handle UPDATE
+    -- Handle UPDATE with flag-aware immutability
     if tg_op = 'UPDATE' then
         -- Prevent slug changes if immutability is enforced
         if app.slug_immutability_enabled() and old.slug is not null and new.slug != old.slug then
@@ -104,12 +107,13 @@ begin
 end;
 $$ language plpgsql;
 
--- Create trigger
+-- Drop and recreate trigger with proper naming
+drop trigger if exists trg_recipes_slug_immutable on public.recipes;
 drop trigger if exists recipe_slug_trigger on public.recipes;
-create trigger recipe_slug_trigger
+create trigger trg_recipes_slug_immutable
     before insert or update on public.recipes
     for each row
-    execute function app.handle_recipe_slug();
+    execute function app.prevent_slug_update();
 
 -- Function to temporarily disable slug immutability (for admin use)
 create or replace function app.disable_slug_immutability()
