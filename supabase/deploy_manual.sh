@@ -34,15 +34,9 @@ for file in $(ls -1 "$MIGRATION_DIR"/*.sql | sort); do
 done
 
 echo ""
-echo "4. After all migrations, run verification scripts:"
+echo "4. After all migrations, run development verification:"
 echo ""
-
-if [ -d "$VERIFICATION_DIR" ]; then
-    for file in $(ls -1 "$VERIFICATION_DIR"/*.sql 2>/dev/null | sort); do
-        filename=$(basename "$file")
-        echo "   • $filename (verification only)"
-    done
-fi
+echo "   • scripts/dev_verification.sql (comprehensive verification)"
 
 echo ""
 echo "🔧 Alternative: Use psql if you have direct database access:"
@@ -50,7 +44,8 @@ echo ""
 echo "   psql 'postgresql://postgres:[PASSWORD]@[HOST]:5432/postgres' -f migrations/[file].sql"
 echo ""
 echo "📊 After deployment, verify with:"
-echo "   SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public';"
+echo "   psql -f scripts/dev_verification.sql"
+echo "   OR: SELECT count(*) FROM information_schema.tables WHERE table_schema = 'public';"
 echo ""
 echo "✅ Expected result: At least 10 tables should be created"
 echo ""

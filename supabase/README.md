@@ -35,12 +35,11 @@ This directory contains the database schema and migrations for the EthioMealKit 
    - Adds price_cents, kcal, tags, chef_note, nutrition info
    - Creates recipe utility functions
 
-## Verification Scripts
+## Development Scripts
 
-**Not migrations** - run manually to verify database state:
+**Not migrations** - run manually for development and verification:
 
-- `verification/database_integrity_check.sql` - Verifies schema completeness
-- `verification/box_functionality_test.sql` - Tests box and recipe functions
+- `scripts/dev_verification.sql` - Comprehensive database verification and testing
 
 ## Schema Overview
 
@@ -74,18 +73,18 @@ supabase db push
 3. Run verification scripts to confirm setup
 
 ### Verification
-After migrations, run:
+After migrations, run development verification:
 ```bash
-psql -f verification/database_integrity_check.sql
-psql -f verification/box_functionality_test.sql
+psql -f scripts/dev_verification.sql
 ```
 
 ## Development Notes
 
+- **Migrations are pure DDL and idempotent** - only schema changes, no verification code
 - Migrations execute in filename order (timestamps)
 - `app` schema contains internal functions
-- Public functions are accessible to authenticated users
-- Verification scripts help ensure proper deployment
+- Public functions are accessible to authenticated users  
+- **Verification scripts are separate** - run manually to test functionality
 - RLS policies restrict data access to appropriate users
 
 ## Next Steps
