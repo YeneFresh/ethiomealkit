@@ -1,6 +1,7 @@
 {
   "name": "orbital-stems-visualizer",
   "version": "1.0.0",
+  "type": "module",
   "description": "Web Audio + Web MIDI orbital stems visualizer for Ableton Live",
   "scripts": {
     "dev": "vite",
