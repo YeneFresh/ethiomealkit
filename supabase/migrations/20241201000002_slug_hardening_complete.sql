@@ -20,16 +20,16 @@ alter table public.recipes
   add constraint recipes_slug_format 
   check (slug ~ '^[a-z0-9]([a-z0-9-]*[a-z0-9])?$');
 
--- Function to generate slug from title
-create or replace function app.generate_slug(title text)
+-- Function to generate slug from name (API contract uses 'name' field)
+create or replace function app.generate_slug(name_text text)
 returns text as $$
 declare
     base_slug text;
     final_slug text;
     counter int := 1;
 begin
-    -- Convert title to slug format
-    base_slug := lower(trim(title));
+    -- Convert name to slug format
+    base_slug := lower(trim(name_text));
     base_slug := regexp_replace(base_slug, '[^a-z0-9]+', '-', 'g');
     base_slug := regexp_replace(base_slug, '^-+|-+$', '', 'g');
     
@@ -82,7 +82,7 @@ begin
     -- Generate slug if not provided on INSERT
     if tg_op = 'INSERT' then
         if new.slug is null then
-            new.slug := app.generate_slug(new.title);
+            new.slug := app.generate_slug(new.name);
         end if;
         return new;
     end if;
@@ -95,9 +95,9 @@ begin
                 old.slug, new.slug;
         end if;
         
-        -- Generate slug if it was null and now title changed
-        if old.slug is null and new.slug is null and new.title != old.title then
-            new.slug := app.generate_slug(new.title);
+        -- Generate slug if it was null and now name changed
+        if old.slug is null and new.slug is null and new.name != old.name then
+            new.slug := app.generate_slug(new.name);
         end if;
         
         return new;

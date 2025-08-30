@@ -2,42 +2,47 @@
 -- Creates optimized view for public recipe browsing with priority logic
 -- Depends on: recipes.tags, chef_note, price_cents, kcal, priority
 
--- Create view for public recipe browsing
+-- Create view for public recipe browsing (matches API contract)
 create or replace view public.recipes_public as
 select 
     r.id,
     r.slug,
-    r.title,
+    r.name,
+    r.cuisine,
     r.description,
     r.image_url,
     r.price_cents,
     r.kcal,
-    r.prep_time_mins,
-    r.cook_time_mins,
-    r.serving_size,
-    r.difficulty_level,
     r.tags,
     r.chef_note,
+    r.badges,
+    r.badges_top3,
+    r.badges_overflow,
+    r.protein,
+    r.protein_label,
     r.is_featured,
     r.priority,
-    -- Calculated fields
-    coalesce(r.prep_time_mins, 0) + coalesce(r.cook_time_mins, 0) as total_time_mins,
+    -- Calculated fields for UI convenience
     case 
-        when r.tags @> array['vegetarian'] then true
+        when 'vegetarian' = any(r.tags) then true
         else false
     end as is_vegetarian,
     case 
-        when r.tags @> array['vegan'] then true
+        when 'vegan' = any(r.tags) then true
         else false
     end as is_vegan,
     case 
-        when r.tags @> array['gluten-free'] then true
+        when 'gluten-free' = any(r.tags) then true
         else false
     end as is_gluten_free,
     case 
-        when r.tags @> array['spicy'] then true
+        when 'spicy' = any(r.tags) then true
         else false
     end as is_spicy,
+    case 
+        when 'traditional' = any(r.tags) then true
+        else false
+    end as is_traditional,
     -- Popularity score (can be enhanced later with actual metrics)
     r.priority as popularity_score,
     r.created_at,
@@ -89,14 +94,16 @@ begin
 end;
 $$ language plpgsql stable;
 
--- Function to search recipes
+-- Function to search recipes (updated for API contract)
 create or replace function public.search_recipes(
-    search_term text,
+    search_term text default null,
     tag_filters text[] default null,
+    cuisine_filter text default null,
     min_kcal int default null,
     max_kcal int default null,
-    max_prep_time int default null,
-    difficulty_filter text default null,
+    min_protein int default null,
+    max_protein int default null,
+    badge_filters text[] default null,
     limit_count int default 20
 )
 returns setof public.recipes_public as $$
@@ -104,23 +111,27 @@ begin
     return query
     select * from public.recipes_public r
     where 
-        -- Text search
+        -- Text search across name, description, chef_note
         (search_term is null or 
-         r.title ilike '%' || search_term || '%' or 
+         r.name ilike '%' || search_term || '%' or 
          r.description ilike '%' || search_term || '%' or
-         r.chef_note ilike '%' || search_term || '%')
+         r.chef_note ilike '%' || search_term || '%' or
+         r.cuisine ilike '%' || search_term || '%')
         -- Tag filters
         and (tag_filters is null or r.tags && tag_filters)
+        -- Cuisine filter
+        and (cuisine_filter is null or r.cuisine = cuisine_filter)
         -- Calorie range
         and (min_kcal is null or r.kcal >= min_kcal)
         and (max_kcal is null or r.kcal <= max_kcal)
-        -- Prep time filter
-        and (max_prep_time is null or r.prep_time_mins <= max_prep_time)
-        -- Difficulty filter
-        and (difficulty_filter is null or r.difficulty_level = difficulty_filter)
+        -- Protein range
+        and (min_protein is null or r.protein >= min_protein)
+        and (max_protein is null or r.protein <= max_protein)
+        -- Badge filters
+        and (badge_filters is null or r.badges && badge_filters)
     order by 
-        -- Boost exact title matches
-        case when r.title ilike search_term then 1 else 0 end desc,
+        -- Boost exact name matches
+        case when r.name ilike search_term then 1 else 0 end desc,
         -- Then by priority and recency
         r.priority desc, 
         r.created_at desc
