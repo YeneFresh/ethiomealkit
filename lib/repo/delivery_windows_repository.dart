@@ -26,6 +26,26 @@ class DeliveryWindowsRepository {
     throw StateError('Unexpected date value from RPC: $value');
   }
 
+  Future<DateTime> fetchCurrentAddisWeek() async {
+    final dynamic curWeekAny = await client.rpc('app.current_addis_week');
+    return _parseDate(curWeekAny);
+  }
+
+  Future<WeekWindows> fetchWindowsForWeek(DateTime weekStart, {String? city}) async {
+    final Map<String, dynamic> params = {
+      'p_week': _isoDate(weekStart),
+      if (city != null && city.isNotEmpty) 'p_city': city,
+    };
+
+    final dynamic rowsAny = await client.rpc(
+      'app.delivery_windows_for_week',
+      params: params,
+    );
+
+    final List<Map<String, dynamic>> rows = (rowsAny as List?)?.cast<Map<String, dynamic>>() ?? const [];
+    return WeekWindows(weekStart: weekStart, rows: rows, isFallback: false);
+  }
+
   Future<WeekWindows> fetchWindowsWithFallback({String? city}) async {
     final curWeekAny = await client.rpc('app.current_addis_week');
     final DateTime curWeek = _parseDate(curWeekAny);

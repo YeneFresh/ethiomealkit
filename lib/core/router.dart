@@ -1,4 +1,4 @@
-THIS SHOULD BE A LINTER ERRORimport 'package:go_router/go_router.dart';
+import 'package:go_router/go_router.dart';
 import 'package:flutter/widgets.dart';
 import '../features/meals/meals_list_screen.dart';
 import '../features/meals/meal_detail_screen.dart';
