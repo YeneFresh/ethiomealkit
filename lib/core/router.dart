@@ -9,6 +9,7 @@ import '../main.dart';
 import '../features/shell.dart';
 import '../features/auth/sign_in_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../features/weekly_menu/weekly_menu_screen.dart';
 
 final GoRouter appRouter = GoRouter(
   initialLocation: '/meals',
@@ -45,6 +46,11 @@ final GoRouter appRouter = GoRouter(
         GoRoute(
           path: '/orders',
           builder: (context, state) => const OrdersScreen(),
+          redirect: (context, state) => Supabase.instance.client.auth.currentUser == null ? '/signin' : null,
+        ),
+        GoRoute(
+          path: '/weekly',
+          builder: (context, state) => const WeeklyMenuScreen(),
           redirect: (context, state) => Supabase.instance.client.auth.currentUser == null ? '/signin' : null,
         ),
       ],
