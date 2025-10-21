@@ -18,3 +18,14 @@ jobs:
       - run: dart analyze --fatal-infos --fatal-warnings
       - run: flutter test --coverage
 
+  supabase-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+      - name: Install psql client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+      - name: SQL parse + apply smoke
+        run: bash tools/check_sql_parses.sh
+
