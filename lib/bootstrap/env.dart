@@ -4,7 +4,8 @@ import 'package:flutter/foundation.dart';
 class Env {
   static const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
   static const supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
-  static const sentryDsn = String.fromEnvironment('SENTRY_DSN', defaultValue: '');
+  static const sentryDsn =
+      String.fromEnvironment('SENTRY_DSN', defaultValue: '');
   static const appEnv = String.fromEnvironment('APP_ENV', defaultValue: 'dev');
 
   static void assertRequired() {
@@ -14,7 +15,8 @@ class Env {
 
     if (appEnv == 'prod') {
       if (kDebugMode) {
-        throw StateError('APP_ENV=prod but build is Debug. Use a Release build.');
+        throw StateError(
+            'APP_ENV=prod but build is Debug. Use a Release build.');
       }
       if (sentryDsn.isEmpty) missing.add('SENTRY_DSN (required in prod)');
     }
@@ -37,5 +39,3 @@ class Env {
         if (!kIsWeb) 'platform': Platform.operatingSystem,
       };
 }
-
-
