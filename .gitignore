@@ -1,3 +1,5 @@
+.metadata
+.env
 # Miscellaneous
 *.class
 *.log
