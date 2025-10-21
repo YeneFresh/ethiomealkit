@@ -1,14 +1,19 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
+// Note: This script expects SUPABASE_URL and SUPABASE_ANON_KEY to be passed via --dart-define
+// Usage: dart run tools/seed_meals.dart --dart-define=SUPABASE_URL=<url> --dart-define=SUPABASE_ANON_KEY=<key>
+
 Future<void> main() async {
-  await dotenv.load(fileName: '.env', isOptional: true);
-  final url = dotenv.env['SUPABASE_URL'];
-  final key = dotenv.env['SUPABASE_ANON_KEY'];
-  if (url == null || url.isEmpty || key == null || key.isEmpty) {
-    stdout.writeln('Supabase env not configured; seed skipped.');
+  const url = String.fromEnvironment('SUPABASE_URL', defaultValue: '');
+  const key = String.fromEnvironment('SUPABASE_ANON_KEY', defaultValue: '');
+
+  if (url.isEmpty || key.isEmpty) {
+    stdout
+        .writeln('Supabase env not configured. Pass via --dart-define flags.');
+    stdout.writeln(
+        'Usage: dart run tools/seed_meals.dart --dart-define=SUPABASE_URL=<url> --dart-define=SUPABASE_ANON_KEY=<key>');
     return;
   }
   await Supabase.initialize(url: url, anonKey: key);
@@ -20,6 +25,3 @@ Future<void> main() async {
   }
   stdout.writeln('Seed completed: ${data.length} meal kits upserted.');
 }
-
-
-

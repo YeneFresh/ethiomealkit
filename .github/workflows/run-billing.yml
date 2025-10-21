@@ -1,0 +1,29 @@
+name: Daily Billing Cron (Secure)
+
+on:
+  schedule:
+    # 06:00 UTC = 09:00 Africa/Addis_Ababa (no DST in Addis)
+    - cron: "0 6 * * *"
+  workflow_dispatch: {}   # allow manual runs
+
+jobs:
+  trigger:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    concurrency:
+      group: billing-cron
+      cancel-in-progress: false
+    steps:
+      - name: Call Supabase function
+        env:
+          URL: ${{ secrets.SUPABASE_BILLING_URL }}
+          CRON_SHARED_KEY: ${{ secrets.CRON_SHARED_KEY }}
+        run: |
+          set -e
+          curl -sS -X POST "$URL" \
+            -H "Content-Type: application/json" \
+            -H "X-Cron-Key: $CRON_SHARED_KEY" \
+            -d '{"source":"github-actions"}' \
+            | jq .
+
+
