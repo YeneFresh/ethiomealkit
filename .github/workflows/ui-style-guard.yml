@@ -1,0 +1,28 @@
+name: UI Style Guard
+
+on:
+  pull_request:
+    paths:
+      - "lib/**.dart"
+      - "test/**.dart"
+      - ".github/workflows/ui-style-guard.yml"
+
+jobs:
+  guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Fail if withOpacity() is used
+        run: |
+          set -euo pipefail
+          echo "Scanning for withOpacity( in lib/ and test/…"
+          if grep -R -n --include='*.dart' 'withOpacity\(' lib test; then
+            echo "::error::Disallowed API detected: withOpacity(). Use Color.withValues(alpha: …) instead."
+            exit 1
+          else
+            echo "✅ No withOpacity() usage found."
+          fi
+
+
