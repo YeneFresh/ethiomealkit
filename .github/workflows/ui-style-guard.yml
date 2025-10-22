@@ -1,0 +1,66 @@
+name: UI Style Guard
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'lib/**.dart'
+      - 'test/**.dart'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'lib/**.dart'
+      - 'test/**.dart'
+
+jobs:
+  check-style:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Block withOpacity usage
+        run: |
+          echo "Checking for withOpacity usage in lib/ and test/ directories..."
+          
+          VIOLATIONS_FOUND=0
+          
+          # For pull requests, check changed files
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            echo "Checking changed Dart files in PR..."
+            CHANGED_FILES=$(git diff --name-only origin/${{ github.base_ref }}...HEAD | grep -E '\.dart$' | grep -E '^(lib|test)/' || true)
+            
+            if [ -n "$CHANGED_FILES" ]; then
+              for file in $CHANGED_FILES; do
+                if [ -f "$file" ]; then
+                  if grep -n "\.withOpacity(" "$file" 2>/dev/null; then
+                    VIOLATIONS_FOUND=1
+                  fi
+                fi
+              done
+            fi
+          fi
+          
+          # For pushes to main, check all Dart files in lib/ and test/
+          if [ "${{ github.event_name }}" == "push" ] && [ "${{ github.ref }}" == "refs/heads/main" ]; then
+            echo "Checking all Dart files in lib/ and test/..."
+            if find lib test -name "*.dart" -type f 2>/dev/null | xargs grep -l "\.withOpacity(" 2>/dev/null; then
+              VIOLATIONS_FOUND=1
+            fi
+          fi
+          
+          if [ $VIOLATIONS_FOUND -eq 1 ]; then
+            echo ""
+            echo "❌ ERROR: Found withOpacity usage. Please use withValues instead (Flutter 3.22+)"
+            echo ""
+            echo "Migration guide:"
+            echo "  Before: color.withOpacity(0.5)"
+            echo "  After:  color.withValues(alpha: 0.5)"
+            echo ""
+            echo "See: https://api.flutter.dev/flutter/dart-ui/Color/withValues.html"
+            exit 1
+          fi
+          
+          echo "✅ No withOpacity usage found. Style guard passed!"
