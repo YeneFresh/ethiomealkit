@@ -174,7 +174,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
         Text(
           'almost there,',
           style: theme.textTheme.titleMedium?.copyWith(
-            color: AppColors.darkBrown.withOpacity(0.7),
+            color: AppColors.darkBrown.withValues(alpha: 0.7),
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -195,9 +195,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.error600.withOpacity(0.1),
+        color: AppColors.error600.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.error600.withOpacity(0.3)),
+        border: Border.all(color: AppColors.error600.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [
@@ -222,7 +222,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
         borderRadius: BorderRadius.circular(Layout.cardRadius),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -377,7 +377,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
         child: RichText(
           text: TextSpan(
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.darkBrown.withOpacity(0.7),
+              color: AppColors.darkBrown.withValues(alpha: 0.7),
             ),
             children: [
               const TextSpan(text: 'Already have an account? '),

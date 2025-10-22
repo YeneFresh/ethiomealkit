@@ -325,7 +325,7 @@ class _TotalsBlock extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+        border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
       ),
       child: Column(
         children: [
@@ -408,9 +408,9 @@ class _PromoRow extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColors.success600.withOpacity(0.1),
+        color: AppColors.success600.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.success600.withOpacity(0.3)),
+        border: Border.all(color: AppColors.success600.withValues(alpha: 0.3)),
       ),
       child: Row(
         children: [

@@ -112,7 +112,7 @@ ThemeData buildYeneFreshTheme() {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.darkBrown,
-        side: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
+        side: BorderSide(color: AppColors.darkBrown.withValues(alpha: 0.2)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Layout.buttonRadius),
         ),
@@ -139,11 +139,15 @@ ThemeData buildYeneFreshTheme() {
       fillColor: Colors.white,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(Layout.cardRadius),
-        borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
+        borderSide: BorderSide(
+          color: AppColors.darkBrown.withValues(alpha: 0.2),
+        ),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(Layout.cardRadius),
-        borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
+        borderSide: BorderSide(
+          color: AppColors.darkBrown.withValues(alpha: 0.2),
+        ),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(Layout.cardRadius),
@@ -156,6 +160,6 @@ ThemeData buildYeneFreshTheme() {
     scaffoldBackgroundColor: AppColors.offWhite,
 
     // Divider
-    dividerColor: AppColors.darkBrown.withOpacity(0.1),
+    dividerColor: AppColors.darkBrown.withValues(alpha: 0.1),
   );
 }

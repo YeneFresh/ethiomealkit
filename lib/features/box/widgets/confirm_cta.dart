@@ -30,7 +30,7 @@ class ConfirmCTA extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
           elevation: enabled ? 2 : 0,
-          shadowColor: AppColors.gold.withOpacity(0.3),
+          shadowColor: AppColors.gold.withValues(alpha: 0.3),
         ),
         onPressed: enabled
             ? () {

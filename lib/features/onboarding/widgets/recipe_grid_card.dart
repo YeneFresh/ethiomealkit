@@ -43,7 +43,9 @@ class RecipeGridCard extends ConsumerWidget {
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,
           decoration: BoxDecoration(
-            color: isSelected ? AppColors.gold.withOpacity(0.15) : Colors.white,
+            color: isSelected
+                ? AppColors.gold.withValues(alpha: 0.15)
+                : Colors.white,
             borderRadius: BorderRadius.circular(Layout.cardRadius),
             border: Border.all(
               color: isSelected ? AppColors.gold : Colors.transparent,
@@ -52,8 +54,8 @@ class RecipeGridCard extends ConsumerWidget {
             boxShadow: [
               BoxShadow(
                 color: isSelected
-                    ? AppColors.gold.withOpacity(0.2)
-                    : Colors.black.withOpacity(0.08),
+                    ? AppColors.gold.withValues(alpha: 0.2)
+                    : Colors.black.withValues(alpha: 0.08),
                 blurRadius: isSelected ? 8 : 4,
                 offset: const Offset(0, 2),
               ),
@@ -85,7 +87,7 @@ class RecipeGridCard extends ConsumerWidget {
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.2),
+                                color: Colors.black.withValues(alpha: 0.2),
                                 blurRadius: 4,
                               ),
                             ],

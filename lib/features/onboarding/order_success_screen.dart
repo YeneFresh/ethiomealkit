@@ -25,7 +25,7 @@ class OrderSuccessScreen extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(24),
                   decoration: BoxDecoration(
-                    color: AppColors.success600.withOpacity(0.1),
+                    color: AppColors.success600.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
                   ),
                   child: const Icon(
@@ -52,7 +52,7 @@ class OrderSuccessScreen extends StatelessWidget {
                 Text(
                   'We\'ll see you on your chosen delivery window.\nOur driver will call you before arrival.',
                   style: theme.textTheme.bodyLarge?.copyWith(
-                    color: AppColors.darkBrown.withOpacity(0.8),
+                    color: AppColors.darkBrown.withValues(alpha: 0.8),
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -66,7 +66,7 @@ class OrderSuccessScreen extends StatelessWidget {
                     color: AppColors.peach50,
                     borderRadius: BorderRadius.circular(Layout.cardRadius),
                     border: Border.all(
-                      color: AppColors.darkBrown.withOpacity(0.1),
+                      color: AppColors.darkBrown.withValues(alpha: 0.1),
                     ),
                   ),
                   child: const Column(
@@ -122,7 +122,7 @@ class OrderSuccessScreen extends StatelessWidget {
                   child: Text(
                     'View My Orders',
                     style: theme.textTheme.bodyMedium?.copyWith(
-                      color: AppColors.darkBrown.withOpacity(0.7),
+                      color: AppColors.darkBrown.withValues(alpha: 0.7),
                       decoration: TextDecoration.underline,
                     ),
                   ),
@@ -147,13 +147,13 @@ class _InfoRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, size: 18, color: AppColors.darkBrown.withOpacity(0.6)),
+        Icon(icon, size: 18, color: AppColors.darkBrown.withValues(alpha: 0.6)),
         const SizedBox(width: 8),
         Expanded(
           child: Text(
             text,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: AppColors.darkBrown.withOpacity(0.7),
+              color: AppColors.darkBrown.withValues(alpha: 0.7),
             ),
           ),
         ),

@@ -167,7 +167,7 @@ class _LockOverlay extends StatelessWidget {
     final c = Theme.of(context).colorScheme;
     final t = Theme.of(context).textTheme;
     return Material(
-      color: c.surface.withOpacity(0.98),
+      color: c.surface.withValues(alpha: 0.98),
       child: SafeArea(
         child: Center(
           child: ConstrainedBox(

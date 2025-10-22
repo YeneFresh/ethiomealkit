@@ -87,7 +87,7 @@ class _StepItem extends StatelessWidget {
     final labelColor = isActive
         ? AppColors.darkBrown
         : isCompleted
-        ? AppColors.darkBrown.withOpacity(0.7)
+        ? AppColors.darkBrown.withValues(alpha: 0.7)
         : Colors.grey[600];
 
     return Column(

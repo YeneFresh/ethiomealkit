@@ -120,7 +120,7 @@ class _SelectionFooterState extends ConsumerState<SelectionFooter> {
                             Icon(
                               Icons.info_outline,
                               size: 16,
-                              color: AppColors.darkBrown.withOpacity(0.7),
+                              color: AppColors.darkBrown.withValues(alpha: 0.7),
                             ),
                             const SizedBox(width: 8),
                             Text(
@@ -145,7 +145,7 @@ class _SelectionFooterState extends ConsumerState<SelectionFooter> {
                   color: Colors.white,
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
+                      color: Colors.black.withValues(alpha: 0.1),
                       blurRadius: 8,
                       offset: const Offset(0, -2),
                     ),

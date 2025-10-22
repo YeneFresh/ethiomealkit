@@ -151,7 +151,7 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: AppColors.darkBrown.withOpacity(0.1),
+                    color: AppColors.darkBrown.withValues(alpha: 0.1),
                   ),
                 ),
                 child: Center(
@@ -377,11 +377,15 @@ class _Input extends StatelessWidget {
           fillColor: Colors.white,
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Layout.cardRadius),
-            borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
+            borderSide: BorderSide(
+              color: AppColors.darkBrown.withValues(alpha: 0.2),
+            ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Layout.cardRadius),
-            borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
+            borderSide: BorderSide(
+              color: AppColors.darkBrown.withValues(alpha: 0.2),
+            ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Layout.cardRadius),
@@ -425,11 +429,15 @@ class _Dropdown extends StatelessWidget {
         fillColor: Colors.white,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Layout.cardRadius),
-          borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
+          borderSide: BorderSide(
+            color: AppColors.darkBrown.withValues(alpha: 0.2),
+          ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Layout.cardRadius),
-          borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
+          borderSide: BorderSide(
+            color: AppColors.darkBrown.withValues(alpha: 0.2),
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Layout.cardRadius),

@@ -29,13 +29,15 @@ class AccountScreen extends ConsumerWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+              border: Border.all(
+                color: AppColors.darkBrown.withValues(alpha: 0.1),
+              ),
             ),
             child: Row(
               children: [
                 CircleAvatar(
                   radius: 32,
-                  backgroundColor: AppColors.gold.withOpacity(0.2),
+                  backgroundColor: AppColors.gold.withValues(alpha: 0.2),
                   child: Text(
                     (user?.email ?? 'U')[0].toUpperCase(),
                     style: const TextStyle(
@@ -240,7 +242,9 @@ class AccountScreen extends ConsumerWidget {
               },
               style: OutlinedButton.styleFrom(
                 foregroundColor: AppColors.darkBrown,
-                side: BorderSide(color: AppColors.darkBrown.withOpacity(0.3)),
+                side: BorderSide(
+                  color: AppColors.darkBrown.withValues(alpha: 0.3),
+                ),
                 padding: const EdgeInsets.symmetric(vertical: 14),
               ),
               child: const Text('Sign Out'),

@@ -17,7 +17,7 @@ class TrustBadge extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.offWhite,
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+          border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -29,7 +29,7 @@ class TrustBadge extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 11,
-                color: AppColors.darkBrown.withOpacity(0.8),
+                color: AppColors.darkBrown.withValues(alpha: 0.8),
                 fontWeight: FontWeight.w500,
                 height: 1.3,
               ),

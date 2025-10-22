@@ -79,7 +79,7 @@ class _PeopleChip extends StatelessWidget {
               border: Border.all(
                 color: isSelected
                     ? AppColors.gold
-                    : AppColors.darkBrown.withOpacity(0.2),
+                    : AppColors.darkBrown.withValues(alpha: 0.2),
                 width: 2,
               ),
             ),
@@ -106,7 +106,7 @@ class _PeopleChip extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     color: isSelected
-                        ? AppColors.darkBrown.withOpacity(0.8)
+                        ? AppColors.darkBrown.withValues(alpha: 0.8)
                         : Colors.grey[600],
                   ),
                 ),

@@ -63,8 +63,8 @@ class OrdersScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(
                     color: isUpcoming
-                        ? AppColors.gold.withOpacity(0.3)
-                        : AppColors.darkBrown.withOpacity(0.1),
+                        ? AppColors.gold.withValues(alpha: 0.3)
+                        : AppColors.darkBrown.withValues(alpha: 0.1),
                     width: isUpcoming ? 1.5 : 1,
                   ),
                 ),
@@ -74,7 +74,7 @@ class OrdersScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: (isUpcoming ? AppColors.gold : Colors.grey)
-                            .withOpacity(0.1),
+                            .withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(

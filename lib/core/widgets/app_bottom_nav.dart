@@ -32,7 +32,7 @@ class AppBottomNav extends StatelessWidget {
         }
       },
       backgroundColor: Colors.white,
-      indicatorColor: AppColors.gold.withOpacity(0.15),
+      indicatorColor: AppColors.gold.withValues(alpha: 0.15),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       destinations: const [
         NavigationDestination(

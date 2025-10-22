@@ -66,7 +66,7 @@ class MapPickerScreen extends ConsumerWidget {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: AppColors.darkBrown.withOpacity(0.1),
+                      color: AppColors.darkBrown.withValues(alpha: 0.1),
                     ),
                   ),
                   child: Center(
@@ -164,7 +164,9 @@ class _SearchBar extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.1)),
+          borderSide: BorderSide(
+            color: AppColors.darkBrown.withValues(alpha: 0.1),
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
@@ -220,11 +222,11 @@ class _TooltipBubble extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.darkBrown.withOpacity(0.9),
+        color: AppColors.darkBrown.withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -269,7 +271,7 @@ class _FooterCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 12,
             offset: const Offset(0, -2),
           ),
@@ -332,7 +334,7 @@ class _FooterCard extends StatelessWidget {
               child: Text(
                 'Go back',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: AppColors.darkBrown.withOpacity(0.7),
+                  color: AppColors.darkBrown.withValues(alpha: 0.7),
                   decoration: TextDecoration.underline,
                 ),
               ),

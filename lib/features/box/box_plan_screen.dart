@@ -57,7 +57,7 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
                   Text(
                     'Choose the perfect plan for your household',
                     style: theme.textTheme.bodyLarge?.copyWith(
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -67,12 +67,14 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primaryContainer.withOpacity(
-                          0.3,
+                        color: theme.colorScheme.primaryContainer.withValues(
+                          alpha: 0.3,
                         ),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
-                          color: theme.colorScheme.primary.withOpacity(0.3),
+                          color: theme.colorScheme.primary.withValues(
+                            alpha: 0.3,
+                          ),
                           width: 1,
                         ),
                       ),
@@ -159,8 +161,8 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
                       boxShadow: _canContinue() && !_isLoading
                           ? [
                               BoxShadow(
-                                color: theme.colorScheme.primary.withOpacity(
-                                  0.3,
+                                color: theme.colorScheme.primary.withValues(
+                                  alpha: 0.3,
                                 ),
                                 blurRadius: 8,
                                 offset: const Offset(0, 4),
@@ -243,8 +245,8 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
     return Card(
       elevation: isSelected ? 3 : 1,
       shadowColor: isSelected
-          ? theme.colorScheme.primary.withOpacity(0.3)
-          : Colors.grey.withOpacity(0.2),
+          ? theme.colorScheme.primary.withValues(alpha: 0.3)
+          : Colors.grey.withValues(alpha: 0.2),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
         side: isSelected
@@ -273,7 +275,7 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
               Text(
                 description,
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -298,8 +300,8 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
     return Card(
       elevation: isSelected ? 3 : 1,
       shadowColor: isSelected
-          ? theme.colorScheme.primary.withOpacity(0.3)
-          : Colors.grey.withOpacity(0.2),
+          ? theme.colorScheme.primary.withValues(alpha: 0.3)
+          : Colors.grey.withValues(alpha: 0.2),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
         side: isSelected
@@ -327,7 +329,7 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
               Text(
                 'meals',
                 style: theme.textTheme.bodySmall?.copyWith(
-                  color: theme.colorScheme.onSurface.withOpacity(0.7),
+                  color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                 ),
               ),
               if (isSelected)

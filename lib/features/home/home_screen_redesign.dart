@@ -92,7 +92,7 @@ class HomeScreenRedesign extends ConsumerWidget {
           Text(
             '$greeting,',
             style: theme.textTheme.headlineSmall?.copyWith(
-              color: AppColors.darkBrown.withOpacity(0.7),
+              color: AppColors.darkBrown.withValues(alpha: 0.7),
               fontWeight: FontWeight.w400,
             ),
           ),
@@ -121,14 +121,17 @@ class HomeScreenRedesign extends ConsumerWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.gold.withOpacity(0.12),
-            AppColors.gold.withOpacity(0.06),
+            AppColors.gold.withValues(alpha: 0.12),
+            AppColors.gold.withValues(alpha: 0.06),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.gold.withOpacity(0.3), width: 1.5),
+        border: Border.all(
+          color: AppColors.gold.withValues(alpha: 0.3),
+          width: 1.5,
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -176,7 +179,7 @@ class HomeScreenRedesign extends ConsumerWidget {
                 ? '✅ All set! ${status.selectedRecipes} recipes selected'
                 : '${status.selectedRecipes} of ${status.quota} recipes selected',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.darkBrown.withOpacity(0.8),
+              color: AppColors.darkBrown.withValues(alpha: 0.8),
             ),
           ),
         ],
@@ -195,10 +198,10 @@ class HomeScreenRedesign extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+        border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -209,7 +212,7 @@ class HomeScreenRedesign extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.gold.withOpacity(0.1),
+              color: AppColors.gold.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Icon(
@@ -279,7 +282,9 @@ class HomeScreenRedesign extends ConsumerWidget {
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+              border: Border.all(
+                color: AppColors.darkBrown.withValues(alpha: 0.1),
+              ),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -491,7 +496,7 @@ class _ManageWeekSheet extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(10),
                 decoration: BoxDecoration(
-                  color: AppColors.gold.withOpacity(0.1),
+                  color: AppColors.gold.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(icon, color: AppColors.gold, size: 22),

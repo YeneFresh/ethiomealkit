@@ -478,10 +478,12 @@ class _PaymentTile extends StatelessWidget {
           border: Border.all(
             color: selected
                 ? AppColors.gold
-                : AppColors.darkBrown.withOpacity(0.2),
+                : AppColors.darkBrown.withValues(alpha: 0.2),
             width: selected ? 2 : 1,
           ),
-          color: selected ? AppColors.gold.withOpacity(0.05) : Colors.white,
+          color: selected
+              ? AppColors.gold.withValues(alpha: 0.05)
+              : Colors.white,
         ),
         child: Row(
           children: [
@@ -546,7 +548,7 @@ class _CardWrap extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+          border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

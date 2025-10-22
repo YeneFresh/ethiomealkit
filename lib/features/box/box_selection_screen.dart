@@ -128,7 +128,7 @@ class _BoxSelectionScreenState extends ConsumerState<BoxSelectionScreen> {
         Text(
           'hello there,',
           style: theme.textTheme.titleMedium?.copyWith(
-            color: AppColors.darkBrown.withOpacity(0.7),
+            color: AppColors.darkBrown.withValues(alpha: 0.7),
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -145,7 +145,7 @@ class _BoxSelectionScreenState extends ConsumerState<BoxSelectionScreen> {
         Text(
           'We\'ll customize your box to perfectly fit your household',
           style: theme.textTheme.bodyMedium?.copyWith(
-            color: AppColors.darkBrown.withOpacity(0.6),
+            color: AppColors.darkBrown.withValues(alpha: 0.6),
           ),
         ),
       ],

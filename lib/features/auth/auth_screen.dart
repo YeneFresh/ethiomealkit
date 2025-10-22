@@ -60,7 +60,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                       ? 'Sign up to start your meal planning journey'
                       : 'Sign in to continue with your meal plan',
                   style: theme.textTheme.bodyLarge?.copyWith(
-                    color: theme.colorScheme.onSurface.withOpacity(0.7),
+                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -181,7 +181,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   child: Text(
                     'Continue as Guest',
                     style: TextStyle(
-                      color: theme.colorScheme.onSurface.withOpacity(0.7),
+                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
                     ),
                   ),
                 ),

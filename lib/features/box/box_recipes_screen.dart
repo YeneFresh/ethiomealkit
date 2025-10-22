@@ -508,7 +508,7 @@ class _BottomCtaBar extends StatelessWidget {
                 child: Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: cs.primaryContainer.withOpacity(.2),
+                    color: cs.primaryContainer.withValues(alpha: .2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Text(

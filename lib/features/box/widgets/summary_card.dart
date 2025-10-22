@@ -24,7 +24,7 @@ class SummaryCard extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.peach50,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+        border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,7 +98,7 @@ class _ReassuranceTag extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: 14,
-            color: AppColors.darkBrown.withOpacity(0.8),
+            color: AppColors.darkBrown.withValues(alpha: 0.8),
           ),
         ),
       ],

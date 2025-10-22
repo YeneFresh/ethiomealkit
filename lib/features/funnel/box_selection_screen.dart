@@ -182,7 +182,7 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                               color: isSelected
                                   ? Theme.of(
                                       context,
-                                    ).primaryColor.withOpacity(0.1)
+                                    ).primaryColor.withValues(alpha: 0.1)
                                   : Colors.grey[100],
                               borderRadius: BorderRadius.circular(30),
                             ),

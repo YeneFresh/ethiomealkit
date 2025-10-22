@@ -35,7 +35,9 @@ class CartSummaryBar extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+            border: Border.all(
+              color: AppColors.darkBrown.withValues(alpha: 0.1),
+            ),
           ),
           child: Row(
             children: [
@@ -56,7 +58,7 @@ class CartSummaryBar extends ConsumerWidget {
                     Text(
                       'Total: ${_formatCurrency(totals.total)}',
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: AppColors.darkBrown.withOpacity(0.7),
+                        color: AppColors.darkBrown.withValues(alpha: 0.7),
                       ),
                     ),
                   ],

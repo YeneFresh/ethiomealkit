@@ -222,7 +222,7 @@ class _DeliveryEditModalState extends ConsumerState<DeliveryEditModal> {
                 color: Colors.white,
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
+                    color: Colors.black.withValues(alpha: 0.05),
                     blurRadius: 8,
                     offset: const Offset(0, -2),
                   ),
@@ -316,7 +316,9 @@ class _TimeSlotCard extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 12),
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: isSelected ? AppColors.gold.withOpacity(0.1) : Colors.white,
+          color: isSelected
+              ? AppColors.gold.withValues(alpha: 0.1)
+              : Colors.white,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
             color: isSelected ? AppColors.gold : Colors.grey[300]!,

@@ -160,7 +160,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
             borderRadius: BorderRadius.circular(20),
             boxShadow: [
               BoxShadow(
-                color: AppColors.gold.withOpacity(0.3),
+                color: AppColors.gold.withValues(alpha: 0.3),
                 blurRadius: 20,
                 offset: const Offset(0, 8),
               ),
@@ -190,7 +190,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
         Text(
           'Fresh ingredients & recipes\ndelivered to your door',
           style: theme.textTheme.titleMedium?.copyWith(
-            color: AppColors.darkBrown.withOpacity(0.7),
+            color: AppColors.darkBrown.withValues(alpha: 0.7),
             height: 1.4,
           ),
           textAlign: TextAlign.center,
@@ -235,7 +235,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
               backgroundColor: AppColors.gold,
               foregroundColor: Colors.white,
               elevation: 4,
-              shadowColor: AppColors.gold.withOpacity(0.4),
+              shadowColor: AppColors.gold.withValues(alpha: 0.4),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(Layout.cardRadius),
               ),
@@ -252,7 +252,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
           child: Text(
             'I already have an account',
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.darkBrown.withOpacity(0.7),
+              color: AppColors.darkBrown.withValues(alpha: 0.7),
               decoration: TextDecoration.underline,
             ),
           ),
@@ -272,13 +272,13 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(
-              colors: [AppColors.gold, AppColors.gold.withOpacity(0.9)],
+              colors: [AppColors.gold, AppColors.gold.withValues(alpha: 0.9)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
             boxShadow: [
               BoxShadow(
-                color: AppColors.gold.withOpacity(0.4),
+                color: AppColors.gold.withValues(alpha: 0.4),
                 blurRadius: 20,
                 offset: const Offset(0, 8),
               ),
@@ -296,7 +296,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
                     Container(
                       padding: const EdgeInsets.all(12),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.25),
+                        color: Colors.white.withValues(alpha: 0.25),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: const Icon(
@@ -323,7 +323,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
                             'Continue from: $stepName',
                             style: TextStyle(
                               fontSize: 14,
-                              color: Colors.white.withOpacity(0.9),
+                              color: Colors.white.withValues(alpha: 0.9),
                             ),
                           ),
                         ],
@@ -331,7 +331,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
                     ),
                     Icon(
                       Icons.arrow_forward,
-                      color: Colors.white.withOpacity(0.9),
+                      color: Colors.white.withValues(alpha: 0.9),
                     ),
                   ],
                 ),
@@ -351,7 +351,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
               child: Text(
                 'Start Over',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: AppColors.darkBrown.withOpacity(0.7),
+                  color: AppColors.darkBrown.withValues(alpha: 0.7),
                   decoration: TextDecoration.underline,
                 ),
               ),
@@ -368,7 +368,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
                 child: Text(
                   'Sign Out',
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: AppColors.darkBrown.withOpacity(0.7),
+                    color: AppColors.darkBrown.withValues(alpha: 0.7),
                     decoration: TextDecoration.underline,
                   ),
                 ),
@@ -415,10 +415,10 @@ class _ValuePropCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(Layout.cardRadius),
-        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+        border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -429,7 +429,7 @@ class _ValuePropCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: AppColors.gold.withOpacity(0.1),
+              color: AppColors.gold.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(icon, color: AppColors.gold, size: 24),
@@ -450,7 +450,7 @@ class _ValuePropCard extends StatelessWidget {
                 Text(
                   subtitle,
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: AppColors.darkBrown.withOpacity(0.6),
+                    color: AppColors.darkBrown.withValues(alpha: 0.6),
                   ),
                 ),
               ],
@@ -478,7 +478,7 @@ class _TrustChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.peach50,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
+        border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

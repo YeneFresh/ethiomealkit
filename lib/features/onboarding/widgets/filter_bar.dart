@@ -44,13 +44,13 @@ class FilterBar extends ConsumerWidget {
                   }
                   ref.read(activeFiltersProvider.notifier).state = updated;
                 },
-                selectedColor: AppColors.gold.withOpacity(0.2),
+                selectedColor: AppColors.gold.withValues(alpha: 0.2),
                 checkmarkColor: AppColors.darkBrown,
                 backgroundColor: Colors.white,
                 side: BorderSide(
                   color: isActive
                       ? AppColors.gold
-                      : AppColors.darkBrown.withOpacity(0.2),
+                      : AppColors.darkBrown.withValues(alpha: 0.2),
                   width: isActive ? 2 : 1,
                 ),
                 labelStyle: TextStyle(

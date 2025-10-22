@@ -24,9 +24,11 @@ class PromoBanner extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.success600.withOpacity(0.1),
+          color: AppColors.success600.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(color: AppColors.success600.withOpacity(0.3)),
+          border: Border.all(
+            color: AppColors.success600.withValues(alpha: 0.3),
+          ),
         ),
         child: Row(
           children: [
@@ -59,7 +61,7 @@ class PromoBanner extends ConsumerWidget {
               icon: Icon(
                 Icons.close,
                 size: 18,
-                color: AppColors.darkBrown.withOpacity(0.6),
+                color: AppColors.darkBrown.withValues(alpha: 0.6),
               ),
               onPressed: () {
                 ref.read(promoNotifierProvider.notifier).togglePromo();
