@@ -6,21 +6,11 @@ on:
     paths:
       - "lib/**.dart"
       - "test/**.dart"
-    paths-ignore:
-      - ".github/workflows/**"
-      - "docs/**"
-      - "README.md"
-      - "CHANGELOG.md"
 
   pull_request:
     paths:
       - "lib/**.dart"
       - "test/**.dart"
-    paths-ignore:
-      - ".github/workflows/**"
-      - "docs/**"
-      - "README.md"
-      - "CHANGELOG.md"
 
 jobs:
   guard:
