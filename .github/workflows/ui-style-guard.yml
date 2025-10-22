@@ -3,14 +3,18 @@ name: UI Style Guard
 on:
   push:
     branches: [ main, develop, feature/**, chore/** ]
-    paths:
-      - "lib/**.dart"
-      - "test/**.dart"
+    paths-ignore:
+      - ".github/workflows/**"
+      - "docs/**"
+      - "README.md"
+      - "CHANGELOG.md"
 
   pull_request:
-    paths:
-      - "lib/**.dart"
-      - "test/**.dart"
+    paths-ignore:
+      - ".github/workflows/**"
+      - "docs/**"
+      - "README.md"
+      - "CHANGELOG.md"
 
 jobs:
   guard:
