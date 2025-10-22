@@ -28,8 +28,9 @@ void main() {
       };
 
       // Mock RPC response
-      when(() => mockApi.confirmScheduledOrder(address: any(named: 'address')))
-          .thenAnswer((_) async => ('order-uuid-123', 3));
+      when(
+        () => mockApi.confirmScheduledOrder(address: any(named: 'address')),
+      ).thenAnswer((_) async => ('order-uuid-123', 3));
 
       // Act: Confirm order
       final (orderId, totalItems) = await mockApi.confirmScheduledOrder(
@@ -42,15 +43,18 @@ void main() {
       expect(totalItems, equals(3));
 
       // Verify RPC was called with address
-      verify(() => mockApi.confirmScheduledOrder(address: testAddress))
-          .called(1);
+      verify(
+        () => mockApi.confirmScheduledOrder(address: testAddress),
+      ).called(1);
     });
 
     test('confirmScheduledOrder throws when no recipes selected', () async {
       // Setup: RPC throws exception
-      when(() => mockApi.confirmScheduledOrder(address: any(named: 'address')))
-          .thenThrow(SupaClientException(
-              'Failed to confirm order: No recipes selected'));
+      when(
+        () => mockApi.confirmScheduledOrder(address: any(named: 'address')),
+      ).thenThrow(
+        SupaClientException('Failed to confirm order: No recipes selected'),
+      );
 
       // Act & Assert: Should throw
       expect(
@@ -66,26 +70,32 @@ void main() {
       );
     });
 
-    test('confirmScheduledOrder throws when delivery window not selected',
-        () async {
-      // Setup: RPC throws exception
-      when(() => mockApi.confirmScheduledOrder(address: any(named: 'address')))
-          .thenThrow(SupaClientException(
-              'Failed to confirm order: Delivery window not selected'));
+    test(
+      'confirmScheduledOrder throws when delivery window not selected',
+      () async {
+        // Setup: RPC throws exception
+        when(
+          () => mockApi.confirmScheduledOrder(address: any(named: 'address')),
+        ).thenThrow(
+          SupaClientException(
+            'Failed to confirm order: Delivery window not selected',
+          ),
+        );
 
-      // Act & Assert: Should throw
-      expect(
-        () => mockApi.confirmScheduledOrder(
-          address: {
-            'name': 'Test',
-            'phone': '123',
-            'line1': 'Street',
-            'city': 'Addis Ababa',
-          },
-        ),
-        throwsA(isA<SupaClientException>()),
-      );
-    });
+        // Act & Assert: Should throw
+        expect(
+          () => mockApi.confirmScheduledOrder(
+            address: {
+              'name': 'Test',
+              'phone': '123',
+              'line1': 'Street',
+              'city': 'Addis Ababa',
+            },
+          ),
+          throwsA(isA<SupaClientException>()),
+        );
+      },
+    );
 
     test('confirmScheduledOrder validates address format', () async {
       // Valid address should have all required fields
@@ -128,7 +138,3 @@ void main() {
     });
   });
 }
-
-
-
-

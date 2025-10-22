@@ -25,7 +25,7 @@ class DraftCache {
       sp.getInt(kPeople),
       sp.getInt(kRecipes),
       sp.getString(kPref),
-      sp.getInt(kStep)
+      sp.getInt(kStep),
     );
   }
 

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../state/delivery_providers.dart';
-import 'delivery_window_editor.dart';
-import '../../../core/widgets/gold_progress_bar.dart';
+import 'package:ethiomealkit/features/delivery/state/delivery_providers.dart';
+import 'package:ethiomealkit/features/delivery/ui/delivery_window_editor.dart';
+import 'package:ethiomealkit/core/widgets/gold_progress_bar.dart';
 
 /// Delivery window summary chip with edit launcher
 /// Shows "Selecting recommended delivery time..." while loading
@@ -28,9 +28,9 @@ class DeliveryWindowChip extends ConsumerWidget {
             const SizedBox(width: 8),
             Text(
               'Selecting recommended delivery time…',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    fontStyle: FontStyle.italic,
-                  ),
+              style: Theme.of(
+                context,
+              ).textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
             ),
           ],
         ),
@@ -56,10 +56,9 @@ class DeliveryWindowChip extends ConsumerWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
-              color: Theme.of(context)
-                  .colorScheme
-                  .surfaceContainerHighest
-                  .withValues(alpha: 0.5),
+              color: Theme.of(
+                context,
+              ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(999),
               border: Border.all(
                 color: const Color(0xFFC6903B).withValues(alpha: 0.3),
@@ -68,10 +67,10 @@ class DeliveryWindowChip extends ConsumerWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(
+                const Icon(
                   Icons.local_shipping_outlined,
                   size: 18,
-                  color: const Color(0xFFC6903B),
+                  color: Color(0xFFC6903B),
                 ),
                 const SizedBox(width: 8),
                 Text(
@@ -95,6 +94,3 @@ class DeliveryWindowChip extends ConsumerWidget {
     );
   }
 }
-
-
-

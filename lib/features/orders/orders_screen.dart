@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../core/app_colors.dart';
-import '../../core/widgets/app_bottom_nav.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/widgets/app_bottom_nav.dart';
 
 class OrdersScreen extends StatelessWidget {
   const OrdersScreen({super.key});
@@ -14,8 +14,16 @@ class OrdersScreen extends StatelessWidget {
         'id': 'order-$i',
         'week': 'Week ${i + 1}',
         'date': i == 0 ? 'Thu, 17 Oct' : 'Week of Oct ${10 + i * 7}',
-        'window': i % 3 == 0 ? 'Morning (8–10 am)' : i % 3 == 1 ? 'Afternoon (2–4 pm)' : 'Evening (6–8 pm)',
-        'status': i == 0 ? 'Upcoming' : i < 4 ? 'Delivered' : 'Completed',
+        'window': i % 3 == 0
+            ? 'Morning (8–10 am)'
+            : i % 3 == 1
+            ? 'Afternoon (2–4 pm)'
+            : 'Evening (6–8 pm)',
+        'status': i == 0
+            ? 'Upcoming'
+            : i < 4
+            ? 'Delivered'
+            : 'Completed',
         'recipes': i == 0 ? 4 : 4,
       },
     );
@@ -98,8 +106,12 @@ class OrdersScreen extends StatelessWidget {
                           Text(
                             '${order['recipes']} recipes • ${order['status']}',
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: isUpcoming ? AppColors.gold : Colors.grey[600],
-                              fontWeight: isUpcoming ? FontWeight.w600 : FontWeight.w400,
+                              color: isUpcoming
+                                  ? AppColors.gold
+                                  : Colors.grey[600],
+                              fontWeight: isUpcoming
+                                  ? FontWeight.w600
+                                  : FontWeight.w400,
                             ),
                           ),
                         ],

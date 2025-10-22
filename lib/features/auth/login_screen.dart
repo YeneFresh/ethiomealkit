@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import '../../core/auth_prefs.dart';
-import '../../core/auth_flow_state.dart';
-import '../../core/auth_event_logger.dart';
+import 'package:ethiomealkit/core/auth_prefs.dart';
+import 'package:ethiomealkit/core/auth_flow_state.dart';
+import 'package:ethiomealkit/core/auth_event_logger.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -56,45 +56,43 @@ class _LoginScreenState extends State<LoginScreen>
     try {
       authFlowState.setEmail(email);
       await AuthPrefs.saveEmail(email, remember: _rememberMe);
-      
-      final redirect = kIsWeb ? '${Uri.base.origin}/auth-callback' : 'yenefresh://auth/callback';
+
+      final redirect = kIsWeb
+          ? '${Uri.base.origin}/auth-callback'
+          : 'yenefresh://auth/callback';
       await Supabase.instance.client.auth.signInWithOtp(
         email: email,
         emailRedirectTo: redirect,
       );
-      
+
       // Log success
       await AuthEventLogger.logMagicLinkSent(
         route: '/login',
-        metadata: {
-          'redirect_url': redirect,
-          'remember_me': _rememberMe,
-        },
+        metadata: {'redirect_url': redirect, 'remember_me': _rememberMe},
       );
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('Magic link sent. Check your email.')),
         );
       }
     } on AuthException catch (e) {
-      final errorMessage = _getUserFriendlyMessage(e.message ?? 'Unknown error');
+      final errorMessage = _getUserFriendlyMessage(
+        e.message ?? 'Unknown error',
+      );
       setState(() => _err = errorMessage);
-      
+
       // Log error with specific details
       await AuthEventLogger.logSignInError(
         provider: 'magic_link',
         errorCode: e.statusCode?.toString() ?? 'unknown',
         errorMessage: e.message ?? 'Unknown error',
         route: '/login',
-        metadata: {
-          'supabase_error': e.message,
-          'status_code': e.statusCode,
-        },
+        metadata: {'supabase_error': e.message, 'status_code': e.statusCode},
       );
     } catch (e) {
       setState(() => _err = 'Something went wrong. Please try again.');
-      
+
       // Log unexpected error
       await AuthEventLogger.logSignInError(
         provider: 'magic_link',
@@ -114,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen>
   // Convert technical error messages to user-friendly ones
   String _getUserFriendlyMessage(String errorMessage) {
     final lowerError = errorMessage.toLowerCase();
-    
+
     if (lowerError.contains('invalid email')) {
       return 'Please enter a valid email address.';
     } else if (lowerError.contains('rate limit')) {
@@ -132,7 +130,7 @@ class _LoginScreenState extends State<LoginScreen>
     } else if (lowerError.contains('already registered')) {
       return 'An account with this email already exists. Please sign in instead.';
     }
-    
+
     // Default fallback - keep it calm and helpful
     return 'Something went wrong. Please try again.';
   }
@@ -156,35 +154,32 @@ class _LoginScreenState extends State<LoginScreen>
         email: email,
         password: pass,
       );
-      
+
       // Log success
       await AuthEventLogger.logSignInSuccess(
         provider: 'password',
         route: '/login',
-        metadata: {
-          'remember_me': _rememberMe,
-        },
+        metadata: {'remember_me': _rememberMe},
       );
-      
+
       if (mounted) context.go('/home');
     } on AuthException catch (e) {
-      final errorMessage = _getUserFriendlyMessage(e.message ?? 'Unknown error');
+      final errorMessage = _getUserFriendlyMessage(
+        e.message ?? 'Unknown error',
+      );
       setState(() => _err = errorMessage);
-      
+
       // Log error
       await AuthEventLogger.logSignInError(
         provider: 'password',
         errorCode: e.statusCode?.toString() ?? 'unknown',
         errorMessage: e.message ?? 'Unknown error',
         route: '/login',
-        metadata: {
-          'supabase_error': e.message,
-          'status_code': e.statusCode,
-        },
+        metadata: {'supabase_error': e.message, 'status_code': e.statusCode},
       );
     } catch (e) {
       setState(() => _err = 'Something went wrong. Please try again.');
-      
+
       // Log unexpected error
       await AuthEventLogger.logSignInError(
         provider: 'password',
@@ -213,43 +208,44 @@ class _LoginScreenState extends State<LoginScreen>
     });
 
     try {
-      final redirect = kIsWeb ? '${Uri.base.origin}/reset' : 'yenefresh://auth/reset';
+      final redirect = kIsWeb
+          ? '${Uri.base.origin}/reset'
+          : 'yenefresh://auth/reset';
       await Supabase.instance.client.auth.resetPasswordForEmail(
         email,
         redirectTo: redirect,
       );
-      
+
       // Log success
       await AuthEventLogger.logPasswordReset(
         route: '/login',
-        metadata: {
-          'redirect_url': redirect,
-        },
+        metadata: {'redirect_url': redirect},
       );
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Password reset link sent. Check your email.')),
+          const SnackBar(
+            content: Text('Password reset link sent. Check your email.'),
+          ),
         );
       }
     } on AuthException catch (e) {
-      final errorMessage = _getUserFriendlyMessage(e.message ?? 'Unknown error');
+      final errorMessage = _getUserFriendlyMessage(
+        e.message ?? 'Unknown error',
+      );
       setState(() => _err = errorMessage);
-      
+
       // Log error
       await AuthEventLogger.logSignInError(
         provider: 'password_reset',
         errorCode: e.statusCode?.toString() ?? 'unknown',
         errorMessage: e.message ?? 'Unknown error',
         route: '/login',
-        metadata: {
-          'supabase_error': e.message,
-          'status_code': e.statusCode,
-        },
+        metadata: {'supabase_error': e.message, 'status_code': e.statusCode},
       );
     } catch (e) {
       setState(() => _err = 'Something went wrong. Please try again.');
-      
+
       // Log unexpected error
       await AuthEventLogger.logSignInError(
         provider: 'password_reset',
@@ -280,49 +276,49 @@ class _LoginScreenState extends State<LoginScreen>
     try {
       authFlowState.setEmail(email);
       await AuthPrefs.saveEmail(email, remember: _rememberMe);
-      
-      final redirect = kIsWeb ? '${Uri.base.origin}/auth-callback' : 'yenefresh://auth/callback';
+
+      final redirect = kIsWeb
+          ? '${Uri.base.origin}/auth-callback'
+          : 'yenefresh://auth/callback';
       await Supabase.instance.client.auth.signUp(
         email: email,
         password: pass,
         emailRedirectTo: redirect,
       );
-      
+
       // Log success
       await AuthEventLogger.logSignUpSuccess(
         provider: 'password',
         route: '/login',
-        metadata: {
-          'redirect_url': redirect,
-          'remember_me': _rememberMe,
-        },
+        metadata: {'redirect_url': redirect, 'remember_me': _rememberMe},
       );
-      
+
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
-              content: Text(
-                  'Account created. Check email to confirm (if enabled).')),
+            content: Text(
+              'Account created. Check email to confirm (if enabled).',
+            ),
+          ),
         );
       }
     } on AuthException catch (e) {
-      final errorMessage = _getUserFriendlyMessage(e.message ?? 'Unknown error');
+      final errorMessage = _getUserFriendlyMessage(
+        e.message ?? 'Unknown error',
+      );
       setState(() => _err = errorMessage);
-      
+
       // Log error
       await AuthEventLogger.logSignUpError(
         provider: 'password',
         errorCode: e.statusCode?.toString() ?? 'unknown',
         errorMessage: e.message ?? 'Unknown error',
         route: '/login',
-        metadata: {
-          'supabase_error': e.message,
-          'status_code': e.statusCode,
-        },
+        metadata: {'supabase_error': e.message, 'status_code': e.statusCode},
       );
     } catch (e) {
       setState(() => _err = 'Something went wrong. Please try again.');
-      
+
       // Log unexpected error
       await AuthEventLogger.logSignUpError(
         provider: 'password',
@@ -349,7 +345,7 @@ class _LoginScreenState extends State<LoginScreen>
             controller: _tab,
             tabs: const [
               Tab(text: 'Magic Link'),
-              Tab(text: 'Email & Password')
+              Tab(text: 'Email & Password'),
             ],
           ),
           Expanded(
@@ -366,7 +362,8 @@ class _LoginScreenState extends State<LoginScreen>
                   passCtrl: _passCtrl,
                   loading: _loading,
                   rememberMe: _rememberMe,
-                  onRememberMeChanged: (value) => setState(() => _rememberMe = value),
+                  onRememberMeChanged: (value) =>
+                      setState(() => _rememberMe = value),
                   onSignIn: _signInWithPassword,
                   onSignUp: _signUpWithPassword,
                   onForgotPassword: _forgotPassword,
@@ -443,7 +440,6 @@ class _PasswordTab extends StatefulWidget {
 }
 
 class _PasswordTabState extends State<_PasswordTab> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(

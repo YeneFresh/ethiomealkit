@@ -38,25 +38,26 @@ class _WeeklyMenuScreenState extends State<WeeklyMenuScreen> {
       // Load profile
       profile =
           await supa.from('profiles').select().eq('id', uid).maybeSingle() ??
-              {
-                'meals_per_week': 3,
-                'preferences': <String>[],
-              };
+          {'meals_per_week': 3, 'preferences': <String>[]};
 
       // Load weekly menu
       final rpc = await supa.from('meals').select();
       final list = List<Map<String, dynamic>>.from(rpc);
       recipes = list
-          .map((m) => {
-                'id': (m['recipe_id'] as String),
-                'name': (m['name'] as String?) ?? 'Recipe',
-                'categories':
-                    List<String>.from(m['categories'] ?? const <String>[]),
-                'cook_minutes': m['cook_minutes'] ?? 25,
-                'kcal': m['kcal'] ?? 500,
-                'hero_image': m['hero_image'] ??
-                    'https://picsum.photos/seed/${(m['recipe_id'] as String).hashCode}/800/500',
-              })
+          .map(
+            (m) => {
+              'id': (m['recipe_id'] as String),
+              'name': (m['name'] as String?) ?? 'Recipe',
+              'categories': List<String>.from(
+                m['categories'] ?? const <String>[],
+              ),
+              'cook_minutes': m['cook_minutes'] ?? 25,
+              'kcal': m['kcal'] ?? 500,
+              'hero_image':
+                  m['hero_image'] ??
+                  'https://picsum.photos/seed/${(m['recipe_id'] as String).hashCode}/800/500',
+            },
+          )
           .toList();
 
       // Load existing selections
@@ -68,7 +69,7 @@ class _WeeklyMenuScreenState extends State<WeeklyMenuScreen> {
       picked = sel.isEmpty
           ? <String>{}
           : sel.map<String>((e) => e['recipe_id'] as String).toSet();
-    
+
       setState(() => _loading = false);
     } catch (e) {
       if (mounted) {
@@ -109,9 +110,9 @@ class _WeeklyMenuScreenState extends State<WeeklyMenuScreen> {
         setState(() => picked.add(recipeId));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Save error: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Save error: $e')));
     }
   }
 
@@ -126,19 +127,19 @@ class _WeeklyMenuScreenState extends State<WeeklyMenuScreen> {
     try {
       final supa = Supabase.instance.client;
       final uid = supa.auth.currentUser!.id;
-      final oid = await supa.rpc('place_order_from_selections', params: {
-        '_user': uid,
-        '_week': weekStr,
-      });
+      final oid = await supa.rpc(
+        'place_order_from_selections',
+        params: {'_user': uid, '_week': weekStr},
+      );
 
       if (!mounted) return;
 
       // Navigate to delivery plan with order ID
       context.push('/delivery-plan?order=$oid');
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to create order: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to create order: $e')));
     }
   }
 
@@ -159,62 +160,62 @@ class _WeeklyMenuScreenState extends State<WeeklyMenuScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _errorMessage != null
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(_errorMessage!),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: _bootstrap,
-                        child: const Text('Retry'),
-                      ),
-                    ],
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(_errorMessage!),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: _bootstrap,
+                    child: const Text('Retry'),
                   ),
-                )
-              : Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        padding: const EdgeInsets.all(12),
-                        itemCount: recipes.length,
-                        itemBuilder: (_, i) {
-                          final r = recipes[i];
-                          final id = r['id'] as String;
-                          final selected = picked.contains(id);
-                          return Card(
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            child: ListTile(
-                              contentPadding: const EdgeInsets.all(12),
-                              title: Text(r['name']),
-                              subtitle: Text(
-                                '${(r['categories'] as List).join(' • ')}\n'
-                                '${r['cook_minutes']} min • ${r['kcal']} kcal',
-                              ),
-                              isThreeLine: true,
-                              trailing: ElevatedButton(
-                                onPressed: () => _togglePick(id),
-                                child: Text(selected ? 'Unselect' : 'Select'),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: ElevatedButton(
-                          onPressed: _continueToDelivery,
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 50),
+                ],
+              ),
+            )
+          : Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(12),
+                    itemCount: recipes.length,
+                    itemBuilder: (_, i) {
+                      final r = recipes[i];
+                      final id = r['id'] as String;
+                      final selected = picked.contains(id);
+                      return Card(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        child: ListTile(
+                          contentPadding: const EdgeInsets.all(12),
+                          title: Text(r['name']),
+                          subtitle: Text(
+                            '${(r['categories'] as List).join(' • ')}\n'
+                            '${r['cook_minutes']} min • ${r['kcal']} kcal',
                           ),
-                          child: const Text('Continue to Delivery Planning'),
+                          isThreeLine: true,
+                          trailing: ElevatedButton(
+                            onPressed: () => _togglePick(id),
+                            child: Text(selected ? 'Unselect' : 'Select'),
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
+                      );
+                    },
+                  ),
                 ),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: ElevatedButton(
+                      onPressed: _continueToDelivery,
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 50),
+                      ),
+                      child: const Text('Continue to Delivery Planning'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 }

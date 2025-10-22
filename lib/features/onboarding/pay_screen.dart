@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/app_colors.dart';
-import '../../core/layout.dart';
-import '../../core/models/address.dart';
-import '../../core/utils/currency.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/layout.dart';
+import 'package:ethiomealkit/core/models/address.dart';
+import 'package:ethiomealkit/core/utils/currency.dart';
 // import '../delivery/ui/delivery_window_chip.dart'; // no longer used on Pay
-import '../../core/providers/payment_providers.dart';
-import '../../core/providers/payment_controller.dart';
-import '../../core/providers/cart_pricing_providers.dart';
-import '../../core/providers/recipe_selection_providers.dart';
-import '../../core/providers/address_providers.dart';
-import '../../core/providers/delivery_window_provider.dart';
-import '../recipes/widgets/delivery_summary_bar.dart';
-import 'providers/user_onboarding_progress_provider.dart';
-import 'widgets/onboarding_scaffold.dart';
-import 'widgets/delivery_edit_modal.dart';
+import 'package:ethiomealkit/core/providers/payment_providers.dart';
+import 'package:ethiomealkit/core/providers/payment_controller.dart';
+import 'package:ethiomealkit/core/providers/cart_pricing_providers.dart';
+import 'package:ethiomealkit/core/providers/recipe_selection_providers.dart';
+import 'package:ethiomealkit/core/providers/address_providers.dart';
+import 'package:ethiomealkit/core/providers/delivery_window_provider.dart';
+import 'package:ethiomealkit/features/recipes/widgets/delivery_summary_bar.dart';
+import 'package:ethiomealkit/features/onboarding/providers/user_onboarding_progress_provider.dart';
+import 'package:ethiomealkit/features/onboarding/widgets/onboarding_scaffold.dart';
+import 'package:ethiomealkit/features/onboarding/widgets/delivery_edit_modal.dart';
 
 /// Pay Screen - Step 5 of unified onboarding
 /// Final review and payment method selection
@@ -53,8 +53,9 @@ class _PayScreenState extends ConsumerState<PayScreen> {
       return;
     }
 
-    final orderId =
-        await ref.read(paymentControllerProvider.notifier).placeOrderAndPay();
+    final orderId = await ref
+        .read(paymentControllerProvider.notifier)
+        .placeOrderAndPay();
 
     if (orderId != null && mounted) {
       // Mark pay step as complete
@@ -79,8 +80,9 @@ class _PayScreenState extends ConsumerState<PayScreen> {
     final totals = ref.watch(cartTotalsProvider);
     final selectedIds = ref.watch(selectedRecipesProvider);
     final allRecipes = ref.watch(recipesProvider).value ?? [];
-    final selectedRecipes =
-        allRecipes.where((r) => selectedIds.contains(r.id)).toList();
+    final selectedRecipes = allRecipes
+        .where((r) => selectedIds.contains(r.id))
+        .toList();
     final address = ref.watch(activeAddressProvider);
     final window = ref.watch(deliveryWindowProvider);
     final method = ref.watch(paymentMethodProvider);
@@ -130,7 +132,8 @@ class _PayScreenState extends ConsumerState<PayScreen> {
           SizedBox(
             width: double.infinity,
             child: ElevatedButton(
-              onPressed: method != null &&
+              onPressed:
+                  method != null &&
                       selectedRecipes.isNotEmpty &&
                       address != null &&
                       !isPlacing
@@ -192,10 +195,7 @@ class _OrderSummaryCard extends StatelessWidget {
   final List<Recipe> recipes;
   final CartTotals totals;
 
-  const _OrderSummaryCard({
-    required this.recipes,
-    required this.totals,
-  });
+  const _OrderSummaryCard({required this.recipes, required this.totals});
 
   @override
   Widget build(BuildContext context) {
@@ -221,10 +221,7 @@ class _AddressAndDeliveryCard extends ConsumerWidget {
   final Address? address;
   final DeliveryWindow? window;
 
-  const _AddressAndDeliveryCard({
-    required this.address,
-    required this.window,
-  });
+  const _AddressAndDeliveryCard({required this.address, required this.window});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -241,7 +238,7 @@ class _AddressAndDeliveryCard extends ConsumerWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Icon(Icons.home_outlined, size: 20, color: AppColors.gold),
+              const Icon(Icons.home_outlined, size: 20, color: AppColors.gold),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -266,9 +263,7 @@ class _AddressAndDeliveryCard extends ConsumerWidget {
               ),
               TextButton(
                 onPressed: () => context.push('/onboarding/map-picker'),
-                style: TextButton.styleFrom(
-                  foregroundColor: AppColors.gold,
-                ),
+                style: TextButton.styleFrom(foregroundColor: AppColors.gold),
                 child: const Text('Edit'),
               ),
             ],
@@ -416,11 +411,13 @@ class _TotalsBlock extends StatelessWidget {
                       ? 'FREE'
                       : CurrencyFmt.formatWithSign(row.value),
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: row.value < 0 ||
+                    color:
+                        row.value < 0 ||
                             (row.value == 0 && row.key == 'Delivery')
                         ? AppColors.success600
                         : AppColors.darkBrown,
-                    fontWeight: row.value < 0 ||
+                    fontWeight:
+                        row.value < 0 ||
                             (row.value == 0 && row.key == 'Delivery')
                         ? FontWeight.w600
                         : FontWeight.w400,
@@ -535,10 +532,7 @@ class _CardWrap extends StatelessWidget {
   final String title;
   final Widget child;
 
-  const _CardWrap({
-    required this.title,
-    required this.child,
-  });
+  const _CardWrap({required this.title, required this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -552,9 +546,7 @@ class _CardWrap extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(
-            color: AppColors.darkBrown.withOpacity(0.1),
-          ),
+          border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

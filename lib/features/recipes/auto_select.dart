@@ -45,8 +45,10 @@ class AutoSelectChoice {
 AutoSelectChoice planAutoSelection(AutoSelectRequest r) {
   // Calculate how many we need
   final remaining = r.allowance - r.alreadySelectedIds.length;
-  final needed = (r.targetAuto - (r.alreadySelectedIds.isEmpty ? 0 : 0))
-      .clamp(0, remaining);
+  final needed = (r.targetAuto - (r.alreadySelectedIds.isEmpty ? 0 : 0)).clamp(
+    0,
+    remaining,
+  );
 
   if (needed <= 0) {
     return AutoSelectChoice(toSelect: []);
@@ -153,10 +155,7 @@ String _primaryTagOf(Map<String, dynamic> rec) {
 
 /// Stable hash function for tie-breaking.
 int _stableHash(String input) {
-  return input.codeUnits.fold<int>(
-    0,
-    (a, b) => ((a * 31) + b) & 0x7fffffff,
-  );
+  return input.codeUnits.fold<int>(0, (a, b) => ((a * 31) + b) & 0x7fffffff);
 }
 
 /// Calculates target auto-select count based on box size.

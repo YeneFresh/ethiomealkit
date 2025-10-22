@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/app_colors.dart';
-import '../onboarding/providers/user_onboarding_progress_provider.dart';
-import '../onboarding/widgets/onboarding_scaffold.dart';
-import 'providers/box_selection_providers.dart';
-import 'widgets/people_selector.dart';
-import 'widgets/recipes_per_week_selector.dart';
-import 'widgets/promo_banner.dart';
-import 'widgets/summary_card.dart';
-import 'widgets/confirm_cta.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/features/onboarding/providers/user_onboarding_progress_provider.dart';
+import 'package:ethiomealkit/features/onboarding/widgets/onboarding_scaffold.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
+import 'package:ethiomealkit/features/box/widgets/people_selector.dart';
+import 'package:ethiomealkit/features/box/widgets/recipes_per_week_selector.dart';
+import 'package:ethiomealkit/features/box/widgets/promo_banner.dart';
+import 'package:ethiomealkit/features/box/widgets/summary_card.dart';
+import 'package:ethiomealkit/features/box/widgets/confirm_cta.dart';
 
 /// Box Selection Screen - Step 1 of unified onboarding
 /// Users select: number of people + meals per week
@@ -29,7 +29,7 @@ class _BoxSelectionScreenState extends ConsumerState<BoxSelectionScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Future.delayed(const Duration(milliseconds: 200), () {
         if (!mounted) return;
-        
+
         final people = ref.read(selectedPeopleProvider);
         final meals = ref.read(selectedMealsProvider);
 

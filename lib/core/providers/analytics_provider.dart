@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../services/analytics_service.dart';
+import 'package:ethiomealkit/core/services/analytics_service.dart';
 
 /// Analytics service provider
 final analyticsServiceProvider = Provider<AnalyticsService>((ref) {
@@ -9,11 +9,10 @@ final analyticsServiceProvider = Provider<AnalyticsService>((ref) {
 
 /// Helper: Track event from anywhere in the app
 extension AnalyticsRef on Ref {
-  Future<void> trackEvent(String eventName, [Map<String, dynamic>? properties]) {
+  Future<void> trackEvent(
+    String eventName, [
+    Map<String, dynamic>? properties,
+  ]) {
     return read(analyticsServiceProvider).track(eventName, properties);
   }
 }
-
-
-
-

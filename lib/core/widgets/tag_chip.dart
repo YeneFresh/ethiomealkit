@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../theme/tag_tokens.dart';
+import 'package:ethiomealkit/core/theme/tag_tokens.dart';
 
 /// A colored chip displaying a recipe tag with Ethiopian-inspired colors
 class TagChip extends StatelessWidget {
@@ -27,6 +27,3 @@ class TagChip extends StatelessWidget {
     );
   }
 }
-
-
-

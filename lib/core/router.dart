@@ -3,39 +3,43 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'auth_notifier.dart';
+import 'package:ethiomealkit/core/auth_notifier.dart';
+import 'package:ethiomealkit/bootstrap/env.dart';
+import 'package:ethiomealkit/features/admin/menu_admin_screen.dart';
+import 'package:ethiomealkit/features/admin/recipes_admin_screen.dart';
 
 // Screens
-import '../features/welcome/welcome_screen_redesign.dart';
-import '../features/auth/onboarding_screen.dart';
-import '../features/box/box_plan_screen.dart';
-import '../features/box/box_selection_screen.dart';
-import '../features/onboarding/signup_screen.dart';
-import '../features/onboarding/recipes_selection_screen.dart';
-import '../features/onboarding/map_picker_screen.dart';
-import '../features/onboarding/address_form_screen.dart';
-import '../features/onboarding/pay_screen.dart';
-import '../features/onboarding/order_success_screen.dart';
-import '../features/auth/auth_screen.dart';
-import '../features/delivery/delivery_gate_screen.dart';
-import '../features/delivery/delivery_address_screen.dart';
-import '../features/recipes/recipes_screen.dart';
-import '../features/checkout/checkout_screen.dart';
-import '../features/home/home_screen_redesign.dart';
-import '../features/rewards/rewards_screen.dart';
-import '../features/orders/orders_screen.dart';
-import '../features/account/account_screen.dart';
-import '../features/auth/login_screen.dart';
-import '../features/auth/reset_password_screen.dart';
-import '../features/auth/widgets/auth_error_dialog.dart';
-import '../features/box/box_recipes_screen.dart';
-import '../features/box/box_flow_controller.dart';
-import '../features/ops/debug_screen.dart';
-import '../features/orders/orders_list_screen.dart';
-import '../features/orders/order_detail_screen.dart';
+import 'package:ethiomealkit/features/welcome/welcome_screen_redesign.dart';
+import 'package:ethiomealkit/features/auth/onboarding_screen.dart';
+import 'package:ethiomealkit/features/box/box_plan_screen.dart';
+import 'package:ethiomealkit/features/box/box_selection_screen.dart';
+import 'package:ethiomealkit/features/onboarding/signup_screen.dart';
+import 'package:ethiomealkit/features/onboarding/recipes_selection_screen.dart';
+import 'package:ethiomealkit/features/onboarding/map_picker_screen.dart';
+import 'package:ethiomealkit/features/onboarding/address_form_screen.dart';
+import 'package:ethiomealkit/features/onboarding/pay_screen.dart';
+import 'package:ethiomealkit/features/onboarding/order_success_screen.dart';
+import 'package:ethiomealkit/features/auth/auth_screen.dart';
+import 'package:ethiomealkit/features/delivery/delivery_gate_screen.dart';
+import 'package:ethiomealkit/features/delivery/delivery_address_screen.dart';
+import 'package:ethiomealkit/features/recipes/recipes_screen.dart';
+import 'package:ethiomealkit/features/checkout/checkout_screen.dart';
+import 'package:ethiomealkit/features/home/home_screen_redesign.dart';
+import 'package:ethiomealkit/features/rewards/rewards_screen.dart';
+import 'package:ethiomealkit/features/orders/orders_screen.dart';
+import 'package:ethiomealkit/features/account/account_screen.dart';
+import 'package:ethiomealkit/features/auth/login_screen.dart';
+import 'package:ethiomealkit/features/auth/reset_password_screen.dart';
+import 'package:ethiomealkit/features/auth/widgets/auth_error_dialog.dart';
+import 'package:ethiomealkit/features/box/box_recipes_screen.dart';
+import 'package:ethiomealkit/features/box/box_flow_controller.dart';
+import 'package:ethiomealkit/features/ops/debug_screen.dart';
+import 'package:ethiomealkit/features/orders/orders_list_screen.dart';
+import 'package:ethiomealkit/features/orders/order_detail_screen.dart';
 
-final authNotifierProvider =
-    ChangeNotifierProvider<AuthNotifier>((ref) => AuthNotifier());
+final authNotifierProvider = ChangeNotifierProvider<AuthNotifier>(
+  (ref) => AuthNotifier(),
+);
 
 // New tiny screens:
 class AuthCallbackScreen extends StatefulWidget {
@@ -101,9 +105,7 @@ class _AuthCallbackScreenState extends State<AuthCallbackScreen> {
         showAuthErrorDialog(context, errorMessage: _error);
       });
       return const Scaffold(
-        body: Center(
-          child: Text('Redirecting to error dialog...'),
-        ),
+        body: Center(child: Text('Redirecting to error dialog...')),
       );
     }
     if (!_done) {
@@ -117,11 +119,10 @@ class _AuthCallbackScreenState extends State<AuthCallbackScreen> {
               Text(
                 'Setting up your session...',
                 style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                      color: Theme.of(context)
-                          .colorScheme
-                          .onSurface
-                          .withOpacity(0.7),
-                    ),
+                  color: Theme.of(
+                    context,
+                  ).colorScheme.onSurface.withOpacity(0.7),
+                ),
               ),
             ],
           ),
@@ -174,8 +175,8 @@ class AuthErrorScreen extends StatelessWidget {
                   msg,
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                        color: Theme.of(context).colorScheme.onSurface,
-                      ),
+                    color: Theme.of(context).colorScheme.onSurface,
+                  ),
                 ),
 
                 const SizedBox(height: 32),
@@ -246,7 +247,8 @@ final goRouterProvider = Provider<GoRouter>((ref) {
 
       // Error in URL → friendly page
       if (state.uri.queryParameters.containsKey('error')) {
-        final msg = state.uri.queryParameters['error_description'] ??
+        final msg =
+            state.uri.queryParameters['error_description'] ??
             state.uri.queryParameters['error'];
         return '/auth-error?msg=${Uri.encodeComponent(msg ?? 'Login error')}';
       }
@@ -259,8 +261,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       // if (signedIn && loc == '/auth-callback') return '/home';
 
       // Handle welcome screen routing
-      if (loc == '/welcome')
+      if (loc == '/welcome') {
         return null; // Let welcome screen handle its own logic
+      }
 
       // Redirect to box selection for new users
       if (loc == '/login') return '/box';
@@ -275,8 +278,9 @@ final goRouterProvider = Provider<GoRouter>((ref) {
         }
 
         if (loc.startsWith('/box/checkout')) {
-          if (box.selectedIds.isEmpty && !box.serverHasSelections)
+          if (box.selectedIds.isEmpty && !box.serverHasSelections) {
             return '/box/recipes';
+          }
           if (!box.hasDeliveryChoice) return '/box/delivery';
         }
       }
@@ -347,10 +351,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/box', builder: (_, __) => const BoxPlanScreen()),
       GoRoute(path: '/auth', builder: (_, __) => const AuthScreen()),
       GoRoute(
-          path: '/delivery', builder: (_, __) => const DeliveryGateScreen()),
+        path: '/delivery',
+        builder: (_, __) => const DeliveryGateScreen(),
+      ),
       GoRoute(path: '/meals', builder: (_, __) => const RecipesScreen()),
       GoRoute(
-          path: '/address', builder: (_, __) => const DeliveryAddressScreen()),
+        path: '/address',
+        builder: (_, __) => const DeliveryAddressScreen(),
+      ),
       GoRoute(path: '/checkout', builder: (_, __) => const CheckoutScreen()),
 
       // Auth flow (with fade transitions)
@@ -360,12 +368,14 @@ final goRouterProvider = Provider<GoRouter>((ref) {
             _fadeSlidePageBuilder(child: const LoginScreen()),
       ),
       GoRoute(
-          path: '/auth-callback',
-          builder: (_, __) => const AuthCallbackScreen()),
+        path: '/auth-callback',
+        builder: (_, __) => const AuthCallbackScreen(),
+      ),
       GoRoute(
-          path: '/auth-error',
-          builder: (_, s) =>
-              AuthErrorScreen(message: s.uri.queryParameters['msg'])),
+        path: '/auth-error',
+        builder: (_, s) =>
+            AuthErrorScreen(message: s.uri.queryParameters['msg']),
+      ),
       GoRoute(path: '/reset', builder: (_, __) => const ResetPasswordScreen()),
 
       // ===== Main App Hub (Phase 9) =====
@@ -391,18 +401,31 @@ final goRouterProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/orders-detail/:id',
-        builder: (_, state) => OrderDetailScreen(
-          orderId: state.pathParameters['id']!,
-        ),
+        builder: (_, state) =>
+            OrderDetailScreen(orderId: state.pathParameters['id']!),
       ),
 
       // Legacy routes (for backward compatibility)
       GoRoute(
-          path: '/box/recipes', builder: (_, __) => const BoxRecipesScreen()),
+        path: '/box/recipes',
+        builder: (_, __) => const BoxRecipesScreen(),
+      ),
 
       // Debug (only in debug mode)
       if (kDebugMode)
         GoRoute(path: '/debug', builder: (_, __) => const DebugScreen()),
+
+      // Admin routes (gated by ADMIN_ENABLED)
+      if (Env.adminEnabled) ...[
+        GoRoute(
+          path: '/admin/menu',
+          builder: (_, __) => const MenuAdminScreen(),
+        ),
+        GoRoute(
+          path: '/admin/recipes',
+          builder: (_, __) => const RecipesAdminScreen(),
+        ),
+      ],
     ],
     errorBuilder: (_, state) =>
         AuthErrorScreen(message: state.error.toString()),

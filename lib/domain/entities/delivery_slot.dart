@@ -74,6 +74,3 @@ class DeliverySlot {
     );
   }
 }
-
-
-

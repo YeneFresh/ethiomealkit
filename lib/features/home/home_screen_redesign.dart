@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../core/app_colors.dart';
-import '../../core/widgets/app_bottom_nav.dart';
-import '../../core/widgets/gold_progress_bar.dart';
-import '../../core/providers/hub_providers.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/widgets/app_bottom_nav.dart';
+import 'package:ethiomealkit/core/widgets/gold_progress_bar.dart';
+import 'package:ethiomealkit/core/providers/hub_providers.dart';
 
 /// Home Screen - Post-onboarding hub
 class HomeScreenRedesign extends ConsumerWidget {
@@ -24,9 +24,7 @@ class HomeScreenRedesign extends ConsumerWidget {
         child: CustomScrollView(
           slivers: [
             // Greeting header
-            SliverToBoxAdapter(
-              child: _buildGreeting(context, user, theme),
-            ),
+            SliverToBoxAdapter(child: _buildGreeting(context, user, theme)),
 
             // Weekly progress card
             SliverToBoxAdapter(
@@ -34,10 +32,11 @@ class HomeScreenRedesign extends ConsumerWidget {
                 data: (status) =>
                     _buildWeeklyProgressCard(context, ref, status, theme),
                 loading: () => const Center(
-                    child: Padding(
-                  padding: EdgeInsets.all(24),
-                  child: CircularProgressIndicator(),
-                )),
+                  child: Padding(
+                    padding: EdgeInsets.all(24),
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
                 error: (e, st) => const SizedBox.shrink(),
               ),
             ),
@@ -62,14 +61,10 @@ class HomeScreenRedesign extends ConsumerWidget {
             ),
 
             // Recipe carousel (horizontal scroll)
-            SliverToBoxAdapter(
-              child: _buildRecipeCarousel(context, theme),
-            ),
+            SliverToBoxAdapter(child: _buildRecipeCarousel(context, theme)),
 
             // Bottom padding for nav bar
-            const SliverToBoxAdapter(
-              child: SizedBox(height: 100),
-            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 100)),
           ],
         ),
       ),
@@ -114,8 +109,12 @@ class HomeScreenRedesign extends ConsumerWidget {
     );
   }
 
-  Widget _buildWeeklyProgressCard(BuildContext context, WidgetRef ref,
-      WeeklyStatus status, ThemeData theme) {
+  Widget _buildWeeklyProgressCard(
+    BuildContext context,
+    WidgetRef ref,
+    WeeklyStatus status,
+    ThemeData theme,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(18),
@@ -129,10 +128,7 @@ class HomeScreenRedesign extends ConsumerWidget {
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: AppColors.gold.withOpacity(0.3),
-          width: 1.5,
-        ),
+        border: Border.all(color: AppColors.gold.withOpacity(0.3), width: 1.5),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,15 +150,18 @@ class HomeScreenRedesign extends ConsumerWidget {
                 style: OutlinedButton.styleFrom(
                   foregroundColor: AppColors.gold,
                   side: const BorderSide(color: AppColors.gold, width: 1.5),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
                 ),
-                child: const Text('Manage',
-                    style:
-                        TextStyle(fontWeight: FontWeight.w600, fontSize: 13)),
+                child: const Text(
+                  'Manage',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13),
+                ),
               ),
             ],
           ),
@@ -186,7 +185,10 @@ class HomeScreenRedesign extends ConsumerWidget {
   }
 
   Widget _buildNextDeliveryCard(
-      BuildContext context, Map<String, String?> delivery, ThemeData theme) {
+    BuildContext context,
+    Map<String, String?> delivery,
+    ThemeData theme,
+  ) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       padding: const EdgeInsets.all(16),
@@ -210,8 +212,11 @@ class HomeScreenRedesign extends ConsumerWidget {
               color: AppColors.gold.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: const Icon(Icons.local_shipping_outlined,
-                color: AppColors.gold, size: 24),
+            child: const Icon(
+              Icons.local_shipping_outlined,
+              color: AppColors.gold,
+              size: 24,
+            ),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -283,8 +288,9 @@ class HomeScreenRedesign extends ConsumerWidget {
                   height: 140,
                   decoration: BoxDecoration(
                     color: Colors.grey[200],
-                    borderRadius:
-                        const BorderRadius.vertical(top: Radius.circular(12)),
+                    borderRadius: const BorderRadius.vertical(
+                      top: Radius.circular(12),
+                    ),
                   ),
                   child: const Center(
                     child: Icon(Icons.restaurant_menu, color: Colors.grey),
@@ -322,7 +328,10 @@ class HomeScreenRedesign extends ConsumerWidget {
   }
 
   void _showManageWeekSheet(
-      BuildContext context, WidgetRef ref, WeeklyStatus status) {
+    BuildContext context,
+    WidgetRef ref,
+    WeeklyStatus status,
+  ) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
@@ -386,7 +395,8 @@ class _ManageWeekSheet extends StatelessWidget {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                      content: Text('Delivery date picker coming soon!')),
+                    content: Text('Delivery date picker coming soon!'),
+                  ),
                 );
               },
             ),
@@ -404,7 +414,8 @@ class _ManageWeekSheet extends StatelessWidget {
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
                   const SnackBar(
-                      content: Text('Skip week feature coming soon!')),
+                    content: Text('Skip week feature coming soon!'),
+                  ),
                 );
               },
             ),
@@ -435,8 +446,11 @@ class _ManageWeekSheet extends StatelessWidget {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.info_outline,
-                      size: 20, color: AppColors.darkBrown),
+                  const Icon(
+                    Icons.info_outline,
+                    size: 20,
+                    color: AppColors.darkBrown,
+                  ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Text(

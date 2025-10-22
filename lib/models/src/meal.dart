@@ -20,6 +20,3 @@ class Meal with _$Meal {
 
   factory Meal.fromJson(Map<String, dynamic> json) => _$MealFromJson(json);
 }
-
-
-

@@ -12,7 +12,7 @@ void main() {
 
     test('prioritizes Chef\'s Choice over Popular', () {
       final recipes = [
-        Recipe(
+        const Recipe(
           id: '1',
           title: 'Popular Dish',
           description: '',
@@ -21,7 +21,7 @@ void main() {
           calories: 400,
           tags: ['Popular'],
         ),
-        Recipe(
+        const Recipe(
           id: '2',
           title: 'Chef\'s Special',
           description: '',
@@ -40,7 +40,7 @@ void main() {
 
     test('prefers quick recipes when priority is equal', () {
       final recipes = [
-        Recipe(
+        const Recipe(
           id: '1',
           title: 'Slow Cook',
           description: '',
@@ -49,7 +49,7 @@ void main() {
           calories: 400,
           tags: ['Popular'],
         ),
-        Recipe(
+        const Recipe(
           id: '2',
           title: 'Quick Meal',
           description: '',
@@ -86,7 +86,7 @@ void main() {
 
     test('excludes already selected recipes', () {
       final recipes = [
-        Recipe(
+        const Recipe(
           id: '1',
           title: 'Recipe 1',
           description: '',
@@ -95,7 +95,7 @@ void main() {
           calories: 400,
           tags: ['Chef\'s Choice'],
         ),
-        Recipe(
+        const Recipe(
           id: '2',
           title: 'Recipe 2',
           description: '',
@@ -122,6 +122,3 @@ void main() {
     });
   });
 }
-
-
-

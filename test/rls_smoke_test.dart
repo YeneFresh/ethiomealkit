@@ -18,10 +18,12 @@ void main() {
   group('RLS Security Smoke Tests', () {
     test('Anonymous users cannot call write RPCs', () async {
       // Setup: Anonymous call to write RPC throws auth error
-      when(() => mockApi.setOnboardingPlan(
-            boxSize: any(named: 'boxSize'),
-            mealsPerWeek: any(named: 'mealsPerWeek'),
-          )).thenThrow(
+      when(
+        () => mockApi.setOnboardingPlan(
+          boxSize: any(named: 'boxSize'),
+          mealsPerWeek: any(named: 'mealsPerWeek'),
+        ),
+      ).thenThrow(
         SupaClientException('Failed to set onboarding plan: Not authenticated'),
       );
 
@@ -34,10 +36,12 @@ void main() {
 
     test('Anonymous users cannot upsert delivery window', () async {
       // Setup: Anonymous write blocked
-      when(() => mockApi.upsertUserActiveWindow(
-            windowId: any(named: 'windowId'),
-            locationLabel: any(named: 'locationLabel'),
-          )).thenThrow(
+      when(
+        () => mockApi.upsertUserActiveWindow(
+          windowId: any(named: 'windowId'),
+          locationLabel: any(named: 'locationLabel'),
+        ),
+      ).thenThrow(
         SupaClientException('Failed to set active window: Not authenticated'),
       );
 
@@ -53,12 +57,15 @@ void main() {
 
     test('Anonymous users cannot toggle recipe selections', () async {
       // Setup: Anonymous write blocked
-      when(() => mockApi.toggleRecipeSelection(
-            recipeId: any(named: 'recipeId'),
-            select: any(named: 'select'),
-          )).thenThrow(
+      when(
+        () => mockApi.toggleRecipeSelection(
+          recipeId: any(named: 'recipeId'),
+          select: any(named: 'select'),
+        ),
+      ).thenThrow(
         SupaClientException(
-            'Failed to toggle recipe selection: Not authenticated'),
+          'Failed to toggle recipe selection: Not authenticated',
+        ),
       );
 
       // Act & Assert: Should throw
@@ -70,9 +77,9 @@ void main() {
 
     test('Anonymous users cannot create orders', () async {
       // Setup: confirm_scheduled_order requires authentication
-      when(() => mockApi.confirmScheduledOrder(
-            address: any(named: 'address'),
-          )).thenThrow(
+      when(
+        () => mockApi.confirmScheduledOrder(address: any(named: 'address')),
+      ).thenThrow(
         SupaClientException('Failed to confirm order: Not authenticated'),
       );
 
@@ -92,21 +99,23 @@ void main() {
 
     test('Anonymous users can read public data', () async {
       // Setup: Read operations should work for anonymous
-      when(() => mockApi.availableWindows()).thenAnswer((_) async => [
-            {
-              'id': 'window-1',
-              'start_at': DateTime.now().toIso8601String(),
-              'end_at': DateTime.now()
-                  .add(const Duration(hours: 2))
-                  .toIso8601String(),
-              'weekday': 6,
-              'slot': '14-16',
-              'city': 'Addis Ababa',
-              'capacity': 20,
-              'booked_count': 5,
-              'is_active': true,
-            }
-          ]);
+      when(() => mockApi.availableWindows()).thenAnswer(
+        (_) async => [
+          {
+            'id': 'window-1',
+            'start_at': DateTime.now().toIso8601String(),
+            'end_at': DateTime.now()
+                .add(const Duration(hours: 2))
+                .toIso8601String(),
+            'weekday': 6,
+            'slot': '14-16',
+            'city': 'Addis Ababa',
+            'capacity': 20,
+            'booked_count': 5,
+            'is_active': true,
+          },
+        ],
+      );
 
       // Act: Read public data
       final windows = await mockApi.availableWindows();
@@ -119,13 +128,15 @@ void main() {
 
     test('User readiness returns not ready for anonymous', () async {
       // Setup: Anonymous user has no active window
-      when(() => mockApi.userReadiness()).thenAnswer((_) async => {
-            'user_id': null,
-            'is_ready': false,
-            'reasons': ['NO_USER_SESSION'],
-            'active_city': null,
-            'active_window_id': null,
-          });
+      when(() => mockApi.userReadiness()).thenAnswer(
+        (_) async => {
+          'user_id': null,
+          'is_ready': false,
+          'reasons': ['NO_USER_SESSION'],
+          'active_city': null,
+          'active_window_id': null,
+        },
+      );
 
       // Act: Check readiness
       final readiness = await mockApi.userReadiness();
@@ -158,7 +169,3 @@ void main() {
     });
   });
 }
-
-
-
-

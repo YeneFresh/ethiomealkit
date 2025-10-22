@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../repo/cart_repository.dart';
-import '../../models/models.dart';
+import 'package:ethiomealkit/repo/cart_repository.dart';
+import 'package:ethiomealkit/models/models.dart';
 import 'package:go_router/go_router.dart';
 
 class CartScreen extends ConsumerWidget {
@@ -23,7 +23,9 @@ class CartScreen extends ConsumerWidget {
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Clear Cart'),
-                    content: const Text('Are you sure you want to remove all items from your cart?'),
+                    content: const Text(
+                      'Are you sure you want to remove all items from your cart?',
+                    ),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.of(context).pop(false),
@@ -36,7 +38,7 @@ class CartScreen extends ConsumerWidget {
                     ],
                   ),
                 );
-                
+
                 if (confirmed == true) {
                   await cartNotifier.clearCart();
                 }
@@ -59,7 +61,11 @@ class CartScreen extends ConsumerWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Icon(Icons.shopping_cart_outlined, size: 100, color: Colors.grey),
+          const Icon(
+            Icons.shopping_cart_outlined,
+            size: 100,
+            color: Colors.grey,
+          ),
           const SizedBox(height: 24),
           const Text(
             'Your cart is empty',
@@ -76,16 +82,18 @@ class CartScreen extends ConsumerWidget {
             onPressed: () => context.go('/meals'),
             icon: const Icon(Icons.restaurant_menu),
             label: const Text('Browse Meals'),
-            style: ElevatedButton.styleFrom(
-              minimumSize: const Size(200, 48),
-            ),
+            style: ElevatedButton.styleFrom(minimumSize: const Size(200, 48)),
           ),
         ],
       ),
     );
   }
 
-  Widget _buildCartItems(BuildContext context, Cart cart, CartNotifier cartNotifier) {
+  Widget _buildCartItems(
+    BuildContext context,
+    Cart cart,
+    CartNotifier cartNotifier,
+  ) {
     return ListView.builder(
       padding: const EdgeInsets.all(16),
       itemCount: cart.items.length,
@@ -110,7 +118,10 @@ class CartScreen extends ConsumerWidget {
                               width: 80,
                               height: 80,
                               color: Colors.grey[300],
-                              child: const Icon(Icons.restaurant, color: Colors.grey),
+                              child: const Icon(
+                                Icons.restaurant,
+                                color: Colors.grey,
+                              ),
                             );
                           },
                         )
@@ -118,7 +129,10 @@ class CartScreen extends ConsumerWidget {
                           width: 80,
                           height: 80,
                           color: Colors.grey[300],
-                          child: const Icon(Icons.restaurant, color: Colors.grey),
+                          child: const Icon(
+                            Icons.restaurant,
+                            color: Colors.grey,
+                          ),
                         ),
                 ),
                 const SizedBox(width: 16),
@@ -136,17 +150,17 @@ class CartScreen extends ConsumerWidget {
                       const SizedBox(height: 4),
                       Text(
                         'ETB ${(item.mealKit.priceCents / 100).toStringAsFixed(2)} each',
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                          fontSize: 14,
-                        ),
+                        style: TextStyle(color: Colors.grey[600], fontSize: 14),
                       ),
                       const SizedBox(height: 8),
                       Row(
                         children: [
                           IconButton(
                             onPressed: item.quantity > 1
-                                ? () => cartNotifier.updateCartItem(item.mealKit.id, item.quantity - 1)
+                                ? () => cartNotifier.updateCartItem(
+                                    item.mealKit.id,
+                                    item.quantity - 1,
+                                  )
                                 : null,
                             icon: const Icon(Icons.remove_circle_outline),
                             iconSize: 24,
@@ -165,7 +179,10 @@ class CartScreen extends ConsumerWidget {
                             ),
                           ),
                           IconButton(
-                            onPressed: () => cartNotifier.updateCartItem(item.mealKit.id, item.quantity + 1),
+                            onPressed: () => cartNotifier.updateCartItem(
+                              item.mealKit.id,
+                              item.quantity + 1,
+                            ),
                             icon: const Icon(Icons.add_circle_outline),
                             iconSize: 24,
                           ),
@@ -187,7 +204,8 @@ class CartScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 8),
                     IconButton(
-                      onPressed: () => cartNotifier.removeFromCart(item.mealKit.id),
+                      onPressed: () =>
+                          cartNotifier.removeFromCart(item.mealKit.id),
                       icon: const Icon(Icons.delete_outline, color: Colors.red),
                       tooltip: 'Remove item',
                     ),
@@ -201,7 +219,11 @@ class CartScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildBottomBar(BuildContext context, Cart cart, CartNotifier cartNotifier) {
+  Widget _buildBottomBar(
+    BuildContext context,
+    Cart cart,
+    CartNotifier cartNotifier,
+  ) {
     return SafeArea(
       child: Container(
         padding: const EdgeInsets.all(16),
@@ -258,6 +280,3 @@ class CartScreen extends ConsumerWidget {
     );
   }
 }
-
-
-

@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/usecases/get_weekly_menu.dart';
-import '../../domain/usecases/auto_select_recipes.dart';
-import '../../domain/usecases/get_available_delivery_slots.dart';
-import 'repository_providers.dart';
+import 'package:ethiomealkit/domain/usecases/get_weekly_menu.dart';
+import 'package:ethiomealkit/domain/usecases/auto_select_recipes.dart';
+import 'package:ethiomealkit/domain/usecases/get_available_delivery_slots.dart';
+import 'package:ethiomealkit/core/providers/repository_providers.dart';
 
 /// ===== Use Case Providers =====
 
@@ -14,10 +14,8 @@ final autoSelectRecipesProvider = Provider<AutoSelectRecipes>((ref) {
   return AutoSelectRecipes();
 });
 
-final getAvailableDeliverySlotsProvider =
-    Provider<GetAvailableDeliverySlots>((ref) {
+final getAvailableDeliverySlotsProvider = Provider<GetAvailableDeliverySlots>((
+  ref,
+) {
   return GetAvailableDeliverySlots(ref.watch(deliveryRepositoryProvider));
 });
-
-
-

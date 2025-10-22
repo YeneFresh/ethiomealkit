@@ -3,11 +3,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:confetti/confetti.dart';
 import 'package:go_router/go_router.dart';
-import '../../../core/app_colors.dart';
-import '../../../core/layout.dart';
-import '../../../core/providers/recipe_selection_providers.dart';
-import '../../box/providers/box_selection_providers.dart';
-import '../providers/user_onboarding_progress_provider.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/layout.dart';
+import 'package:ethiomealkit/core/providers/recipe_selection_providers.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
+import 'package:ethiomealkit/features/onboarding/providers/user_onboarding_progress_provider.dart';
 
 /// Sticky footer showing selection progress and continue button
 /// Triggers confetti when quota is reached
@@ -126,7 +126,7 @@ class _SelectionFooterState extends ConsumerState<SelectionFooter> {
                             Text(
                               'Add $remaining more to your box',
                               textAlign: TextAlign.center,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: AppColors.darkBrown,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 13,
@@ -163,7 +163,7 @@ class _SelectionFooterState extends ConsumerState<SelectionFooter> {
                         children: [
                           Text(
                             '$selectedCount of $quota selected',
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: AppColors.darkBrown,
                               fontWeight: FontWeight.w600,
                               fontSize: 16,
@@ -178,14 +178,14 @@ class _SelectionFooterState extends ConsumerState<SelectionFooter> {
                               ),
                             )
                           else
-                            Row(
+                            const Row(
                               children: [
                                 Icon(
                                   Icons.celebration,
                                   size: 14,
                                   color: AppColors.success600,
                                 ),
-                                const SizedBox(width: 4),
+                                SizedBox(width: 4),
                                 Text(
                                   'Perfect!',
                                   style: TextStyle(
@@ -229,8 +229,9 @@ class _SelectionFooterState extends ConsumerState<SelectionFooter> {
                                 vertical: 14,
                               ),
                               shape: RoundedRectangleBorder(
-                                borderRadius:
-                                    BorderRadius.circular(Layout.cardRadius),
+                                borderRadius: BorderRadius.circular(
+                                  Layout.cardRadius,
+                                ),
                               ),
                             ),
                             child: const Text(

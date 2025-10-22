@@ -1,7 +1,7 @@
 // Onboarding Providers - Proxies app.set_onboarding_plan
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/api/supa_client.dart';
+import 'package:ethiomealkit/data/api/supa_client.dart';
 
 // Data Models
 class OnboardingState {
@@ -36,8 +36,9 @@ class OnboardingState {
 }
 
 // Core Providers
-final onboardingProvider =
-    FutureProvider.autoDispose<OnboardingState?>((ref) async {
+final onboardingProvider = FutureProvider.autoDispose<OnboardingState?>((
+  ref,
+) async {
   final api = ref.watch(supaClientProvider);
 
   try {
@@ -51,23 +52,21 @@ final onboardingProvider =
 // Action Provider
 final setOnboardingPlanProvider = FutureProvider.family
     .autoDispose<void, Map<String, int>>((ref, plan) async {
-  final api = ref.watch(supaClientProvider);
+      final api = ref.watch(supaClientProvider);
 
-  try {
-    await api.setOnboardingPlan(
-      boxSize: plan['boxSize']!,
-      mealsPerWeek: plan['mealsPerWeek']!,
-    );
+      try {
+        await api.setOnboardingPlan(
+          boxSize: plan['boxSize']!,
+          mealsPerWeek: plan['mealsPerWeek']!,
+        );
 
-    // Invalidate to refresh
-    ref.invalidate(onboardingProvider);
-  } catch (e) {
-    rethrow;
-  }
-});
+        // Invalidate to refresh
+        ref.invalidate(onboardingProvider);
+      } catch (e) {
+        rethrow;
+      }
+    });
 
 // Holds a pending plan selection before the user authenticates.
 // Flow: Box screen saves here → Auth screen reads and persists after sign-in.
-final pendingPlanProvider = StateProvider<Map<String, int>?>(
-  (ref) => null,
-);
+final pendingPlanProvider = StateProvider<Map<String, int>?>((ref) => null);

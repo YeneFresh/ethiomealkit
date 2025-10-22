@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../core/app_colors.dart';
-import '../../core/layout.dart';
-import '../../core/analytics.dart';
-import '../../core/services/persistence_service.dart';
-import '../onboarding/providers/user_onboarding_progress_provider.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/layout.dart';
+import 'package:ethiomealkit/core/analytics.dart';
+import 'package:ethiomealkit/core/services/persistence_service.dart';
+import 'package:ethiomealkit/features/onboarding/providers/user_onboarding_progress_provider.dart';
 
 /// Welcome Screen - Premium Redesign
 /// Matches the brown/gold aesthetic of the onboarding flow
@@ -97,11 +97,9 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
     final size = MediaQuery.of(context).size;
 
     if (_isLoading) {
-      return Scaffold(
+      return const Scaffold(
         backgroundColor: AppColors.offWhite,
-        body: const Center(
-          child: CircularProgressIndicator(color: AppColors.gold),
-        ),
+        body: Center(child: CircularProgressIndicator(color: AppColors.gold)),
       );
     }
 
@@ -169,11 +167,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
             ],
           ),
           child: const Center(
-            child: Icon(
-              Icons.restaurant_menu,
-              size: 40,
-              color: Colors.white,
-            ),
+            child: Icon(Icons.restaurant_menu, size: 40, color: Colors.white),
           ),
         ),
 
@@ -206,20 +200,20 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
   }
 
   Widget _buildValueProps(ThemeData theme) {
-    return Column(
+    return const Column(
       children: [
         _ValuePropCard(
           icon: Icons.restaurant,
           title: 'Chef-curated recipes',
           subtitle: 'Delicious Ethiopian-inspired meals every week',
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
         _ValuePropCard(
           icon: Icons.local_shipping_outlined,
           title: 'Free delivery in Addis',
           subtitle: 'We bring everything you need, fresh to your door',
         ),
-        const SizedBox(height: 12),
+        SizedBox(height: 12),
         _ValuePropCard(
           icon: Icons.schedule_outlined,
           title: 'Save time, eat well',
@@ -248,10 +242,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
             ),
             child: const Text(
               'Get Started',
-              style: TextStyle(
-                fontSize: 17,
-                fontWeight: FontWeight.w700,
-              ),
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
             ),
           ),
         ),
@@ -281,10 +272,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             gradient: LinearGradient(
-              colors: [
-                AppColors.gold,
-                AppColors.gold.withOpacity(0.9),
-              ],
+              colors: [AppColors.gold, AppColors.gold.withOpacity(0.9)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -393,7 +381,7 @@ class _WelcomeScreenRedesignState extends ConsumerState<WelcomeScreenRedesign>
   }
 
   Widget _buildTrustBadges(ThemeData theme) {
-    return Wrap(
+    return const Wrap(
       alignment: WrapAlignment.center,
       spacing: 8,
       runSpacing: 8,
@@ -427,9 +415,7 @@ class _ValuePropCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(Layout.cardRadius),
-        border: Border.all(
-          color: AppColors.darkBrown.withOpacity(0.1),
-        ),
+        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.04),
@@ -446,11 +432,7 @@ class _ValuePropCard extends StatelessWidget {
               color: AppColors.gold.withOpacity(0.1),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(
-              icon,
-              color: AppColors.gold,
-              size: 24,
-            ),
+            child: Icon(icon, color: AppColors.gold, size: 24),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -496,9 +478,7 @@ class _TrustChip extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.peach50,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(
-          color: AppColors.darkBrown.withOpacity(0.1),
-        ),
+        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,

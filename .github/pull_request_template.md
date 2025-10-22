@@ -1,3 +1,15 @@
+## Summary
+<!-- What changed and why -->
+
+## Checklists
+- [ ] Tested in Mock mode
+- [ ] Tested in Supabase mode (if applicable)
+- [ ] `dart run build_runner build` leaves repo clean
+- [ ] `dart analyze --fatal-infos --fatal-warnings` passes
+- [ ] `flutter test` passes
+
+## Screenshots / Notes
+
 # Grand Image PR Template
 
 **Title:** <Imperative — e.g., "Guard weekly menu behind readiness; add views/RPC; add golden + smoke tests">
@@ -50,6 +62,7 @@ This PR follows the Grand Image Guardrails:
 If this PR attempts to change UI/UX beyond flags or registry, it should be rejected with:
 
 > "Refused structural UI change: violates Grand Image Guardrails (screen_registry.yaml / flags). Propose a design RFC instead."
+
 
 
 

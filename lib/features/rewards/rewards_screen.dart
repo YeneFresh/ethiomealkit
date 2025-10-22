@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/app_colors.dart';
-import '../../core/widgets/app_bottom_nav.dart';
-import '../../core/providers/hub_providers.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/widgets/app_bottom_nav.dart';
+import 'package:ethiomealkit/core/providers/hub_providers.dart';
 
 class RewardsScreen extends ConsumerWidget {
   const RewardsScreen({super.key});
@@ -29,7 +29,10 @@ class RewardsScreen extends ConsumerWidget {
   }
 
   Widget _buildContent(
-      BuildContext context, Map<String, dynamic> stats, ThemeData theme) {
+    BuildContext context,
+    Map<String, dynamic> stats,
+    ThemeData theme,
+  ) {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
@@ -124,8 +127,11 @@ class RewardsScreen extends ConsumerWidget {
               color: AppColors.gold.withOpacity(0.2),
               shape: BoxShape.circle,
             ),
-            child: const Icon(Icons.local_fire_department,
-                color: AppColors.gold, size: 32),
+            child: const Icon(
+              Icons.local_fire_department,
+              color: AppColors.gold,
+              size: 32,
+            ),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -201,9 +207,7 @@ class RewardsScreen extends ConsumerWidget {
           const SizedBox(height: 8),
           Text(
             '${(1000 - (points % 1000))} pts to Platinum',
-            style: theme.textTheme.bodySmall?.copyWith(
-              color: Colors.grey[600],
-            ),
+            style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
           ),
         ],
       ),

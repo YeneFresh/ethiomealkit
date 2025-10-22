@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../domain/entities/recipe.dart';
-import 'repository_providers.dart';
-import 'usecase_providers.dart';
+import 'package:ethiomealkit/domain/entities/recipe.dart';
+import 'package:ethiomealkit/core/providers/repository_providers.dart';
+import 'package:ethiomealkit/core/providers/usecase_providers.dart';
 
 /// ===== Clean Architecture Recipe Providers =====
 /// Zero business logic in widgets!
@@ -24,8 +24,8 @@ class WeeklyMenuController extends AsyncNotifier<List<Recipe>> {
 
 final weeklyMenuControllerProvider =
     AsyncNotifierProvider<WeeklyMenuController, List<Recipe>>(
-  () => WeeklyMenuController(),
-);
+      () => WeeklyMenuController(),
+    );
 
 /// Selected recipes controller (domain-driven)
 class SelectedRecipesController extends StateNotifier<Set<String>> {
@@ -83,8 +83,8 @@ class SelectedRecipesController extends StateNotifier<Set<String>> {
 
 final selectedRecipesControllerProvider =
     StateNotifierProvider<SelectedRecipesController, Set<String>>(
-  (ref) => SelectedRecipesController(ref),
-);
+      (ref) => SelectedRecipesController(ref),
+    );
 
 /// Derived: Remaining slots
 final remainingSlotsProvider = Provider<int>((ref) {
@@ -102,6 +102,3 @@ final atCapacityProvider = Provider<bool>((ref) {
 // TODO: Import boxQuotaProvider from features/box/providers/box_selection_providers.dart
 // For now, stub it here to avoid circular deps during migration
 final boxQuotaProvider = Provider<int>((ref) => 4);
-
-
-

@@ -76,31 +76,26 @@ class _$DeliveryWindowCopyWithImpl<$Res, $Val extends DeliveryWindow>
   }) {
     return _then(
       _value.copyWith(
-            id:
-                null == id
-                    ? _value.id
-                    : id // ignore: cast_nullable_to_non_nullable
-                        as String,
-            label:
-                null == label
-                    ? _value.label
-                    : label // ignore: cast_nullable_to_non_nullable
-                        as String,
-            dayOfWeek:
-                freezed == dayOfWeek
-                    ? _value.dayOfWeek
-                    : dayOfWeek // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            startTime:
-                freezed == startTime
-                    ? _value.startTime
-                    : startTime // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            endTime:
-                freezed == endTime
-                    ? _value.endTime
-                    : endTime // ignore: cast_nullable_to_non_nullable
-                        as String?,
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            label: null == label
+                ? _value.label
+                : label // ignore: cast_nullable_to_non_nullable
+                      as String,
+            dayOfWeek: freezed == dayOfWeek
+                ? _value.dayOfWeek
+                : dayOfWeek // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            startTime: freezed == startTime
+                ? _value.startTime
+                : startTime // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            endTime: freezed == endTime
+                ? _value.endTime
+                : endTime // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -147,31 +142,26 @@ class __$$DeliveryWindowImplCopyWithImpl<$Res>
   }) {
     return _then(
       _$DeliveryWindowImpl(
-        id:
-            null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                    as String,
-        label:
-            null == label
-                ? _value.label
-                : label // ignore: cast_nullable_to_non_nullable
-                    as String,
-        dayOfWeek:
-            freezed == dayOfWeek
-                ? _value.dayOfWeek
-                : dayOfWeek // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        startTime:
-            freezed == startTime
-                ? _value.startTime
-                : startTime // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        endTime:
-            freezed == endTime
-                ? _value.endTime
-                : endTime // ignore: cast_nullable_to_non_nullable
-                    as String?,
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        label: null == label
+            ? _value.label
+            : label // ignore: cast_nullable_to_non_nullable
+                  as String,
+        dayOfWeek: freezed == dayOfWeek
+            ? _value.dayOfWeek
+            : dayOfWeek // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        startTime: freezed == startTime
+            ? _value.startTime
+            : startTime // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        endTime: freezed == endTime
+            ? _value.endTime
+            : endTime // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }

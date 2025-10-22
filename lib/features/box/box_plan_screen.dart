@@ -7,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../onboarding/onboarding_providers.dart';
-import '../onboarding/onboarding_progress_header.dart';
+import 'package:ethiomealkit/features/onboarding/onboarding_providers.dart';
+import 'package:ethiomealkit/features/onboarding/onboarding_progress_header.dart';
 
 class BoxPlanScreen extends ConsumerStatefulWidget {
   const BoxPlanScreen({super.key});
@@ -67,8 +67,9 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color:
-                            theme.colorScheme.primaryContainer.withOpacity(0.3),
+                        color: theme.colorScheme.primaryContainer.withOpacity(
+                          0.3,
+                        ),
                         borderRadius: BorderRadius.circular(12),
                         border: Border.all(
                           color: theme.colorScheme.primary.withOpacity(0.3),
@@ -158,8 +159,9 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
                       boxShadow: _canContinue() && !_isLoading
                           ? [
                               BoxShadow(
-                                color:
-                                    theme.colorScheme.primary.withOpacity(0.3),
+                                color: theme.colorScheme.primary.withOpacity(
+                                  0.3,
+                                ),
                                 blurRadius: 8,
                                 offset: const Offset(0, 4),
                               ),
@@ -183,20 +185,21 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
                         elevation: 0,
                       ),
                       child: _isLoading
-                          ? Row(
+                          ? const Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                const SizedBox(
+                                SizedBox(
                                   width: 20,
                                   height: 20,
                                   child: CircularProgressIndicator(
                                     strokeWidth: 2,
                                     valueColor: AlwaysStoppedAnimation<Color>(
-                                        Colors.white),
+                                      Colors.white,
+                                    ),
                                   ),
                                 ),
-                                const SizedBox(width: 12),
-                                const Text('Saving...'),
+                                SizedBox(width: 12),
+                                Text('Saving...'),
                               ],
                             )
                           : Row(
@@ -328,11 +331,7 @@ class _BoxPlanScreenState extends ConsumerState<BoxPlanScreen> {
                 ),
               ),
               if (isSelected)
-                Icon(
-                  Icons.check,
-                  color: theme.colorScheme.primary,
-                  size: 16,
-                ),
+                Icon(Icons.check, color: theme.colorScheme.primary, size: 16),
             ],
           ),
         ),

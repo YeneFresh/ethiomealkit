@@ -31,13 +31,11 @@ class GoldGradientProgressBar extends StatelessWidget {
           value: value,
           minHeight: height,
           backgroundColor: Colors.white.withValues(alpha: 0.10),
-          valueColor: const AlwaysStoppedAnimation<Color>(Colors.white), // masked by shader
+          valueColor: const AlwaysStoppedAnimation<Color>(
+            Colors.white,
+          ), // masked by shader
         ),
       ),
     );
   }
 }
-
-
-
-

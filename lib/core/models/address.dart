@@ -28,17 +28,16 @@ class Address {
     String? notes,
     double? lat,
     double? lng,
-  }) =>
-      Address(
-        id: id,
-        label: label ?? this.label,
-        line1: line1 ?? this.line1,
-        line2: line2 ?? this.line2,
-        city: city ?? this.city,
-        notes: notes ?? this.notes,
-        lat: lat ?? this.lat,
-        lng: lng ?? this.lng,
-      );
+  }) => Address(
+    id: id,
+    label: label ?? this.label,
+    line1: line1 ?? this.line1,
+    line2: line2 ?? this.line2,
+    city: city ?? this.city,
+    notes: notes ?? this.notes,
+    lat: lat ?? this.lat,
+    lng: lng ?? this.lng,
+  );
 
   /// Display full address as single line
   String get fullAddress {
@@ -55,6 +54,3 @@ class Address {
     return '$label • $city';
   }
 }
-
-
-

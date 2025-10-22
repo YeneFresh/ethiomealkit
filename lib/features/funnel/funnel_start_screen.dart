@@ -32,7 +32,7 @@ class FunnelStartScreen extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 32),
-            
+
             // Welcome text
             Text(
               'Fresh Ethiopian Meals\nDelivered to Your Door',
@@ -43,7 +43,7 @@ class FunnelStartScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            
+
             Text(
               'Choose from our weekly menu of authentic Ethiopian dishes, '
               'prepared fresh and delivered on your schedule.',
@@ -54,7 +54,7 @@ class FunnelStartScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 48),
-            
+
             // Start button
             SizedBox(
               width: double.infinity,
@@ -68,15 +68,12 @@ class FunnelStartScreen extends StatelessWidget {
                 ),
                 child: const Text(
                   'Get Started',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
               ),
             ),
             const SizedBox(height: 24),
-            
+
             // Progress indicator
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -89,11 +86,7 @@ class FunnelStartScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                 ),
-                Container(
-                  width: 24,
-                  height: 2,
-                  color: Colors.grey[300],
-                ),
+                Container(width: 24, height: 2, color: Colors.grey[300]),
                 Container(
                   width: 12,
                   height: 12,
@@ -102,11 +95,7 @@ class FunnelStartScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                 ),
-                Container(
-                  width: 24,
-                  height: 2,
-                  color: Colors.grey[300],
-                ),
+                Container(width: 24, height: 2, color: Colors.grey[300]),
                 Container(
                   width: 12,
                   height: 12,
@@ -115,11 +104,7 @@ class FunnelStartScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                 ),
-                Container(
-                  width: 24,
-                  height: 2,
-                  color: Colors.grey[300],
-                ),
+                Container(width: 24, height: 2, color: Colors.grey[300]),
                 Container(
                   width: 12,
                   height: 12,
@@ -128,11 +113,7 @@ class FunnelStartScreen extends StatelessWidget {
                     shape: BoxShape.circle,
                   ),
                 ),
-                Container(
-                  width: 24,
-                  height: 2,
-                  color: Colors.grey[300],
-                ),
+                Container(width: 24, height: 2, color: Colors.grey[300]),
                 Container(
                   width: 12,
                   height: 12,
@@ -144,7 +125,7 @@ class FunnelStartScreen extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            
+
             Text(
               'Step 1 of 5',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(

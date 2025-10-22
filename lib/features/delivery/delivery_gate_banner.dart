@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../weekly_menu/weekly_menu_providers.dart';
+import 'package:ethiomealkit/features/weekly_menu/weekly_menu_providers.dart';
 
 class DeliveryGateBanner extends ConsumerWidget {
   const DeliveryGateBanner({super.key});
@@ -63,8 +63,9 @@ class DeliveryGateBanner extends ConsumerWidget {
                     Text(
                       'Set your delivery details to unlock recipes',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onPrimaryContainer
-                            .withValues(alpha: 0.8),
+                        color: theme.colorScheme.onPrimaryContainer.withValues(
+                          alpha: 0.8,
+                        ),
                       ),
                     ),
                   ],
@@ -75,8 +76,10 @@ class DeliveryGateBanner extends ConsumerWidget {
                 style: TextButton.styleFrom(
                   foregroundColor: theme.colorScheme.primary,
                   backgroundColor: theme.colorScheme.surface,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
                   ),

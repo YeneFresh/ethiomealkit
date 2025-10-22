@@ -4,5 +4,3 @@ export 'src/cart.dart';
 export 'src/address.dart';
 export 'src/delivery_window.dart';
 export 'src/order.dart';
-
-

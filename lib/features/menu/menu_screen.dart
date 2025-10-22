@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../core/supabase_service.dart';
-import 'menu_providers.dart';
+import 'package:ethiomealkit/core/supabase_service.dart';
+import 'package:ethiomealkit/features/menu/menu_providers.dart';
 
 class MenuScreen extends ConsumerStatefulWidget {
   const MenuScreen({super.key});
@@ -33,8 +33,11 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
     'veggie': 'Veggie Delights',
   };
   // Active chip filters (also persisted to Supabase via RPC)
-  Set<String> _activeChips =
-      {'rapid', 'family', 'veggie'}.where((_) => false).toSet(); // start empty
+  Set<String> _activeChips = {
+    'rapid',
+    'family',
+    'veggie',
+  }.where((_) => false).toSet(); // start empty
 
   Map<String, num>? _pricing; // {meals_count, subtotal_etb, total_etb, ...}
 
@@ -71,10 +74,7 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
       // 2) profile
       profile =
           await db.from('profiles').select().eq('id', uid).maybeSingle() ??
-              {
-                'meals_per_week': 3,
-                'preferences': <String>[],
-              };
+          {'meals_per_week': 3, 'preferences': <String>[]};
 
       // B) Load chips from user_chip_boosts table
       await _loadChipBoosts();
@@ -92,7 +92,7 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
 
         final cats = {
           for (final r in rows)
-            r['category'] as String: (r['weight'] as num).toDouble()
+            r['category'] as String: (r['weight'] as num).toDouble(),
         };
 
         String? defaultChip;
@@ -100,7 +100,8 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
           defaultChip = 'veggie';
         } else if ((cats['family'] ?? 0) > 0.8)
           defaultChip = 'family';
-        else if ((cats['quick_easy'] ?? 0) > 0.8) defaultChip = 'rapid';
+        else if ((cats['quick_easy'] ?? 0) > 0.8)
+          defaultChip = 'rapid';
 
         if (defaultChip != null) {
           setState(() => _activeChips = {defaultChip!});
@@ -113,16 +114,20 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
       final list = List<Map<String, dynamic>>.from(rpc);
 
       recipes = list
-          .map((m) => {
-                'id': (m['recipe_id'] as String),
-                'name': (m['name'] as String?) ?? 'Recipe',
-                'categories':
-                    List<String>.from(m['categories'] ?? const <String>[]),
-                'cook_minutes': m['cook_minutes'] ?? 25,
-                'kcal': m['kcal'] ?? 500,
-                'hero_image': m['hero_image'] ??
-                    'https://picsum.photos/seed/${(m['recipe_id'] as String).hashCode}/800/500',
-              })
+          .map(
+            (m) => {
+              'id': (m['recipe_id'] as String),
+              'name': (m['name'] as String?) ?? 'Recipe',
+              'categories': List<String>.from(
+                m['categories'] ?? const <String>[],
+              ),
+              'cook_minutes': m['cook_minutes'] ?? 25,
+              'kcal': m['kcal'] ?? 500,
+              'hero_image':
+                  m['hero_image'] ??
+                  'https://picsum.photos/seed/${(m['recipe_id'] as String).hashCode}/800/500',
+            },
+          )
           .toList();
 
       // 4) existing selections for this same week
@@ -160,7 +165,8 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
       // Debug
       print('APP USER ID => $uid');
       print(
-          'WEEK => $weekStrFromServer  MENU COUNT => ${recipes.length}  PICKED => ${picked.length}');
+        'WEEK => $weekStrFromServer  MENU COUNT => ${recipes.length}  PICKED => ${picked.length}',
+      );
 
       if (_errorMessage != null) {
         setState(() => _errorMessage = null);
@@ -238,11 +244,15 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
       final rows = await db.rpc('get_user_chip_boosts', params: {'_user': uid});
       _activeChips
         ..clear()
-        ..addAll(List<Map<String, dynamic>>.from(rows)
-            .where((m) => (m['is_active'] as bool? ?? false))
-            .map((m) => m['chip'] as String));
+        ..addAll(
+          List<Map<String, dynamic>>.from(rows)
+              .where((m) => (m['is_active'] as bool? ?? false))
+              .map((m) => m['chip'] as String),
+        );
       if (mounted) setState(() {});
-    } catch (_) {/* ignore */}
+    } catch (_) {
+      /* ignore */
+    }
   }
 
   Future<void> _setChipActive(String chip, bool active) async {
@@ -256,8 +266,10 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
     });
     // persist (influences recommender weights immediately)
     try {
-      await db.rpc('toggle_user_chip',
-          params: {'_user': uid, '_chip': chip, '_active': active});
+      await db.rpc(
+        'toggle_user_chip',
+        params: {'_user': uid, '_chip': chip, '_active': active},
+      );
     } catch (e) {
       // revert on error
       setState(() {
@@ -267,16 +279,19 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
           _activeChips.add(chip);
         }
       });
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Chip save failed: $e')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Chip save failed: $e')));
     }
   }
 
   Future<void> _refreshPricing() async {
     final uid = db.auth.currentUser!.id;
     try {
-      final rows =
-          await db.rpc('pricing_for_current_week', params: {'_user': uid});
+      final rows = await db.rpc(
+        'pricing_for_current_week',
+        params: {'_user': uid},
+      );
       final list = List<Map<String, dynamic>>.from(rows);
       if (list.isNotEmpty) {
         setState(() => _pricing = Map<String, num>.from(list.first));
@@ -289,8 +304,10 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
   Future<Map<String, dynamic>?> _fetchOrderSummary() async {
     final uid = db.auth.currentUser!.id;
     try {
-      final rows =
-          await db.rpc('get_order_summary_current', params: {'_user': uid});
+      final rows = await db.rpc(
+        'get_order_summary_current',
+        params: {'_user': uid},
+      );
       final list = List<Map<String, dynamic>>.from(rows);
       if (list.isNotEmpty) {
         return list.first;
@@ -321,7 +338,8 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
               Text('Order ID: ${summary['order_id'] ?? 'N/A'}'),
               Text('Status: ${summary['status'] ?? 'N/A'}'),
               Text(
-                  'Total: ETB ${(summary['total_etb'] ?? 0).toStringAsFixed(2)}'),
+                'Total: ETB ${(summary['total_etb'] ?? 0).toStringAsFixed(2)}',
+              ),
               const SizedBox(height: 16),
               ElevatedButton(
                 onPressed: () => Navigator.pop(context),
@@ -369,21 +387,29 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
         decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.surface,
-            border:
-                Border(top: BorderSide(color: Theme.of(context).dividerColor))),
+          color: Theme.of(context).colorScheme.surface,
+          border: Border(
+            top: BorderSide(color: Theme.of(context).dividerColor),
+          ),
+        ),
         child: Row(
           children: [
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('$meals meals • ${etb(subtotal)} subtotal',
-                      style: Theme.of(context).textTheme.bodyMedium),
-                  Text('Delivery ${etb(delivery)} • Discount -${etb(discount)}',
-                      style: Theme.of(context).textTheme.bodySmall),
-                  Text('Total ${etb(total)}',
-                      style: Theme.of(context).textTheme.titleMedium),
+                  Text(
+                    '$meals meals • ${etb(subtotal)} subtotal',
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  Text(
+                    'Delivery ${etb(delivery)} • Discount -${etb(discount)}',
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                  Text(
+                    'Total ${etb(total)}',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
                 ],
               ),
             ),
@@ -393,37 +419,40 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                   onPressed: () async {
                     final uid = db.auth.currentUser!.id;
                     try {
-                      final res =
-                          await db.rpc('add_himbasha_to_order', params: {
-                        '_user': uid,
-                      });
+                      final res = await db.rpc(
+                        'add_himbasha_to_order',
+                        params: {'_user': uid},
+                      );
                       if (res.error == null) {
                         ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                              content: Text('Himbasha added to your order!')),
+                          const SnackBar(
+                            content: Text('Himbasha added to your order!'),
+                          ),
                         );
                         // Refresh pricing to show updated total
                         await _refreshPricing();
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(
                           SnackBar(
-                              content: Text('Error: ${res.error!.message}')),
+                            content: Text('Error: ${res.error!.message}'),
+                          ),
                         );
                       }
                     } catch (e) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Error: $e')),
-                      );
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text('Error: $e')));
                     }
                   },
-                  icon: Icon(Icons.add_circle_outline),
-                  label: Text('Add Himbasha (150 ETB)'),
+                  icon: const Icon(Icons.add_circle_outline),
+                  label: const Text('Add Himbasha (150 ETB)'),
                 ),
                 const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: () {
                     context.go(
-                        '/menu'); // Navigate to meal selection instead of calling RPC directly
+                      '/menu',
+                    ); // Navigate to meal selection instead of calling RPC directly
                   },
                   child: const Text('Place Order'),
                 ),
@@ -434,13 +463,15 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                   onPressed: () async {
                     final uid = db.auth.currentUser!.id;
                     try {
-                      await db
-                          .rpc('cancel_current_order', params: {'_user': uid});
+                      await db.rpc(
+                        'cancel_current_order',
+                        params: {'_user': uid},
+                      );
                       if (!mounted) return;
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
-                            content:
-                                Text('Order canceled & capacity released')),
+                          content: Text('Order canceled & capacity released'),
+                        ),
                       );
                       // Refresh pricing to show updated state
                       await _refreshPricing();
@@ -453,7 +484,7 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                   },
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -464,8 +495,9 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
     var list = recipes;
 
     if (applyPrefsFilter) {
-      final prefs =
-          List<String>.from(profile?['preferences'] ?? const <String>[]);
+      final prefs = List<String>.from(
+        profile?['preferences'] ?? const <String>[],
+      );
       if (prefs.isNotEmpty) {
         list = list.where((r) {
           final cats = List<String>.from(r['categories'] ?? const <String>[]);
@@ -509,19 +541,23 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
         setState(() => picked.add(recipeKey));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Save error: $e')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Save error: $e')));
     }
   }
 
   Future<void> _autoSelect() async {
     final uid = db.auth.currentUser!.id;
     try {
-      final rec = await db.rpc('recommend_recipes', params: {
-        '_user': uid,
-        '_week': weekStr, // you already set this from the server RPC
-        '_limit': maxMeals,
-      });
+      final rec = await db.rpc(
+        'recommend_recipes',
+        params: {
+          '_user': uid,
+          '_week': weekStr, // you already set this from the server RPC
+          '_limit': maxMeals,
+        },
+      );
 
       final rows = List<Map<String, dynamic>>.from(rec);
       final ids = rows.map<String>((e) => e['recipe_id'] as String).toList();
@@ -539,45 +575,57 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
           .delete()
           .match({'user_id': uid, 'week_start': weekStr});
 
-      await db.from('user_meal_selections').insert(ids
-          .take(maxMeals)
-          .map((id) => {
-                'user_id': uid,
-                'week_start': weekStr,
-                'recipe_id': id,
-              })
-          .toList());
+      await db
+          .from('user_meal_selections')
+          .insert(
+            ids
+                .take(maxMeals)
+                .map(
+                  (id) => {
+                    'user_id': uid,
+                    'week_start': weekStr,
+                    'recipe_id': id,
+                  },
+                )
+                .toList(),
+          );
 
       setState(() => picked = ids.take(maxMeals).toSet());
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Auto-selected ${picked.length} meals.')),
       );
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Auto-select failed: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Auto-select failed: $e')));
     }
   }
 
   Future<void> autoFillNextWeeks() async {
     final uid = db.auth.currentUser!.id;
     try {
-      final rows =
-          await db.rpc('rpc_auto_select_5_weeks', params: {'_user': uid});
+      final rows = await db.rpc(
+        'rpc_auto_select_5_weeks',
+        params: {'_user': uid},
+      );
       final inserted = List<Map<String, dynamic>>.from(rows);
       if (!mounted) return;
 
       // Refresh current week's data to show updated selections
       await _bootstrap();
 
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
           content: Text(
-              'Auto Plan Generated! ${inserted.length} meals selected across upcoming weeks.')));
+            'Auto Plan Generated! ${inserted.length} meals selected across upcoming weeks.',
+          ),
+        ),
+      );
     } catch (e) {
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Auto Plan failed: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Auto Plan failed: $e')));
     }
   }
 
@@ -601,15 +649,17 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
             ),
             TextField(
               controller: controller,
-              decoration:
-                  const InputDecoration(labelText: 'Comment (optional)'),
+              decoration: const InputDecoration(
+                labelText: 'Comment (optional)',
+              ),
             ),
           ],
         ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel')),
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
           ElevatedButton(
             onPressed: () async {
               final uid = db.auth.currentUser!.id;
@@ -624,13 +674,15 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
                 }, onConflict: 'user_id,recipe_id');
                 if (context.mounted) {
                   Navigator.pop(context);
-                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Thanks for rating! +10 pts')));
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Thanks for rating! +10 pts')),
+                  );
                 }
               } catch (e) {
                 if (!context.mounted) return;
-                ScaffoldMessenger.of(context)
-                    .showSnackBar(SnackBar(content: Text('Rating failed: $e')));
+                ScaffoldMessenger.of(
+                  context,
+                ).showSnackBar(SnackBar(content: Text('Rating failed: $e')));
               }
             },
             child: const Text('Submit'),
@@ -644,12 +696,15 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
     final uid = db.auth.currentUser!.id;
     try {
       // RPC updates consumed_at; unlocks week if all picked are consumed and shipment is shipped
-      final unlocked = await db.rpc('mark_consumed_and_maybe_unlock', params: {
-        '_user': uid,
-        '_week':
-            weekStr, // the YYYY-MM-DD you got from current_week_start_utc()
-        '_recipe': recipeId,
-      });
+      final unlocked = await db.rpc(
+        'mark_consumed_and_maybe_unlock',
+        params: {
+          '_user': uid,
+          '_week':
+              weekStr, // the YYYY-MM-DD you got from current_week_start_utc()
+          '_recipe': recipeId,
+        },
+      );
 
       setState(() {
         consumed.add(recipeId); // update UI state
@@ -658,14 +713,14 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
 
       // tiny, non-promotional nudge
       if ((unlocked as bool?) == true) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Content unlocked.')),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(const SnackBar(content: Text('Content unlocked.')));
       }
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Check-in failed: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Check-in failed: $e')));
     }
   }
 
@@ -685,7 +740,9 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
         builder: (_) => SafeArea(
           child: items.isEmpty
               ? const Padding(
-                  padding: EdgeInsets.all(16), child: Text('No content yet.'))
+                  padding: EdgeInsets.all(16),
+                  child: Text('No content yet.'),
+                )
               : ListView.separated(
                   padding: const EdgeInsets.all(16),
                   itemCount: items.length,
@@ -702,8 +759,9 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
         ),
       );
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text('Could not load content: $e')));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Could not load content: $e')));
     }
   }
 
@@ -714,10 +772,11 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
         title: const Text("This Week's Menu"),
         actions: [
           Center(
-              child: Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: Text('${picked.length}/$maxMeals'),
-          )),
+            child: Padding(
+              padding: const EdgeInsets.only(right: 12),
+              child: Text('${picked.length}/$maxMeals'),
+            ),
+          ),
           IconButton(
             tooltip: 'Auto-select this week',
             onPressed: _autoSelect,
@@ -729,164 +788,178 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
             icon: const Icon(Icons.calendar_month),
           ),
           Switch(
-              value: applyPrefsFilter,
-              onChanged: (v) => setState(() => applyPrefsFilter = v)),
+            value: applyPrefsFilter,
+            onChanged: (v) => setState(() => applyPrefsFilter = v),
+          ),
         ],
       ),
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _errorMessage != null
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(_errorMessage!),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _errorMessage = null;
+                        _loading = true;
+                      });
+                      _bootstrap();
+                    },
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ),
+            )
+          : Column(
+              children: [
+                _chipBar(),
+                // Filter and Sort Bar
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 8,
+                  ),
+                  child: Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    spacing: 10,
+                    runSpacing: 8,
                     children: [
-                      Text(_errorMessage!),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: () {
-                          setState(() {
-                            _errorMessage = null;
-                            _loading = true;
-                          });
-                          _bootstrap();
-                        },
-                        child: const Text('Retry'),
+                      // Filter button opens bottom sheet
+                      OutlinedButton.icon(
+                        icon: const Icon(Icons.tune),
+                        label: const Text('Filter'),
+                        onPressed: () => _openFilters(context),
+                      ),
+                      // Sort by dropdown
+                      DropdownButton<String>(
+                        value: ref.watch(sortByProvider),
+                        items: const [
+                          DropdownMenuItem(
+                            value: 'default',
+                            child: Text('Sort by'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'cal_low_high',
+                            child: Text('Calories: Low → High'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'time_low_high',
+                            child: Text('Cooking Time: Low → High'),
+                          ),
+                          DropdownMenuItem(
+                            value: 'protein_high_low',
+                            child: Text('Protein: High → Low'),
+                          ),
+                        ],
+                        onChanged: (v) =>
+                            ref.read(sortByProvider.notifier).state =
+                                v ?? 'default',
+                      ),
+                      // Quick chips (keep your existing categories)
+                      ChoiceChip(
+                        label: const Text('Rapid'),
+                        selected: ref
+                            .watch(quickChipProvider)
+                            .contains('rapid'),
+                        onSelected: (_) => ref
+                            .read(quickChipProvider.notifier)
+                            .toggle('rapid'),
+                      ),
+                      ChoiceChip(
+                        label: const Text('Family'),
+                        selected: ref
+                            .watch(quickChipProvider)
+                            .contains('family'),
+                        onSelected: (_) => ref
+                            .read(quickChipProvider.notifier)
+                            .toggle('family'),
+                      ),
+                      ChoiceChip(
+                        label: const Text('Veggie'),
+                        selected: ref
+                            .watch(quickChipProvider)
+                            .contains('veggie'),
+                        onSelected: (_) => ref
+                            .read(quickChipProvider.notifier)
+                            .toggle('veggie'),
                       ),
                     ],
                   ),
-                )
-              : Column(
-                  children: [
-                    _chipBar(),
-                    // Filter and Sort Bar
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
-                      child: Wrap(
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        spacing: 10,
-                        runSpacing: 8,
-                        children: [
-                          // Filter button opens bottom sheet
-                          OutlinedButton.icon(
-                            icon: const Icon(Icons.tune),
-                            label: const Text('Filter'),
-                            onPressed: () => _openFilters(context),
-                          ),
-                          // Sort by dropdown
-                          DropdownButton<String>(
-                            value: ref.watch(sortByProvider),
-                            items: const [
-                              DropdownMenuItem(
-                                  value: 'default', child: Text('Sort by')),
-                              DropdownMenuItem(
-                                  value: 'cal_low_high',
-                                  child: Text('Calories: Low → High')),
-                              DropdownMenuItem(
-                                  value: 'time_low_high',
-                                  child: Text('Cooking Time: Low → High')),
-                              DropdownMenuItem(
-                                  value: 'protein_high_low',
-                                  child: Text('Protein: High → Low')),
-                            ],
-                            onChanged: (v) => ref
-                                .read(sortByProvider.notifier)
-                                .state = v ?? 'default',
-                          ),
-                          // Quick chips (keep your existing categories)
-                          ChoiceChip(
-                            label: const Text('Rapid'),
-                            selected:
-                                ref.watch(quickChipProvider).contains('rapid'),
-                            onSelected: (_) => ref
-                                .read(quickChipProvider.notifier)
-                                .toggle('rapid'),
-                          ),
-                          ChoiceChip(
-                            label: const Text('Family'),
-                            selected:
-                                ref.watch(quickChipProvider).contains('family'),
-                            onSelected: (_) => ref
-                                .read(quickChipProvider.notifier)
-                                .toggle('family'),
-                          ),
-                          ChoiceChip(
-                            label: const Text('Veggie'),
-                            selected:
-                                ref.watch(quickChipProvider).contains('veggie'),
-                            onSelected: (_) => ref
-                                .read(quickChipProvider.notifier)
-                                .toggle('veggie'),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: _visibleRecipes.where(_passesChipFilter).isEmpty
-                          ? const Center(child: Text('No recipes match.'))
-                          : ListView.builder(
-                              padding: const EdgeInsets.all(12),
-                              itemCount: _visibleRecipes
-                                  .where(_passesChipFilter)
-                                  .length,
-                              itemBuilder: (_, i) {
-                                final filtered = _visibleRecipes
-                                    .where(_passesChipFilter)
-                                    .toList();
-                                final r = filtered[i];
-                                final id = r['id'] as String;
-                                final selected = picked.contains(id);
-                                final chips = _chipsFor(r);
-
-                                return Card(
-                                  margin:
-                                      const EdgeInsets.symmetric(vertical: 8),
-                                  child: ListTile(
-                                    contentPadding: const EdgeInsets.all(12),
-                                    title: Text(r['name']),
-                                    subtitle: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${(r['categories'] as List).join(' • ')}\n'
-                                          '${r['cook_minutes']} min • ${r['kcal']} kcal',
-                                        ),
-                                        const SizedBox(height: 6),
-                                        Wrap(
-                                          spacing: 6,
-                                          children: chips
-                                              .map((c) => Chip(
-                                                    label: Text(c == 'rapid'
-                                                        ? 'Rapid'
-                                                        : c == 'family'
-                                                            ? 'Family'
-                                                            : 'Veggie'),
-                                                    avatar: Icon(_chipIcon(c),
-                                                        size: 16),
-                                                    visualDensity:
-                                                        VisualDensity.compact,
-                                                    materialTapTargetSize:
-                                                        MaterialTapTargetSize
-                                                            .shrinkWrap,
-                                                  ))
-                                              .toList(),
-                                        ),
-                                      ],
-                                    ),
-                                    isThreeLine: true,
-                                    trailing: ElevatedButton(
-                                      onPressed: () => _togglePick(id),
-                                      child: Text(
-                                          selected ? 'Unselect' : 'Select'),
-                                    ),
-                                  ),
-                                );
-                              },
-                            ),
-                    ),
-                  ],
                 ),
+                Expanded(
+                  child: _visibleRecipes.where(_passesChipFilter).isEmpty
+                      ? const Center(child: Text('No recipes match.'))
+                      : ListView.builder(
+                          padding: const EdgeInsets.all(12),
+                          itemCount: _visibleRecipes
+                              .where(_passesChipFilter)
+                              .length,
+                          itemBuilder: (_, i) {
+                            final filtered = _visibleRecipes
+                                .where(_passesChipFilter)
+                                .toList();
+                            final r = filtered[i];
+                            final id = r['id'] as String;
+                            final selected = picked.contains(id);
+                            final chips = _chipsFor(r);
+
+                            return Card(
+                              margin: const EdgeInsets.symmetric(vertical: 8),
+                              child: ListTile(
+                                contentPadding: const EdgeInsets.all(12),
+                                title: Text(r['name']),
+                                subtitle: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      '${(r['categories'] as List).join(' • ')}\n'
+                                      '${r['cook_minutes']} min • ${r['kcal']} kcal',
+                                    ),
+                                    const SizedBox(height: 6),
+                                    Wrap(
+                                      spacing: 6,
+                                      children: chips
+                                          .map(
+                                            (c) => Chip(
+                                              label: Text(
+                                                c == 'rapid'
+                                                    ? 'Rapid'
+                                                    : c == 'family'
+                                                    ? 'Family'
+                                                    : 'Veggie',
+                                              ),
+                                              avatar: Icon(
+                                                _chipIcon(c),
+                                                size: 16,
+                                              ),
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                              materialTapTargetSize:
+                                                  MaterialTapTargetSize
+                                                      .shrinkWrap,
+                                            ),
+                                          )
+                                          .toList(),
+                                    ),
+                                  ],
+                                ),
+                                isThreeLine: true,
+                                trailing: ElevatedButton(
+                                  onPressed: () => _togglePick(id),
+                                  child: Text(selected ? 'Unselect' : 'Select'),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                ),
+              ],
+            ),
       bottomNavigationBar: _loading ? null : _pricingBar(),
     );
   }
@@ -914,31 +987,45 @@ class _FilterSheet extends ConsumerWidget {
         child: ListView(
           controller: ctl,
           children: [
-            const Text('Filter by',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+            const Text(
+              'Filter by',
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            ),
             const SizedBox(height: 12),
-            const Text('Main Protein',
-                style: TextStyle(fontWeight: FontWeight.w600)),
+            const Text(
+              'Main Protein',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
             const SizedBox(height: 8),
-            Wrap(spacing: 8, runSpacing: 8, children: [
-              _tag(ref, 'fish', 'Fish'),
-              _tag(ref, 'poultry', 'Poultry'),
-              _tag(ref, 'meat', 'Meat'),
-              _tag(ref, 'veg', 'Veg/Vegan'),
-            ]),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _tag(ref, 'fish', 'Fish'),
+                _tag(ref, 'poultry', 'Poultry'),
+                _tag(ref, 'meat', 'Meat'),
+                _tag(ref, 'veg', 'Veg/Vegan'),
+              ],
+            ),
             const SizedBox(height: 16),
-            const Text('Recipe Features',
-                style: TextStyle(fontWeight: FontWeight.w600)),
+            const Text(
+              'Recipe Features',
+              style: TextStyle(fontWeight: FontWeight.w600),
+            ),
             const SizedBox(height: 8),
-            Wrap(spacing: 8, runSpacing: 8, children: [
-              _tag(ref, 'calorie_smart', 'Calorie Smart'),
-              _tag(ref, 'global_eats', 'Global Eats'),
-              _tag(ref, 'low_carb', 'Low Carb'),
-              _tag(ref, 'family', 'Family Friendly'),
-              _tag(ref, 'express', 'Express'),
-              _tag(ref, 'gourmet', 'Gourmet'),
-              _tag(ref, 'chefs_choice', "Chef's Choice"),
-            ]),
+            Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: [
+                _tag(ref, 'calorie_smart', 'Calorie Smart'),
+                _tag(ref, 'global_eats', 'Global Eats'),
+                _tag(ref, 'low_carb', 'Low Carb'),
+                _tag(ref, 'family', 'Family Friendly'),
+                _tag(ref, 'express', 'Express'),
+                _tag(ref, 'gourmet', 'Gourmet'),
+                _tag(ref, 'chefs_choice', "Chef's Choice"),
+              ],
+            ),
             const SizedBox(height: 24),
             Row(
               children: [

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/app_colors.dart';
-import '../../core/layout.dart';
-import '../../core/models/address.dart';
-import '../../core/providers/address_providers.dart';
-import 'providers/user_onboarding_progress_provider.dart';
-import 'widgets/onboarding_scaffold.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/layout.dart';
+import 'package:ethiomealkit/core/models/address.dart';
+import 'package:ethiomealkit/core/providers/address_providers.dart';
+import 'package:ethiomealkit/features/onboarding/providers/user_onboarding_progress_provider.dart';
+import 'package:ethiomealkit/features/onboarding/widgets/onboarding_scaffold.dart';
 
 /// Map Picker Screen - Step 4a of unified onboarding
 /// Playful map interface for selecting delivery location
@@ -101,7 +101,7 @@ class MapPickerScreen extends ConsumerWidget {
                 const _CenterPin(),
 
                 // Tooltip
-                Positioned(
+                const Positioned(
                   top: 24,
                   left: 32,
                   right: 32,
@@ -123,17 +123,15 @@ class MapPickerScreen extends ConsumerWidget {
               // Persist pin coords to active address
               final id = ref.read(activeAddressIdProvider);
               final current = ref.read(activeAddressProvider);
-              final updated = (current ??
-                      Address(
-                        id: id,
-                        label: 'Home',
-                        line1: city,
-                        city: city,
-                      ))
-                  .copyWith(
-                lat: lat ?? 9.0108,
-                lng: lng ?? 38.7613,
-              );
+              final updated =
+                  (current ??
+                          Address(
+                            id: id,
+                            label: 'Home',
+                            line1: city,
+                            city: city,
+                          ))
+                      .copyWith(lat: lat ?? 9.0108, lng: lng ?? 38.7613);
               ref.read(addressesProvider.notifier).upsert(updated);
 
               // Navigate to address form
@@ -166,16 +164,11 @@ class _SearchBar extends StatelessWidget {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide: BorderSide(
-            color: AppColors.darkBrown.withOpacity(0.1),
-          ),
+          borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.1)),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide: const BorderSide(
-            color: AppColors.gold,
-            width: 2,
-          ),
+          borderSide: const BorderSide(color: AppColors.gold, width: 2),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -209,11 +202,7 @@ class _CenterPin extends ConsumerWidget {
           size: 48,
           color: AppColors.gold,
           shadows: [
-            Shadow(
-              color: Colors.black26,
-              blurRadius: 4,
-              offset: Offset(0, 2),
-            ),
+            Shadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 2)),
           ],
         ),
       ),
@@ -244,9 +233,9 @@ class _TooltipBubble extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-              color: Colors.white,
-            ),
+        style: Theme.of(
+          context,
+        ).textTheme.bodyMedium?.copyWith(color: Colors.white),
       ),
     );
   }
@@ -333,10 +322,7 @@ class _FooterCard extends StatelessWidget {
                 ),
                 child: const Text(
                   'Complete address details',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
                 ),
               ),
             ),

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../app_colors.dart';
-import '../layout.dart';
-import '../providers/cart_pricing_providers.dart';
-import '../providers/recipe_selection_providers.dart';
-import '../../features/box/providers/box_selection_providers.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/layout.dart';
+import 'package:ethiomealkit/core/providers/cart_pricing_providers.dart';
+import 'package:ethiomealkit/core/providers/recipe_selection_providers.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
 
 /// Helper: format currency (ETB for now)
 String _formatCurrency(double value) => 'ETB ${value.toStringAsFixed(0)}';
@@ -35,9 +35,7 @@ class CartSummaryBar extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: AppColors.darkBrown.withOpacity(0.1),
-            ),
+            border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
           ),
           child: Row(
             children: [
@@ -82,10 +80,7 @@ class CartSummaryBar extends ConsumerWidget {
                 ),
                 child: const Text(
                   'Review & Pay',
-                  style: TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                  ),
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
                 ),
               ),
             ],

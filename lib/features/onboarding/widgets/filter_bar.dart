@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/app_colors.dart';
-import '../../../core/providers/recipe_selection_providers.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/providers/recipe_selection_providers.dart';
 
 /// Horizontal scrollable filter bar for recipe tags
 class FilterBar extends ConsumerWidget {
@@ -29,7 +29,7 @@ class FilterBar extends ConsumerWidget {
         child: Row(
           children: _filterOptions.map((filter) {
             final isActive = activeFilters.contains(filter);
-            
+
             return Padding(
               padding: const EdgeInsets.only(right: 8),
               child: FilterChip(
@@ -58,7 +58,10 @@ class FilterBar extends ConsumerWidget {
                   fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
                   fontSize: 13,
                 ),
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 8,
+                ),
               ),
             );
           }).toList(),
@@ -67,7 +70,3 @@ class FilterBar extends ConsumerWidget {
     );
   }
 }
-
-
-
-

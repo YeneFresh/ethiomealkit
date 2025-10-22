@@ -1,19 +1,16 @@
 import 'package:flutter/material.dart';
-import '../../../core/design_tokens.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 /// Subtle gold ribbon overlay indicating a recipe was auto-selected by the algorithm
 class AutoSelectedRibbon extends StatelessWidget {
   final bool visible;
-  
-  const AutoSelectedRibbon({
-    super.key,
-    required this.visible,
-  });
+
+  const AutoSelectedRibbon({super.key, required this.visible});
 
   @override
   Widget build(BuildContext context) {
     if (!visible) return const SizedBox.shrink();
-    
+
     return Align(
       alignment: Alignment.topLeft,
       child: Container(
@@ -30,15 +27,11 @@ class AutoSelectedRibbon extends StatelessWidget {
             ),
           ],
         ),
-        child: Row(
+        child: const Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
-              Icons.auto_awesome,
-              size: 12,
-              color: Colors.white,
-            ),
-            const SizedBox(width: 4),
+            Icon(Icons.auto_awesome, size: 12, color: Colors.white),
+            SizedBox(width: 4),
             Text(
               'Auto-selected',
               style: TextStyle(
@@ -54,7 +47,3 @@ class AutoSelectedRibbon extends StatelessWidget {
     );
   }
 }
-
-
-
-

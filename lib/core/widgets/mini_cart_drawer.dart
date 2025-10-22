@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../app_colors.dart';
-import '../providers/cart_pricing_providers.dart';
-import '../providers/recipe_selection_providers.dart';
-import '../../features/box/providers/box_selection_providers.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/providers/cart_pricing_providers.dart';
+import 'package:ethiomealkit/core/providers/recipe_selection_providers.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
 
 /// Helper: format currency (ETB)
 String _formatCurrency(double value) => 'ETB ${value.toStringAsFixed(0)}';
@@ -39,8 +39,9 @@ class _MiniCartDrawer extends ConsumerWidget {
 
     final selectedIds = ref.watch(selectedRecipesProvider);
     final allRecipes = ref.watch(recipesProvider).value ?? [];
-    final selectedRecipes =
-        allRecipes.where((r) => selectedIds.contains(r.id)).toList();
+    final selectedRecipes = allRecipes
+        .where((r) => selectedIds.contains(r.id))
+        .toList();
 
     final theme = Theme.of(context);
 
@@ -86,8 +87,11 @@ class _MiniCartDrawer extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.info_outline,
-                        size: 20, color: AppColors.darkBrown),
+                    const Icon(
+                      Icons.info_outline,
+                      size: 20,
+                      color: AppColors.darkBrown,
+                    ),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -341,13 +345,13 @@ class _TotalsBlock extends StatelessWidget {
                     li.isFree
                         ? 'FREE'
                         : (li.value >= 0 ? '' : '−') +
-                            _formatCurrency(li.value.abs()),
+                              _formatCurrency(li.value.abs()),
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: li.isFree
                           ? AppColors.success600
                           : li.value < 0
-                              ? AppColors.success600
-                              : AppColors.darkBrown,
+                          ? AppColors.success600
+                          : AppColors.darkBrown,
                       fontWeight: li.isFree || li.value < 0
                           ? FontWeight.w600
                           : FontWeight.w400,
@@ -410,7 +414,7 @@ class _PromoRow extends ConsumerWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.celebration, size: 18, color: AppColors.success600),
+          const Icon(Icons.celebration, size: 18, color: AppColors.success600),
           const SizedBox(width: 8),
           Expanded(
             child: Text(

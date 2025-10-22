@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/app_colors.dart';
-import '../providers/box_selection_providers.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
 
 /// Horizontal selector for number of people (1-4)
 class PeopleSelector extends ConsumerWidget {
@@ -32,9 +32,7 @@ class PeopleSelector extends ConsumerWidget {
 
             return Expanded(
               child: Padding(
-                padding: EdgeInsets.only(
-                  right: index < 3 ? 8 : 0,
-                ),
+                padding: EdgeInsets.only(right: index < 3 ? 8 : 0),
                 child: _PeopleChip(
                   value: value,
                   isSelected: isSelected,
@@ -120,6 +118,3 @@ class _PeopleChip extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../address_providers.dart' show selectedCityProvider;
+import 'package:ethiomealkit/core/providers/address_providers.dart'
+    show selectedCityProvider;
 
 // ===== CONFIG =====
 const kCutoffHours = 48;
@@ -68,7 +69,7 @@ class DeliveryWindow {
       'Sep',
       'Oct',
       'Nov',
-      'Dec'
+      'Dec',
     ];
     return '${weekdayNames[startAt.weekday - 1]}, ${months[startAt.month - 1]} ${startAt.day}';
   }
@@ -83,7 +84,7 @@ class DeliveryWindow {
     return slot;
   }
 
-  String get label => '$city';
+  String get label => city;
 
   String? get disabledReason {
     if (!isActive) return 'Unavailable';
@@ -155,8 +156,9 @@ class DeliveryRepo {
     // Mark first selectable window as recommended
     final firstSelectable = list.indexWhere((w) => w.isSelectable);
     if (firstSelectable >= 0) {
-      list[firstSelectable] =
-          list[firstSelectable].copyWith(isRecommended: true);
+      list[firstSelectable] = list[firstSelectable].copyWith(
+        isRecommended: true,
+      );
     }
 
     return list;
@@ -200,11 +202,14 @@ class DeliveryRepo {
     DateTime? effectiveWeekStart,
   }) async {
     try {
-      await sb.rpc('upsert_user_delivery_preference', params: {
-        'p_user_id': userId,
-        'p_window_id': windowId,
-        'p_address_id': addressId,
-      });
+      await sb.rpc(
+        'upsert_user_delivery_preference',
+        params: {
+          'p_user_id': userId,
+          'p_window_id': windowId,
+          'p_address_id': addressId,
+        },
+      );
       print('✅ Delivery window updated: $windowId');
     } catch (e) {
       print('❌ Error setting delivery window: $e');
@@ -221,21 +226,27 @@ class DeliveryRepo {
   static DateTime _mondayOfNextWeek() {
     final now = DateTime.now();
     final daysToMon = (8 - now.weekday) % 7;
-    final nextMon = DateTime(now.year, now.month, now.day)
-        .add(Duration(days: daysToMon == 0 ? 7 : daysToMon));
+    final nextMon = DateTime(
+      now.year,
+      now.month,
+      now.day,
+    ).add(Duration(days: daysToMon == 0 ? 7 : daysToMon));
     return nextMon;
   }
 }
 
 // ===== SINGLETON CLIENT =====
-final supabaseProvider =
-    Provider<SupabaseClient>((_) => Supabase.instance.client);
-final deliveryRepoProvider =
-    Provider<DeliveryRepo>((ref) => DeliveryRepo(ref.watch(supabaseProvider)));
+final supabaseProvider = Provider<SupabaseClient>(
+  (_) => Supabase.instance.client,
+);
+final deliveryRepoProvider = Provider<DeliveryRepo>(
+  (ref) => DeliveryRepo(ref.watch(supabaseProvider)),
+);
 
 // ===== STATE (RIVERPOD) =====
-final addressTypeProvider =
-    StateProvider<String>((_) => 'home'); // 'home' | 'office'
+final addressTypeProvider = StateProvider<String>(
+  (_) => 'home',
+); // 'home' | 'office'
 // Note: selectedCityProvider is imported from address_providers.dart to avoid duplication
 
 // User ID provider (uses authenticated user)
@@ -245,8 +256,9 @@ final userIdProvider = Provider<String>((ref) {
 });
 
 // Load window choices for the next 4 weeks, filtered by city
-final availableWindowsProvider =
-    FutureProvider<List<DeliveryWindow>>((ref) async {
+final availableWindowsProvider = FutureProvider<List<DeliveryWindow>>((
+  ref,
+) async {
   final repo = ref.watch(deliveryRepoProvider);
   final city = ref.watch(selectedCityProvider);
   final now = DateTime.now();
@@ -258,8 +270,9 @@ final availableWindowsProvider =
 });
 
 // Group windows by date for better UX
-final windowsByDateProvider =
-    Provider<Map<String, List<DeliveryWindow>>>((ref) {
+final windowsByDateProvider = Provider<Map<String, List<DeliveryWindow>>>((
+  ref,
+) {
   final windowsAsync = ref.watch(availableWindowsProvider);
   final windows = windowsAsync.valueOrNull ?? [];
 
@@ -341,7 +354,8 @@ class SelectedWindowController
 
 final selectedDeliveryWindowProvider =
     AutoDisposeAsyncNotifierProvider<SelectedWindowController, SelectedWindow?>(
-        () => SelectedWindowController());
+      () => SelectedWindowController(),
+    );
 
 // Derived: for Home/Pay summary
 final nextDeliverySummaryProvider = Provider<String>((ref) {

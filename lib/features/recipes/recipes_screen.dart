@@ -6,17 +6,17 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../data/api/supa_client.dart';
-import '../onboarding/onboarding_progress_header.dart';
-import '../../core/analytics.dart';
-import '../../core/design_tokens.dart';
-import '../../core/providers/delivery_window_provider.dart';
-import 'widgets/delivery_summary_bar.dart';
-import 'widgets/recipe_card.dart';
-import 'widgets/recipe_list_item.dart';
-import 'widgets/recipe_filters_bar.dart';
-import 'nudges.dart';
-import 'auto_select.dart';
+import 'package:ethiomealkit/data/api/supa_client.dart';
+import 'package:ethiomealkit/features/onboarding/onboarding_progress_header.dart';
+import 'package:ethiomealkit/core/analytics.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
+import 'package:ethiomealkit/core/providers/delivery_window_provider.dart';
+import 'package:ethiomealkit/features/recipes/widgets/delivery_summary_bar.dart';
+import 'package:ethiomealkit/features/recipes/widgets/recipe_card.dart';
+import 'package:ethiomealkit/features/recipes/widgets/recipe_list_item.dart';
+import 'package:ethiomealkit/features/recipes/widgets/recipe_filters_bar.dart';
+import 'package:ethiomealkit/features/recipes/nudges.dart';
+import 'package:ethiomealkit/features/recipes/auto_select.dart';
 
 class RecipesScreen extends ConsumerStatefulWidget {
   const RecipesScreen({super.key});
@@ -35,9 +35,9 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
   int _allowedCount = 0;
   bool _fromDelivery = false;
   bool _hasLoadedOnce = false;
-  List<AnimationController> _animationControllers = [];
-  List<Animation<Offset>> _slideAnimations = [];
-  List<Animation<double>> _fadeAnimations = [];
+  final List<AnimationController> _animationControllers = [];
+  final List<Animation<Offset>> _slideAnimations = [];
+  final List<Animation<double>> _fadeAnimations = [];
 
   // Delivery window state
   Map<String, dynamic>? _activeDeliveryWindow;
@@ -156,14 +156,17 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
         if (isGuest && selections.isEmpty) {
           final guestSelections = await _loadGuestSelectionsLocally();
           selections = guestSelections
-              .map((id) => {
-                    'recipe_id': id,
-                    'selected': true,
-                    'allowed': defaultAllowance,
-                  })
+              .map(
+                (id) => {
+                  'recipe_id': id,
+                  'selected': true,
+                  'allowed': defaultAllowance,
+                },
+              )
               .toList();
           print(
-              '📦 Restored ${guestSelections.length} selections from local storage');
+            '📦 Restored ${guestSelections.length} selections from local storage',
+          );
         }
 
         // For newly authenticated users, transfer any guest selections
@@ -177,8 +180,9 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
           _activeDeliveryWindow = activeWindow;
           _isReady = true;
           _isLoading = false;
-          _selectedCount =
-              selections.where((s) => s['selected'] == true).length;
+          _selectedCount = selections
+              .where((s) => s['selected'] == true)
+              .length;
           _allowedCount = selections.isNotEmpty
               ? selections.first['allowed'] ?? defaultAllowance
               : (isGuest ? defaultAllowance : 0);
@@ -190,7 +194,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
         }
 
         print(
-            '✅ State updated: ${recipes.length} recipes, $_selectedCount/$_allowedCount selected (guest: $isGuest)');
+          '✅ State updated: ${recipes.length} recipes, $_selectedCount/$_allowedCount selected (guest: $isGuest)',
+        );
 
         // Apply filters and initialize animations
         _applyFilters();
@@ -277,7 +282,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
 
       notifier.setWindow(window);
       print(
-          '✅ Synced delivery window to global provider: ${window.dayLabel} • ${window.timeLabel}');
+        '✅ Synced delivery window to global provider: ${window.dayLabel} • ${window.timeLabel}',
+      );
     } catch (e) {
       print('⚠️ Failed to sync delivery window: $e');
     }
@@ -294,26 +300,17 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
 
     // Create staggered animations for each recipe
     for (int i = 0; i < _recipes.length; i++) {
-      final controller = AnimationController(
-        duration: Yf.d300,
-        vsync: this,
-      );
+      final controller = AnimationController(duration: Yf.d300, vsync: this);
 
       final slideAnimation = Tween<Offset>(
         begin: const Offset(0, 0.3),
         end: Offset.zero,
-      ).animate(CurvedAnimation(
-        parent: controller,
-        curve: Yf.emphasized,
-      ));
+      ).animate(CurvedAnimation(parent: controller, curve: Yf.emphasized));
 
       final fadeAnimation = Tween<double>(
         begin: 0.0,
         end: 1.0,
-      ).animate(CurvedAnimation(
-        parent: controller,
-        curve: Yf.standard,
-      ));
+      ).animate(CurvedAnimation(parent: controller, curve: Yf.standard));
 
       _animationControllers.add(controller);
       _slideAnimations.add(slideAnimation);
@@ -340,7 +337,9 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
 
     // Idempotency (run once per week per user on this device)
     if (_autoSelectWeekKey == weekKey ||
-        (await _localAutoSelectAlreadyDone(weekKey))) return;
+        (await _localAutoSelectAlreadyDone(weekKey))) {
+      return;
+    }
 
     await Future.delayed(const Duration(milliseconds: 400)); // let grid paint
     if (!mounted) return;
@@ -387,7 +386,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
       // Track analytics
       Analytics.recipesAutoSelected(count: choice.count);
       print(
-          '🏷️ Auto-selected ${choice.toSelect.length} recipes: ${choice.toSelect}');
+        '🏷️ Auto-selected ${choice.toSelect.length} recipes: ${choice.toSelect}',
+      );
     } catch (e) {
       debugPrint('Auto-selection failed: $e');
     }
@@ -431,7 +431,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
       return;
     }
     _filteredRecipes = _recipes.where((r) {
-      final tags = (r['tags'] as List?)
+      final tags =
+          (r['tags'] as List?)
               ?.map((t) => t.toString().toLowerCase())
               .toSet() ??
           {};
@@ -445,8 +446,15 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
       if (deliverAt == null) return 'Not specified';
 
       final date = DateTime.parse(deliverAt.toString());
-      final weekday =
-          ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'][date.weekday - 1];
+      final weekday = [
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat',
+        'Sun',
+      ][date.weekday - 1];
       final hour = date.hour.toString().padLeft(2, '0');
       final minute = date.minute.toString().padLeft(2, '0');
 
@@ -479,7 +487,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
       final prefs = await SharedPreferences.getInstance();
       final selectedIds = prefs.getStringList('guest_recipe_selections') ?? [];
       print(
-          '📂 Loaded ${selectedIds.length} guest selections from local storage');
+        '📂 Loaded ${selectedIds.length} guest selections from local storage',
+      );
       return selectedIds;
     } catch (e) {
       debugPrint('Failed to load guest selections: $e');
@@ -510,7 +519,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
     }
 
     print(
-        '🔄 Transferring ${guestSelections.length} guest selections to database...');
+      '🔄 Transferring ${guestSelections.length} guest selections to database...',
+    );
 
     try {
       final api = SupaClient(Supabase.instance.client);
@@ -526,7 +536,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
       }
 
       print(
-          '✅ Transferred $transferred/${guestSelections.length} selections to database');
+        '✅ Transferred $transferred/${guestSelections.length} selections to database',
+      );
 
       // Clear local storage after successful transfer
       await _clearGuestSelectionsLocally();
@@ -539,14 +550,16 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
   }
 
   String? _getChefNote(Map<String, dynamic> recipe) {
-    final tags = (recipe['tags'] as List?)
+    final tags =
+        (recipe['tags'] as List?)
             ?.map((t) => t.toString().toLowerCase())
             .toSet() ??
         {};
     if (tags.contains("chef's choice") || tags.contains('chef_choice')) {
       if (tags.contains('spicy')) return "Chef's pick · Spicy · 30-min";
-      if (tags.contains('healthy') || tags.contains('light'))
+      if (tags.contains('healthy') || tags.contains('light')) {
         return "Chef's pick · Light & fresh";
+      }
       return "Chef's favorite";
     }
     return null;
@@ -558,9 +571,9 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
     );
 
     if (!isSelected && _selectedCount >= _allowedCount) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        QuotaFullSnackBar(context: context),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(QuotaFullSnackBar(context: context));
       return;
     }
 
@@ -579,11 +592,13 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
             _autoSelectedIds.remove(recipeId);
           } else {
             // Add to local selections (explicit type to avoid IdentityMap issues)
-            _selections.add(Map<String, dynamic>.from({
-              'recipe_id': recipeId,
-              'selected': true,
-              'allowed': _allowedCount,
-            }));
+            _selections.add(
+              Map<String, dynamic>.from({
+                'recipe_id': recipeId,
+                'selected': true,
+                'allowed': _allowedCount,
+              }),
+            );
             _selectedCount++;
           }
         });
@@ -664,8 +679,11 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
         actions: [
           if (_isReady && !_isLoading)
             Container(
-              margin: EdgeInsets.only(right: Yf.s16),
-              padding: EdgeInsets.symmetric(horizontal: Yf.s12, vertical: 6),
+              margin: const EdgeInsets.only(right: Yf.s16),
+              padding: const EdgeInsets.symmetric(
+                horizontal: Yf.s12,
+                vertical: 6,
+              ),
               decoration: BoxDecoration(
                 color: theme.colorScheme.primaryContainer,
                 borderRadius: Yf.borderRadius16,
@@ -691,8 +709,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
             child: _isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : !_isReady
-                    ? _buildLockedView(context, theme)
-                    : _buildRecipesView(context, theme),
+                ? _buildLockedView(context, theme)
+                : _buildRecipesView(context, theme),
           ),
         ],
       ),
@@ -710,7 +728,7 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
             size: 64,
             color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
-          SizedBox(height: Yf.s24),
+          const SizedBox(height: Yf.s24),
           Text(
             'Delivery Required',
             style: theme.textTheme.headlineSmall?.copyWith(
@@ -718,7 +736,7 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
               color: theme.colorScheme.onSurface,
             ),
           ),
-          SizedBox(height: Yf.s12),
+          const SizedBox(height: Yf.s12),
           Text(
             'Please set up your delivery details before choosing recipes',
             style: theme.textTheme.bodyLarge?.copyWith(
@@ -726,7 +744,7 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: Yf.s32),
+          const SizedBox(height: Yf.s32),
           SizedBox(
             width: double.infinity,
             height: 56,
@@ -735,16 +753,11 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
               style: FilledButton.styleFrom(
                 backgroundColor: theme.colorScheme.primary,
                 foregroundColor: theme.colorScheme.onPrimary,
-                shape: RoundedRectangleBorder(
-                  borderRadius: Yf.borderRadius16,
-                ),
+                shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
               ),
               child: const Text(
                 'Set Up Delivery',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
           ),
@@ -764,7 +777,7 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
               size: 64,
               color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
             ),
-            SizedBox(height: Yf.s24),
+            const SizedBox(height: Yf.s24),
             Text(
               'No Recipes Available',
               style: theme.textTheme.headlineSmall?.copyWith(
@@ -772,7 +785,7 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
                 color: theme.colorScheme.onSurface,
               ),
             ),
-            SizedBox(height: Yf.s12),
+            const SizedBox(height: Yf.s12),
             Text(
               'Check back later for new recipes',
               style: theme.textTheme.bodyLarge?.copyWith(
@@ -803,8 +816,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
         // 0.5. Guest Notice Banner (dismissible, less prominent)
         if (isGuest && _showGuestBanner)
           Container(
-            margin: EdgeInsets.fromLTRB(Yf.s16, Yf.s8, Yf.s16, Yf.s8),
-            padding: EdgeInsets.all(Yf.s12),
+            margin: const EdgeInsets.fromLTRB(Yf.s16, Yf.s8, Yf.s16, Yf.s8),
+            padding: const EdgeInsets.all(Yf.s12),
             decoration: BoxDecoration(
               color: Yf.peach50,
               borderRadius: Yf.borderRadius12,
@@ -812,8 +825,8 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
             ),
             child: Row(
               children: [
-                Icon(Icons.info_outline, color: Yf.brown700, size: 18),
-                SizedBox(width: Yf.s8),
+                const Icon(Icons.info_outline, color: Yf.brown700, size: 18),
+                const SizedBox(width: Yf.s8),
                 Expanded(
                   child: Text(
                     'Selections saved locally • Sign in at checkout to complete order',
@@ -824,11 +837,13 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
                   ),
                 ),
                 IconButton(
-                  icon: Icon(Icons.close, size: 18, color: Yf.brown700),
+                  icon: const Icon(Icons.close, size: 18, color: Yf.brown700),
                   onPressed: () => setState(() => _showGuestBanner = false),
                   padding: EdgeInsets.zero,
-                  constraints:
-                      const BoxConstraints(minWidth: 32, minHeight: 32),
+                  constraints: const BoxConstraints(
+                    minWidth: 32,
+                    minHeight: 32,
+                  ),
                 ),
               ],
             ),
@@ -836,7 +851,7 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
 
         // 1. Selection Progress
         Padding(
-          padding: EdgeInsets.symmetric(vertical: Yf.s16),
+          padding: const EdgeInsets.symmetric(vertical: Yf.s16),
           child: SelectionProgress(
             selected: _selectedCount,
             total: _allowedCount,
@@ -885,7 +900,7 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
           resultCount: recipesToShow.length,
         ),
 
-        SizedBox(height: Yf.s8),
+        const SizedBox(height: Yf.s8),
 
         // 4. Responsive Recipe Feed (single-column on mobile, text+image rows on wide)
         Expanded(
@@ -895,7 +910,7 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
               final isWideScreen = constraints.maxWidth >= 600;
 
               return ListView.builder(
-                padding: EdgeInsets.only(bottom: 120, top: Yf.s8),
+                padding: const EdgeInsets.only(bottom: 120, top: Yf.s8),
                 cacheExtent: 1200, // Performance optimization
                 itemCount: recipesToShow.length,
                 itemBuilder: (context, index) {
@@ -906,8 +921,9 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
                   );
 
                   // Check if this recipe was auto-selected
-                  final isAutoSelected =
-                      _autoSelectedIds.contains(recipe['id']);
+                  final isAutoSelected = _autoSelectedIds.contains(
+                    recipe['id'],
+                  );
 
                   // Wide screen: use text+image row layout
                   if (isWideScreen) {
@@ -986,23 +1002,22 @@ class _RecipesScreenState extends ConsumerState<RecipesScreen>
                       onPressed: _allowedCount == 0
                           ? null
                           : _selectedCount > 0
-                              ? () {
-                                  HapticFeedback.mediumImpact();
-                                  Analytics.track('recipes_continue_clicked', {
-                                    'selected_count': _selectedCount,
-                                    'allowed_count': _allowedCount,
-                                    'is_complete':
-                                        _selectedCount == _allowedCount,
-                                  });
-                                  context.go('/address');
-                                }
-                              : null,
+                          ? () {
+                              HapticFeedback.mediumImpact();
+                              Analytics.track('recipes_continue_clicked', {
+                                'selected_count': _selectedCount,
+                                'allowed_count': _allowedCount,
+                                'is_complete': _selectedCount == _allowedCount,
+                              });
+                              context.go('/address');
+                            }
+                          : null,
                       child: Text(
                         _allowedCount == 0
                             ? 'Select your box size'
                             : _selectedCount == _allowedCount
-                                ? 'Continue'
-                                : 'Selected $_selectedCount / $_allowedCount',
+                            ? 'Continue'
+                            : 'Selected $_selectedCount / $_allowedCount',
                         style: const TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,

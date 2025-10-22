@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'design_tokens.dart';
-import 'analytics.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
+import 'package:ethiomealkit/core/analytics.dart';
 
 /// YeneFresh UI States - 2025 Edition
 /// Investor-grade loading, empty, and error states
@@ -21,7 +21,7 @@ class RecipeCardSkeleton extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Image skeleton
-          _SkeletonBox(
+          const _SkeletonBox(
             width: double.infinity,
             height: 200,
             borderRadius: BorderRadius.only(
@@ -36,18 +36,24 @@ class RecipeCardSkeleton extends StatelessWidget {
               children: [
                 // Title skeleton
                 const _SkeletonBox(width: 180, height: 20),
-                SizedBox(height: Yf.s8),
+                const SizedBox(height: Yf.s8),
                 // Tags skeleton
                 Row(
                   children: [
                     _SkeletonBox(
-                        width: 60, height: 24, borderRadius: Yf.borderRadius12),
-                    SizedBox(width: Yf.s8),
+                      width: 60,
+                      height: 24,
+                      borderRadius: Yf.borderRadius12,
+                    ),
+                    const SizedBox(width: Yf.s8),
                     _SkeletonBox(
-                        width: 80, height: 24, borderRadius: Yf.borderRadius12),
+                      width: 80,
+                      height: 24,
+                      borderRadius: Yf.borderRadius12,
+                    ),
                   ],
                 ),
-                SizedBox(height: Yf.s12),
+                const SizedBox(height: Yf.s12),
                 // Button skeleton
                 const _SkeletonBox(width: double.infinity, height: 40),
               ],
@@ -74,21 +80,24 @@ class OrderListSkeleton extends StatelessWidget {
             Row(
               children: [
                 _SkeletonBox(
-                    width: 40, height: 40, borderRadius: Yf.borderRadius12),
-                SizedBox(width: Yf.s12),
-                Expanded(
+                  width: 40,
+                  height: 40,
+                  borderRadius: Yf.borderRadius12,
+                ),
+                const SizedBox(width: Yf.s12),
+                const Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const _SkeletonBox(width: 150, height: 18),
+                      _SkeletonBox(width: 150, height: 18),
                       SizedBox(height: Yf.s4),
-                      const _SkeletonBox(width: 100, height: 14),
+                      _SkeletonBox(width: 100, height: 14),
                     ],
                   ),
                 ),
               ],
             ),
-            SizedBox(height: Yf.s12),
+            const SizedBox(height: Yf.s12),
             const _SkeletonBox(width: double.infinity, height: 14),
           ],
         ),
@@ -125,9 +134,10 @@ class _SkeletonBoxState extends State<_SkeletonBox>
       vsync: this,
       duration: const Duration(milliseconds: 1200),
     )..repeat();
-    _animation = Tween<double>(begin: -1.0, end: 2.0).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _animation = Tween<double>(
+      begin: -1.0,
+      end: 2.0,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
   }
 
   @override
@@ -216,7 +226,7 @@ class EmptyState extends StatelessWidget {
                 color: theme.colorScheme.primary.withValues(alpha: 0.5),
               ),
             ),
-            SizedBox(height: Yf.s24),
+            const SizedBox(height: Yf.s24),
 
             // Title
             Text(
@@ -224,7 +234,7 @@ class EmptyState extends StatelessWidget {
               style: theme.textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: Yf.s8),
+            const SizedBox(height: Yf.s8),
 
             // Message
             Text(
@@ -237,7 +247,7 @@ class EmptyState extends StatelessWidget {
 
             // Action button
             if (actionLabel != null && onAction != null) ...[
-              SizedBox(height: Yf.s24),
+              const SizedBox(height: Yf.s24),
               FilledButton.icon(
                 onPressed: onAction,
                 icon: const Icon(Icons.add_rounded),
@@ -329,13 +339,13 @@ class ErrorState extends StatelessWidget {
                 color: Yf.error600.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.error_outline_rounded,
                 size: 56,
                 color: Yf.error600,
               ),
             ),
-            SizedBox(height: Yf.s24),
+            const SizedBox(height: Yf.s24),
 
             // Title
             Text(
@@ -343,7 +353,7 @@ class ErrorState extends StatelessWidget {
               style: theme.textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: Yf.s8),
+            const SizedBox(height: Yf.s8),
 
             // Message
             Text(
@@ -356,7 +366,7 @@ class ErrorState extends StatelessWidget {
 
             // Error code (if available)
             if (errorCode != null) ...[
-              SizedBox(height: Yf.s8),
+              const SizedBox(height: Yf.s8),
               Text(
                 'Error: $errorCode',
                 style: theme.textTheme.labelSmall?.copyWith(
@@ -367,7 +377,7 @@ class ErrorState extends StatelessWidget {
 
             // Retry button
             if (onRetry != null) ...[
-              SizedBox(height: Yf.s24),
+              const SizedBox(height: Yf.s24),
               FilledButton.icon(
                 onPressed: onRetry,
                 icon: const Icon(Icons.refresh_rounded),
@@ -415,7 +425,3 @@ class LoadingError extends StatelessWidget {
     );
   }
 }
-
-
-
-

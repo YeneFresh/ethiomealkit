@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import '../../../core/design_tokens.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 /// Horizontal scrollable filter chips for recipes.
 /// Supports multiple active filters with debounced updates.
@@ -28,9 +28,15 @@ class _RecipeFiltersBarState extends State<RecipeFiltersBar> {
   static const _filterOptions = [
     _FilterOption(key: 'healthy', label: 'Healthy', icon: Icons.eco),
     _FilterOption(
-        key: 'spicy', label: 'Spicy', icon: Icons.local_fire_department),
+      key: 'spicy',
+      label: 'Spicy',
+      icon: Icons.local_fire_department,
+    ),
     _FilterOption(
-        key: 'veggie', label: 'Veggie', icon: Icons.energy_savings_leaf),
+      key: 'veggie',
+      label: 'Veggie',
+      icon: Icons.energy_savings_leaf,
+    ),
     _FilterOption(key: '30-min', label: '<30 min', icon: Icons.schedule),
     _FilterOption(key: 'ethiopian', label: 'Ethiopian', icon: Icons.flag),
     _FilterOption(key: 'beef', label: 'Beef', icon: Icons.restaurant),
@@ -93,10 +99,7 @@ class _RecipeFiltersBarState extends State<RecipeFiltersBar> {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         border: Border(
-          bottom: BorderSide(
-            color: theme.colorScheme.outlineVariant,
-            width: 1,
-          ),
+          bottom: BorderSide(color: theme.colorScheme.outlineVariant, width: 1),
         ),
       ),
       child: Column(
@@ -139,14 +142,14 @@ class _RecipeFiltersBarState extends State<RecipeFiltersBar> {
                 // Clear all button (if any active)
                 if (hasActiveFilters) ...[
                   _ClearButton(onPressed: _clearAll),
-                  SizedBox(width: Yf.s8),
+                  const SizedBox(width: Yf.s8),
                 ],
 
                 // Filter chips
                 ..._filterOptions.map((option) {
                   final isActive = _localFilters.contains(option.key);
                   return Padding(
-                    padding: EdgeInsets.only(right: Yf.s8),
+                    padding: const EdgeInsets.only(right: Yf.s8),
                     child: _FilterChip(
                       option: option,
                       isActive: isActive,
@@ -161,7 +164,7 @@ class _RecipeFiltersBarState extends State<RecipeFiltersBar> {
           // Result count indicator
           if (hasActiveFilters)
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 left: Yf.s16,
                 right: Yf.s16,
                 bottom: Yf.s8,
@@ -217,7 +220,7 @@ class _FilterChip extends StatelessWidget {
           borderRadius: Yf.borderRadius20,
           child: Container(
             constraints: const BoxConstraints(minHeight: 44), // Accessibility
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: Yf.s12,
               vertical: Yf.s8,
             ),
@@ -227,10 +230,7 @@ class _FilterChip extends StatelessWidget {
                   : theme.colorScheme.surfaceContainerHighest,
               borderRadius: Yf.borderRadius20,
               border: isActive
-                  ? Border.all(
-                      color: theme.colorScheme.primary,
-                      width: 2,
-                    )
+                  ? Border.all(color: theme.colorScheme.primary, width: 2)
                   : null,
             ),
             child: Row(
@@ -243,7 +243,7 @@ class _FilterChip extends StatelessWidget {
                       ? theme.colorScheme.onPrimaryContainer
                       : theme.colorScheme.onSurfaceVariant,
                 ),
-                SizedBox(width: Yf.s4),
+                const SizedBox(width: Yf.s4),
                 Text(
                   option.label,
                   style: theme.textTheme.labelLarge?.copyWith(
@@ -281,7 +281,7 @@ class _ClearButton extends StatelessWidget {
           borderRadius: Yf.borderRadius20,
           child: Container(
             constraints: const BoxConstraints(minHeight: 44),
-            padding: EdgeInsets.symmetric(
+            padding: const EdgeInsets.symmetric(
               horizontal: Yf.s12,
               vertical: Yf.s8,
             ),
@@ -297,7 +297,7 @@ class _ClearButton extends StatelessWidget {
                   size: 18,
                   color: theme.colorScheme.onErrorContainer,
                 ),
-                SizedBox(width: Yf.s4),
+                const SizedBox(width: Yf.s4),
                 Text(
                   'Clear',
                   style: theme.textTheme.labelLarge?.copyWith(

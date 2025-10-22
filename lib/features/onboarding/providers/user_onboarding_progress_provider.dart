@@ -156,5 +156,5 @@ class OnboardingProgressNotifier extends StateNotifier<OnboardingStep> {
 /// Provider for onboarding progress
 final userOnboardingProgressProvider =
     StateNotifierProvider<OnboardingProgressNotifier, OnboardingStep>(
-  (ref) => OnboardingProgressNotifier(),
-);
+      (ref) => OnboardingProgressNotifier(),
+    );

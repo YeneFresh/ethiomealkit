@@ -91,8 +91,9 @@ class SelectionStatus {
 }
 
 // Core Providers
-final selectionsProvider =
-    FutureProvider.autoDispose<List<RecipeSelection>>((ref) async {
+final selectionsProvider = FutureProvider.autoDispose<List<RecipeSelection>>((
+  ref,
+) async {
   final api = ref.watch(supaClientProvider);
 
   try {
@@ -104,8 +105,9 @@ final selectionsProvider =
 });
 
 // Gated on readinessProvider.is_ready
-final weeklyRecipesProvider =
-    FutureProvider.autoDispose<List<Recipe>>((ref) async {
+final weeklyRecipesProvider = FutureProvider.autoDispose<List<Recipe>>((
+  ref,
+) async {
   final api = ref.watch(supaClientProvider);
   final isReady = ref.watch(gateReadyProvider);
 
@@ -155,50 +157,50 @@ final selectionStatusProvider = Provider.autoDispose<SelectionStatus>((ref) {
 // Action Provider
 final toggleRecipeSelectionProvider = FutureProvider.family
     .autoDispose<SelectionStatus, String>((ref, recipeId) async {
-  final api = ref.watch(supaClientProvider);
-  final currentSelections = ref.read(selectionsProvider);
+      final api = ref.watch(supaClientProvider);
+      final currentSelections = ref.read(selectionsProvider);
 
-  // Find current selection state
-  final currentSelection = currentSelections.when(
-    data: (selections) => selections.firstWhere(
-      (s) => s.recipeId == recipeId,
-      orElse: () => RecipeSelection(
-        recipeId: '',
-        weekStart: DateTime.now(),
-        boxSize: 0,
-        selected: false,
-      ),
-    ),
-    loading: () => RecipeSelection(
-      recipeId: '',
-      weekStart: DateTime.now(),
-      boxSize: 0,
-      selected: false,
-    ),
-    error: (_, __) => RecipeSelection(
-      recipeId: '',
-      weekStart: DateTime.now(),
-      boxSize: 0,
-      selected: false,
-    ),
-  );
+      // Find current selection state
+      final currentSelection = currentSelections.when(
+        data: (selections) => selections.firstWhere(
+          (s) => s.recipeId == recipeId,
+          orElse: () => RecipeSelection(
+            recipeId: '',
+            weekStart: DateTime.now(),
+            boxSize: 0,
+            selected: false,
+          ),
+        ),
+        loading: () => RecipeSelection(
+          recipeId: '',
+          weekStart: DateTime.now(),
+          boxSize: 0,
+          selected: false,
+        ),
+        error: (_, __) => RecipeSelection(
+          recipeId: '',
+          weekStart: DateTime.now(),
+          boxSize: 0,
+          selected: false,
+        ),
+      );
 
-  final newSelection = !currentSelection.selected;
+      final newSelection = !currentSelection.selected;
 
-  try {
-    final result = await api.toggleRecipeSelection(
-      recipeId: recipeId,
-      select: newSelection,
-    );
+      try {
+        final result = await api.toggleRecipeSelection(
+          recipeId: recipeId,
+          select: newSelection,
+        );
 
-    final status = SelectionStatus.fromJson(result);
+        final status = SelectionStatus.fromJson(result);
 
-    // Invalidate related providers
-    ref.invalidate(selectionsProvider);
-    ref.invalidate(selectionStatusProvider);
+        // Invalidate related providers
+        ref.invalidate(selectionsProvider);
+        ref.invalidate(selectionStatusProvider);
 
-    return status;
-  } catch (e) {
-    rethrow;
-  }
-});
+        return status;
+      } catch (e) {
+        rethrow;
+      }
+    });

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../../../core/app_colors.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
 
 /// Large confirm button for box selection
 class ConfirmCTA extends StatelessWidget {
@@ -50,6 +50,3 @@ class ConfirmCTA extends StatelessWidget {
     );
   }
 }
-
-
-

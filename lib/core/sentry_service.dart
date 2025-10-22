@@ -2,29 +2,28 @@ import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 
 class SentryService {
-  static const String _dsn = ''; // Disabled for now - set to your actual DSN when ready
-  
+  static const String _dsn =
+      ''; // Disabled for now - set to your actual DSN when ready
+
   static Future<void> init() async {
     // Only initialize if DSN is provided
     if (_dsn.isEmpty) return;
-    
-    await SentryFlutter.init(
-      (options) {
-        options.dsn = _dsn;
-        options.tracesSampleRate = 1.0;
-        options.enableAutoSessionTracking = true;
-        options.attachStacktrace = true;
-        options.debug = kDebugMode;
-        
-        // Add auth context
-        options.beforeSend = (event, hint) {
-          // Add app context
-          event.tags?['platform'] = kIsWeb ? 'web' : 'mobile';
-          event.tags?['app'] = 'yenefresh';
-          return event;
-        };
-      },
-    );
+
+    await SentryFlutter.init((options) {
+      options.dsn = _dsn;
+      options.tracesSampleRate = 1.0;
+      options.enableAutoSessionTracking = true;
+      options.attachStacktrace = true;
+      options.debug = kDebugMode;
+
+      // Add auth context
+      options.beforeSend = (event, hint) {
+        // Add app context
+        event.tags?['platform'] = kIsWeb ? 'web' : 'mobile';
+        event.tags?['app'] = 'yenefresh';
+        return event;
+      };
+    });
   }
 
   // Add breadcrumb for auth flow tracking
@@ -67,7 +66,7 @@ class SentryService {
       userId: userId,
       metadata: metadata,
     );
-    
+
     Sentry.addBreadcrumb(
       Breadcrumb(
         message: 'Authentication successful',
@@ -130,11 +129,7 @@ class SentryService {
         message: 'Route changed: $fromRoute → $toRoute',
         category: 'navigation',
         type: 'navigation',
-        data: {
-          'from_route': fromRoute,
-          'to_route': toRoute,
-          'user_id': userId,
-        },
+        data: {'from_route': fromRoute, 'to_route': toRoute, 'user_id': userId},
         level: SentryLevel.info,
       ),
     );
@@ -147,11 +142,7 @@ class SentryService {
     Map<String, dynamic>? additionalData,
   }) {
     Sentry.configureScope((scope) {
-      scope.setUser(SentryUser(
-        id: userId,
-        email: email,
-        data: additionalData,
-      ));
+      scope.setUser(SentryUser(id: userId, email: email, data: additionalData));
     });
   }
 

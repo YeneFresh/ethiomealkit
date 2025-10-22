@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
-import '../onboarding/onboarding_progress_header.dart';
-import '../../core/feedback.dart' as app_feedback;
-import '../../core/analytics.dart';
-import '../../core/reassurance_text.dart';
-import '../../core/design_tokens.dart';
+import 'package:ethiomealkit/features/onboarding/onboarding_progress_header.dart';
+import 'package:ethiomealkit/core/feedback.dart' as app_feedback;
+import 'package:ethiomealkit/core/analytics.dart';
+import 'package:ethiomealkit/core/reassurance_text.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 class CheckoutScreen extends StatefulWidget {
   const CheckoutScreen({super.key});
@@ -87,11 +87,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.error_outline,
-              size: 64,
-              color: theme.colorScheme.error,
-            ),
+            Icon(Icons.error_outline, size: 64, color: theme.colorScheme.error),
             const SizedBox(height: 16),
             Text(
               'No order found',
@@ -191,12 +187,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     Icons.restaurant_menu,
                   ),
                   const SizedBox(height: 16),
-                  _buildDetailRow(
-                    theme,
-                    'Status',
-                    'Scheduled',
-                    Icons.schedule,
-                  ),
+                  _buildDetailRow(theme, 'Status', 'Scheduled', Icons.schedule),
                 ],
               ),
             ),
@@ -234,12 +225,12 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
           ),
 
-          SizedBox(height: Yf.s24),
+          const SizedBox(height: Yf.s24),
 
           // Reassurance text
           const ReassuranceText(),
 
-          SizedBox(height: Yf.s32),
+          const SizedBox(height: Yf.s32),
 
           // Finish Button
           SizedBox(
@@ -259,10 +250,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 children: [
                   Text(
                     'Finish & Go Home',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(width: 8),
                   Icon(Icons.home, size: 20),
@@ -271,7 +259,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             ),
           ),
 
-          SizedBox(height: Yf.s12),
+          const SizedBox(height: Yf.s12),
 
           // Feedback button
           TextButton.icon(
@@ -304,11 +292,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
             color: theme.colorScheme.primaryContainer.withValues(alpha: 0.5),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Icon(
-            icon,
-            color: theme.colorScheme.primary,
-            size: 20,
-          ),
+          child: Icon(icon, color: theme.colorScheme.primary, size: 20),
         ),
         const SizedBox(width: 12),
         Expanded(

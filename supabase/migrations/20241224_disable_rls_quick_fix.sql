@@ -21,3 +21,4 @@ SELECT 'RLS disabled and permissions granted' as status;
 
 
 
+

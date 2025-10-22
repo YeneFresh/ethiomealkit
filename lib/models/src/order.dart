@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'meal_kit.dart';
+import 'package:ethiomealkit/models/src/meal_kit.dart';
 
 part 'order.freezed.dart';
 part 'order.g.dart';
@@ -11,7 +11,8 @@ class OrderItem with _$OrderItem {
     required int quantity,
     required int unitPriceCents,
   }) = _OrderItem;
-  factory OrderItem.fromJson(Map<String, dynamic> json) => _$OrderItemFromJson(json);
+  factory OrderItem.fromJson(Map<String, dynamic> json) =>
+      _$OrderItemFromJson(json);
 }
 
 @freezed
@@ -25,6 +26,3 @@ class Order with _$Order {
   }) = _Order;
   factory Order.fromJson(Map<String, dynamic> json) => _$OrderFromJson(json);
 }
-
-
-

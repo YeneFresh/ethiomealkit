@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'design_tokens.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 /// Reassurance text component for delivery-related screens
 class ReassuranceText extends StatelessWidget {
@@ -12,7 +12,7 @@ class ReassuranceText extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: EdgeInsets.only(top: Yf.g12),
+      padding: const EdgeInsets.only(top: Yf.g12),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -21,7 +21,7 @@ class ReassuranceText extends StatelessWidget {
             size: 14,
             color: theme.colorScheme.onSurface.withValues(alpha: 0.6),
           ),
-          SizedBox(width: Yf.g8),
+          const SizedBox(width: Yf.g8),
           Flexible(
             child: Text(
               customText ??
@@ -39,7 +39,3 @@ class ReassuranceText extends StatelessWidget {
     );
   }
 }
-
-
-
-

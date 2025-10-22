@@ -1,4 +1,4 @@
-import '../entities/recipe.dart';
+import 'package:ethiomealkit/domain/entities/recipe.dart';
 
 /// Use case: Auto-select recipes based on preferences and business rules
 class AutoSelectRecipes {
@@ -10,8 +10,9 @@ class AutoSelectRecipes {
     Set<String>? excludeIds,
   }) {
     final exclude = excludeIds ?? {};
-    final candidates =
-        availableRecipes.where((r) => !exclude.contains(r.id)).toList();
+    final candidates = availableRecipes
+        .where((r) => !exclude.contains(r.id))
+        .toList();
 
     // Sort by pickScore (highest first)
     candidates.sort((a, b) => b.pickScore.compareTo(a.pickScore));

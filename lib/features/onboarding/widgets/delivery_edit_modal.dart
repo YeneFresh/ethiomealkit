@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/app_colors.dart';
-import '../../../core/layout.dart';
-import '../../../core/providers/delivery_window_provider.dart';
-import '../../../data/api/supa_client.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/layout.dart';
+import 'package:ethiomealkit/core/providers/delivery_window_provider.dart';
+import 'package:ethiomealkit/data/api/supa_client.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 /// Bottom sheet modal for editing delivery window
@@ -103,9 +103,7 @@ class _DeliveryEditModalState extends ConsumerState<DeliveryEditModal> {
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.vertical(
-          top: Radius.circular(20),
-        ),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: SafeArea(
         child: Column(
@@ -180,7 +178,8 @@ class _DeliveryEditModalState extends ConsumerState<DeliveryEditModal> {
                                 label: 'Office',
                                 isSelected: _selectedLocation == 'Office',
                                 onTap: () => setState(
-                                    () => _selectedLocation = 'Office'),
+                                  () => _selectedLocation = 'Office',
+                                ),
                               ),
                             ],
                           ),
@@ -200,14 +199,15 @@ class _DeliveryEditModalState extends ConsumerState<DeliveryEditModal> {
                                 window['id'] == _selectedWindowId;
                             final isRecommended =
                                 window['slot']?.toString().contains('14-16') ==
-                                    true;
+                                true;
 
                             return _TimeSlotCard(
                               window: window,
                               isSelected: isSelected,
                               isRecommended: isRecommended,
                               onTap: () => setState(
-                                  () => _selectedWindowId = window['id']),
+                                () => _selectedWindowId = window['id'],
+                              ),
                             );
                           }),
                         ],
@@ -238,10 +238,7 @@ class _DeliveryEditModalState extends ConsumerState<DeliveryEditModal> {
                   ),
                   child: const Text(
                     'Confirm Delivery',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                   ),
                 ),
               ),
@@ -336,7 +333,7 @@ class _TimeSlotCard extends StatelessWidget {
                     children: [
                       Text(
                         '$weekday $slot',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontWeight: FontWeight.w600,
                           color: AppColors.darkBrown,
                         ),
@@ -367,10 +364,7 @@ class _TimeSlotCard extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     'Available spots',
-                    style: TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey[600],
-                    ),
+                    style: TextStyle(fontSize: 12, color: Colors.grey[600]),
                   ),
                 ],
               ),

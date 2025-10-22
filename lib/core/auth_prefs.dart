@@ -9,8 +9,11 @@ class AuthPrefs {
   static Future<void> saveEmail(String email, {bool remember = true}) async {
     final sp = await SharedPreferences.getInstance();
     await sp.setBool(_kRemember, remember);
-    if (remember) await sp.setString(_kEmail, email.trim());
-    else await sp.remove(_kEmail);
+    if (remember) {
+      await sp.setString(_kEmail, email.trim());
+    } else {
+      await sp.remove(_kEmail);
+    }
   }
 
   static Future<String?> loadEmail() async {

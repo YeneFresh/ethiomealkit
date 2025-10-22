@@ -1,19 +1,19 @@
 import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'cart_pricing_providers.dart';
-import 'address_providers.dart';
-import 'delivery_window_provider.dart';
-import 'payment_providers.dart';
-import '../../services/payments/adapters/ussd_helper.dart';
-import '../../services/webview_service.dart';
+import 'package:ethiomealkit/core/providers/cart_pricing_providers.dart';
+import 'package:ethiomealkit/core/providers/address_providers.dart';
+import 'package:ethiomealkit/core/providers/delivery_window_provider.dart';
+import 'package:ethiomealkit/core/providers/payment_providers.dart';
+import 'package:ethiomealkit/services/payments/adapters/ussd_helper.dart';
+import 'package:ethiomealkit/services/webview_service.dart';
 
 enum PaymentProviderId { telebirr, chapa, arifpay, cbe, cod }
 
 final paymentControllerProvider =
     StateNotifierProvider<PaymentController, void>(
-  (ref) => PaymentController(ref),
-);
+      (ref) => PaymentController(ref),
+    );
 
 class PaymentController extends StateNotifier<void> {
   PaymentController(this.ref) : super(null);
@@ -70,5 +70,3 @@ class PaymentController extends StateNotifier<void> {
     }
   }
 }
-
-

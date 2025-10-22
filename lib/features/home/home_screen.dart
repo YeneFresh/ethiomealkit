@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../delivery/models/delivery_models.dart';
-import '../delivery/ui/delivery_gradient_bg.dart';
+import 'package:ethiomealkit/features/delivery/models/delivery_models.dart';
+import 'package:ethiomealkit/features/delivery/ui/delivery_gradient_bg.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -66,11 +66,11 @@ class HomeScreen extends StatelessWidget {
                     // Welcome text
                     Text(
                       'Welcome to YeneFresh!',
-                      style:
-                          Theme.of(context).textTheme.headlineMedium?.copyWith(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontWeight: FontWeight.w600,
-                              ),
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(
+                            color: Theme.of(context).colorScheme.primary,
+                            fontWeight: FontWeight.w600,
+                          ),
                       textAlign: TextAlign.center,
                     ),
 
@@ -79,11 +79,10 @@ class HomeScreen extends StatelessWidget {
                     Text(
                       'Your premium Ethiopian meal kit experience starts here.',
                       style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                            color: Theme.of(context)
-                                .colorScheme
-                                .onSurface
-                                .withOpacity(0.7),
-                          ),
+                        color: Theme.of(
+                          context,
+                        ).colorScheme.onSurface.withOpacity(0.7),
+                      ),
                       textAlign: TextAlign.center,
                     ),
 

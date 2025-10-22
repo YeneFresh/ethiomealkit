@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:supabase_flutter/supabase_flutter.dart';
-import 'core/theme.dart';
-import 'core/env.dart';
-import 'core/router.dart';
+import 'package:ethiomealkit/bootstrap/supabase.dart';
+import 'package:ethiomealkit/core/theme.dart';
+import 'package:ethiomealkit/core/env.dart';
+import 'package:ethiomealkit/core/router.dart';
 import 'package:go_router/go_router.dart';
-import 'features/dev/debug_route_menu.dart';
+import 'package:ethiomealkit/features/dev/debug_route_menu.dart';
 
 // If you have AppLockGuard in your project:
 class AppLockGuard extends StatelessWidget {
@@ -22,16 +22,8 @@ Future<void> main() async {
   // Load environment variables
   await Env.load();
 
-  // Initialize Supabase only if not already initialized
-  try {
-    await Supabase.initialize(
-      url: Env.supabaseUrl,
-      anonKey: Env.supabaseAnonKey,
-    );
-  } catch (e) {
-    // Supabase already initialized, continue
-    debugPrint('Supabase already initialized: $e');
-  }
+  // Initialize Supabase (v2 API)
+  await SupaBootstrap.init();
 
   runApp(const ProviderScope(child: MyApp()));
 }

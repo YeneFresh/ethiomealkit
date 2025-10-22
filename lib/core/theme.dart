@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'design_tokens.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 /// YeneFresh Theme - 2025 Edition
 /// Material 3 aligned, investor-grade visual polish
@@ -28,7 +28,7 @@ ThemeData buildLightTheme() {
     // ==========================================================================
     // TYPOGRAPHY - Material 3 type scale with accessibility
     // ==========================================================================
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       // Display
       displaySmall: TextStyle(
         fontSize: 36,
@@ -104,7 +104,7 @@ ThemeData buildLightTheme() {
     // ==========================================================================
     // APP BAR - Flat, clean
     // ==========================================================================
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       elevation: 0,
       scrolledUnderElevation: 0,
       backgroundColor: Colors.white,
@@ -123,10 +123,8 @@ ThemeData buildLightTheme() {
     cardTheme: CardThemeData(
       elevation: 0,
       shadowColor: Colors.transparent,
-      shape: RoundedRectangleBorder(
-        borderRadius: Yf.borderRadius16,
-      ),
-      margin: EdgeInsets.symmetric(horizontal: Yf.s16, vertical: Yf.s8),
+      shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
+      margin: const EdgeInsets.symmetric(horizontal: Yf.s16, vertical: Yf.s8),
       color: Colors.white,
     ),
 
@@ -136,9 +134,7 @@ ThemeData buildLightTheme() {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(88, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: Yf.borderRadius16,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
         padding: Yf.buttonPadding,
         elevation: 0,
         backgroundColor: Yf.brown900,
@@ -154,9 +150,7 @@ ThemeData buildLightTheme() {
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         minimumSize: const Size(88, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: Yf.borderRadius16,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
         padding: Yf.buttonPadding,
         backgroundColor: Yf.brown900,
         foregroundColor: Colors.white,
@@ -171,11 +165,9 @@ ThemeData buildLightTheme() {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(88, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: Yf.borderRadius16,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
         padding: Yf.buttonPadding,
-        side: BorderSide(color: Yf.brown900, width: 1.5),
+        side: const BorderSide(color: Yf.brown900, width: 1.5),
         foregroundColor: Yf.brown900,
         textStyle: const TextStyle(
           fontSize: 16,
@@ -188,14 +180,9 @@ ThemeData buildLightTheme() {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         minimumSize: const Size(64, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: Yf.borderRadius12,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius12),
         foregroundColor: Yf.brown900,
-        textStyle: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
+        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
       ),
     ),
 
@@ -222,9 +209,9 @@ ThemeData buildLightTheme() {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: Yf.borderRadius12,
-        borderSide: BorderSide(color: Yf.error600, width: 1),
+        borderSide: const BorderSide(color: Yf.error600, width: 1),
       ),
-      contentPadding: EdgeInsets.symmetric(
+      contentPadding: const EdgeInsets.symmetric(
         horizontal: Yf.s16,
         vertical: Yf.s16,
       ),
@@ -237,24 +224,19 @@ ThemeData buildLightTheme() {
       backgroundColor: Yf.peach100,
       selectedColor: Yf.brown900,
       side: BorderSide.none,
-      shape: RoundedRectangleBorder(
-        borderRadius: Yf.borderRadius12,
-      ),
-      labelStyle: TextStyle(
+      shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius12),
+      labelStyle: const TextStyle(
         fontSize: 13,
         fontWeight: FontWeight.w500,
         color: Yf.ink900,
       ),
-      padding: EdgeInsets.symmetric(horizontal: Yf.s12, vertical: Yf.s8),
+      padding: const EdgeInsets.symmetric(horizontal: Yf.s12, vertical: Yf.s8),
     ),
 
     // ==========================================================================
     // ICONS - Material Symbols Rounded
     // ==========================================================================
-    iconTheme: IconThemeData(
-      size: 24,
-      color: Yf.ink900,
-    ),
+    iconTheme: const IconThemeData(size: 24, color: Yf.ink900),
 
     // ==========================================================================
     // DIVIDERS - Subtle separation
@@ -288,32 +270,32 @@ ThemeData buildDarkTheme() {
     // TYPOGRAPHY - Ensure contrast ≥ 4.5:1
     // ==========================================================================
     textTheme: TextTheme(
-      displaySmall: TextStyle(
+      displaySmall: const TextStyle(
         fontSize: 36,
         fontWeight: FontWeight.w600,
         color: Colors.white,
         height: 1.2,
         letterSpacing: -0.5,
       ),
-      headlineSmall: TextStyle(
+      headlineSmall: const TextStyle(
         fontSize: 24,
         fontWeight: FontWeight.w600,
         color: Colors.white,
         height: 1.3,
       ),
-      titleLarge: TextStyle(
+      titleLarge: const TextStyle(
         fontSize: 22,
         fontWeight: FontWeight.w600,
         color: Colors.white,
         height: 1.3,
       ),
-      titleMedium: TextStyle(
+      titleMedium: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w600,
         color: Colors.white,
         height: Yf.lineHeight,
       ),
-      titleSmall: TextStyle(
+      titleSmall: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: Colors.white,
@@ -331,7 +313,7 @@ ThemeData buildDarkTheme() {
         color: Colors.white.withValues(alpha: 0.87),
         height: Yf.lineHeight,
       ),
-      labelLarge: TextStyle(
+      labelLarge: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w600,
         color: Colors.white,
@@ -351,13 +333,13 @@ ThemeData buildDarkTheme() {
       ),
     ),
 
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       elevation: 0,
       scrolledUnderElevation: 0,
-      backgroundColor: const Color(0xFF1C1B1E),
+      backgroundColor: Color(0xFF1C1B1E),
       foregroundColor: Colors.white,
       centerTitle: true,
-      titleTextStyle: const TextStyle(
+      titleTextStyle: TextStyle(
         fontSize: 18,
         fontWeight: FontWeight.w600,
         color: Colors.white,
@@ -367,19 +349,15 @@ ThemeData buildDarkTheme() {
     cardTheme: CardThemeData(
       elevation: 0,
       shadowColor: Colors.transparent,
-      shape: RoundedRectangleBorder(
-        borderRadius: Yf.borderRadius16,
-      ),
-      margin: EdgeInsets.symmetric(horizontal: Yf.s16, vertical: Yf.s8),
+      shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
+      margin: const EdgeInsets.symmetric(horizontal: Yf.s16, vertical: Yf.s8),
       color: const Color(0xFF2B2930),
     ),
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         minimumSize: const Size(88, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: Yf.borderRadius16,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
         padding: Yf.buttonPadding,
         elevation: 0,
         backgroundColor: Yf.gold600,
@@ -395,9 +373,7 @@ ThemeData buildDarkTheme() {
     filledButtonTheme: FilledButtonThemeData(
       style: FilledButton.styleFrom(
         minimumSize: const Size(88, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: Yf.borderRadius16,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
         padding: Yf.buttonPadding,
         backgroundColor: Yf.gold600,
         foregroundColor: Yf.brown900,
@@ -412,11 +388,9 @@ ThemeData buildDarkTheme() {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         minimumSize: const Size(88, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: Yf.borderRadius16,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
         padding: Yf.buttonPadding,
-        side: BorderSide(color: Yf.gold600, width: 1.5),
+        side: const BorderSide(color: Yf.gold600, width: 1.5),
         foregroundColor: Yf.gold600,
         textStyle: const TextStyle(
           fontSize: 16,
@@ -429,14 +403,9 @@ ThemeData buildDarkTheme() {
     textButtonTheme: TextButtonThemeData(
       style: TextButton.styleFrom(
         minimumSize: const Size(64, 48),
-        shape: RoundedRectangleBorder(
-          borderRadius: Yf.borderRadius12,
-        ),
+        shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius12),
         foregroundColor: Yf.gold600,
-        textStyle: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
+        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
       ),
     ),
 
@@ -460,9 +429,9 @@ ThemeData buildDarkTheme() {
       ),
       errorBorder: OutlineInputBorder(
         borderRadius: Yf.borderRadius12,
-        borderSide: BorderSide(color: Yf.error600, width: 1),
+        borderSide: const BorderSide(color: Yf.error600, width: 1),
       ),
-      contentPadding: EdgeInsets.symmetric(
+      contentPadding: const EdgeInsets.symmetric(
         horizontal: Yf.s16,
         vertical: Yf.s16,
       ),
@@ -472,21 +441,16 @@ ThemeData buildDarkTheme() {
       backgroundColor: const Color(0xFF36343B),
       selectedColor: Yf.gold600,
       side: BorderSide.none,
-      shape: RoundedRectangleBorder(
-        borderRadius: Yf.borderRadius12,
-      ),
+      shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius12),
       labelStyle: TextStyle(
         fontSize: 13,
         fontWeight: FontWeight.w500,
         color: Colors.white.withValues(alpha: 0.87),
       ),
-      padding: EdgeInsets.symmetric(horizontal: Yf.s12, vertical: Yf.s8),
+      padding: const EdgeInsets.symmetric(horizontal: Yf.s12, vertical: Yf.s8),
     ),
 
-    iconTheme: const IconThemeData(
-      size: 24,
-      color: Colors.white,
-    ),
+    iconTheme: const IconThemeData(size: 24, color: Colors.white),
 
     dividerTheme: DividerThemeData(
       color: Colors.white.withValues(alpha: 0.1),

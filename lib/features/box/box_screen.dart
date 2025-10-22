@@ -1,8 +1,8 @@
 // features/box/box_screen.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/draft_cache.dart';
-import '../../core/checkout_draft.dart';
+import 'package:ethiomealkit/core/draft_cache.dart';
+import 'package:ethiomealkit/core/checkout_draft.dart';
 
 class BoxScreen extends StatefulWidget {
   const BoxScreen({super.key});
@@ -157,8 +157,10 @@ class _BoxScreenState extends State<BoxScreen> {
             ),
 
           const SizedBox(height: 16),
-          Text('How many people are you cooking for?',
-              style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            'How many people are you cooking for?',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 8),
           ToggleButtons(
             isSelected: [1, 2, 3, 4].map((p) => p == people).toList(),
@@ -166,15 +168,17 @@ class _BoxScreenState extends State<BoxScreen> {
             children: const [Text('1'), Text('2'), Text('3'), Text('4')],
           ),
           const SizedBox(height: 24),
-          Text('How many recipes would you like?',
-              style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            'How many recipes would you like?',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 8),
           Column(
             children: [3, 4, 5].map((r) {
               final selected = recipes == r;
               final pps = pricePerServing(people, r);
-              final before =
-                  (people * r * (pps * 1.3)).round(); // fake crossed-out
+              final before = (people * r * (pps * 1.3))
+                  .round(); // fake crossed-out
               final now = people * r * pps;
               return Card(
                 child: ListTile(
@@ -183,11 +187,16 @@ class _BoxScreenState extends State<BoxScreen> {
                   trailing: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text('ETB $before',
-                          style: const TextStyle(
-                              decoration: TextDecoration.lineThrough)),
-                      Text('ETB $now',
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                      Text(
+                        'ETB $before',
+                        style: const TextStyle(
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      ),
+                      Text(
+                        'ETB $now',
+                        style: const TextStyle(fontWeight: FontWeight.bold),
+                      ),
                     ],
                   ),
                   selected: selected,
@@ -200,7 +209,8 @@ class _BoxScreenState extends State<BoxScreen> {
           ListTile(
             leading: const Icon(Icons.info_outline),
             title: Text(
-                'You will receive $recipes recipes for $people people = $servingsPerWeek servings/week'),
+              'You will receive $recipes recipes for $people people = $servingsPerWeek servings/week',
+            ),
             subtitle: const Text('no commitment • free delivery'),
           ),
           const Divider(),
@@ -208,23 +218,33 @@ class _BoxScreenState extends State<BoxScreen> {
             leading: const Icon(Icons.local_offer_outlined),
             title: const Text('30% off your first box'),
             subtitle: Text(
-                'Weekly total after discount: ETB $weeklyAfter (was ETB $weeklyBefore)'),
+              'Weekly total after discount: ETB $weeklyAfter (was ETB $weeklyBefore)',
+            ),
           ),
           const SizedBox(height: 8),
-          Text('What kind of recipes are you looking for? (optional)',
-              style: Theme.of(context).textTheme.titleMedium),
+          Text(
+            'What kind of recipes are you looking for? (optional)',
+            style: Theme.of(context).textTheme.titleMedium,
+          ),
           const SizedBox(height: 8),
-          Wrap(spacing: 8, runSpacing: 8, children: [
-            _chip('bit_of_everything', 'A bit of everything'),
-            _chip('family', 'Family friendly'),
-            _chip('quick', 'Quick dinners'),
-            _chip('low_cal', 'Low calorie'),
-          ]),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              _chip('bit_of_everything', 'A bit of everything'),
+              _chip('family', 'Family friendly'),
+              _chip('quick', 'Quick dinners'),
+              _chip('low_cal', 'Low calorie'),
+            ],
+          ),
           const SizedBox(height: 24),
           FilledButton(
             onPressed: () async {
               await DraftCache.saveBox(
-                  people: people, recipes: recipes, prefSeed: prefSeed);
+                people: people,
+                recipes: recipes,
+                prefSeed: prefSeed,
+              );
               await DraftCache.setStep(2);
               if (context.mounted) context.go('/signup');
             },

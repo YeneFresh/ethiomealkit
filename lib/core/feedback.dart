@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'env.dart';
+import 'package:ethiomealkit/core/env.dart';
 
 /// YeneFresh Feedback System
 /// Prefilled email for user feedback with context
@@ -59,9 +59,7 @@ class Feedback {
 
   /// Show feedback dialog (alternative to email)
   /// For use with Typeform/Google Form if preferred
-  static Future<void> sendFeedbackForm({
-    required String formUrl,
-  }) async {
+  static Future<void> sendFeedbackForm({required String formUrl}) async {
     final uri = Uri.parse(formUrl);
 
     if (await canLaunchUrl(uri)) {
@@ -73,7 +71,3 @@ class Feedback {
     }
   }
 }
-
-
-
-

@@ -1,7 +1,7 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../domain/entities/delivery_slot.dart';
-import '../../domain/repositories/delivery_repository.dart';
-import '../dtos/delivery_slot_dto.dart';
+import 'package:ethiomealkit/domain/entities/delivery_slot.dart';
+import 'package:ethiomealkit/domain/repositories/delivery_repository.dart';
+import 'package:ethiomealkit/data/dtos/delivery_slot_dto.dart';
 
 /// Supabase implementation of DeliveryRepository
 class DeliveryRepositorySupabase implements DeliveryRepository {
@@ -64,11 +64,14 @@ class DeliveryRepositorySupabase implements DeliveryRepository {
     required String addressId,
   }) async {
     try {
-      await _sb.rpc('upsert_user_delivery_preference', params: {
-        'p_user_id': userId,
-        'p_window_id': slotId,
-        'p_address_id': addressId,
-      });
+      await _sb.rpc(
+        'upsert_user_delivery_preference',
+        params: {
+          'p_user_id': userId,
+          'p_window_id': slotId,
+          'p_address_id': addressId,
+        },
+      );
       print('✅ Set delivery slot: $slotId for $addressId');
     } catch (e) {
       print('❌ Error setting delivery slot: $e');
@@ -76,6 +79,3 @@ class DeliveryRepositorySupabase implements DeliveryRepository {
     }
   }
 }
-
-
-

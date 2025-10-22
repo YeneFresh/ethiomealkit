@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../data/delivery_repository.dart';
-import '../local/delivery_local_store.dart';
-import '../models/delivery_models.dart';
+import 'package:ethiomealkit/features/delivery/data/delivery_repository.dart';
+import 'package:ethiomealkit/features/delivery/local/delivery_local_store.dart';
+import 'package:ethiomealkit/features/delivery/models/delivery_models.dart';
 
 // Delivery repository provider
 final deliveryRepoProvider = Provider<DeliveryRepository>((ref) {
@@ -60,7 +60,8 @@ class DeliveryWindowController extends AsyncNotifier<DeliveryWindow?> {
     // Step 3: Recommend and auto-select
     print('💡 Auto-selecting recommended window...');
     await Future.delayed(
-        const Duration(milliseconds: 1000)); // Thoughtful pause
+      const Duration(milliseconds: 1000),
+    ); // Thoughtful pause
     final recommended = await _repo.recommend(_userId, _week);
     print('✅ Recommended: ${recommended.humanSummary}');
 
@@ -113,8 +114,5 @@ class DeliveryWindowController extends AsyncNotifier<DeliveryWindow?> {
 
 final deliveryWindowControllerProvider =
     AsyncNotifierProvider<DeliveryWindowController, DeliveryWindow?>(
-  () => DeliveryWindowController(),
-);
-
-
-
+      () => DeliveryWindowController(),
+    );

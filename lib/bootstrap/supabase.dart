@@ -1,10 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'env.dart';
+import 'package:ethiomealkit/bootstrap/env.dart';
 
 class SupaBootstrap {
   static Future<void> init() async {
-    if (Supabase.instance.client.auth.currentSession != null) return;
-    await Supabase.initialize(
-        url: Env.supabaseUrl, anonKey: Env.supabaseAnonKey);
+    try {
+      await Supabase.initialize(
+        url: Env.supabaseUrl,
+        anonKey: Env.supabaseAnonKey,
+        debug: kDebugMode,
+      );
+    } catch (_) {
+      // Already initialized; noop
+    }
   }
+
+  static SupabaseClient get client => Supabase.instance.client;
 }

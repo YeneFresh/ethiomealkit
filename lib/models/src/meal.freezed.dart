@@ -88,56 +88,46 @@ class _$MealCopyWithImpl<$Res, $Val extends Meal>
   }) {
     return _then(
       _value.copyWith(
-            id:
-                null == id
-                    ? _value.id
-                    : id // ignore: cast_nullable_to_non_nullable
-                        as String,
-            title:
-                null == title
-                    ? _value.title
-                    : title // ignore: cast_nullable_to_non_nullable
-                        as String,
-            description:
-                freezed == description
-                    ? _value.description
-                    : description // ignore: cast_nullable_to_non_nullable
-                        as String?,
-            calories:
-                freezed == calories
-                    ? _value.calories
-                    : calories // ignore: cast_nullable_to_non_nullable
-                        as int?,
-            protein:
-                freezed == protein
-                    ? _value.protein
-                    : protein // ignore: cast_nullable_to_non_nullable
-                        as int?,
-            carbs:
-                freezed == carbs
-                    ? _value.carbs
-                    : carbs // ignore: cast_nullable_to_non_nullable
-                        as int?,
-            fat:
-                freezed == fat
-                    ? _value.fat
-                    : fat // ignore: cast_nullable_to_non_nullable
-                        as int?,
-            cookTimeMinutes:
-                freezed == cookTimeMinutes
-                    ? _value.cookTimeMinutes
-                    : cookTimeMinutes // ignore: cast_nullable_to_non_nullable
-                        as int?,
-            tags:
-                freezed == tags
-                    ? _value.tags
-                    : tags // ignore: cast_nullable_to_non_nullable
-                        as List<String>?,
-            imageUrl:
-                freezed == imageUrl
-                    ? _value.imageUrl
-                    : imageUrl // ignore: cast_nullable_to_non_nullable
-                        as String?,
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            title: null == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                      as String,
+            description: freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                      as String?,
+            calories: freezed == calories
+                ? _value.calories
+                : calories // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            protein: freezed == protein
+                ? _value.protein
+                : protein // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            carbs: freezed == carbs
+                ? _value.carbs
+                : carbs // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            fat: freezed == fat
+                ? _value.fat
+                : fat // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            cookTimeMinutes: freezed == cookTimeMinutes
+                ? _value.cookTimeMinutes
+                : cookTimeMinutes // ignore: cast_nullable_to_non_nullable
+                      as int?,
+            tags: freezed == tags
+                ? _value.tags
+                : tags // ignore: cast_nullable_to_non_nullable
+                      as List<String>?,
+            imageUrl: freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                      as String?,
           )
           as $Val,
     );
@@ -191,56 +181,46 @@ class __$$MealImplCopyWithImpl<$Res>
   }) {
     return _then(
       _$MealImpl(
-        id:
-            null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                    as String,
-        title:
-            null == title
-                ? _value.title
-                : title // ignore: cast_nullable_to_non_nullable
-                    as String,
-        description:
-            freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                    as String?,
-        calories:
-            freezed == calories
-                ? _value.calories
-                : calories // ignore: cast_nullable_to_non_nullable
-                    as int?,
-        protein:
-            freezed == protein
-                ? _value.protein
-                : protein // ignore: cast_nullable_to_non_nullable
-                    as int?,
-        carbs:
-            freezed == carbs
-                ? _value.carbs
-                : carbs // ignore: cast_nullable_to_non_nullable
-                    as int?,
-        fat:
-            freezed == fat
-                ? _value.fat
-                : fat // ignore: cast_nullable_to_non_nullable
-                    as int?,
-        cookTimeMinutes:
-            freezed == cookTimeMinutes
-                ? _value.cookTimeMinutes
-                : cookTimeMinutes // ignore: cast_nullable_to_non_nullable
-                    as int?,
-        tags:
-            freezed == tags
-                ? _value._tags
-                : tags // ignore: cast_nullable_to_non_nullable
-                    as List<String>?,
-        imageUrl:
-            freezed == imageUrl
-                ? _value.imageUrl
-                : imageUrl // ignore: cast_nullable_to_non_nullable
-                    as String?,
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        title: null == title
+            ? _value.title
+            : title // ignore: cast_nullable_to_non_nullable
+                  as String,
+        description: freezed == description
+            ? _value.description
+            : description // ignore: cast_nullable_to_non_nullable
+                  as String?,
+        calories: freezed == calories
+            ? _value.calories
+            : calories // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        protein: freezed == protein
+            ? _value.protein
+            : protein // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        carbs: freezed == carbs
+            ? _value.carbs
+            : carbs // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        fat: freezed == fat
+            ? _value.fat
+            : fat // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        cookTimeMinutes: freezed == cookTimeMinutes
+            ? _value.cookTimeMinutes
+            : cookTimeMinutes // ignore: cast_nullable_to_non_nullable
+                  as int?,
+        tags: freezed == tags
+            ? _value._tags
+            : tags // ignore: cast_nullable_to_non_nullable
+                  as List<String>?,
+        imageUrl: freezed == imageUrl
+            ? _value.imageUrl
+            : imageUrl // ignore: cast_nullable_to_non_nullable
+                  as String?,
       ),
     );
   }

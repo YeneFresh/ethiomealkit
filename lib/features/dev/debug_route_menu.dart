@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/app_colors.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
 
 /// Debug menu for quick navigation between routes
 /// Only shows in debug mode
@@ -21,10 +21,16 @@ class _DebugRouteMenuState extends State<DebugRouteMenu> {
     _RouteItem('  Step 1: Box', '/onboarding/box', Icons.inventory_2),
     _RouteItem('  Step 2: Sign Up', '/onboarding/signup', Icons.person_add),
     _RouteItem(
-        '  Step 3: Recipes', '/onboarding/recipes', Icons.restaurant_menu),
+      '  Step 3: Recipes',
+      '/onboarding/recipes',
+      Icons.restaurant_menu,
+    ),
     _RouteItem('  Step 4a: Map Picker', '/onboarding/map-picker', Icons.map),
     _RouteItem(
-        '  Step 4b: Address Form', '/onboarding/address-form', Icons.home),
+      '  Step 4b: Address Form',
+      '/onboarding/address-form',
+      Icons.home,
+    ),
     _RouteItem('  Step 5: Pay', '/onboarding/pay', Icons.payment),
     _RouteItem('  ✅ Success', '/order-success', Icons.check_circle),
     _RouteItem('', '', null), // Divider
@@ -70,9 +76,9 @@ class _DebugRouteMenuState extends State<DebugRouteMenu> {
                   // Header
                   Container(
                     padding: const EdgeInsets.all(12),
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       color: AppColors.gold,
-                      borderRadius: const BorderRadius.only(
+                      borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(12),
                         topRight: Radius.circular(12),
                       ),

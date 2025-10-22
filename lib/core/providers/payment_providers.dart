@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'cart_pricing_providers.dart';
-import 'recipe_selection_providers.dart';
-import '../../services/order_items_builder.dart';
-import 'address_providers.dart';
-import 'delivery_window_provider.dart';
+import 'package:ethiomealkit/core/providers/cart_pricing_providers.dart';
+import 'package:ethiomealkit/core/providers/recipe_selection_providers.dart';
+import 'package:ethiomealkit/services/order_items_builder.dart';
+import 'package:ethiomealkit/core/providers/address_providers.dart';
+import 'package:ethiomealkit/core/providers/delivery_window_provider.dart';
 
 /// Payment method options
-enum PaymentMethod {
-  chapa,
-  telebirr,
-}
+enum PaymentMethod { chapa, telebirr }
 
 extension PaymentMethodExt on PaymentMethod {
   String get displayName {

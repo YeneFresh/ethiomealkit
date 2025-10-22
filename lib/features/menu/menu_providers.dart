@@ -14,19 +14,20 @@ class Profile {
   final int mealsPerWeek;
   final List<String> preferences;
   final bool onboardingComplete;
-  Profile(
-      {required this.id,
-      required this.mealsPerWeek,
-      required this.preferences,
-      required this.onboardingComplete});
+  Profile({
+    required this.id,
+    required this.mealsPerWeek,
+    required this.preferences,
+    required this.onboardingComplete,
+  });
   factory Profile.fromJson(Map<String, dynamic> j) => Profile(
-        id: j['id'] as String,
-        mealsPerWeek: (j['meals_per_week'] ?? 3) as int,
-        preferences:
-            (j['preferences'] as List?)?.map((e) => e.toString()).toList() ??
-                const [],
-        onboardingComplete: (j['onboarding_complete'] ?? false) as bool,
-      );
+    id: j['id'] as String,
+    mealsPerWeek: (j['meals_per_week'] ?? 3) as int,
+    preferences:
+        (j['preferences'] as List?)?.map((e) => e.toString()).toList() ??
+        const [],
+    onboardingComplete: (j['onboarding_complete'] ?? false) as bool,
+  );
 }
 
 final profileProvider = FutureProvider.autoDispose<Profile?>((ref) async {
@@ -45,49 +46,54 @@ class Recipe {
   final List<String> categories;
   final int? cookMinutes;
   final String? heroImage;
-  Recipe(
-      {required this.id,
-      required this.slug,
-      required this.name,
-      required this.categories,
-      this.cookMinutes,
-      this.heroImage});
+  Recipe({
+    required this.id,
+    required this.slug,
+    required this.name,
+    required this.categories,
+    this.cookMinutes,
+    this.heroImage,
+  });
   factory Recipe.fromJson(Map<String, dynamic> j) => Recipe(
-        id: j['id'] as String,
-        slug: j['slug'] as String,
-        name: j['name'] as String,
-        categories:
-            (j['categories'] as List?)?.map((e) => e.toString()).toList() ??
-                const [],
-        cookMinutes: j['cook_minutes'] as int?,
-        heroImage: j['hero_image'] as String?,
-      );
+    id: j['id'] as String,
+    slug: j['slug'] as String,
+    name: j['name'] as String,
+    categories:
+        (j['categories'] as List?)?.map((e) => e.toString()).toList() ??
+        const [],
+    cookMinutes: j['cook_minutes'] as int?,
+    heroImage: j['hero_image'] as String?,
+  );
 }
 
 // Weekly menu for weekStart (joined to recipes)
-final weeklyMenuProvider =
-    FutureProvider.autoDispose<List<Recipe>>((ref) async {
+final weeklyMenuProvider = FutureProvider.autoDispose<List<Recipe>>((
+  ref,
+) async {
   final supa = Supabase.instance.client;
   final weekStart = ref.watch(weekStartProvider);
   final rows = await supa
       .from('meals')
       .select('id,slug,title,description,price_cents,image_url');
   final list = (rows as List)
-      .map((r) => Recipe.fromJson({
-            'id': r['id'],
-            'slug': r['slug'],
-            'name': r['title'],
-            'categories': <String>[],
-            'cook_minutes': 30,
-            'hero_image': r['image_url'],
-          }))
+      .map(
+        (r) => Recipe.fromJson({
+          'id': r['id'],
+          'slug': r['slug'],
+          'name': r['title'],
+          'categories': <String>[],
+          'cook_minutes': 30,
+          'hero_image': r['image_url'],
+        }),
+      )
       .toList();
   return list;
 });
 
 // User selections for the week (recipe_id set)
-final userSelectionsProvider =
-    FutureProvider.autoDispose<Set<String>>((ref) async {
+final userSelectionsProvider = FutureProvider.autoDispose<Set<String>>((
+  ref,
+) async {
   final supa = Supabase.instance.client;
   final uid = supa.auth.currentUser?.id;
   if (uid == null) return <String>{};
@@ -105,14 +111,17 @@ final filteredMenuProvider = Provider.autoDispose<List<Recipe>>((ref) {
   final menu = ref
       .watch(weeklyMenuProvider)
       .maybeWhen(data: (d) => d, orElse: () => const <Recipe>[]);
-  final profile =
-      ref.watch(profileProvider).maybeWhen(data: (p) => p, orElse: () => null);
+  final profile = ref
+      .watch(profileProvider)
+      .maybeWhen(data: (p) => p, orElse: () => null);
   if (profile == null || profile.preferences.isEmpty) return menu;
   return menu
-      .where((r) => r.categories
-          .toSet()
-          .intersection(profile.preferences.toSet())
-          .isNotEmpty)
+      .where(
+        (r) => r.categories
+            .toSet()
+            .intersection(profile.preferences.toSet())
+            .isNotEmpty,
+      )
       .toList();
 });
 
@@ -138,8 +147,8 @@ class FilterStateNotifier extends StateNotifier<FilterState> {
 
 final filterStateProvider =
     StateNotifierProvider<FilterStateNotifier, FilterState>(
-  (_) => FilterStateNotifier(),
-);
+      (_) => FilterStateNotifier(),
+    );
 
 class QuickChipNotifier extends StateNotifier<Set<String>> {
   QuickChipNotifier() : super({});

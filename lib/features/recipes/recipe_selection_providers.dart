@@ -2,7 +2,7 @@
 // Manages recipe selection with proper plan allowance and over-select prevention
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../data/api/supa_client.dart';
+import 'package:ethiomealkit/data/api/supa_client.dart';
 
 // =============================================================================
 // Data Models
@@ -99,8 +99,9 @@ class SelectionStatus {
 // =============================================================================
 
 // 1. Weekly Recipes Provider (Gated)
-final weeklyRecipesProvider =
-    FutureProvider.autoDispose<List<Recipe>>((ref) async {
+final weeklyRecipesProvider = FutureProvider.autoDispose<List<Recipe>>((
+  ref,
+) async {
   final api = ref.watch(supaClientProvider);
 
   try {
@@ -114,15 +115,15 @@ final weeklyRecipesProvider =
 // 2. User Selections Provider
 final userSelectionsProvider =
     FutureProvider.autoDispose<List<RecipeSelection>>((ref) async {
-  final api = ref.watch(supaClientProvider);
+      final api = ref.watch(supaClientProvider);
 
-  try {
-    final data = await api.userSelections();
-    return data.map((json) => RecipeSelection.fromJson(json)).toList();
-  } catch (e) {
-    return [];
-  }
-});
+      try {
+        final data = await api.userSelections();
+        return data.map((json) => RecipeSelection.fromJson(json)).toList();
+      } catch (e) {
+        return [];
+      }
+    });
 
 // 3. Selection Status Provider
 final selectionStatusProvider = Provider.autoDispose<SelectionStatus>((ref) {
@@ -162,54 +163,54 @@ final selectionStatusProvider = Provider.autoDispose<SelectionStatus>((ref) {
 // 4. Toggle Recipe Selection Provider
 final toggleRecipeSelectionProvider = FutureProvider.family
     .autoDispose<SelectionStatus, String>((ref, recipeId) async {
-  final api = ref.watch(supaClientProvider);
-  final currentSelections = ref.read(userSelectionsProvider);
+      final api = ref.watch(supaClientProvider);
+      final currentSelections = ref.read(userSelectionsProvider);
 
-  // Find current selection state
-  final now = DateTime.now();
-  final currentSelection = currentSelections.when(
-    data: (selections) => selections.firstWhere(
-      (s) => s.recipeId == recipeId,
-      orElse: () => RecipeSelection(
-        recipeId: '',
-        weekStart: now,
-        boxSize: 0,
-        selected: false,
-      ),
-    ),
-    loading: () => RecipeSelection(
-      recipeId: '',
-      weekStart: now,
-      boxSize: 0,
-      selected: false,
-    ),
-    error: (_, __) => RecipeSelection(
-      recipeId: '',
-      weekStart: now,
-      boxSize: 0,
-      selected: false,
-    ),
-  );
+      // Find current selection state
+      final now = DateTime.now();
+      final currentSelection = currentSelections.when(
+        data: (selections) => selections.firstWhere(
+          (s) => s.recipeId == recipeId,
+          orElse: () => RecipeSelection(
+            recipeId: '',
+            weekStart: now,
+            boxSize: 0,
+            selected: false,
+          ),
+        ),
+        loading: () => RecipeSelection(
+          recipeId: '',
+          weekStart: now,
+          boxSize: 0,
+          selected: false,
+        ),
+        error: (_, __) => RecipeSelection(
+          recipeId: '',
+          weekStart: now,
+          boxSize: 0,
+          selected: false,
+        ),
+      );
 
-  final newSelection = !currentSelection.selected;
+      final newSelection = !currentSelection.selected;
 
-  try {
-    final result = await api.toggleRecipeSelection(
-      recipeId: recipeId,
-      select: newSelection,
-    );
+      try {
+        final result = await api.toggleRecipeSelection(
+          recipeId: recipeId,
+          select: newSelection,
+        );
 
-    final status = SelectionStatus.fromJson(result);
+        final status = SelectionStatus.fromJson(result);
 
-    // Invalidate related providers to refresh data
-    ref.invalidate(userSelectionsProvider);
-    ref.invalidate(selectionStatusProvider);
+        // Invalidate related providers to refresh data
+        ref.invalidate(userSelectionsProvider);
+        ref.invalidate(selectionStatusProvider);
 
-    return status;
-  } catch (e) {
-    rethrow;
-  }
-});
+        return status;
+      } catch (e) {
+        rethrow;
+      }
+    });
 
 // =============================================================================
 // Computed Providers
@@ -241,8 +242,10 @@ final selectedRecipesProvider = Provider.autoDispose<List<Recipe>>((ref) {
 });
 
 // 6. Is Recipe Selected Provider
-final isRecipeSelectedProvider =
-    Provider.family.autoDispose<bool, String>((ref, recipeId) {
+final isRecipeSelectedProvider = Provider.family.autoDispose<bool, String>((
+  ref,
+  recipeId,
+) {
   final selectionsAsync = ref.watch(userSelectionsProvider);
 
   return selectionsAsync.when(

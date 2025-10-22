@@ -160,8 +160,9 @@ class _DeliveryWindowSelectorState extends State<DeliveryWindowSelector> {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
-        border:
-            Border.all(color: theme.colorScheme.outline.withValues(alpha: 0.2)),
+        border: Border.all(
+          color: theme.colorScheme.outline.withValues(alpha: 0.2),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -199,7 +200,9 @@ class _DeliveryWindowSelectorState extends State<DeliveryWindowSelector> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 8),
+                        horizontal: 12,
+                        vertical: 8,
+                      ),
                       decoration: BoxDecoration(
                         color: isSelected
                             ? theme.colorScheme.primary
@@ -208,8 +211,9 @@ class _DeliveryWindowSelectorState extends State<DeliveryWindowSelector> {
                         border: Border.all(
                           color: isSelected
                               ? theme.colorScheme.primary
-                              : theme.colorScheme.outline
-                                  .withValues(alpha: 0.3),
+                              : theme.colorScheme.outline.withValues(
+                                  alpha: 0.3,
+                                ),
                         ),
                       ),
                       child: Column(
@@ -229,10 +233,12 @@ class _DeliveryWindowSelectorState extends State<DeliveryWindowSelector> {
                             '${dayDate.day}/${dayDate.month}',
                             style: theme.textTheme.labelSmall?.copyWith(
                               color: isSelected
-                                  ? theme.colorScheme.onPrimary
-                                      .withValues(alpha: 0.8)
-                                  : theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.7),
+                                  ? theme.colorScheme.onPrimary.withValues(
+                                      alpha: 0.8,
+                                    )
+                                  : theme.colorScheme.onSurface.withValues(
+                                      alpha: 0.7,
+                                    ),
                             ),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -275,7 +281,9 @@ class _DeliveryWindowSelectorState extends State<DeliveryWindowSelector> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 12, vertical: 10),
+                        horizontal: 12,
+                        vertical: 10,
+                      ),
                       decoration: BoxDecoration(
                         color: isSelected
                             ? theme.colorScheme.primary
@@ -284,8 +292,9 @@ class _DeliveryWindowSelectorState extends State<DeliveryWindowSelector> {
                         border: Border.all(
                           color: isSelected
                               ? theme.colorScheme.primary
-                              : theme.colorScheme.outline
-                                  .withValues(alpha: 0.3),
+                              : theme.colorScheme.outline.withValues(
+                                  alpha: 0.3,
+                                ),
                         ),
                       ),
                       child: Column(
@@ -306,10 +315,12 @@ class _DeliveryWindowSelectorState extends State<DeliveryWindowSelector> {
                               description,
                               style: theme.textTheme.labelSmall?.copyWith(
                                 color: isSelected
-                                    ? theme.colorScheme.onPrimary
-                                        .withValues(alpha: 0.8)
-                                    : theme.colorScheme.onSurface
-                                        .withValues(alpha: 0.7),
+                                    ? theme.colorScheme.onPrimary.withValues(
+                                        alpha: 0.8,
+                                      )
+                                    : theme.colorScheme.onSurface.withValues(
+                                        alpha: 0.7,
+                                      ),
                               ),
                               overflow: TextOverflow.ellipsis,
                             ),

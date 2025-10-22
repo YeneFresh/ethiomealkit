@@ -3,8 +3,9 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   test('Meal JSON roundtrips without losing required fields', () async {
-    // Fixture path: adjust as your models evolve
     final jsonStr = await rootBundle.loadString('test/fixtures/meal.json');
     final Map<String, dynamic> original = json.decode(jsonStr);
 

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'app_colors.dart';
-import 'layout.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/layout.dart';
 
 /// Builds the unified YeneFresh theme
 /// All screens inherit these typography, colors, and component styles
@@ -18,71 +18,65 @@ ThemeData buildYeneFreshTheme() {
     // Typography
     textTheme: base.textTheme.copyWith(
       // Headlines
-      headlineLarge: TextStyle(
+      headlineLarge: const TextStyle(
         color: AppColors.darkBrown,
         fontWeight: FontWeight.w700,
         fontSize: 32,
         height: 1.2,
       ),
-      headlineMedium: TextStyle(
+      headlineMedium: const TextStyle(
         color: AppColors.darkBrown,
         fontWeight: FontWeight.w700,
         fontSize: 24,
         height: 1.3,
       ),
-      headlineSmall: TextStyle(
+      headlineSmall: const TextStyle(
         color: AppColors.darkBrown,
         fontWeight: FontWeight.w600,
         fontSize: 20,
       ),
 
       // Titles
-      titleLarge: TextStyle(
+      titleLarge: const TextStyle(
         color: AppColors.darkBrown,
         fontWeight: FontWeight.w700,
         fontSize: 18,
       ),
-      titleMedium: TextStyle(
+      titleMedium: const TextStyle(
         color: AppColors.darkBrown,
         fontWeight: FontWeight.w600,
         fontSize: 16,
       ),
-      titleSmall: TextStyle(
+      titleSmall: const TextStyle(
         color: AppColors.darkBrown,
         fontWeight: FontWeight.w600,
         fontSize: 14,
       ),
 
       // Body
-      bodyLarge: TextStyle(
+      bodyLarge: const TextStyle(
         color: AppColors.ink900,
         fontSize: 16,
         height: 1.5,
       ),
-      bodyMedium: TextStyle(
+      bodyMedium: const TextStyle(
         color: AppColors.ink600,
         fontSize: 14,
         height: 1.4,
       ),
-      bodySmall: TextStyle(
-        color: AppColors.ink600,
-        fontSize: 12,
-      ),
+      bodySmall: const TextStyle(color: AppColors.ink600, fontSize: 12),
 
       // Labels
-      labelLarge: TextStyle(
+      labelLarge: const TextStyle(
         color: AppColors.darkBrown,
         fontWeight: FontWeight.w600,
         fontSize: 14,
       ),
-      labelMedium: const TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: 12,
-      ),
+      labelMedium: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
     ),
 
     // AppBar theme
-    appBarTheme: AppBarTheme(
+    appBarTheme: const AppBarTheme(
       backgroundColor: AppColors.offWhite,
       foregroundColor: AppColors.darkBrown,
       elevation: 0,
@@ -105,10 +99,7 @@ ThemeData buildYeneFreshTheme() {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Layout.buttonRadius),
         ),
-        padding: const EdgeInsets.symmetric(
-          vertical: 14,
-          horizontal: 28,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 28),
         elevation: 2,
         textStyle: const TextStyle(
           fontSize: 16,
@@ -121,16 +112,11 @@ ThemeData buildYeneFreshTheme() {
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: OutlinedButton.styleFrom(
         foregroundColor: AppColors.darkBrown,
-        side: BorderSide(
-          color: AppColors.darkBrown.withOpacity(0.2),
-        ),
+        side: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Layout.buttonRadius),
         ),
-        padding: const EdgeInsets.symmetric(
-          vertical: 12,
-          horizontal: 20,
-        ),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
       ),
     ),
 
@@ -153,22 +139,15 @@ ThemeData buildYeneFreshTheme() {
       fillColor: Colors.white,
       border: OutlineInputBorder(
         borderRadius: BorderRadius.circular(Layout.cardRadius),
-        borderSide: BorderSide(
-          color: AppColors.darkBrown.withOpacity(0.2),
-        ),
+        borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
       ),
       enabledBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(Layout.cardRadius),
-        borderSide: BorderSide(
-          color: AppColors.darkBrown.withOpacity(0.2),
-        ),
+        borderSide: BorderSide(color: AppColors.darkBrown.withOpacity(0.2)),
       ),
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(Layout.cardRadius),
-        borderSide: const BorderSide(
-          color: AppColors.gold,
-          width: 2,
-        ),
+        borderSide: const BorderSide(color: AppColors.gold, width: 2),
       ),
       contentPadding: const EdgeInsets.all(16),
     ),

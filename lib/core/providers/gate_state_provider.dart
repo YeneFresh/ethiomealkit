@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../services/persistence_service.dart';
+import 'package:ethiomealkit/core/services/persistence_service.dart';
 
 /// Unified delivery gate state for instant onboarding
 /// Single source of truth for location, day, window
@@ -61,8 +61,11 @@ class GateState {
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
     final tomorrow = today.add(const Duration(days: 1));
-    final deliveryDay =
-        DateTime(deliveryDate!.year, deliveryDate!.month, deliveryDate!.day);
+    final deliveryDay = DateTime(
+      deliveryDate!.year,
+      deliveryDate!.month,
+      deliveryDate!.day,
+    );
 
     if (deliveryDay == tomorrow) return 'Tomorrow';
 
@@ -79,7 +82,7 @@ class GateState {
       'Sep',
       'Oct',
       'Nov',
-      'Dec'
+      'Dec',
     ];
     return '${weekdays[deliveryDate!.weekday - 1]}, ${months[deliveryDate!.month - 1]} ${deliveryDate!.day}';
   }
@@ -119,7 +122,8 @@ class GateStateNotifier extends StateNotifier<GateState> {
           isEditable: true,
         );
         print(
-            '📂 Restored gate state: ${state.dayLabel} • ${state.friendlyTime}');
+          '📂 Restored gate state: ${state.dayLabel} • ${state.friendlyTime}',
+        );
       }
     } catch (e) {
       print('⚠️ Could not restore gate state: $e');
@@ -162,8 +166,9 @@ class GateStateNotifier extends StateNotifier<GateState> {
         ),
       );
 
-      final startAt =
-          DateTime.parse(recommended['start_at'] as String).toLocal();
+      final startAt = DateTime.parse(
+        recommended['start_at'] as String,
+      ).toLocal();
       final slot = recommended['slot'] as String? ?? '';
 
       state = GateState(
@@ -188,7 +193,8 @@ class GateStateNotifier extends StateNotifier<GateState> {
       );
 
       print(
-          '✅ Auto-gated: ${state.dayLabel} • ${state.friendlyTime} • ${state.locationLabel}');
+        '✅ Auto-gated: ${state.dayLabel} • ${state.friendlyTime} • ${state.locationLabel}',
+      );
     } catch (e) {
       print('❌ Auto-gate failed: $e');
     }
@@ -196,10 +202,7 @@ class GateStateNotifier extends StateNotifier<GateState> {
 
   /// Update location (Home/Office)
   void setLocation(String location, String label) {
-    state = state.copyWith(
-      location: location,
-      locationLabel: label,
-    );
+    state = state.copyWith(location: location, locationLabel: label);
     _persist();
   }
 

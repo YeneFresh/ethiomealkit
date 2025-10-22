@@ -1,6 +1,6 @@
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
-import 'sentry_service.dart';
+import 'package:ethiomealkit/core/sentry_service.dart';
 
 class AuthEventLogger {
   static const int _debounceMs = 4000; // 4 seconds debounce
@@ -10,14 +10,14 @@ class AuthEventLogger {
   static bool _shouldDebounce(String eventKey) {
     final now = DateTime.now();
     final lastTime = _lastEventTimes[eventKey];
-    
+
     if (lastTime != null) {
       final difference = now.difference(lastTime).inMilliseconds;
       if (difference < _debounceMs) {
         return true; // Should debounce
       }
     }
-    
+
     _lastEventTimes[eventKey] = now;
     return false;
   }
@@ -157,10 +157,7 @@ class AuthEventLogger {
       provider: provider,
       route: route,
       errorCode: errorCode,
-      metadata: {
-        'error_message': errorMessage,
-        ...?metadata,
-      },
+      metadata: {'error_message': errorMessage, ...?metadata},
     );
   }
 
@@ -189,10 +186,7 @@ class AuthEventLogger {
       provider: provider,
       route: route,
       errorCode: errorCode,
-      metadata: {
-        'error_message': errorMessage,
-        ...?metadata,
-      },
+      metadata: {'error_message': errorMessage, ...?metadata},
     );
   }
 
@@ -218,7 +212,7 @@ class AuthEventLogger {
       route: route,
       metadata: metadata,
     );
-    
+
     // Clear Sentry user context
     SentryService.clearUserContext();
   }
@@ -247,4 +241,3 @@ class AuthEventLogger {
     }
   }
 }
-

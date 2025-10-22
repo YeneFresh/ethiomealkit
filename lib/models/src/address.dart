@@ -17,8 +17,6 @@ class Address with _$Address {
     String? instructions,
     @Default(false) bool isDefault,
   }) = _Address;
-  factory Address.fromJson(Map<String, dynamic> json) => _$AddressFromJson(json);
+  factory Address.fromJson(Map<String, dynamic> json) =>
+      _$AddressFromJson(json);
 }
-
-
-

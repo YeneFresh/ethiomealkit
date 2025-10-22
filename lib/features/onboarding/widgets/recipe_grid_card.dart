@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/app_colors.dart';
-import '../../../core/layout.dart';
-import '../../../core/providers/recipe_selection_providers.dart';
-import '../../../core/providers/box_smart_selection_provider.dart';
-import '../../../core/widgets/tag_chip.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/layout.dart';
+import 'package:ethiomealkit/core/providers/recipe_selection_providers.dart';
+import 'package:ethiomealkit/core/providers/box_smart_selection_provider.dart';
+import 'package:ethiomealkit/core/widgets/tag_chip.dart';
 
 /// Grid recipe card for two-column layout
 /// Tappable with animated selection state
 class RecipeGridCard extends ConsumerWidget {
   final Recipe recipe;
 
-  const RecipeGridCard({
-    super.key,
-    required this.recipe,
-  });
+  const RecipeGridCard({super.key, required this.recipe});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,7 +28,7 @@ class RecipeGridCard extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         HapticFeedback.selectionClick();
-        
+
         // If at capacity and trying to add, show swap hint
         if (atCap && !isSelected) {
           ref.read(selectionNudgeProvider.notifier).nudgeSwapRequired();
@@ -70,7 +67,7 @@ class RecipeGridCard extends ConsumerWidget {
                 child: Stack(
                   children: [
                     ClipRRect(
-                      borderRadius: BorderRadius.vertical(
+                      borderRadius: const BorderRadius.vertical(
                         top: Radius.circular(Layout.cardRadius),
                       ),
                       child: _buildImage(theme),
@@ -115,7 +112,7 @@ class RecipeGridCard extends ConsumerWidget {
                             color: Colors.black.withValues(alpha: 0.75),
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               Icon(
@@ -123,7 +120,7 @@ class RecipeGridCard extends ConsumerWidget {
                                 color: Colors.white,
                                 size: 12,
                               ),
-                              const SizedBox(width: 4),
+                              SizedBox(width: 4),
                               Text(
                                 'Swap',
                                 style: TextStyle(
@@ -150,7 +147,7 @@ class RecipeGridCard extends ConsumerWidget {
                     // Title - premium typography
                     Text(
                       recipe.title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.w700,
                         fontSize: 14.5,
                         height: 1.2,
@@ -175,8 +172,11 @@ class RecipeGridCard extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Icon(Icons.local_fire_department,
-                            size: 14, color: Colors.grey[600]),
+                        Icon(
+                          Icons.local_fire_department,
+                          size: 14,
+                          color: Colors.grey[600],
+                        ),
                         const SizedBox(width: 4),
                         Text(
                           '${recipe.calories} cals',

@@ -35,9 +35,12 @@ class _AppLockToggleTileState extends State<AppLockToggleTile> {
 
   @override
   Widget build(BuildContext context) {
-    if (_loading)
+    if (_loading) {
       return const ListTile(
-          title: Text('App-Lock'), trailing: CircularProgressIndicator());
+        title: Text('App-Lock'),
+        trailing: CircularProgressIndicator(),
+      );
+    }
     return SwitchListTile(
       title: const Text('Require biometrics on launch / resume'),
       subtitle: const Text('Face ID / Touch ID / Android Biometrics'),
@@ -46,4 +49,3 @@ class _AppLockToggleTileState extends State<AppLockToggleTile> {
     );
   }
 }
-

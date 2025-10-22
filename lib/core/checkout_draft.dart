@@ -38,9 +38,10 @@ class CheckoutDraftManager {
       final user = _supa.auth.currentUser;
       if (user == null) return null;
 
-      final result = await _supa.rpc('get_checkout_draft', params: {
-        '_user': user.id,
-      });
+      final result = await _supa.rpc(
+        'get_checkout_draft',
+        params: {'_user': user.id},
+      );
 
       if (result == null) return null;
 
@@ -67,10 +68,10 @@ class CheckoutDraftManager {
   /// Update draft step
   static Future<void> updateDraftStep(String draftId, int step) async {
     try {
-      await _supa.rpc('update_checkout_draft_step', params: {
-        '_draft_id': draftId,
-        '_step': step,
-      });
+      await _supa.rpc(
+        'update_checkout_draft_step',
+        params: {'_draft_id': draftId, '_step': step},
+      );
     } catch (e) {
       print('Error updating draft step: $e');
     }
@@ -79,9 +80,7 @@ class CheckoutDraftManager {
   /// Delete draft when checkout is completed
   static Future<void> deleteDraft(String draftId) async {
     try {
-      await _supa.rpc('delete_checkout_draft', params: {
-        '_draft_id': draftId,
-      });
+      await _supa.rpc('delete_checkout_draft', params: {'_draft_id': draftId});
     } catch (e) {
       print('Error deleting draft: $e');
     }

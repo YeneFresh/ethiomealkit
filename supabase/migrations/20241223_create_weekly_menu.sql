@@ -66,3 +66,4 @@ SELECT 'Weekly menu table and RPC created successfully' as status;
 
 
 
+

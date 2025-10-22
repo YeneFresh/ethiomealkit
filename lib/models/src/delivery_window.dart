@@ -12,8 +12,6 @@ class DeliveryWindow with _$DeliveryWindow {
     String? startTime,
     String? endTime,
   }) = _DeliveryWindow;
-  factory DeliveryWindow.fromJson(Map<String, dynamic> json) => _$DeliveryWindowFromJson(json);
+  factory DeliveryWindow.fromJson(Map<String, dynamic> json) =>
+      _$DeliveryWindowFromJson(json);
 }
-
-
-

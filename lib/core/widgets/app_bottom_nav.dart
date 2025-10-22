@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../app_colors.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
 
 /// Shared bottom navigation bar for all main app screens
 class AppBottomNav extends StatelessWidget {
   final int selectedIndex;
 
-  const AppBottomNav({
-    super.key,
-    required this.selectedIndex,
-  });
+  const AppBottomNav({super.key, required this.selectedIndex});
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +64,3 @@ class AppBottomNav extends StatelessWidget {
     );
   }
 }
-
-
-
-

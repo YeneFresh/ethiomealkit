@@ -10,10 +10,12 @@ Future<void> main() async {
   const key = String.fromEnvironment('SUPABASE_ANON_KEY', defaultValue: '');
 
   if (url.isEmpty || key.isEmpty) {
-    stdout
-        .writeln('Supabase env not configured. Pass via --dart-define flags.');
     stdout.writeln(
-        'Usage: dart run tools/seed_meals.dart --dart-define=SUPABASE_URL=<url> --dart-define=SUPABASE_ANON_KEY=<key>');
+      'Supabase env not configured. Pass via --dart-define flags.',
+    );
+    stdout.writeln(
+      'Usage: dart run tools/seed_meals.dart --dart-define=SUPABASE_URL=<url> --dart-define=SUPABASE_ANON_KEY=<key>',
+    );
     return;
   }
   await Supabase.initialize(url: url, anonKey: key);

@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
-import '../../core/design_tokens.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 /// Retention nudges and progress indicators for recipe selection.
 /// Includes auto-select banner, progress bar, and social proof.
 class HandpickedBanner extends StatelessWidget {
   final VoidCallback onDismiss;
 
-  const HandpickedBanner({
-    super.key,
-    required this.onDismiss,
-  });
+  const HandpickedBanner({super.key, required this.onDismiss});
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
 
     return Container(
-      margin: EdgeInsets.all(Yf.s16),
-      padding: EdgeInsets.all(Yf.s16),
+      margin: const EdgeInsets.all(Yf.s16),
+      padding: const EdgeInsets.all(Yf.s16),
       decoration: BoxDecoration(
         color: theme.colorScheme.primaryContainer,
         borderRadius: Yf.borderRadius20,
@@ -30,7 +27,7 @@ class HandpickedBanner extends StatelessWidget {
         children: [
           // Icon
           Container(
-            padding: EdgeInsets.all(Yf.s8),
+            padding: const EdgeInsets.all(Yf.s8),
             decoration: BoxDecoration(
               color: theme.colorScheme.primary,
               shape: BoxShape.circle,
@@ -42,7 +39,7 @@ class HandpickedBanner extends StatelessWidget {
             ),
           ),
 
-          SizedBox(width: Yf.s12),
+          const SizedBox(width: Yf.s12),
 
           // Text
           Expanded(
@@ -56,19 +53,20 @@ class HandpickedBanner extends StatelessWidget {
                     color: theme.colorScheme.onPrimaryContainer,
                   ),
                 ),
-                SizedBox(height: Yf.s4),
+                const SizedBox(height: Yf.s4),
                 Text(
                   'We selected recipes based on your preferences. Swap any time!',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onPrimaryContainer
-                        .withValues(alpha: 0.8),
+                    color: theme.colorScheme.onPrimaryContainer.withValues(
+                      alpha: 0.8,
+                    ),
                   ),
                 ),
               ],
             ),
           ),
 
-          SizedBox(width: Yf.s8),
+          const SizedBox(width: Yf.s8),
 
           // Dismiss button
           IconButton(
@@ -104,7 +102,7 @@ class SelectionProgress extends StatelessWidget {
     final isComplete = selected >= total && total > 0;
 
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: Yf.s16),
+      padding: const EdgeInsets.symmetric(horizontal: Yf.s16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -116,14 +114,14 @@ class SelectionProgress extends StatelessWidget {
                 isComplete
                     ? '✅ Selection Complete!'
                     : total > 0
-                        ? 'Selected $selected / $total Recipes'
-                        : 'Select recipes for this week',
+                    ? 'Selected $selected / $total Recipes'
+                    : 'Select recipes for this week',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
               ),
               Container(
-                padding: EdgeInsets.symmetric(
+                padding: const EdgeInsets.symmetric(
                   horizontal: Yf.s8,
                   vertical: Yf.s4,
                 ),
@@ -146,7 +144,7 @@ class SelectionProgress extends StatelessWidget {
             ],
           ),
 
-          SizedBox(height: Yf.s8),
+          const SizedBox(height: Yf.s8),
 
           // Progress bar
           ClipRRect(
@@ -165,7 +163,7 @@ class SelectionProgress extends StatelessWidget {
 
           // Social proof (if enabled and not complete)
           if (showSocialProof && !isComplete) ...[
-            SizedBox(height: Yf.s8),
+            const SizedBox(height: Yf.s8),
             Row(
               children: [
                 Icon(
@@ -173,7 +171,7 @@ class SelectionProgress extends StatelessWidget {
                   size: 16,
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
-                SizedBox(width: Yf.s4),
+                const SizedBox(width: Yf.s4),
                 Text(
                   'Most choose 3–4 meals per week',
                   style: theme.textTheme.bodySmall?.copyWith(
@@ -191,27 +189,23 @@ class SelectionProgress extends StatelessWidget {
 
 /// Quota full indicator shown when user tries to exceed allowance.
 class QuotaFullSnackBar extends SnackBar {
-  QuotaFullSnackBar({
-    super.key,
-    required BuildContext context,
-  }) : super(
-          content: const Row(
-            children: [
-              Icon(Icons.info_outline, color: Colors.white),
-              SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  'Max reached — swap one to add',
-                  style: TextStyle(fontWeight: FontWeight.w500),
-                ),
+  QuotaFullSnackBar({super.key, required BuildContext context})
+    : super(
+        content: const Row(
+          children: [
+            Icon(Icons.info_outline, color: Colors.white),
+            SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                'Max reached — swap one to add',
+                style: TextStyle(fontWeight: FontWeight.w500),
               ),
-            ],
-          ),
-          backgroundColor: Theme.of(context).colorScheme.error,
-          duration: const Duration(seconds: 3),
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-        );
+            ),
+          ],
+        ),
+        backgroundColor: Theme.of(context).colorScheme.error,
+        duration: const Duration(seconds: 3),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      );
 }

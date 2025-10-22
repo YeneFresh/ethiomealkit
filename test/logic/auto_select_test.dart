@@ -7,27 +7,27 @@ void main() {
       {
         'id': 'r1',
         'title': 'Doro Wat',
-        'tags': ["chef's choice", 'spicy', 'chicken']
+        'tags': ["chef's choice", 'spicy', 'chicken'],
       },
       {
         'id': 'r2',
         'title': 'Kitfo',
-        'tags': ['beef', 'traditional']
+        'tags': ['beef', 'traditional'],
       },
       {
         'id': 'r3',
         'title': 'Shiro',
-        'tags': ['healthy', 'veggie', 'light']
+        'tags': ['healthy', 'veggie', 'light'],
       },
       {
         'id': 'r4',
         'title': 'Tibs',
-        'tags': ['beef', 'spicy']
+        'tags': ['beef', 'spicy'],
       },
       {
         'id': 'r5',
         'title': 'Injera',
-        'tags': ['healthy', 'veg']
+        'tags': ['healthy', 'veg'],
       },
     ];
 
@@ -84,27 +84,27 @@ void main() {
         {
           'id': 'r1',
           'title': 'Tibs 1',
-          'tags': ['beef', 'spicy']
+          'tags': ['beef', 'spicy'],
         },
         {
           'id': 'r2',
           'title': 'Tibs 2',
-          'tags': ['beef', 'traditional']
+          'tags': ['beef', 'traditional'],
         },
         {
           'id': 'r3',
           'title': 'Tibs 3',
-          'tags': ['beef', 'quick']
+          'tags': ['beef', 'quick'],
         },
         {
           'id': 'r4',
           'title': 'Shiro',
-          'tags': ['healthy', 'veggie']
+          'tags': ['healthy', 'veggie'],
         },
         {
           'id': 'r5',
           'title': 'Fish Goulash',
-          'tags': ['fish', 'healthy']
+          'tags': ['fish', 'healthy'],
         },
       ];
 
@@ -123,8 +123,9 @@ void main() {
       final selected = beefHeavyRecipes
           .where((r) => choice.toSelect.contains(r['id']))
           .toList();
-      final beefCount =
-          selected.where((r) => (r['tags'] as List).contains('beef')).length;
+      final beefCount = selected
+          .where((r) => (r['tags'] as List).contains('beef'))
+          .length;
 
       expect(beefCount, lessThan(3)); // Not all 3 should be beef
     });
@@ -184,6 +185,3 @@ void main() {
     });
   });
 }
-
-
-

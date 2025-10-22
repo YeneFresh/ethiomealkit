@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/models.dart';
+import 'package:ethiomealkit/models/models.dart';
 
 // Cart provider and notifier
 final cartProvider = StateNotifierProvider<CartNotifier, Cart>((ref) {
@@ -10,8 +10,9 @@ class CartNotifier extends StateNotifier<Cart> {
   CartNotifier() : super(const Cart(items: []));
 
   void addItem(MealKit mealKit, {int quantity = 1}) {
-    final existingIndex =
-        state.items.indexWhere((item) => item.mealKit.id == mealKit.id);
+    final existingIndex = state.items.indexWhere(
+      (item) => item.mealKit.id == mealKit.id,
+    );
 
     if (existingIndex >= 0) {
       final updatedItems = [...state.items];
@@ -21,17 +22,19 @@ class CartNotifier extends StateNotifier<Cart> {
       );
       state = Cart(items: updatedItems);
     } else {
-      state = Cart(items: [
-        ...state.items,
-        CartItem(mealKit: mealKit, quantity: quantity)
-      ]);
+      state = Cart(
+        items: [
+          ...state.items,
+          CartItem(mealKit: mealKit, quantity: quantity),
+        ],
+      );
     }
   }
 
   void removeItem(String mealKitId) {
     state = Cart(
-        items:
-            state.items.where((item) => item.mealKit.id != mealKitId).toList());
+      items: state.items.where((item) => item.mealKit.id != mealKitId).toList(),
+    );
   }
 
   void updateQuantity(String mealKitId, int quantity) {

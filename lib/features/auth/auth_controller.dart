@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../supabase_client.dart';
+import 'package:ethiomealkit/supabase_client.dart';
 
 final currentUserProvider = Provider<User?>((ref) {
   final client = SupabaseConfig.client;
@@ -41,6 +41,3 @@ class AuthChangeNotifier extends ChangeNotifier {
     super.dispose();
   }
 }
-
-
-

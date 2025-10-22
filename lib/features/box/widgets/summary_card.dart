@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/app_colors.dart';
-import '../providers/box_selection_providers.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
 
 /// Summary card showing servings and reassurance copy
 class SummaryCard extends ConsumerWidget {
@@ -24,9 +24,7 @@ class SummaryCard extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.peach50,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.darkBrown.withOpacity(0.1),
-        ),
+        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -64,17 +62,17 @@ class SummaryCard extends ConsumerWidget {
           const SizedBox(height: 12),
 
           // Reassurance tags
-          _ReassuranceTag(
+          const _ReassuranceTag(
             icon: Icons.receipt_long_outlined,
             text: 'No commitment',
           ),
           const SizedBox(height: 8),
-          _ReassuranceTag(
+          const _ReassuranceTag(
             icon: Icons.local_shipping_outlined,
             text: 'Free delivery in Addis Ababa',
           ),
           const SizedBox(height: 8),
-          _ReassuranceTag(
+          const _ReassuranceTag(
             icon: Icons.favorite_border,
             text: 'Change your plan any time',
           ),
@@ -88,20 +86,13 @@ class _ReassuranceTag extends StatelessWidget {
   final IconData icon;
   final String text;
 
-  const _ReassuranceTag({
-    required this.icon,
-    required this.text,
-  });
+  const _ReassuranceTag({required this.icon, required this.text});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(
-          icon,
-          size: 18,
-          color: AppColors.success600,
-        ),
+        Icon(icon, size: 18, color: AppColors.success600),
         const SizedBox(width: 8),
         Text(
           text,

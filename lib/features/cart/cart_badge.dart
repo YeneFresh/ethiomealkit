@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../repo/cart_repository.dart';
+import 'package:ethiomealkit/repo/cart_repository.dart';
 import 'package:go_router/go_router.dart';
 
 class CartBadge extends ConsumerWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final double size;
-  
+
   const CartBadge({
     super.key,
     this.backgroundColor,
@@ -37,10 +37,7 @@ class CartBadge extends ConsumerWidget {
                 color: backgroundColor ?? Colors.red,
                 borderRadius: BorderRadius.circular(size / 2),
               ),
-              constraints: BoxConstraints(
-                minWidth: size,
-                minHeight: size,
-              ),
+              constraints: BoxConstraints(minWidth: size, minHeight: size),
               child: Text(
                 itemCount > 99 ? '99+' : itemCount.toString(),
                 style: TextStyle(

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/app_colors.dart';
-import '../providers/box_selection_providers.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
 
 /// Dismissible promo code banner showing active discount
 class PromoBanner extends ConsumerWidget {
@@ -26,13 +26,11 @@ class PromoBanner extends ConsumerWidget {
         decoration: BoxDecoration(
           color: AppColors.success600.withOpacity(0.1),
           borderRadius: BorderRadius.circular(8),
-          border: Border.all(
-            color: AppColors.success600.withOpacity(0.3),
-          ),
+          border: Border.all(color: AppColors.success600.withOpacity(0.3)),
         ),
         child: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.celebration,
               color: AppColors.success600,
               size: 20,
@@ -47,9 +45,7 @@ class PromoBanner extends ConsumerWidget {
                   children: [
                     TextSpan(
                       text: "'$promoCode'",
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w700,
-                      ),
+                      style: const TextStyle(fontWeight: FontWeight.w700),
                     ),
                     TextSpan(
                       text:
@@ -69,10 +65,7 @@ class PromoBanner extends ConsumerWidget {
                 ref.read(promoNotifierProvider.notifier).togglePromo();
               },
               padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(
-                minWidth: 32,
-                minHeight: 32,
-              ),
+              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
             ),
           ],
         ),

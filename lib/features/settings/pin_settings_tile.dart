@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../core/pin_vault.dart';
-import '../../core/sentry_service.dart';
+import 'package:ethiomealkit/core/pin_vault.dart';
+import 'package:ethiomealkit/core/sentry_service.dart';
 
 class PinSettingsTile extends StatefulWidget {
   const PinSettingsTile({super.key});
@@ -37,10 +37,7 @@ class _PinSettingsTileState extends State<PinSettingsTile> {
         action: 'pin_setup_failed',
         provider: 'pin',
         route: '/settings',
-        metadata: {
-          'reason': 'pin_mismatch',
-          'pin_length': pin.length,
-        },
+        metadata: {'reason': 'pin_mismatch', 'pin_length': pin.length},
       );
       return;
     }
@@ -55,10 +52,7 @@ class _PinSettingsTileState extends State<PinSettingsTile> {
         action: 'pin_setup_success',
         provider: 'pin',
         route: '/settings',
-        metadata: {
-          'pin_length': pin.length,
-          'operation': 'enable',
-        },
+        metadata: {'pin_length': pin.length, 'operation': 'enable'},
       );
     } catch (e) {
       _snack('Failed to enable PIN: $e', true);
@@ -129,10 +123,7 @@ class _PinSettingsTileState extends State<PinSettingsTile> {
         action: 'pin_change_failed',
         provider: 'pin',
         route: '/settings',
-        metadata: {
-          'reason': 'incorrect_current_pin',
-          'operation': 'change',
-        },
+        metadata: {'reason': 'incorrect_current_pin', 'operation': 'change'},
       );
       return;
     }
@@ -169,10 +160,7 @@ class _PinSettingsTileState extends State<PinSettingsTile> {
         action: 'pin_change_success',
         provider: 'pin',
         route: '/settings',
-        metadata: {
-          'pin_length': pin.length,
-          'operation': 'change',
-        },
+        metadata: {'pin_length': pin.length, 'operation': 'change'},
       );
     } catch (e) {
       _snack('Failed to change PIN: $e', true);
@@ -201,17 +189,19 @@ class _PinSettingsTileState extends State<PinSettingsTile> {
         title: Text('App PIN'),
         subtitle: Text('Loading...'),
         trailing: SizedBox(
-            width: 20,
-            height: 20,
-            child: CircularProgressIndicator(strokeWidth: 2)),
+          width: 20,
+          height: 20,
+          child: CircularProgressIndicator(strokeWidth: 2),
+        ),
       );
     }
     return Column(
       children: [
         SwitchListTile(
           title: const Text('Enable PIN fallback'),
-          subtitle:
-              const Text('Use a 4–6 digit PIN when biometrics are unavailable'),
+          subtitle: const Text(
+            'Use a 4–6 digit PIN when biometrics are unavailable',
+          ),
           value: _enabled,
           onChanged: (v) => v ? _enable() : _disable(),
         ),
@@ -238,14 +228,13 @@ class _PinSettingsTileState extends State<PinSettingsTile> {
           obscureText: true,
           keyboardType: TextInputType.number,
           maxLength: 6,
-          decoration: const InputDecoration(
-            hintText: 'Digits only',
-          ),
+          decoration: const InputDecoration(hintText: 'Digits only'),
         ),
         actions: [
           TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel')),
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
           FilledButton(
             onPressed: () {
               final pin = ctrl.text.trim();
@@ -267,8 +256,8 @@ class _PinSettingsTileState extends State<PinSettingsTile> {
                     'reason': pin.length < 4
                         ? 'too_short'
                         : pin.length > 6
-                            ? 'too_long'
-                            : 'not_numeric',
+                        ? 'too_long'
+                        : 'not_numeric',
                   },
                 );
                 return;
@@ -285,8 +274,9 @@ class _PinSettingsTileState extends State<PinSettingsTile> {
   void _snack(String msg, [bool error = false]) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
-          content: Text(msg),
-          backgroundColor: error ? Colors.red.shade700 : null),
+        content: Text(msg),
+        backgroundColor: error ? Colors.red.shade700 : null,
+      ),
     );
   }
 }

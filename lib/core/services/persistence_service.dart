@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/address.dart';
+import 'package:ethiomealkit/core/models/address.dart';
 
 /// Centralized persistence service for all onboarding state
 class PersistenceService {
@@ -55,7 +55,10 @@ class PersistenceService {
   }
 
   static Future<void> savePromo(
-      bool applied, String? code, int discount) async {
+    bool applied,
+    String? code,
+    int discount,
+  ) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool(_keyPromoApplied, applied);
     if (code != null) {
@@ -123,26 +126,26 @@ class PersistenceService {
   }
 
   static Map<String, dynamic> _addressToMap(Address a) => {
-        'id': a.id,
-        'label': a.label,
-        'line1': a.line1,
-        'line2': a.line2,
-        'city': a.city,
-        'notes': a.notes,
-        'lat': a.lat,
-        'lng': a.lng,
-      };
+    'id': a.id,
+    'label': a.label,
+    'line1': a.line1,
+    'line2': a.line2,
+    'city': a.city,
+    'notes': a.notes,
+    'lat': a.lat,
+    'lng': a.lng,
+  };
 
   static Address _addressFromMap(Map<String, dynamic> map) => Address(
-        id: map['id'] ?? '',
-        label: map['label'] ?? 'Home',
-        line1: map['line1'] ?? '',
-        line2: map['line2'],
-        city: map['city'] ?? 'Addis Ababa',
-        notes: map['notes'],
-        lat: map['lat'],
-        lng: map['lng'],
-      );
+    id: map['id'] ?? '',
+    label: map['label'] ?? 'Home',
+    line1: map['line1'] ?? '',
+    line2: map['line2'],
+    city: map['city'] ?? 'Addis Ababa',
+    notes: map['notes'],
+    lat: map['lat'],
+    lng: map['lng'],
+  );
 
   // ========== DELIVERY WINDOW ==========
 

@@ -89,6 +89,3 @@ class Recipe {
   @override
   int get hashCode => id.hashCode;
 }
-
-
-

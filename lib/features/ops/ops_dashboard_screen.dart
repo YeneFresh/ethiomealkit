@@ -26,13 +26,16 @@ class _OpsDashboardScreenState extends State<OpsDashboardScreen> {
   final supa = Supabase.instance.client;
 
   Future<File> downloadVatCsv({int monthOffset = 0}) async {
-    final res = await supa
-        .rpc('vat_return_csv_month', params: {'_month_offset': monthOffset});
+    final res = await supa.rpc(
+      'vat_return_csv_month',
+      params: {'_month_offset': monthOffset},
+    );
     final csv =
         (res as String?) ?? 'invoice_number,invoice_date,base_etb,vat_etb\n';
     final dir = await getTemporaryDirectory();
     final file = File(
-        '${dir.path}/vat_export_${DateTime.now().millisecondsSinceEpoch}.csv');
+      '${dir.path}/vat_export_${DateTime.now().millisecondsSinceEpoch}.csv',
+    );
     return file.writeAsBytes(utf8.encode(csv), flush: true);
   }
 
@@ -96,38 +99,52 @@ class _OpsDashboardScreenState extends State<OpsDashboardScreen> {
       padding: const EdgeInsets.all(12),
       children: [
         Card(
-            child: ListTile(
-          title: const Text('Orders Today'),
-          subtitle: Text(
-              'Pending ${sum['pending']} • Confirmed ${sum['confirmed']} • Shipped ${sum['shipped']} • Canceled ${sum['canceled']}'),
-        )),
+          child: ListTile(
+            title: const Text('Orders Today'),
+            subtitle: Text(
+              'Pending ${sum['pending']} • Confirmed ${sum['confirmed']} • Shipped ${sum['shipped']} • Canceled ${sum['canceled']}',
+            ),
+          ),
+        ),
         Card(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ListTile(title: Text('Delivery Capacity')),
-            ...cap.map((w) => ListTile(
-                title: Text(w['slot'] ?? 'Window'),
-                subtitle: Text('${w['booked_count']}/${w['capacity'] ?? '∞'}'
-                    '${w['is_concierge'] == true ? ' • Concierge' : ''}'),
-                trailing: Text(w['utilization_pct'] == null
-                    ? '—'
-                    : '${w['utilization_pct']}%'))),
-          ],
-        )),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const ListTile(title: Text('Delivery Capacity')),
+              ...cap.map(
+                (w) => ListTile(
+                  title: Text(w['slot'] ?? 'Window'),
+                  subtitle: Text(
+                    '${w['booked_count']}/${w['capacity'] ?? '∞'}'
+                    '${w['is_concierge'] == true ? ' • Concierge' : ''}',
+                  ),
+                  trailing: Text(
+                    w['utilization_pct'] == null
+                        ? '—'
+                        : '${w['utilization_pct']}%',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         Card(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const ListTile(title: Text('Messaging (14 days)')),
-            ...kpis.map((r) => ListTile(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const ListTile(title: Text('Messaging (14 days)')),
+              ...kpis.map(
+                (r) => ListTile(
                   dense: true,
                   title: Text((r['day'] as String).substring(0, 10)),
                   subtitle: Text(
-                      'out: ${r['out_total']} (sent ${r['out_sent']}, deliv ${r['out_delivered']}, fail ${r['out_failed']}) • in: ${r['inbound_total']}'),
-                )),
-          ],
-        )),
+                    'out: ${r['out_total']} (sent ${r['out_sent']}, deliv ${r['out_delivered']}, fail ${r['out_failed']}) • in: ${r['inbound_total']}',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
         Card(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,20 +160,24 @@ class _OpsDashboardScreenState extends State<OpsDashboardScreen> {
                           child: ElevatedButton.icon(
                             onPressed: () async {
                               try {
-                                final file =
-                                    await downloadVatCsv(monthOffset: 0);
+                                final file = await downloadVatCsv(
+                                  monthOffset: 0,
+                                );
                                 if (mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content: Text(
-                                            'VAT CSV downloaded: ${file.path}')),
+                                      content: Text(
+                                        'VAT CSV downloaded: ${file.path}',
+                                      ),
+                                    ),
                                   );
                                 }
                               } catch (e) {
                                 if (mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content: Text('VAT export failed: $e')),
+                                      content: Text('VAT export failed: $e'),
+                                    ),
                                   );
                                 }
                               }
@@ -170,20 +191,24 @@ class _OpsDashboardScreenState extends State<OpsDashboardScreen> {
                           child: ElevatedButton.icon(
                             onPressed: () async {
                               try {
-                                final file =
-                                    await downloadVatCsv(monthOffset: -1);
+                                final file = await downloadVatCsv(
+                                  monthOffset: -1,
+                                );
                                 if (mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content: Text(
-                                            'VAT CSV downloaded: ${file.path}')),
+                                      content: Text(
+                                        'VAT CSV downloaded: ${file.path}',
+                                      ),
+                                    ),
                                   );
                                 }
                               } catch (e) {
                                 if (mounted) {
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                        content: Text('VAT export failed: $e')),
+                                      content: Text('VAT export failed: $e'),
+                                    ),
                                   );
                                 }
                               }
@@ -207,8 +232,9 @@ class _OpsDashboardScreenState extends State<OpsDashboardScreen> {
         ),
         const SizedBox(height: 8),
         const Text('Open Tasks', style: TextStyle(fontWeight: FontWeight.bold)),
-        ...tasks.map((t) => Card(
-                child: ListTile(
+        ...tasks.map(
+          (t) => Card(
+            child: ListTile(
               title: Text('${t['kind']} • ${t['status']}'),
               subtitle: Text((t['payload'] ?? {}).toString()),
               trailing: ElevatedButton(
@@ -216,7 +242,8 @@ class _OpsDashboardScreenState extends State<OpsDashboardScreen> {
                   try {
                     await supa
                         .from('ops_tasks')
-                        .update({'status': 'done'}).eq('id', t['id']);
+                        .update({'status': 'done'})
+                        .eq('id', t['id']);
                     // Refresh data after resolving task
                     await _loadOpsData();
                   } catch (e) {
@@ -229,17 +256,25 @@ class _OpsDashboardScreenState extends State<OpsDashboardScreen> {
                 },
                 child: const Text('Resolve'),
               ),
-            ))),
+            ),
+          ),
+        ),
         const SizedBox(height: 8),
-        const Text('Recent Messages',
-            style: TextStyle(fontWeight: FontWeight.bold)),
-        ...msgs.map((m) => ListTile(
-              dense: true,
-              title:
-                  Text('${m['channel']} • ${m['direction']} • ${m['status']}'),
-              subtitle: Text((m['body'] ?? '').toString(),
-                  maxLines: 2, overflow: TextOverflow.ellipsis),
-            )),
+        const Text(
+          'Recent Messages',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        ...msgs.map(
+          (m) => ListTile(
+            dense: true,
+            title: Text('${m['channel']} • ${m['direction']} • ${m['status']}'),
+            subtitle: Text(
+              (m['body'] ?? '').toString(),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -260,22 +295,22 @@ class _OpsDashboardScreenState extends State<OpsDashboardScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _errorMessage != null
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(_errorMessage!),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: _loadOpsData,
-                        child: const Text('Retry'),
-                      ),
-                    ],
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(_errorMessage!),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: _loadOpsData,
+                    child: const Text('Retry'),
                   ),
-                )
-              : _opsData != null
-                  ? opsDashboard(_opsData!)
-                  : const Center(child: Text('No data available')),
+                ],
+              ),
+            )
+          : _opsData != null
+          ? opsDashboard(_opsData!)
+          : const Center(child: Text('No data available')),
     );
   }
 }

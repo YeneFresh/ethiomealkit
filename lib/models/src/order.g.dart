@@ -22,10 +22,9 @@ Map<String, dynamic> _$$OrderItemImplToJson(_$OrderItemImpl instance) =>
 
 _$OrderImpl _$$OrderImplFromJson(Map<String, dynamic> json) => _$OrderImpl(
   id: json['id'] as String,
-  items:
-      (json['items'] as List<dynamic>)
-          .map((e) => OrderItem.fromJson(e as Map<String, dynamic>))
-          .toList(),
+  items: (json['items'] as List<dynamic>)
+      .map((e) => OrderItem.fromJson(e as Map<String, dynamic>))
+      .toList(),
   totalCents: (json['totalCents'] as num).toInt(),
   status: json['status'] as String,
   createdAt: DateTime.parse(json['createdAt'] as String),

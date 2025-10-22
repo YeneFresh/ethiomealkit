@@ -27,6 +27,3 @@ class Layout {
   static const double maxContentWidth = 600.0;
   static const double responsiveBreakpoint = 600.0;
 }
-
-
-

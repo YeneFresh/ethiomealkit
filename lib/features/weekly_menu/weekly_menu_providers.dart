@@ -13,8 +13,9 @@ final deliveryGateProvider = FutureProvider<Map<String, dynamic>?>((ref) async {
 });
 
 // Delivery Windows Provider
-final deliveryWindowsProvider =
-    FutureProvider<List<Map<String, dynamic>>>((ref) async {
+final deliveryWindowsProvider = FutureProvider<List<Map<String, dynamic>>>((
+  ref,
+) async {
   final supabase = Supabase.instance.client;
   try {
     final response = await supabase
@@ -32,10 +33,10 @@ final deliveryWindowsProvider =
 final stageDeliveryController = Provider((ref) {
   return (String addressLabel, String windowId) async {
     final supabase = Supabase.instance.client;
-    final result = await supabase.rpc('stage_delivery_choice', params: {
-      'address_label': addressLabel,
-      'window_id': windowId,
-    });
+    final result = await supabase.rpc(
+      'stage_delivery_choice',
+      params: {'address_label': addressLabel, 'window_id': windowId},
+    );
     // Invalidate the delivery gate provider to refresh the UI
     ref.invalidate(deliveryGateProvider);
     return result;
@@ -55,8 +56,9 @@ final confirmDeliveryController = Provider((ref) {
 });
 
 // Weekly Menu Provider (placeholder for now)
-final weeklyMenuProvider =
-    FutureProvider<List<Map<String, dynamic>>>((ref) async {
+final weeklyMenuProvider = FutureProvider<List<Map<String, dynamic>>>((
+  ref,
+) async {
   // This would load the weekly menu once delivery is confirmed
   return [];
 });

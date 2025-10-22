@@ -2,10 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// Onboarding/flow progress stages
 enum ProgressStage {
-  box,      // Box size selection
+  box, // Box size selection
   delivery, // Delivery window selection
-  recipes,  // Recipe selection
-  address,  // Address input
+  recipes, // Recipe selection
+  address, // Address input
 }
 
 /// Current progress stage provider
@@ -29,7 +29,3 @@ int getStepNumber(ProgressStage stage) {
 
 /// Total number of steps
 const int totalSteps = 4;
-
-
-
-

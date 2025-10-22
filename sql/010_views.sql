@@ -88,3 +88,4 @@ GRANT SELECT ON app.current_weekly_recipes TO anon, authenticated;
 
 
 
+

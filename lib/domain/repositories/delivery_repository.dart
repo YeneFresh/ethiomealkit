@@ -1,4 +1,4 @@
-import '../entities/delivery_slot.dart';
+import 'package:ethiomealkit/domain/entities/delivery_slot.dart';
 
 /// Delivery repository interface (domain contract)
 abstract class DeliveryRepository {
@@ -16,6 +16,3 @@ abstract class DeliveryRepository {
     required String addressId,
   });
 }
-
-
-

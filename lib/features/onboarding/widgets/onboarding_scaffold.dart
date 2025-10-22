@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../providers/user_onboarding_progress_provider.dart';
-import 'stepper_header.dart';
+import 'package:ethiomealkit/features/onboarding/providers/user_onboarding_progress_provider.dart';
+import 'package:ethiomealkit/features/onboarding/widgets/stepper_header.dart';
 
 /// Shared scaffold wrapper for all onboarding screens
 /// Provides persistent stepper header and animated page transitions
@@ -34,7 +34,8 @@ class OnboardingScaffold extends ConsumerWidget {
         leading: showBackButton
             ? IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: onBack ??
+                onPressed:
+                    onBack ??
                     () {
                       ref
                           .read(userOnboardingProgressProvider.notifier)
@@ -67,16 +68,10 @@ class OnboardingScaffold extends ConsumerWidget {
 
                 return SlideTransition(
                   position: offset,
-                  child: FadeTransition(
-                    opacity: animation,
-                    child: child,
-                  ),
+                  child: FadeTransition(opacity: animation, child: child),
                 );
               },
-              child: KeyedSubtree(
-                key: ValueKey(currentStep),
-                child: child,
-              ),
+              child: KeyedSubtree(key: ValueKey(currentStep), child: child),
             ),
           ),
         ],
@@ -84,6 +79,3 @@ class OnboardingScaffold extends ConsumerWidget {
     );
   }
 }
-
-
-

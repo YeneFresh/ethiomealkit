@@ -66,11 +66,7 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                Container(
-                  width: 24,
-                  height: 2,
-                  color: Colors.grey[300],
-                ),
+                Container(width: 24, height: 2, color: Colors.grey[300]),
                 Container(
                   width: 12,
                   height: 12,
@@ -79,11 +75,7 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                Container(
-                  width: 24,
-                  height: 2,
-                  color: Colors.grey[300],
-                ),
+                Container(width: 24, height: 2, color: Colors.grey[300]),
                 Container(
                   width: 12,
                   height: 12,
@@ -92,11 +84,7 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                Container(
-                  width: 24,
-                  height: 2,
-                  color: Colors.grey[300],
-                ),
+                Container(width: 24, height: 2, color: Colors.grey[300]),
                 Container(
                   width: 12,
                   height: 12,
@@ -105,11 +93,7 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                     shape: BoxShape.circle,
                   ),
                 ),
-                Container(
-                  width: 24,
-                  height: 2,
-                  color: Colors.grey[300],
-                ),
+                Container(width: 24, height: 2, color: Colors.grey[300]),
                 Container(
                   width: 12,
                   height: 12,
@@ -121,7 +105,7 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
               ],
             ),
           ),
-          
+
           Text(
             'Step 2 of 5',
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
@@ -129,9 +113,9 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
               fontWeight: FontWeight.w500,
             ),
           ),
-          
+
           const SizedBox(height: 24),
-          
+
           // Header
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -147,17 +131,17 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                 const SizedBox(height: 8),
                 Text(
                   'Choose the size that fits your household',
-                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                    color: Colors.grey[600],
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.bodyLarge?.copyWith(color: Colors.grey[600]),
                   textAlign: TextAlign.center,
                 ),
               ],
             ),
           ),
-          
+
           const SizedBox(height: 32),
-          
+
           // Box options
           Expanded(
             child: ListView.builder(
@@ -166,15 +150,15 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
               itemBuilder: (context, index) {
                 final box = boxTypes[index];
                 final isSelected = selectedBoxType == box['id'];
-                
+
                 return Card(
                   margin: const EdgeInsets.only(bottom: 16),
                   elevation: isSelected ? 4 : 1,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                     side: BorderSide(
-                      color: isSelected 
-                          ? Theme.of(context).primaryColor 
+                      color: isSelected
+                          ? Theme.of(context).primaryColor
                           : Colors.transparent,
                       width: 2,
                     ),
@@ -195,15 +179,17 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                             width: 60,
                             height: 60,
                             decoration: BoxDecoration(
-                              color: isSelected 
-                                  ? Theme.of(context).primaryColor.withOpacity(0.1)
+                              color: isSelected
+                                  ? Theme.of(
+                                      context,
+                                    ).primaryColor.withOpacity(0.1)
                                   : Colors.grey[100],
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: Icon(
                               box['icon'],
                               size: 30,
-                              color: isSelected 
+                              color: isSelected
                                   ? Theme.of(context).primaryColor
                                   : Colors.grey[600],
                             ),
@@ -215,33 +201,39 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                               children: [
                                 Text(
                                   box['name'],
-                                  style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                                  style: Theme.of(context).textTheme.titleLarge
+                                      ?.copyWith(fontWeight: FontWeight.w600),
                                 ),
                                 const SizedBox(height: 4),
                                 Text(
                                   box['description'],
-                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    color: Colors.grey[600],
-                                  ),
+                                  style: Theme.of(context).textTheme.bodyMedium
+                                      ?.copyWith(color: Colors.grey[600]),
                                 ),
                                 const SizedBox(height: 8),
                                 Row(
                                   children: [
                                     Text(
                                       '${box['meals']} meals',
-                                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyMedium
+                                          ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                     ),
                                     const SizedBox(width: 16),
                                     Text(
                                       box['price'],
-                                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontWeight: FontWeight.w600,
-                                      ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            color: Theme.of(
+                                              context,
+                                            ).primaryColor,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
                                   ],
                                 ),
@@ -262,7 +254,7 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
               },
             ),
           ),
-          
+
           // Continue button
           SafeArea(
             child: Padding(
@@ -271,7 +263,7 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                 width: double.infinity,
                 height: 56,
                 child: ElevatedButton(
-                  onPressed: selectedBoxType != null 
+                  onPressed: selectedBoxType != null
                       ? () => context.go('/meals')
                       : null,
                   style: ElevatedButton.styleFrom(
@@ -281,10 +273,7 @@ class _BoxSelectionScreenState extends State<BoxSelectionScreen> {
                   ),
                   child: const Text(
                     'Continue to Meal Selection',
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                 ),
               ),

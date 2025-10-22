@@ -4,7 +4,7 @@ import 'package:ethiomealkit/domain/entities/recipe.dart';
 void main() {
   group('Recipe Entity', () {
     test('calculates total minutes correctly', () {
-      final recipe = Recipe(
+      final recipe = const Recipe(
         id: '1',
         title: 'Test Recipe',
         description: '',
@@ -18,7 +18,7 @@ void main() {
     });
 
     test('identifies quick recipes correctly', () {
-      final quick = Recipe(
+      final quick = const Recipe(
         id: '1',
         title: 'Quick Meal',
         description: '',
@@ -28,7 +28,7 @@ void main() {
         tags: [],
       );
 
-      final slow = Recipe(
+      final slow = const Recipe(
         id: '2',
         title: 'Slow Cook',
         description: '',
@@ -43,7 +43,7 @@ void main() {
     });
 
     test('identifies Chef\'s Choice correctly', () {
-      final chefChoice = Recipe(
+      final chefChoice = const Recipe(
         id: '1',
         title: 'Special',
         description: '',
@@ -53,7 +53,7 @@ void main() {
         tags: ['Chef\'s Choice', 'Premium'],
       );
 
-      final regular = Recipe(
+      final regular = const Recipe(
         id: '2',
         title: 'Regular',
         description: '',
@@ -68,7 +68,7 @@ void main() {
     });
 
     test('calculates pick score with correct priorities', () {
-      final chefChoice = Recipe(
+      final chefChoice = const Recipe(
         id: '1',
         title: 'Chef Special',
         description: '',
@@ -78,7 +78,7 @@ void main() {
         tags: ['Chef\'s Choice'],
       );
 
-      final popular = Recipe(
+      final popular = const Recipe(
         id: '2',
         title: 'Popular Dish',
         description: '',
@@ -88,7 +88,7 @@ void main() {
         tags: ['Popular'],
       );
 
-      final quick = Recipe(
+      final quick = const Recipe(
         id: '3',
         title: 'Quick Meal',
         description: '',
@@ -104,7 +104,7 @@ void main() {
     });
 
     test('copyWith creates new instance with updated values', () {
-      final original = Recipe(
+      final original = const Recipe(
         id: '1',
         title: 'Original',
         description: 'Desc',
@@ -122,7 +122,7 @@ void main() {
     });
 
     test('equality based on ID only', () {
-      final recipe1 = Recipe(
+      final recipe1 = const Recipe(
         id: '1',
         title: 'Title 1',
         description: '',
@@ -132,7 +132,7 @@ void main() {
         tags: [],
       );
 
-      final recipe2 = Recipe(
+      final recipe2 = const Recipe(
         id: '1',
         title: 'Title 2', // Different title
         description: '',
@@ -147,6 +147,3 @@ void main() {
     });
   });
 }
-
-
-

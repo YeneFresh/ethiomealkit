@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'injera_bubbles.dart';
-import 'gold_progress_bar.dart';
-import '../app_colors.dart';
+import 'package:ethiomealkit/core/widgets/injera_bubbles.dart';
+import 'package:ethiomealkit/core/widgets/gold_progress_bar.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
 
 /// YeneFresh splash screen with animated injera bubbles
 /// Shows while app initializes
@@ -16,11 +16,7 @@ class YeneFreshSplash extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           // Animated background
-          const InjeraBubbles(
-            opacity: 0.14,
-            maxRadius: 9,
-            count: 42,
-          ),
+          const InjeraBubbles(opacity: 0.14, maxRadius: 9, count: 42),
 
           // Content
           Center(
@@ -44,7 +40,7 @@ class YeneFreshSplash extends StatelessWidget {
                 const SizedBox(height: 24),
 
                 // Brand name
-                Text(
+                const Text(
                   'YeneFresh',
                   style: TextStyle(
                     fontSize: 32,
@@ -81,7 +77,3 @@ class YeneFreshSplash extends StatelessWidget {
     );
   }
 }
-
-
-
-

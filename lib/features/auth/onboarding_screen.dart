@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/theme/brand_colors.dart';
-import '../../core/widgets/injera_bubbles.dart';
+import 'package:ethiomealkit/core/theme/brand_colors.dart';
+import 'package:ethiomealkit/core/widgets/injera_bubbles.dart';
 
 /// Onboarding screen with full-bleed background image
 /// Entry point for new users to choose between signup and login
@@ -38,9 +38,7 @@ class OnboardingScreen extends StatelessWidget {
           ),
 
           // Warm overlay for text readability (brand-consistent)
-          Container(
-            color: BrandColors.overlayWarm.withValues(alpha: 0.15),
-          ),
+          Container(color: BrandColors.overlayWarm.withValues(alpha: 0.15)),
 
           // Subtle gradient for extra legibility near bottom
           IgnorePointer(
@@ -126,7 +124,7 @@ class OnboardingScreen extends StatelessWidget {
                   SizedBox(height: isSmall ? 20 : 36),
 
                   // Value props (optional badges)
-                  Wrap(
+                  const Wrap(
                     spacing: 12,
                     runSpacing: 8,
                     alignment: WrapAlignment.center,

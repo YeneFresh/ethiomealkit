@@ -10,22 +10,28 @@ class FeatureFlags {
   static bool get ordersEnabled {
     // Can be controlled via remote config (Firebase, LaunchDarkly, etc.)
     // For now, can be overridden via environment variable
-    const value =
-        String.fromEnvironment('ORDERS_ENABLED', defaultValue: 'true');
+    const value = String.fromEnvironment(
+      'ORDERS_ENABLED',
+      defaultValue: 'true',
+    );
     return value.toLowerCase() == 'true';
   }
 
   /// Enable/disable delivery window selection
   static bool get deliveryGateEnabled {
-    const value =
-        String.fromEnvironment('DELIVERY_GATE_ENABLED', defaultValue: 'true');
+    const value = String.fromEnvironment(
+      'DELIVERY_GATE_ENABLED',
+      defaultValue: 'true',
+    );
     return value.toLowerCase() == 'true';
   }
 
   /// Enable/disable recipe selection
   static bool get recipeSelectionEnabled {
-    const value = String.fromEnvironment('RECIPE_SELECTION_ENABLED',
-        defaultValue: 'true');
+    const value = String.fromEnvironment(
+      'RECIPE_SELECTION_ENABLED',
+      defaultValue: 'true',
+    );
     return value.toLowerCase() == 'true';
   }
 
@@ -35,22 +41,28 @@ class FeatureFlags {
 
   /// Show order history feature
   static bool get showOrderHistory {
-    const value =
-        String.fromEnvironment('SHOW_ORDER_HISTORY', defaultValue: 'true');
+    const value = String.fromEnvironment(
+      'SHOW_ORDER_HISTORY',
+      defaultValue: 'true',
+    );
     return value.toLowerCase() == 'true';
   }
 
   /// Enable payment integration (when ready)
   static bool get paymentsEnabled {
-    const value =
-        String.fromEnvironment('PAYMENTS_ENABLED', defaultValue: 'false');
+    const value = String.fromEnvironment(
+      'PAYMENTS_ENABLED',
+      defaultValue: 'false',
+    );
     return value.toLowerCase() == 'true';
   }
 
   /// Show feedback/report buttons
   static bool get feedbackEnabled {
-    const value =
-        String.fromEnvironment('FEEDBACK_ENABLED', defaultValue: 'true');
+    const value = String.fromEnvironment(
+      'FEEDBACK_ENABLED',
+      defaultValue: 'true',
+    );
     return value.toLowerCase() == 'true';
   }
 
@@ -88,7 +100,3 @@ class FeatureFlags {
     };
   }
 }
-
-
-
-

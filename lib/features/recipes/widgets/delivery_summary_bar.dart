@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../core/design_tokens.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 /// Persistent delivery window summary bar with edit capability
 class DeliverySummaryBar extends StatelessWidget {
@@ -24,7 +24,10 @@ class DeliverySummaryBar extends StatelessWidget {
       color: Yf.peach50,
       elevation: 0,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: Yf.s16, vertical: Yf.s12),
+        padding: const EdgeInsets.symmetric(
+          horizontal: Yf.s16,
+          vertical: Yf.s12,
+        ),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
@@ -35,12 +38,12 @@ class DeliverySummaryBar extends StatelessWidget {
         ),
         child: Row(
           children: [
-            Icon(
+            const Icon(
               Icons.local_shipping_outlined,
               color: Yf.brown700,
               size: 20,
             ),
-            SizedBox(width: Yf.s12),
+            const SizedBox(width: Yf.s12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,9 +64,9 @@ class DeliverySummaryBar extends StatelessWidget {
                         ),
                       ),
                       if (recommended) ...[
-                        SizedBox(width: Yf.s8),
-                        Icon(Icons.star, size: 14, color: Yf.gold600),
-                        SizedBox(width: Yf.s4),
+                        const SizedBox(width: Yf.s8),
+                        const Icon(Icons.star, size: 14, color: Yf.gold600),
+                        const SizedBox(width: Yf.s4),
                         Text(
                           'Recommended',
                           style: theme.textTheme.labelSmall?.copyWith(
@@ -79,14 +82,17 @@ class DeliverySummaryBar extends StatelessWidget {
             ),
             TextButton.icon(
               onPressed: onEdit,
-              icon: Icon(Icons.edit_outlined, size: 16, color: Yf.brown700),
-              label: Text(
-                'Edit',
-                style: TextStyle(color: Yf.brown700),
+              icon: const Icon(
+                Icons.edit_outlined,
+                size: 16,
+                color: Yf.brown700,
               ),
+              label: const Text('Edit', style: TextStyle(color: Yf.brown700)),
               style: TextButton.styleFrom(
-                padding:
-                    EdgeInsets.symmetric(horizontal: Yf.s12, vertical: Yf.s8),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: Yf.s12,
+                  vertical: Yf.s8,
+                ),
                 visualDensity: VisualDensity.compact,
               ),
             ),
@@ -96,6 +102,3 @@ class DeliverySummaryBar extends StatelessWidget {
     );
   }
 }
-
-
-

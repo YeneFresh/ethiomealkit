@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../core/app_colors.dart';
-import '../../core/providers/recipe_selection_providers.dart';
-import '../../core/widgets/cart_summary_bar.dart';
-import '../../core/widgets/mini_cart_drawer.dart';
-import '../box/providers/box_selection_providers.dart';
-import 'providers/user_onboarding_progress_provider.dart';
-import 'widgets/onboarding_scaffold.dart';
-import 'widgets/filter_bar.dart';
-import 'widgets/recipe_grid_card.dart';
-import '../../features/delivery/ui/delivery_window_chip.dart';
-import '../../features/delivery/ui/delivery_gradient_bg.dart';
-import '../../features/delivery/state/delivery_providers.dart';
-import '../../features/delivery/ui/location_toggle.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/providers/recipe_selection_providers.dart';
+import 'package:ethiomealkit/core/widgets/cart_summary_bar.dart';
+import 'package:ethiomealkit/core/widgets/mini_cart_drawer.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
+import 'package:ethiomealkit/features/onboarding/providers/user_onboarding_progress_provider.dart';
+import 'package:ethiomealkit/features/onboarding/widgets/onboarding_scaffold.dart';
+import 'package:ethiomealkit/features/onboarding/widgets/filter_bar.dart';
+import 'package:ethiomealkit/features/onboarding/widgets/recipe_grid_card.dart';
+import 'package:ethiomealkit/features/delivery/ui/delivery_window_chip.dart';
+import 'package:ethiomealkit/features/delivery/ui/delivery_gradient_bg.dart';
+import 'package:ethiomealkit/features/delivery/state/delivery_providers.dart';
+import 'package:ethiomealkit/features/delivery/ui/location_toggle.dart';
 
 /// Recipes Selection Screen - Step 3 of unified onboarding
 /// Two-column grid with auto-select, filters, and confetti celebration
@@ -52,9 +52,11 @@ class _RecipesSelectionScreenState
 
       // Pick top-rated or chef's choice recipes
       final autoSelectIds = recipes
-          .where((r) =>
-              r.tags.any((t) => t.toLowerCase().contains("chef")) ||
-              r.tags.any((t) => t.toLowerCase().contains("recommended")))
+          .where(
+            (r) =>
+                r.tags.any((t) => t.toLowerCase().contains("chef")) ||
+                r.tags.any((t) => t.toLowerCase().contains("recommended")),
+          )
           .take(quota)
           .map((r) => r.id)
           .toList();
@@ -86,12 +88,12 @@ class _RecipesSelectionScreenState
     ref.listen(selectionNudgeProvider, (_, next) {
       if (next.showOverCap) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: const Text(
+          const SnackBar(
+            content: Text(
               "You've reached your box limit. Remove one or use Auto-complete.",
             ),
             behavior: SnackBarBehavior.floating,
-            duration: const Duration(seconds: 3),
+            duration: Duration(seconds: 3),
           ),
         );
       }
@@ -134,31 +136,27 @@ class _RecipesSelectionScreenState
         children: [
           // Gradient background (dynamic based on time of day)
           if (dw != null)
-            Positioned.fill(
-              child: DeliveryGradientBg(daypart: dw.daypart),
-            ),
+            Positioned.fill(child: DeliveryGradientBg(daypart: dw.daypart)),
 
           // Main content
           CustomScrollView(
             slivers: [
               // Delivery window chip + location toggle
-              SliverToBoxAdapter(
+              const SliverToBoxAdapter(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+                  padding: EdgeInsets.fromLTRB(16, 12, 16, 8),
                   child: Column(
                     children: [
-                      const DeliveryWindowChip(),
-                      const SizedBox(height: 8),
-                      const LocationToggle(),
+                      DeliveryWindowChip(),
+                      SizedBox(height: 8),
+                      LocationToggle(),
                     ],
                   ),
                 ),
               ),
 
               // Filter bar
-              const SliverToBoxAdapter(
-                child: FilterBar(),
-              ),
+              const SliverToBoxAdapter(child: FilterBar()),
 
               // Section header
               SliverToBoxAdapter(
@@ -196,18 +194,15 @@ class _RecipesSelectionScreenState
                     sliver: SliverGrid(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 16,
-                        crossAxisSpacing: 16,
-                        childAspectRatio: 0.72,
-                      ),
-                      delegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          final recipe = filteredRecipes[index];
-                          return RecipeGridCard(recipe: recipe);
-                        },
-                        childCount: filteredRecipes.length,
-                      ),
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 16,
+                            crossAxisSpacing: 16,
+                            childAspectRatio: 0.72,
+                          ),
+                      delegate: SliverChildBuilderDelegate((context, index) {
+                        final recipe = filteredRecipes[index];
+                        return RecipeGridCard(recipe: recipe);
+                      }, childCount: filteredRecipes.length),
                     ),
                   );
                 },
@@ -219,10 +214,10 @@ class _RecipesSelectionScreenState
                     ),
                   ),
                 ),
-                error: (error, stack) => SliverToBoxAdapter(
+                error: (error, stack) => const SliverToBoxAdapter(
                   child: Center(
                     child: Padding(
-                      padding: const EdgeInsets.all(32),
+                      padding: EdgeInsets.all(32),
                       child: Text(
                         'Failed to load recipes',
                         style: TextStyle(color: AppColors.error600),
@@ -233,9 +228,7 @@ class _RecipesSelectionScreenState
               ),
 
               // Bottom padding for cart summary bar
-              const SliverToBoxAdapter(
-                child: SizedBox(height: 110),
-              ),
+              const SliverToBoxAdapter(child: SizedBox(height: 110)),
             ],
           ),
 

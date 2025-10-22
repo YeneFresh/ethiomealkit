@@ -4,11 +4,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../data/api/supa_client.dart';
-import '../onboarding/onboarding_progress_header.dart';
-import '../../core/analytics.dart';
-import '../../core/reassurance_text.dart';
-import '../../core/design_tokens.dart';
+import 'package:ethiomealkit/data/api/supa_client.dart';
+import 'package:ethiomealkit/features/onboarding/onboarding_progress_header.dart';
+import 'package:ethiomealkit/core/analytics.dart';
+import 'package:ethiomealkit/core/reassurance_text.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 class DeliveryGateScreen extends ConsumerStatefulWidget {
   const DeliveryGateScreen({super.key});
@@ -124,10 +124,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           children: [
             CircularProgressIndicator(),
             SizedBox(height: 24),
-            Text(
-              'Loading...',
-              style: TextStyle(fontSize: 18),
-            ),
+            Text('Loading...', style: TextStyle(fontSize: 18)),
           ],
         ),
       ),
@@ -143,11 +140,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                Icons.error_outline,
-                size: 64,
-                color: Yf.error600,
-              ),
+              const Icon(Icons.error_outline, size: 64, color: Yf.error600),
               const SizedBox(height: 16),
               Text(
                 'Something went wrong',
@@ -183,26 +176,26 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
         // Content
         Expanded(
           child: SingleChildScrollView(
-            padding: EdgeInsets.all(Yf.s24),
+            padding: const EdgeInsets.all(Yf.s24),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // Simple Header
                 _buildSimpleHeader(),
-                SizedBox(height: Yf.s32),
+                const SizedBox(height: Yf.s32),
 
                 // Location Selection
                 _buildLocationSection(),
-                SizedBox(height: Yf.s24),
+                const SizedBox(height: Yf.s24),
 
                 // Time Selection
                 _buildTimeSection(),
-                SizedBox(height: Yf.s32),
+                const SizedBox(height: Yf.s32),
 
                 // Continue Button
                 _buildUnlockButton(),
 
-                SizedBox(height: Yf.s16),
+                const SizedBox(height: Yf.s16),
 
                 // Reassurance text
                 const ReassuranceText(),
@@ -217,15 +210,12 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
   Widget _buildSimpleHeader() {
     final theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.all(Yf.s32),
+      padding: const EdgeInsets.all(Yf.s32),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [
-            Yf.peach100,
-            Yf.peach50,
-          ],
+          colors: [Yf.peach100, Yf.peach50],
         ),
         borderRadius: Yf.borderRadius20,
         boxShadow: Yf.e2,
@@ -233,7 +223,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
       child: Column(
         children: [
           Container(
-            padding: EdgeInsets.all(Yf.s16),
+            padding: const EdgeInsets.all(Yf.s16),
             decoration: BoxDecoration(
               color: theme.colorScheme.primaryContainer,
               shape: BoxShape.circle,
@@ -244,7 +234,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
               color: theme.colorScheme.primary,
             ),
           ),
-          SizedBox(height: Yf.s20),
+          const SizedBox(height: Yf.s20),
           Text(
             'Set up your delivery',
             style: theme.textTheme.headlineMedium?.copyWith(
@@ -252,7 +242,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
               color: theme.colorScheme.onSurface,
             ),
           ),
-          SizedBox(height: Yf.s12),
+          const SizedBox(height: Yf.s12),
           Text(
             'Choose when and where to receive your meals',
             style: theme.textTheme.bodyLarge?.copyWith(
@@ -278,7 +268,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
               size: 20,
               color: theme.colorScheme.onSurfaceVariant,
             ),
-            SizedBox(width: Yf.s8),
+            const SizedBox(width: Yf.s8),
             Text(
               'Delivery Location',
               style: theme.textTheme.titleLarge?.copyWith(
@@ -288,7 +278,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
             ),
           ],
         ),
-        SizedBox(height: Yf.s20),
+        const SizedBox(height: Yf.s20),
         ..._locations.map((location) => _buildLocationCard(location)),
       ],
     );
@@ -299,7 +289,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
     final theme = Theme.of(context);
 
     return Padding(
-      padding: EdgeInsets.only(bottom: Yf.s16),
+      padding: const EdgeInsets.only(bottom: Yf.s16),
       child: Container(
         decoration: BoxDecoration(
           color: isSelected
@@ -315,10 +305,12 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           boxShadow: isSelected ? Yf.brownShadow : Yf.e1,
         ),
         child: ListTile(
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: Yf.s20, vertical: Yf.s8),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: Yf.s20,
+            vertical: Yf.s8,
+          ),
           leading: Container(
-            padding: EdgeInsets.all(Yf.s8),
+            padding: const EdgeInsets.all(Yf.s8),
             decoration: BoxDecoration(
               color: isSelected
                   ? theme.colorScheme.primary.withValues(alpha: 0.2)
@@ -342,7 +334,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           ),
           trailing: isSelected
               ? Container(
-                  padding: EdgeInsets.all(Yf.s4),
+                  padding: const EdgeInsets.all(Yf.s4),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary,
                     shape: BoxShape.circle,
@@ -372,7 +364,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
               size: 20,
               color: theme.colorScheme.onSurfaceVariant,
             ),
-            SizedBox(width: Yf.s8),
+            const SizedBox(width: Yf.s8),
             Text(
               'Delivery Time',
               style: theme.textTheme.titleLarge?.copyWith(
@@ -382,7 +374,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
             ),
           ],
         ),
-        SizedBox(height: Yf.s20),
+        const SizedBox(height: Yf.s20),
         if (_isLoadingWindows)
           const Center(child: CircularProgressIndicator())
         else
@@ -399,7 +391,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
     final isRecommended = window['slot'] == '14-16' && startAt.weekday == 6;
 
     return Padding(
-      padding: EdgeInsets.only(bottom: Yf.s16),
+      padding: const EdgeInsets.only(bottom: Yf.s16),
       child: Container(
         decoration: BoxDecoration(
           color: isSelected
@@ -415,10 +407,12 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           boxShadow: isSelected ? Yf.brownShadow : Yf.e1,
         ),
         child: ListTile(
-          contentPadding:
-              EdgeInsets.symmetric(horizontal: Yf.s20, vertical: Yf.s12),
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: Yf.s20,
+            vertical: Yf.s12,
+          ),
           leading: Container(
-            padding: EdgeInsets.all(Yf.s8),
+            padding: const EdgeInsets.all(Yf.s8),
             decoration: BoxDecoration(
               color: isSelected
                   ? theme.colorScheme.primary.withValues(alpha: 0.2)
@@ -443,9 +437,12 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
                 ),
               ),
               if (isRecommended) ...[
-                SizedBox(width: Yf.s8),
+                const SizedBox(width: Yf.s8),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: Yf.s8, vertical: 2),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: Yf.s8,
+                    vertical: 2,
+                  ),
                   decoration: BoxDecoration(
                     color: Yf.success600.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
@@ -471,7 +468,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           ),
           trailing: isSelected
               ? Container(
-                  padding: EdgeInsets.all(Yf.s4),
+                  padding: const EdgeInsets.all(Yf.s4),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.primary,
                     shape: BoxShape.circle,
@@ -503,9 +500,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           foregroundColor: theme.colorScheme.onPrimary,
           disabledBackgroundColor: theme.colorScheme.surfaceContainerHighest,
           disabledForegroundColor: theme.colorScheme.onSurfaceVariant,
-          shape: RoundedRectangleBorder(
-            borderRadius: Yf.borderRadius16,
-          ),
+          shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
           elevation: canContinue ? 2 : 0,
         ),
         child: _isSaving
@@ -522,8 +517,8 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.restaurant_menu, size: 20),
-                  SizedBox(width: Yf.s8),
+                  const Icon(Icons.restaurant_menu, size: 20),
+                  const SizedBox(width: Yf.s8),
                   Text(
                     'View Recipes',
                     style: theme.textTheme.titleMedium?.copyWith(

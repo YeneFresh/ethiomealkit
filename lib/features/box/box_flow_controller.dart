@@ -4,8 +4,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-final boxFlowProvider =
-    ChangeNotifierProvider<BoxFlowController>((_) => BoxFlowController());
+final boxFlowProvider = ChangeNotifierProvider<BoxFlowController>(
+  (_) => BoxFlowController(),
+);
 
 class BoxFlowController extends ChangeNotifier {
   final supa = Supabase.instance.client;
@@ -65,8 +66,11 @@ class BoxFlowController extends ChangeNotifier {
       // profile
       final uid = supa.auth.currentUser?.id;
       if (uid != null) {
-        final prof =
-            await supa.from('profiles').select().eq('id', uid).maybeSingle();
+        final prof = await supa
+            .from('profiles')
+            .select()
+            .eq('id', uid)
+            .maybeSingle();
         if (prof != null) {
           mealsPerWeek = (prof['meals_per_week'] as int?) ?? mealsPerWeek;
           servingsPerMeal =
@@ -134,10 +138,10 @@ class BoxFlowController extends ChangeNotifier {
 
   Future<void> persistSelections() async {
     final uid = supa.auth.currentUser!.id;
-    await supa
-        .from('user_meal_selections')
-        .delete()
-        .match({'user_id': uid, 'week_start': weekStr});
+    await supa.from('user_meal_selections').delete().match({
+      'user_id': uid,
+      'week_start': weekStr,
+    });
     if (selectedIds.isEmpty) return;
     final rows = selectedIds
         .map((rid) => {'user_id': uid, 'week_start': weekStr, 'recipe_id': rid})
@@ -221,14 +225,18 @@ class BoxFlowController extends ChangeNotifier {
 
   void _nudgeChipWeightsForRecipe(String recipeId, double delta) {
     final r = recipes.firstWhere(
-        (e) => (e['id']?.toString() ?? e['slug'].toString()) == recipeId,
-        orElse: () => <String, dynamic>{});
+      (e) => (e['id']?.toString() ?? e['slug'].toString()) == recipeId,
+      orElse: () => <String, dynamic>{},
+    );
     final cats = List<String>.from(r['categories'] ?? const <String>[]);
-    if (cats.contains('quick_easy'))
+    if (cats.contains('quick_easy')) {
       chipWeights['rapid'] = (chipWeights['rapid'] ?? 0.3) + delta;
-    if (cats.contains('family'))
+    }
+    if (cats.contains('family')) {
       chipWeights['family'] = (chipWeights['family'] ?? 0.3) + delta;
-    if (cats.contains('veggie'))
+    }
+    if (cats.contains('veggie')) {
       chipWeights['veggie'] = (chipWeights['veggie'] ?? 0.3) + delta;
+    }
   }
 }

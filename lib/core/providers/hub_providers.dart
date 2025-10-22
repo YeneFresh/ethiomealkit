@@ -26,7 +26,7 @@ class WeeklyStatus {
 final weeklyStatusProvider = FutureProvider<WeeklyStatus>((ref) async {
   // TODO: Query from Supabase app.weekly_menu_with_flags
   await Future.delayed(const Duration(milliseconds: 500));
-  
+
   return const WeeklyStatus(
     weekStart: '2025-10-13',
     selectedRecipes: 4,
@@ -40,7 +40,7 @@ final weeklyStatusProvider = FutureProvider<WeeklyStatus>((ref) async {
 /// Next delivery provider
 final nextDeliveryProvider = Provider<Map<String, String?>>((ref) {
   final status = ref.watch(weeklyStatusProvider).value;
-  
+
   return {
     'date': status?.deliveryDate ?? 'Thu, 17 Oct',
     'window': status?.deliveryWindow ?? 'Afternoon (2–4 pm)',
@@ -52,7 +52,7 @@ final nextDeliveryProvider = Provider<Map<String, String?>>((ref) {
 final userStatsProvider = FutureProvider<Map<String, dynamic>>((ref) async {
   // TODO: Query from Supabase user profile
   await Future.delayed(const Duration(milliseconds: 300));
-  
+
   return {
     'streak': 3, // weeks
     'points': 1250,
@@ -62,7 +62,3 @@ final userStatsProvider = FutureProvider<Map<String, dynamic>>((ref) async {
     'weeklyProgress': 3,
   };
 });
-
-
-
-

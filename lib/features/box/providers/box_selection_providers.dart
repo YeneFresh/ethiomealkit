@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/services/persistence_service.dart';
+import 'package:ethiomealkit/core/services/persistence_service.dart';
 
 /// Selected number of people (1-4) with persistence
 class SelectedPeopleNotifier extends StateNotifier<int?> {
@@ -19,8 +19,8 @@ class SelectedPeopleNotifier extends StateNotifier<int?> {
 
 final selectedPeopleProvider =
     StateNotifierProvider<SelectedPeopleNotifier, int?>(
-  (ref) => SelectedPeopleNotifier(),
-);
+      (ref) => SelectedPeopleNotifier(),
+    );
 
 /// Selected number of meals per week (3-5) with persistence
 class SelectedMealsNotifier extends StateNotifier<int?> {
@@ -40,8 +40,8 @@ class SelectedMealsNotifier extends StateNotifier<int?> {
 
 final selectedMealsProvider =
     StateNotifierProvider<SelectedMealsNotifier, int?>(
-  (ref) => SelectedMealsNotifier(),
-);
+      (ref) => SelectedMealsNotifier(),
+    );
 
 /// Promo state with persistence
 class PromoNotifier extends StateNotifier<Map<String, dynamic>> {
@@ -66,8 +66,8 @@ class PromoNotifier extends StateNotifier<Map<String, dynamic>> {
 
 final promoNotifierProvider =
     StateNotifierProvider<PromoNotifier, Map<String, dynamic>>(
-  (ref) => PromoNotifier(),
-);
+      (ref) => PromoNotifier(),
+    );
 
 /// Convenience providers for backward compatibility
 final promoAppliedProvider = Provider<bool>((ref) {
@@ -108,8 +108,9 @@ final pricePerServingProvider = Provider<Map<String, dynamic>>((ref) {
 
   final totalServings = people * meals;
   final originalPrice = basePrice;
-  final discountedPrice =
-      promoApplied ? basePrice * (1 - discountPercent / 100) : basePrice;
+  final discountedPrice = promoApplied
+      ? basePrice * (1 - discountPercent / 100)
+      : basePrice;
 
   return {
     'originalPrice': originalPrice,

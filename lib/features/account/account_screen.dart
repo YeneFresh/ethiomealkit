@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../core/app_colors.dart';
-import '../../core/widgets/app_bottom_nav.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/widgets/app_bottom_nav.dart';
 
 class AccountScreen extends ConsumerWidget {
   const AccountScreen({super.key});
@@ -186,7 +186,9 @@ class AccountScreen extends ConsumerWidget {
             subtitle: 'Email & push preferences',
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Notifications settings coming soon!')),
+                const SnackBar(
+                  content: Text('Notifications settings coming soon!'),
+                ),
               );
             },
           ),
@@ -321,7 +323,9 @@ class AccountScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.pop(ctx);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Subscription paused successfully')),
+                const SnackBar(
+                  content: Text('Subscription paused successfully'),
+                ),
               );
             },
             child: const Text('Pause'),
@@ -348,7 +352,11 @@ class AccountScreen extends ConsumerWidget {
             onPressed: () {
               Navigator.pop(ctx);
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Subscription cancelled. We hope to see you again!')),
+                const SnackBar(
+                  content: Text(
+                    'Subscription cancelled. We hope to see you again!',
+                  ),
+                ),
               );
             },
             style: TextButton.styleFrom(foregroundColor: Colors.red),
@@ -359,7 +367,3 @@ class AccountScreen extends ConsumerWidget {
     );
   }
 }
-
-
-
-

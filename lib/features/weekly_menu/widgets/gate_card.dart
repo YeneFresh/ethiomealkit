@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../weekly_menu_providers.dart';
-import 'delivery_window_selector.dart';
+import 'package:ethiomealkit/features/weekly_menu/weekly_menu_providers.dart';
+import 'package:ethiomealkit/features/weekly_menu/widgets/delivery_window_selector.dart';
 
 class GateCard extends ConsumerStatefulWidget {
   const GateCard({super.key});
@@ -29,8 +29,11 @@ class _GateCardState extends ConsumerState<GateCard> {
           padding: const EdgeInsets.all(24),
           child: Column(
             children: [
-              Icon(Icons.error_outline,
-                  size: 48, color: theme.colorScheme.error),
+              Icon(
+                Icons.error_outline,
+                size: 48,
+                color: theme.colorScheme.error,
+              ),
               const SizedBox(height: 16),
               Text(
                 'Failed to load delivery info',
@@ -55,8 +58,9 @@ class _GateCardState extends ConsumerState<GateCard> {
         return Card(
           elevation: 2,
           shadowColor: theme.colorScheme.shadow.withValues(alpha: 0.1),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
           child: Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
@@ -106,8 +110,9 @@ class _GateCardState extends ConsumerState<GateCard> {
                             style: theme.textTheme.bodySmall?.copyWith(
                               color: isConfirmed
                                   ? theme.colorScheme.primary
-                                  : theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.7),
+                                  : theme.colorScheme.onSurface.withValues(
+                                      alpha: 0.7,
+                                    ),
                             ),
                           ),
                         ],
@@ -171,8 +176,9 @@ class _GateCardState extends ConsumerState<GateCard> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: theme.colorScheme.surfaceContainer
-                          .withValues(alpha: 0.5),
+                      color: theme.colorScheme.surfaceContainer.withValues(
+                        alpha: 0.5,
+                      ),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(
                         color: theme.colorScheme.outline.withValues(alpha: 0.2),
@@ -190,8 +196,9 @@ class _GateCardState extends ConsumerState<GateCard> {
                           child: Text(
                             'Set your delivery details to unlock this week\'s recipes',
                             style: theme.textTheme.bodyMedium?.copyWith(
-                              color: theme.colorScheme.onSurface
-                                  .withValues(alpha: 0.8),
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.8,
+                              ),
                             ),
                           ),
                         ),
@@ -239,11 +246,7 @@ class _GateCardState extends ConsumerState<GateCard> {
             color: theme.colorScheme.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(6),
           ),
-          child: Icon(
-            icon,
-            size: 16,
-            color: theme.colorScheme.primary,
-          ),
+          child: Icon(icon, size: 16, color: theme.colorScheme.primary),
         ),
         const SizedBox(width: 12),
         Expanded(
@@ -338,7 +341,7 @@ class _EditSheet extends ConsumerStatefulWidget {
 }
 
 class _EditSheetState extends ConsumerState<_EditSheet> {
-  String _selectedAddress = 'Home - Addis';
+  final String _selectedAddress = 'Home - Addis';
   String? _selectedWindowId;
 
   @override
@@ -347,8 +350,9 @@ class _EditSheetState extends ConsumerState<_EditSheet> {
     // Set default window selection
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final tomorrow = DateTime.now().add(const Duration(days: 1));
-      final dayName =
-          _getDayName(tomorrow.weekday).substring(0, 3).toLowerCase();
+      final dayName = _getDayName(
+        tomorrow.weekday,
+      ).substring(0, 3).toLowerCase();
       setState(() {
         _selectedWindowId = '${dayName}_afternoon';
       });
@@ -442,7 +446,9 @@ class _EditSheetState extends ConsumerState<_EditSheet> {
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 12),
+                      horizontal: 16,
+                      vertical: 12,
+                    ),
                     decoration: BoxDecoration(
                       color: theme.colorScheme.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
@@ -495,7 +501,8 @@ class _EditSheetState extends ConsumerState<_EditSheet> {
                       child: Text(
                         'Failed to load delivery windows: $error',
                         style: TextStyle(
-                            color: theme.colorScheme.onErrorContainer),
+                          color: theme.colorScheme.onErrorContainer,
+                        ),
                       ),
                     ),
                     data: (windows) => DeliveryWindowSelector(
@@ -524,8 +531,9 @@ class _EditSheetState extends ConsumerState<_EditSheet> {
                   SizedBox(
                     width: double.infinity,
                     child: FilledButton(
-                      onPressed:
-                          _selectedWindowId != null ? _saveAndConfirm : null,
+                      onPressed: _selectedWindowId != null
+                          ? _saveAndConfirm
+                          : null,
                       style: FilledButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(
@@ -573,8 +581,9 @@ class _EditSheetState extends ConsumerState<_EditSheet> {
             ),
             backgroundColor: Theme.of(context).colorScheme.primary,
             behavior: SnackBarBehavior.floating,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
           ),
         );
 

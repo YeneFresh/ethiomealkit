@@ -4,9 +4,15 @@ import 'package:flutter/foundation.dart';
 class Env {
   static const supabaseUrl = String.fromEnvironment('SUPABASE_URL');
   static const supabaseAnonKey = String.fromEnvironment('SUPABASE_ANON_KEY');
-  static const sentryDsn =
-      String.fromEnvironment('SENTRY_DSN', defaultValue: '');
+  static const sentryDsn = String.fromEnvironment(
+    'SENTRY_DSN',
+    defaultValue: '',
+  );
   static const appEnv = String.fromEnvironment('APP_ENV', defaultValue: 'dev');
+  static const adminEnabled = bool.fromEnvironment(
+    'ADMIN_ENABLED',
+    defaultValue: false,
+  );
 
   static void assertRequired() {
     final missing = <String>[];
@@ -16,7 +22,8 @@ class Env {
     if (appEnv == 'prod') {
       if (kDebugMode) {
         throw StateError(
-            'APP_ENV=prod but build is Debug. Use a Release build.');
+          'APP_ENV=prod but build is Debug. Use a Release build.',
+        );
       }
       if (sentryDsn.isEmpty) missing.add('SENTRY_DSN (required in prod)');
     }
@@ -34,8 +41,8 @@ class Env {
   }
 
   static Map<String, String> asTags() => {
-        'app_env': appEnv,
-        if (kReleaseMode) 'build_mode': 'release' else 'build_mode': 'debug',
-        if (!kIsWeb) 'platform': Platform.operatingSystem,
-      };
+    'app_env': appEnv,
+    if (kReleaseMode) 'build_mode': 'release' else 'build_mode': 'debug',
+    if (!kIsWeb) 'platform': Platform.operatingSystem,
+  };
 }

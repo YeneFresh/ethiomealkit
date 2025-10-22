@@ -2,9 +2,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../core/env.dart';
-import '../../data/api/supa_client.dart';
-import '../../core/design_tokens.dart';
+import 'package:ethiomealkit/core/env.dart';
+import 'package:ethiomealkit/data/api/supa_client.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 /// Debug screen (only visible in debug mode)
 class DebugScreen extends ConsumerStatefulWidget {
@@ -55,109 +55,91 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
   Widget build(BuildContext context) {
     if (!kDebugMode) {
       return const Scaffold(
-        body: Center(
-          child: Text('Debug screen only available in debug mode'),
-        ),
+        body: Center(child: Text('Debug screen only available in debug mode')),
       );
     }
 
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('🐛 Debug Info'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('🐛 Debug Info'), centerTitle: true),
       body: RefreshIndicator(
         onRefresh: _runHealthCheck,
         child: ListView(
           padding: Yf.screenPadding,
           children: [
             // Environment Info
-            _buildSection(
-              theme,
-              'Environment',
-              Icons.cloud_outlined,
-              [
-                _buildInfoRow('Supabase URL', Env.supabaseUrl),
-                _buildInfoRow(
-                    'Environment',
-                    Env.supabaseUrl.startsWith('http://')
-                        ? 'Local'
-                        : 'Production'),
-                _buildInfoRow('Use Mocks', Env.useMocks ? 'Yes' : 'No'),
-                _buildInfoRow('Config Status', Env.getConfigStatus()),
-              ],
-            ),
+            _buildSection(theme, 'Environment', Icons.cloud_outlined, [
+              _buildInfoRow('Supabase URL', Env.supabaseUrl),
+              _buildInfoRow(
+                'Environment',
+                Env.supabaseUrl.startsWith('http://') ? 'Local' : 'Production',
+              ),
+              _buildInfoRow('Use Mocks', Env.useMocks ? 'Yes' : 'No'),
+              _buildInfoRow('Config Status', Env.getConfigStatus()),
+            ]),
 
-            SizedBox(height: Yf.g24),
+            const SizedBox(height: Yf.g24),
 
             // Build Info
-            _buildSection(
-              theme,
-              'Build Info',
-              Icons.info_outlined,
-              [
-                _buildInfoRow('Flutter', 'Debug Mode'),
-                _buildInfoRow('Platform', kIsWeb ? 'Web' : 'Native'),
-                _buildInfoRow('Package', 'ethiomealkit 3.0.0'),
-              ],
-            ),
+            _buildSection(theme, 'Build Info', Icons.info_outlined, [
+              _buildInfoRow('Flutter', 'Debug Mode'),
+              _buildInfoRow('Platform', kIsWeb ? 'Web' : 'Native'),
+              _buildInfoRow('Package', 'ethiomealkit 3.0.0'),
+            ]),
 
-            SizedBox(height: Yf.g24),
+            const SizedBox(height: Yf.g24),
 
             // Health Check
-            _buildSection(
-              theme,
-              'API Health',
-              Icons.favorite_outlined,
-              [
-                if (_loading)
-                  const Center(child: CircularProgressIndicator())
-                else if (_healthCheck != null) ...[
-                  _buildHealthRow(
-                      'Delivery Windows', _healthCheck!['delivery_windows']),
-                  _buildHealthRow(
-                      'User Readiness', _healthCheck!['user_readiness']),
-                  _buildHealthRow(
-                      'User Selections', _healthCheck!['user_selections']),
-                  _buildHealthRow(
-                      'Weekly Recipes', _healthCheck!['weekly_recipes']),
-                  SizedBox(height: Yf.g16),
-                  _buildInfoRow('Response Time', '${_pingMs}ms'),
-                ] else
-                  const Text('Pull to refresh'),
-              ],
-            ),
+            _buildSection(theme, 'API Health', Icons.favorite_outlined, [
+              if (_loading)
+                const Center(child: CircularProgressIndicator())
+              else if (_healthCheck != null) ...[
+                _buildHealthRow(
+                  'Delivery Windows',
+                  _healthCheck!['delivery_windows'],
+                ),
+                _buildHealthRow(
+                  'User Readiness',
+                  _healthCheck!['user_readiness'],
+                ),
+                _buildHealthRow(
+                  'User Selections',
+                  _healthCheck!['user_selections'],
+                ),
+                _buildHealthRow(
+                  'Weekly Recipes',
+                  _healthCheck!['weekly_recipes'],
+                ),
+                const SizedBox(height: Yf.g16),
+                _buildInfoRow('Response Time', '${_pingMs}ms'),
+              ] else
+                const Text('Pull to refresh'),
+            ]),
 
-            SizedBox(height: Yf.g24),
+            const SizedBox(height: Yf.g24),
 
             // Actions
-            _buildSection(
-              theme,
-              'Quick Actions',
-              Icons.build_outlined,
-              [
-                ElevatedButton.icon(
-                  onPressed: _runHealthCheck,
-                  icon: const Icon(Icons.refresh),
-                  label: const Text('Refresh Health Check'),
-                ),
-                SizedBox(height: Yf.g8),
-                ElevatedButton.icon(
-                  onPressed: () async {
-                    await Supabase.instance.client.auth.signOut();
-                    if (mounted) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Signed out')),
-                      );
-                    }
-                  },
-                  icon: const Icon(Icons.logout),
-                  label: const Text('Sign Out'),
-                ),
-              ],
-            ),
+            _buildSection(theme, 'Quick Actions', Icons.build_outlined, [
+              ElevatedButton.icon(
+                onPressed: _runHealthCheck,
+                icon: const Icon(Icons.refresh),
+                label: const Text('Refresh Health Check'),
+              ),
+              const SizedBox(height: Yf.g8),
+              ElevatedButton.icon(
+                onPressed: () async {
+                  await Supabase.instance.client.auth.signOut();
+                  if (mounted) {
+                    ScaffoldMessenger.of(
+                      context,
+                    ).showSnackBar(const SnackBar(content: Text('Signed out')));
+                  }
+                },
+                icon: const Icon(Icons.logout),
+                label: const Text('Sign Out'),
+              ),
+            ]),
           ],
         ),
       ),
@@ -179,7 +161,7 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
             Row(
               children: [
                 Icon(icon, color: theme.colorScheme.primary, size: 20),
-                SizedBox(width: Yf.g8),
+                const SizedBox(width: Yf.g8),
                 Text(
                   title,
                   style: theme.textTheme.titleMedium?.copyWith(
@@ -188,7 +170,7 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
                 ),
               ],
             ),
-            SizedBox(height: Yf.g16),
+            const SizedBox(height: Yf.g16),
             ...children,
           ],
         ),
@@ -198,17 +180,14 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
 
   Widget _buildInfoRow(String label, String value) {
     return Padding(
-      padding: EdgeInsets.only(bottom: Yf.g8),
+      padding: const EdgeInsets.only(bottom: Yf.g8),
       child: Row(
         children: [
           Expanded(
             flex: 2,
             child: Text(
               label,
-              style: const TextStyle(
-                fontWeight: FontWeight.w500,
-                fontSize: 13,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
             ),
           ),
           Expanded(
@@ -229,7 +208,7 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
 
   Widget _buildHealthRow(String service, bool? healthy) {
     return Padding(
-      padding: EdgeInsets.only(bottom: Yf.g8),
+      padding: const EdgeInsets.only(bottom: Yf.g8),
       child: Row(
         children: [
           Icon(
@@ -237,13 +216,8 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
             color: healthy == true ? Colors.green : Colors.red,
             size: 16,
           ),
-          SizedBox(width: Yf.g8),
-          Expanded(
-            child: Text(
-              service,
-              style: const TextStyle(fontSize: 13),
-            ),
-          ),
+          const SizedBox(width: Yf.g8),
+          Expanded(child: Text(service, style: const TextStyle(fontSize: 13))),
           Text(
             healthy == true ? 'OK' : 'FAIL',
             style: TextStyle(
@@ -257,7 +231,3 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
     );
   }
 }
-
-
-
-

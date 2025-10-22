@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../theme/pricing.dart';
-import '../../features/box/providers/box_selection_providers.dart';
-import 'recipe_selection_providers.dart';
+import 'package:ethiomealkit/core/theme/pricing.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
+import 'package:ethiomealkit/core/providers/recipe_selection_providers.dart';
 
 /// Cart totals breakdown model
 class CartTotals {
@@ -87,6 +87,3 @@ final cartTotalsProvider = Provider<CartTotals>((ref) {
     total: total,
   );
 });
-
-
-

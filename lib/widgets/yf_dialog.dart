@@ -13,8 +13,9 @@ Future<T?> showYfDialog<T>({
       content: Text(message),
       actions: [
         TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(confirmLabel)),
+          onPressed: () => Navigator.of(ctx).pop(),
+          child: Text(confirmLabel),
+        ),
       ],
     ),
   );

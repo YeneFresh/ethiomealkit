@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../features/box/providers/box_selection_providers.dart';
-import '../../features/onboarding/providers/user_onboarding_progress_provider.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
+import 'package:ethiomealkit/features/onboarding/providers/user_onboarding_progress_provider.dart';
 
 /// Consolidated onboarding state - aggregates all step data
 class OnboardingState {
@@ -75,6 +75,3 @@ final onboardingStateProvider = Provider<OnboardingState>((ref) {
     isBoxStepComplete: people != null && meals != null,
   );
 });
-
-
-

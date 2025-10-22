@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../core/design_tokens.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 /// Orders list screen - Shows user's order history
 class OrdersListScreen extends ConsumerStatefulWidget {
@@ -56,14 +56,8 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('My Orders'),
-        centerTitle: true,
-      ),
-      body: RefreshIndicator(
-        onRefresh: _loadOrders,
-        child: _buildBody(theme),
-      ),
+      appBar: AppBar(title: const Text('My Orders'), centerTitle: true),
+      body: RefreshIndicator(onRefresh: _loadOrders, child: _buildBody(theme)),
     );
   }
 
@@ -95,7 +89,7 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
       itemCount: 3,
       itemBuilder: (context, index) {
         return Card(
-          margin: EdgeInsets.only(bottom: Yf.g16),
+          margin: const EdgeInsets.only(bottom: Yf.g16),
           child: Padding(
             padding: Yf.cardPadding,
             child: Column(
@@ -109,7 +103,7 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
                     borderRadius: Yf.borderRadius12,
                   ),
                 ),
-                SizedBox(height: Yf.g8),
+                const SizedBox(height: Yf.g8),
                 Container(
                   width: double.infinity,
                   height: 14,
@@ -138,14 +132,14 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
               size: 80,
               color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
             ),
-            SizedBox(height: Yf.g24),
+            const SizedBox(height: Yf.g24),
             Text(
               'No Orders Yet',
               style: theme.textTheme.headlineSmall?.copyWith(
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: Yf.g8),
+            const SizedBox(height: Yf.g8),
             Text(
               'Your order history will appear here',
               style: theme.textTheme.bodyMedium?.copyWith(
@@ -153,7 +147,7 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
               ),
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: Yf.g32),
+            const SizedBox(height: Yf.g32),
             FilledButton.icon(
               onPressed: () => context.go('/welcome'),
               icon: const Icon(Icons.restaurant_menu),
@@ -172,23 +166,16 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(
-              Icons.error_outline,
-              size: 64,
-              color: theme.colorScheme.error,
-            ),
-            SizedBox(height: Yf.g16),
-            Text(
-              'Failed to Load Orders',
-              style: theme.textTheme.titleLarge,
-            ),
-            SizedBox(height: Yf.g8),
+            Icon(Icons.error_outline, size: 64, color: theme.colorScheme.error),
+            const SizedBox(height: Yf.g16),
+            Text('Failed to Load Orders', style: theme.textTheme.titleLarge),
+            const SizedBox(height: Yf.g8),
             Text(
               _error!,
               style: theme.textTheme.bodySmall,
               textAlign: TextAlign.center,
             ),
-            SizedBox(height: Yf.g24),
+            const SizedBox(height: Yf.g24),
             ElevatedButton.icon(
               onPressed: _loadOrders,
               icon: const Icon(Icons.refresh),
@@ -211,7 +198,7 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
     final statusIcon = _getStatusIcon(status);
 
     return Card(
-      margin: EdgeInsets.only(bottom: Yf.g16),
+      margin: const EdgeInsets.only(bottom: Yf.g16),
       child: InkWell(
         onTap: () => context.go('/orders/$orderId'),
         borderRadius: Yf.borderRadius16,
@@ -228,13 +215,9 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
                       color: statusColor.withValues(alpha: 0.2),
                       borderRadius: Yf.borderRadius12,
                     ),
-                    child: Icon(
-                      statusIcon,
-                      color: statusColor,
-                      size: 20,
-                    ),
+                    child: Icon(statusIcon, color: statusColor, size: 20),
                   ),
-                  SizedBox(width: Yf.g12),
+                  const SizedBox(width: Yf.g12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -245,12 +228,13 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        SizedBox(height: Yf.g4),
+                        const SizedBox(height: Yf.g4),
                         Text(
                           '$totalItems recipes • $status',
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.onSurface
-                                .withValues(alpha: 0.6),
+                            color: theme.colorScheme.onSurface.withValues(
+                              alpha: 0.6,
+                            ),
                           ),
                         ),
                       ],
@@ -262,10 +246,13 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: Yf.g12),
+              const SizedBox(height: Yf.g12),
               if (weekStart != null)
                 _buildInfoChip(
-                    theme, 'Week of $weekStart', Icons.calendar_today),
+                  theme,
+                  'Week of $weekStart',
+                  Icons.calendar_today,
+                ),
               if (createdAt != null)
                 _buildInfoChip(
                   theme,
@@ -281,7 +268,7 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
 
   Widget _buildInfoChip(ThemeData theme, String text, IconData icon) {
     return Padding(
-      padding: EdgeInsets.only(bottom: Yf.g4),
+      padding: const EdgeInsets.only(bottom: Yf.g4),
       child: Row(
         children: [
           Icon(
@@ -289,7 +276,7 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
             size: 14,
             color: theme.colorScheme.onSurface.withValues(alpha: 0.5),
           ),
-          SizedBox(width: Yf.g8),
+          const SizedBox(width: Yf.g8),
           Text(
             text,
             style: theme.textTheme.bodySmall?.copyWith(
@@ -342,7 +329,3 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
     }
   }
 }
-
-
-
-

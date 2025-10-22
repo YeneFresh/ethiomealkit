@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../supabase_client.dart';
+import 'package:ethiomealkit/supabase_client.dart';
 
 class ProfileMenu extends StatelessWidget {
   const ProfileMenu({super.key});
@@ -14,7 +14,9 @@ class ProfileMenu extends StatelessWidget {
             await client.auth.signOut();
           }
           if (context.mounted) {
-            Navigator.of(context).pushNamedAndRemoveUntil('/signin', (_) => false);
+            Navigator.of(
+              context,
+            ).pushNamedAndRemoveUntil('/signin', (_) => false);
           }
         }
       },
@@ -24,6 +26,3 @@ class ProfileMenu extends StatelessWidget {
     );
   }
 }
-
-
-

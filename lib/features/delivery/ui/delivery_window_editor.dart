@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/delivery_models.dart';
-import '../state/delivery_providers.dart';
-import 'delivery_gradient_bg.dart';
-import 'location_toggle.dart';
+import 'package:ethiomealkit/features/delivery/models/delivery_models.dart';
+import 'package:ethiomealkit/features/delivery/state/delivery_providers.dart';
+import 'package:ethiomealkit/features/delivery/ui/delivery_gradient_bg.dart';
+import 'package:ethiomealkit/features/delivery/ui/location_toggle.dart';
 
 /// Canonical delivery window editor
 /// Used in: Recipes, Checkout, Home
@@ -123,8 +123,9 @@ class _DeliveryWindowEditorState extends ConsumerState<DeliveryWindowEditor> {
               height: 52,
               child: ElevatedButton(
                 onPressed: () async {
-                  final notifier =
-                      ref.read(deliveryWindowControllerProvider.notifier);
+                  final notifier = ref.read(
+                    deliveryWindowControllerProvider.notifier,
+                  );
                   await notifier.setAll(
                     locId: _locationId,
                     daypart: _daypart,
@@ -145,6 +146,3 @@ class _DeliveryWindowEditorState extends ConsumerState<DeliveryWindowEditor> {
     );
   }
 }
-
-
-

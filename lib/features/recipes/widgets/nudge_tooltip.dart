@@ -5,11 +5,7 @@ class NudgeTooltip extends StatefulWidget {
   final String text;
   final VoidCallback? onDismiss;
 
-  const NudgeTooltip({
-    super.key,
-    required this.text,
-    this.onDismiss,
-  });
+  const NudgeTooltip({super.key, required this.text, this.onDismiss});
 
   @override
   State<NudgeTooltip> createState() => _NudgeTooltipState();
@@ -54,18 +50,10 @@ class _NudgeTooltipState extends State<NudgeTooltip> {
           const SizedBox(width: 8),
           GestureDetector(
             onTap: _dismiss,
-            child: const Icon(
-              Icons.close,
-              size: 14,
-              color: Colors.white70,
-            ),
+            child: const Icon(Icons.close, size: 14, color: Colors.white70),
           ),
         ],
       ),
     );
   }
 }
-
-
-
-

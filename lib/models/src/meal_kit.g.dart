@@ -13,10 +13,9 @@ _$MealKitImpl _$$MealKitImplFromJson(Map<String, dynamic> json) =>
       description: json['description'] as String?,
       priceCents: (json['priceCents'] as num).toInt(),
       imageUrl: json['imageUrl'] as String?,
-      meals:
-          (json['meals'] as List<dynamic>?)
-              ?.map((e) => Meal.fromJson(e as Map<String, dynamic>))
-              .toList(),
+      meals: (json['meals'] as List<dynamic>?)
+          ?.map((e) => Meal.fromJson(e as Map<String, dynamic>))
+          .toList(),
     );
 
 Map<String, dynamic> _$$MealKitImplToJson(_$MealKitImpl instance) =>

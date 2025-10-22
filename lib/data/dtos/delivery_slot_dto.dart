@@ -1,4 +1,4 @@
-import '../../domain/entities/delivery_slot.dart';
+import 'package:ethiomealkit/domain/entities/delivery_slot.dart';
 
 /// Delivery slot Data Transfer Object (DTO)
 class DeliverySlotDto {
@@ -48,6 +48,3 @@ class DeliverySlotDto {
     );
   }
 }
-
-
-

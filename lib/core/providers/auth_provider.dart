@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../features/onboarding/providers/user_onboarding_progress_provider.dart';
+import 'package:ethiomealkit/features/onboarding/providers/user_onboarding_progress_provider.dart';
 
 /// Supabase client provider
 final supabaseClientProvider = Provider<SupabaseClient>((ref) {
@@ -8,8 +8,9 @@ final supabaseClientProvider = Provider<SupabaseClient>((ref) {
 });
 
 /// Auth state provider
-final authProvider =
-    StateNotifierProvider<AuthController, AsyncValue<User?>>((ref) {
+final authProvider = StateNotifierProvider<AuthController, AsyncValue<User?>>((
+  ref,
+) {
   return AuthController(ref);
 });
 
@@ -120,6 +121,3 @@ class AuthController extends StateNotifier<AsyncValue<User?>> {
     }
   }
 }
-
-
-

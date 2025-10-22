@@ -1,5 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'meal.dart';
+import 'package:ethiomealkit/models/src/meal.dart';
 
 part 'meal_kit.freezed.dart';
 part 'meal_kit.g.dart';
@@ -15,8 +15,6 @@ class MealKit with _$MealKit {
     List<Meal>? meals,
   }) = _MealKit;
 
-  factory MealKit.fromJson(Map<String, dynamic> json) => _$MealKitFromJson(json);
+  factory MealKit.fromJson(Map<String, dynamic> json) =>
+      _$MealKitFromJson(json);
 }
-
-
-

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../core/app_colors.dart';
-import '../../core/layout.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/core/layout.dart';
 
 /// Order Success Screen
 /// Shown after successful order placement
@@ -69,16 +69,22 @@ class OrderSuccessScreen extends StatelessWidget {
                       color: AppColors.darkBrown.withOpacity(0.1),
                     ),
                   ),
-                  child: Column(
+                  child: const Column(
                     children: [
-                      _InfoRow(Icons.email_outlined,
-                          'Order confirmation sent to your email'),
-                      const SizedBox(height: 8),
                       _InfoRow(
-                          Icons.phone_outlined, 'We\'ll call before delivery'),
-                      const SizedBox(height: 8),
+                        Icons.email_outlined,
+                        'Order confirmation sent to your email',
+                      ),
+                      SizedBox(height: 8),
                       _InfoRow(
-                          Icons.calendar_today, 'Track your order in the app'),
+                        Icons.phone_outlined,
+                        'We\'ll call before delivery',
+                      ),
+                      SizedBox(height: 8),
+                      _InfoRow(
+                        Icons.calendar_today,
+                        'Track your order in the app',
+                      ),
                     ],
                   ),
                 ),
@@ -147,14 +153,11 @@ class _InfoRow extends StatelessWidget {
           child: Text(
             text,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                  color: AppColors.darkBrown.withOpacity(0.7),
-                ),
+              color: AppColors.darkBrown.withOpacity(0.7),
+            ),
           ),
         ),
       ],
     );
   }
 }
-
-
-

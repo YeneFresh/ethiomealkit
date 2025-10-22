@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../models/delivery_models.dart';
+import 'package:ethiomealkit/features/delivery/models/delivery_models.dart';
 
 class DeliveryLocalStore {
   static const _kWindowJson = 'ynf_delivery_window';
@@ -41,6 +41,3 @@ class DeliveryLocalStore {
     return sp.getString(_kReceiptJson);
   }
 }
-
-
-

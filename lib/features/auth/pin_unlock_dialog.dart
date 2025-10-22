@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import '../../core/pin_vault.dart';
-import '../../core/sentry_service.dart';
+import 'package:ethiomealkit/core/pin_vault.dart';
+import 'package:ethiomealkit/core/sentry_service.dart';
 
 Future<bool> showPinUnlockDialog(BuildContext context) async {
   return await showDialog<bool>(
@@ -123,7 +123,8 @@ class _PinUnlockDialogState extends State<_PinUnlockDialog> {
               ? const SizedBox(
                   width: 18,
                   height: 18,
-                  child: CircularProgressIndicator(strokeWidth: 2))
+                  child: CircularProgressIndicator(strokeWidth: 2),
+                )
               : const Text('Unlock'),
         ),
       ],

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../app_colors.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
 
 /// Ethiopian-inspired tag color tokens for recipe categories
 class TagTokens {
@@ -53,6 +53,3 @@ class TagTokens {
   /// Get foreground (text) color for a tag
   static Color fgFor(String tag) => fg[tag] ?? const Color(0xFF5F6368);
 }
-
-
-

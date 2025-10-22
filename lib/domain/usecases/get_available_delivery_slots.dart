@@ -1,5 +1,5 @@
-import '../entities/delivery_slot.dart';
-import '../repositories/delivery_repository.dart';
+import 'package:ethiomealkit/domain/entities/delivery_slot.dart';
+import 'package:ethiomealkit/domain/repositories/delivery_repository.dart';
 
 /// Use case: Get available delivery slots with business rules applied
 class GetAvailableDeliverySlots {
@@ -29,10 +29,12 @@ class GetAvailableDeliverySlots {
   DeliverySlot? getRecommended(List<DeliverySlot> slots) {
     // Prefer afternoon slots (14-16) that are selectable
     final afternoon = slots
-        .where((s) =>
-            s.group == 'Afternoon' &&
-            s.slot.contains('14-16') &&
-            s.isSelectable)
+        .where(
+          (s) =>
+              s.group == 'Afternoon' &&
+              s.slot.contains('14-16') &&
+              s.isSelectable,
+        )
         .toList();
 
     if (afternoon.isNotEmpty) return afternoon.first;
@@ -46,6 +48,3 @@ class GetAvailableDeliverySlots {
     );
   }
 }
-
-
-

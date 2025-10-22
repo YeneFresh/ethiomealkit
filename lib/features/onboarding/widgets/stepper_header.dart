@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import '../../../core/app_colors.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
 
 /// Persistent stepper header showing 5-step onboarding progress
 /// Box → Sign up → Recipes → Delivery → Pay
 class StepperHeader extends StatelessWidget {
   final int currentStep; // 0-based index (0-4)
 
-  const StepperHeader({
-    super.key,
-    required this.currentStep,
-  });
+  const StepperHeader({super.key, required this.currentStep});
 
   @override
   Widget build(BuildContext context) {
@@ -84,25 +81,21 @@ class _StepItem extends StatelessWidget {
     final numberColor = isActive
         ? AppColors.gold
         : isCompleted
-            ? AppColors.success600
-            : Colors.grey[500];
+        ? AppColors.success600
+        : Colors.grey[500];
 
     final labelColor = isActive
         ? AppColors.darkBrown
         : isCompleted
-            ? AppColors.darkBrown.withOpacity(0.7)
-            : Colors.grey[600];
+        ? AppColors.darkBrown.withOpacity(0.7)
+        : Colors.grey[600];
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
         // Step number with checkmark if completed
         if (isCompleted)
-          Icon(
-            Icons.check_circle,
-            color: AppColors.success600,
-            size: 20,
-          )
+          const Icon(Icons.check_circle, color: AppColors.success600, size: 20)
         else
           Text(
             '$stepNumber',
@@ -140,6 +133,3 @@ class _StepItem extends StatelessWidget {
     );
   }
 }
-
-
-

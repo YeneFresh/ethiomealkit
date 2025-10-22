@@ -48,9 +48,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       );
 
       if (!mounted) return;
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Password updated.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Password updated.')));
 
       // Optional: force a refresh of the session
       // final session = await Supabase.instance.client.auth.refreshSession();
@@ -113,12 +113,12 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                           hasRecoverySession
                               ? 'Recovery session detected'
                               : 'No recovery session found',
-                          style:
-                              Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                    color: hasRecoverySession
-                                        ? Theme.of(context).colorScheme.primary
-                                        : Theme.of(context).colorScheme.error,
-                                  ),
+                          style: Theme.of(context).textTheme.bodyLarge
+                              ?.copyWith(
+                                color: hasRecoverySession
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Theme.of(context).colorScheme.error,
+                              ),
                         ),
                       ),
                     ],
@@ -155,8 +155,9 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
                   width: double.infinity,
                   height: 48,
                   child: ElevatedButton(
-                    onPressed:
-                        (_loading || !hasRecoverySession) ? null : _update,
+                    onPressed: (_loading || !hasRecoverySession)
+                        ? null
+                        : _update,
                     child: _loading
                         ? const SizedBox(
                             width: 20,

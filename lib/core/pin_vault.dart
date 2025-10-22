@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'sentry_service.dart';
+import 'package:ethiomealkit/core/sentry_service.dart';
 
 class PinVault {
   static const _kHash = 'pin_hash';
@@ -136,17 +136,13 @@ class PinVault {
           provider: 'pin',
           errorCode: 'lockout_triggered',
           errorMessage: 'PIN lockout triggered after $attempts failed attempts',
-          metadata: {
-            'failed_attempts': attempts,
-            'lockout_seconds': seconds,
-          },
+          metadata: {'failed_attempts': attempts, 'lockout_seconds': seconds},
         );
       }
       return false;
     }
   }
 
-  static AndroidOptions _androidOpts() => const AndroidOptions(
-        encryptedSharedPreferences: true,
-      );
+  static AndroidOptions _androidOpts() =>
+      const AndroidOptions(encryptedSharedPreferences: true);
 }

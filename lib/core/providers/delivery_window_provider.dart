@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../services/persistence_service.dart';
+import 'package:ethiomealkit/core/services/persistence_service.dart';
 
 /// Address type for delivery
 enum AddressType { home, office }
@@ -49,7 +49,7 @@ class DeliveryWindow {
       'Sep',
       'Oct',
       'Nov',
-      'Dec'
+      'Dec',
     ];
     final weekday = weekdays[startAt.weekday - 1];
     final month = months[startAt.month - 1];
@@ -72,8 +72,10 @@ class DeliveryWindow {
     return '$group ($startHour–$endHour pm)';
   }
 
-  factory DeliveryWindow.fromMap(Map<String, dynamic> map,
-      [AddressType addressType = AddressType.home]) {
+  factory DeliveryWindow.fromMap(
+    Map<String, dynamic> map, [
+    AddressType addressType = AddressType.home,
+  ]) {
     final city = map['city'] ?? 'Addis Ababa';
     final startAt = DateTime.parse(map['start_at'].toString());
     final endAt = DateTime.parse(map['end_at'].toString());
@@ -100,7 +102,8 @@ class DeliveryWindow {
       city: city,
       label: '${addressType.displayName} – $city',
       group: group,
-      hasCapacity: map['capacity'] != null &&
+      hasCapacity:
+          map['capacity'] != null &&
           map['booked_count'] != null &&
           (map['capacity'] as num) > (map['booked_count'] as num),
       isRecommended: isRecommended,
@@ -198,13 +201,19 @@ class DeliveryWindowNotifier extends StateNotifier<DeliveryWindow?> {
         final currentUser = client.auth.currentUser;
         if (currentUser != null) {
           // Use upsert_user_delivery_preference (not upsert_user_active_window)
-          await client.rpc('upsert_user_delivery_preference', params: {
-            'p_user_id': currentUser.id,
-            'p_window_id': window.id,
-            'p_address_id': addressType == AddressType.home ? 'home' : 'office',
-          });
+          await client.rpc(
+            'upsert_user_delivery_preference',
+            params: {
+              'p_user_id': currentUser.id,
+              'p_window_id': window.id,
+              'p_address_id': addressType == AddressType.home
+                  ? 'home'
+                  : 'office',
+            },
+          );
           print(
-              '✅ Auto-selected and saved delivery window: ${window.timeLabel}');
+            '✅ Auto-selected and saved delivery window: ${window.timeLabel}',
+          );
         } else {
           print('✅ Auto-selected delivery window (guest): ${window.timeLabel}');
         }
@@ -233,5 +242,5 @@ class DeliveryWindowNotifier extends StateNotifier<DeliveryWindow?> {
 /// Provider for delivery window state
 final deliveryWindowProvider =
     StateNotifierProvider<DeliveryWindowNotifier, DeliveryWindow?>(
-  (ref) => DeliveryWindowNotifier(),
-);
+      (ref) => DeliveryWindowNotifier(),
+    );

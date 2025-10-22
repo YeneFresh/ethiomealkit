@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'box_flow_controller.dart';
+import 'package:ethiomealkit/features/box/box_flow_controller.dart';
 
 class BoxRecipesScreen extends ConsumerStatefulWidget {
   const BoxRecipesScreen({super.key});
@@ -19,7 +19,8 @@ class _BoxRecipesScreenState extends ConsumerState<BoxRecipesScreen> {
     super.initState();
     // ensure data is there
     Future.microtask(
-        () => ref.read(boxFlowProvider).loadRecipesAndSelections());
+      () => ref.read(boxFlowProvider).loadRecipesAndSelections(),
+    );
   }
 
   @override
@@ -29,15 +30,16 @@ class _BoxRecipesScreenState extends ConsumerState<BoxRecipesScreen> {
     final cs = theme.colorScheme;
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('This Week'),
-        scrolledUnderElevation: 0,
-      ),
+      appBar: AppBar(title: const Text('This Week'), scrolledUnderElevation: 0),
       body: box.loading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
               padding: const EdgeInsets.only(
-                  bottom: 120, left: 12, right: 12, top: 8),
+                bottom: 120,
+                left: 12,
+                right: 12,
+                top: 8,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -84,8 +86,9 @@ class _BoxRecipesScreenState extends ConsumerState<BoxRecipesScreen> {
                     Wrap(
                       spacing: 8,
                       runSpacing: 8,
-                      children:
-                          ref.watch(boxFlowProvider).orderedChips().map((key) {
+                      children: ref.watch(boxFlowProvider).orderedChips().map((
+                        key,
+                      ) {
                         final selected = box.activeChips.contains(key);
                         return FilterChip(
                           label: Text(_chipLabel(key)),
@@ -128,7 +131,8 @@ class _BoxRecipesScreenState extends ConsumerState<BoxRecipesScreen> {
           if (box.selectedIds.length < box.mealsPerWeek) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(
-                  content: Text('Please choose ${box.mealsPerWeek} recipes.')),
+                content: Text('Please choose ${box.mealsPerWeek} recipes.'),
+              ),
             );
             return;
           }
@@ -195,10 +199,14 @@ class _DeliveryHeader extends StatelessWidget {
               value: city,
               items: const [
                 DropdownMenuItem(
-                    value: 'Addis Ababa', child: Text('Addis Ababa')),
+                  value: 'Addis Ababa',
+                  child: Text('Addis Ababa'),
+                ),
                 DropdownMenuItem(value: 'Bole', child: Text('Bole')),
                 DropdownMenuItem(
-                    value: 'Old Airport', child: Text('Old Airport')),
+                  value: 'Old Airport',
+                  child: Text('Old Airport'),
+                ),
               ],
               onChanged: (_) {},
               decoration: const InputDecoration(
@@ -223,8 +231,10 @@ class _DeliveryHeader extends StatelessWidget {
               child: Text(confirmed ? 'Confirmed' : 'Confirm to view recipes'),
             ),
             const SizedBox(height: 6),
-            Text('39 recipes every week',
-                style: Theme.of(context).textTheme.labelLarge),
+            Text(
+              '39 recipes every week',
+              style: Theme.of(context).textTheme.labelLarge,
+            ),
           ],
         ),
       ),
@@ -236,8 +246,11 @@ class _ChooseHeadline extends StatelessWidget {
   final int picked;
   final int total;
   final String hoursLeftText;
-  const _ChooseHeadline(
-      {required this.picked, required this.total, required this.hoursLeftText});
+  const _ChooseHeadline({
+    required this.picked,
+    required this.total,
+    required this.hoursLeftText,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -245,9 +258,12 @@ class _ChooseHeadline extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Choose $total recipes',
-            style: theme.textTheme.titleLarge
-                ?.copyWith(fontWeight: FontWeight.w700)),
+        Text(
+          'Choose $total recipes',
+          style: theme.textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
         const SizedBox(height: 4),
         Text(hoursLeftText, style: theme.textTheme.bodyMedium),
       ],
@@ -259,10 +275,11 @@ class _FilterBar extends StatelessWidget {
   final String sortKey;
   final ValueChanged<String> onSort;
   final VoidCallback onFilterPressed;
-  const _FilterBar(
-      {required this.sortKey,
-      required this.onSort,
-      required this.onFilterPressed});
+  const _FilterBar({
+    required this.sortKey,
+    required this.onSort,
+    required this.onFilterPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -307,14 +324,17 @@ class _SortMenu extends StatelessWidget {
       ),
       menuChildren: [
         MenuItemButton(
-            onPressed: () => onSort('kcal_asc'),
-            child: const Text('Calories: low → high')),
+          onPressed: () => onSort('kcal_asc'),
+          child: const Text('Calories: low → high'),
+        ),
         MenuItemButton(
-            onPressed: () => onSort('kcal_desc'),
-            child: const Text('Calories: high → low')),
+          onPressed: () => onSort('kcal_desc'),
+          child: const Text('Calories: high → low'),
+        ),
         MenuItemButton(
-            onPressed: () => onSort('cook_asc'),
-            child: const Text('Cook time')),
+          onPressed: () => onSort('cook_asc'),
+          child: const Text('Cook time'),
+        ),
       ],
     );
   }
@@ -327,26 +347,34 @@ class _FilterBottomSheet extends StatelessWidget {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: const [
-        Text('Filter',
-            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700)),
+        Text(
+          'Filter',
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
+        ),
         SizedBox(height: 12),
         Text('Main protein'),
-        Wrap(spacing: 8, children: [
-          Chip(label: Text('Beef')),
-          Chip(label: Text('Chicken')),
-          Chip(label: Text('Fish')),
-          Chip(label: Text('Seafood')),
-          Chip(label: Text('Veggie')),
-        ]),
+        Wrap(
+          spacing: 8,
+          children: [
+            Chip(label: Text('Beef')),
+            Chip(label: Text('Chicken')),
+            Chip(label: Text('Fish')),
+            Chip(label: Text('Seafood')),
+            Chip(label: Text('Veggie')),
+          ],
+        ),
         SizedBox(height: 16),
         Text('Features'),
-        Wrap(spacing: 8, children: [
-          Chip(label: Text('Gourmet')),
-          Chip(label: Text('Global eats')),
-          Chip(label: Text('Air fryer')),
-          Chip(label: Text('For the kids')),
-          Chip(label: Text('Injera-based')),
-        ]),
+        Wrap(
+          spacing: 8,
+          children: [
+            Chip(label: Text('Gourmet')),
+            Chip(label: Text('Global eats')),
+            Chip(label: Text('Air fryer')),
+            Chip(label: Text('For the kids')),
+            Chip(label: Text('Injera-based')),
+          ],
+        ),
         SizedBox(height: 16),
         Text('…more coming soon'),
         SizedBox(height: 8),
@@ -360,14 +388,18 @@ class _RecipeTile extends StatelessWidget {
   final bool picked;
   final VoidCallback onTap;
 
-  const _RecipeTile(
-      {required this.recipe, required this.picked, required this.onTap});
+  const _RecipeTile({
+    required this.recipe,
+    required this.picked,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     final name = recipe['name'] ?? 'Recipe';
     final subtitle = recipe['cuisine'] ?? '—';
-    final img = recipe['hero_image'] ??
+    final img =
+        recipe['hero_image'] ??
         'https://picsum.photos/seed/${name.hashCode}/800/600';
     final cats = List<String>.from(recipe['categories'] ?? const <String>[]);
 
@@ -383,16 +415,21 @@ class _RecipeTile extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(12, 12, 12, 6),
-                child: Text(topLabel,
-                    style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: .6)),
+                child: Text(
+                  topLabel,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: .6,
+                  ),
+                ),
               ),
             ),
           ListTile(
-            title:
-                Text(name, style: const TextStyle(fontWeight: FontWeight.w700)),
+            title: Text(
+              name,
+              style: const TextStyle(fontWeight: FontWeight.w700),
+            ),
             subtitle: Text('with $subtitle'),
           ),
           AspectRatio(
@@ -408,9 +445,7 @@ class _RecipeTile extends StatelessWidget {
                 _miniBadge('${recipe['kcal'] ?? 500} cals'),
                 const Spacer(),
                 ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: const StadiumBorder(),
-                  ),
+                  style: ElevatedButton.styleFrom(shape: const StadiumBorder()),
                   onPressed: onTap,
                   child: Text(picked ? 'Unselect' : '+ ADD'),
                 ),
@@ -438,8 +473,9 @@ class _RecipeTile extends StatelessWidget {
     if (cats.any((c) => c.contains('veggie'))) return 'VEGGIE';
     if (cats.any((c) => c.contains('fish'))) return 'FISH';
     if (cats.any((c) => c.contains('seafood'))) return 'SEAFOOD';
-    if (cats.any((c) => c.contains('beef') || c.contains('meat')))
+    if (cats.any((c) => c.contains('beef') || c.contains('meat'))) {
       return 'MEAT';
+    }
     return null;
   }
 }
@@ -475,8 +511,10 @@ class _BottomCtaBar extends StatelessWidget {
                     color: cs.primaryContainer.withOpacity(.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: const Text('40% off on your first order',
-                      style: TextStyle(fontWeight: FontWeight.w600)),
+                  child: const Text(
+                    '40% off on your first order',
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  ),
                 ),
               ),
               const SizedBox(width: 12),

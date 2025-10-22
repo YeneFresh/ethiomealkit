@@ -15,8 +15,10 @@ String mondayUtcStr(DateTime now) {
 }
 
 Future<List<Map<String, dynamic>>> loadWindowsForWeek(String weekStr) async {
-  final rows = await supa
-      .rpc('delivery_windows_for_week', params: {'_week_start': weekStr});
+  final rows = await supa.rpc(
+    'delivery_windows_for_week',
+    params: {'_week_start': weekStr},
+  );
   return List<Map<String, dynamic>>.from(rows);
 }
 
@@ -25,11 +27,10 @@ Future<Map<String, dynamic>> saveDeliverySelection({
   required String weekStr,
   required String windowId,
 }) async {
-  final res = await supa.rpc('save_delivery_selection', params: {
-    '_user': userId,
-    '_week_start': weekStr,
-    '_window_id': windowId,
-  });
+  final res = await supa.rpc(
+    'save_delivery_selection',
+    params: {'_user': userId, '_week_start': weekStr, '_window_id': windowId},
+  );
   return Map<String, dynamic>.from(res as Map);
 }
 
@@ -93,7 +94,8 @@ class _DeliveryPlanScreenState extends State<DeliveryPlanScreen> {
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-              content: Text('Maximum $maxSelections delivery windows allowed')),
+            content: Text('Maximum $maxSelections delivery windows allowed'),
+          ),
         );
       }
     });
@@ -103,7 +105,8 @@ class _DeliveryPlanScreenState extends State<DeliveryPlanScreen> {
     if (selectedWindows.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-            content: Text('Please select at least one delivery window')),
+          content: Text('Please select at least one delivery window'),
+        ),
       );
       return;
     }
@@ -113,25 +116,23 @@ class _DeliveryPlanScreenState extends State<DeliveryPlanScreen> {
 
       // Convert to drops format
       final drops = selectedWindows
-          .map((windowId) => {
-                'window_id': windowId,
-              })
+          .map((windowId) => {'window_id': windowId})
           .toList();
 
       // Set order schedule
-      await supa.rpc('set_order_schedule', params: {
-        '_order': orderId,
-        '_drops': drops,
-      });
+      await supa.rpc(
+        'set_order_schedule',
+        params: {'_order': orderId, '_drops': drops},
+      );
 
       if (!mounted) return;
 
       // Navigate to checkout
       context.push('/checkout?order=$orderId');
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Failed to save schedule: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Failed to save schedule: $e')));
     }
   }
 
@@ -152,120 +153,122 @@ class _DeliveryPlanScreenState extends State<DeliveryPlanScreen> {
       body: _loading
           ? const Center(child: CircularProgressIndicator())
           : _errorMessage != null
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(_errorMessage!),
-                      const SizedBox(height: 16),
-                      ElevatedButton(
-                        onPressed: _loadWeekWindows,
-                        child: const Text('Retry'),
-                      ),
-                    ],
+          ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(_errorMessage!),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: _loadWeekWindows,
+                    child: const Text('Retry'),
                   ),
-                )
-              : Column(
-                  children: [
-                    Expanded(
-                      child: ListView.builder(
-                        padding: const EdgeInsets.all(12),
-                        itemCount: weekWindows.length,
-                        itemBuilder: (_, i) {
-                          final window = weekWindows[i];
-                          final label =
-                              window['label'] as String? ?? 'Delivery Window';
-                          final remaining = window['remaining'] as int? ?? 0;
-                          final isVip =
-                              window['is_concierge'] as bool? ?? false;
-                          final windowId = window['id'] as String;
-                          final isSelected = selectedWindows.contains(windowId);
-                          final isDisabled = remaining == 0;
+                ],
+              ),
+            )
+          : Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    padding: const EdgeInsets.all(12),
+                    itemCount: weekWindows.length,
+                    itemBuilder: (_, i) {
+                      final window = weekWindows[i];
+                      final label =
+                          window['label'] as String? ?? 'Delivery Window';
+                      final remaining = window['remaining'] as int? ?? 0;
+                      final isVip = window['is_concierge'] as bool? ?? false;
+                      final windowId = window['id'] as String;
+                      final isSelected = selectedWindows.contains(windowId);
+                      final isDisabled = remaining == 0;
 
-                          return Card(
-                            margin: const EdgeInsets.symmetric(vertical: 8),
-                            child: ListTile(
-                              title: Row(
-                                children: [
-                                  Expanded(child: Text(label)),
-                                  if (isVip)
-                                    Container(
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 4),
-                                      decoration: BoxDecoration(
-                                        color: Colors.amber,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                      child: const Text(
-                                        'VIP',
-                                        style: TextStyle(
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                    ),
-                                ],
-                              ),
-                              subtitle: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text('Delivery Window'),
-                                  if (remaining > 0)
-                                    Text(
-                                      '$remaining slots remaining',
-                                      style: TextStyle(
-                                        color: remaining < 5
-                                            ? Colors.orange
-                                            : Colors.green,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    )
-                                  else
-                                    const Text(
-                                      'No slots available',
-                                      style: TextStyle(
-                                        color: Colors.red,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                    ),
-                                ],
-                              ),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  if (isSelected)
-                                    const Icon(Icons.check_circle,
-                                        color: Colors.green),
-                                  const SizedBox(width: 8),
-                                  ElevatedButton(
-                                    onPressed: isDisabled
-                                        ? null
-                                        : () => _toggleWindow(windowId),
-                                    child: Text(
-                                        isSelected ? 'Selected' : 'Select'),
+                      return Card(
+                        margin: const EdgeInsets.symmetric(vertical: 8),
+                        child: ListTile(
+                          title: Row(
+                            children: [
+                              Expanded(child: Text(label)),
+                              if (isVip)
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 4,
                                   ),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                    SafeArea(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16),
-                        child: ElevatedButton(
-                          onPressed: _saveSchedule,
-                          style: ElevatedButton.styleFrom(
-                            minimumSize: const Size(double.infinity, 50),
+                                  decoration: BoxDecoration(
+                                    color: Colors.amber,
+                                    borderRadius: BorderRadius.circular(12),
+                                  ),
+                                  child: const Text(
+                                    'VIP',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                            ],
                           ),
-                          child: const Text('Continue to Checkout'),
+                          subtitle: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text('Delivery Window'),
+                              if (remaining > 0)
+                                Text(
+                                  '$remaining slots remaining',
+                                  style: TextStyle(
+                                    color: remaining < 5
+                                        ? Colors.orange
+                                        : Colors.green,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                )
+                              else
+                                const Text(
+                                  'No slots available',
+                                  style: TextStyle(
+                                    color: Colors.red,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                            ],
+                          ),
+                          trailing: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              if (isSelected)
+                                const Icon(
+                                  Icons.check_circle,
+                                  color: Colors.green,
+                                ),
+                              const SizedBox(width: 8),
+                              ElevatedButton(
+                                onPressed: isDisabled
+                                    ? null
+                                    : () => _toggleWindow(windowId),
+                                child: Text(isSelected ? 'Selected' : 'Select'),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
+                      );
+                    },
+                  ),
                 ),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: ElevatedButton(
+                      onPressed: _saveSchedule,
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size(double.infinity, 50),
+                      ),
+                      child: const Text('Continue to Checkout'),
+                    ),
+                  ),
+                ),
+              ],
+            ),
     );
   }
 
@@ -314,37 +317,45 @@ class _DeliverThenRecipesState extends State<DeliverThenRecipes> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          const Text('Deliver my box to',
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'Deliver my box to',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
           Wrap(
             spacing: 8,
             children: ['Home', 'Work', 'Pickup']
-                .map((address) => ChoiceChip(
-                      label: Text(address),
-                      selected: _addressHint == address,
-                      onSelected: (_) => setState(() => _addressHint = address),
-                    ))
+                .map(
+                  (address) => ChoiceChip(
+                    label: Text(address),
+                    selected: _addressHint == address,
+                    onSelected: (_) => setState(() => _addressHint = address),
+                  ),
+                )
                 .toList(),
           ),
           const SizedBox(height: 8),
-          const Text('My first delivery is on',
-              style: TextStyle(fontWeight: FontWeight.bold)),
+          const Text(
+            'My first delivery is on',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 8),
-          ..._wins.map((w) => RadioListTile<String>(
-                value: w['id'] as String,
-                groupValue: _windowId,
-                onChanged: (v) => setState(() => _windowId = v),
-                title: Text(w['label']),
-                subtitle: Text(
-                  (w['remaining'] as int) > 0
-                      ? 'Spots left: ${w['remaining']}'
-                      : 'Fully booked',
-                ),
-                secondary: (w['is_concierge'] as bool)
-                    ? const Icon(Icons.star, color: Colors.amber)
-                    : null,
-              )),
+          ..._wins.map(
+            (w) => RadioListTile<String>(
+              value: w['id'] as String,
+              groupValue: _windowId,
+              onChanged: (v) => setState(() => _windowId = v),
+              title: Text(w['label']),
+              subtitle: Text(
+                (w['remaining'] as int) > 0
+                    ? 'Spots left: ${w['remaining']}'
+                    : 'Fully booked',
+              ),
+              secondary: (w['is_concierge'] as bool)
+                  ? const Icon(Icons.star, color: Colors.amber)
+                  : null,
+            ),
+          ),
           const SizedBox(height: 12),
           FilledButton(
             onPressed: _windowId == null
@@ -359,19 +370,24 @@ class _DeliverThenRecipesState extends State<DeliverThenRecipes> {
                     );
 
                     // Update the checkout draft with delivery info
-                    await supa.rpc('update_checkout_draft', params: {
-                      '_user': uid,
-                      '_step': 4,
-                      '_payload': {
-                        'delivery_window_id': _windowId!,
-                        'address_hint': _addressHint,
-                      }
-                    });
+                    await supa.rpc(
+                      'update_checkout_draft',
+                      params: {
+                        '_user': uid,
+                        '_step': 4,
+                        '_payload': {
+                          'delivery_window_id': _windowId!,
+                          'address_hint': _addressHint,
+                        },
+                      },
+                    );
                     if (!mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
-                          content: Text(
-                              'Delivery saved for ${(res['delivery_at'] as String)}.')),
+                        content: Text(
+                          'Delivery saved for ${(res['delivery_at'] as String)}.',
+                        ),
+                      ),
                     );
                     // Expand page into recipes view (your MenuScreen) or navigate:
                     context.go('/recipes');
@@ -379,8 +395,8 @@ class _DeliverThenRecipesState extends State<DeliverThenRecipes> {
             child: const Text('Confirm & view recipes'),
           ),
           const SizedBox(height: 8),
-          Row(
-            children: const [
+          const Row(
+            children: [
               Icon(Icons.check_circle, color: Colors.green, size: 18),
               SizedBox(width: 6),
               Text('Fresh Ethiopian choices every week'),

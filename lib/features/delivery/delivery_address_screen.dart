@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import '../onboarding/onboarding_progress_header.dart';
-import '../../data/api/supa_client.dart';
-import '../../core/analytics.dart';
+import 'package:ethiomealkit/features/onboarding/onboarding_progress_header.dart';
+import 'package:ethiomealkit/data/api/supa_client.dart';
+import 'package:ethiomealkit/core/analytics.dart';
 
 /// Delivery Address Screen - Step 4 of onboarding
 class DeliveryAddressScreen extends ConsumerStatefulWidget {
@@ -70,8 +70,9 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                     Text(
                       'Enter your delivery address to complete your order',
                       style: theme.textTheme.bodyLarge?.copyWith(
-                        color:
-                            theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                     ),
                     const SizedBox(height: 32),
@@ -89,8 +90,9 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
-                            color: theme.colorScheme.outline
-                                .withValues(alpha: 0.3),
+                            color: theme.colorScheme.outline.withValues(
+                              alpha: 0.3,
+                            ),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -123,8 +125,9 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
-                            color: theme.colorScheme.outline
-                                .withValues(alpha: 0.3),
+                            color: theme.colorScheme.outline.withValues(
+                              alpha: 0.3,
+                            ),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -158,8 +161,9 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
-                            color: theme.colorScheme.outline
-                                .withValues(alpha: 0.3),
+                            color: theme.colorScheme.outline.withValues(
+                              alpha: 0.3,
+                            ),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -196,8 +200,9 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
-                            color: theme.colorScheme.outline
-                                .withValues(alpha: 0.3),
+                            color: theme.colorScheme.outline.withValues(
+                              alpha: 0.3,
+                            ),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -215,12 +220,14 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primaryContainer
-                            .withValues(alpha: 0.3),
+                        color: theme.colorScheme.primaryContainer.withValues(
+                          alpha: 0.3,
+                        ),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color:
-                              theme.colorScheme.primary.withValues(alpha: 0.3),
+                          color: theme.colorScheme.primary.withValues(
+                            alpha: 0.3,
+                          ),
                           width: 1,
                         ),
                       ),
@@ -282,22 +289,23 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                           height: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor:
-                                AlwaysStoppedAnimation<Color>(Colors.white),
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                              Colors.white,
+                            ),
                           ),
                         )
-                      : Row(
+                      : const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               'Continue to Checkout',
                               style: TextStyle(
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
-                            const SizedBox(width: 8),
-                            const Icon(Icons.arrow_forward, size: 20),
+                            SizedBox(width: 8),
+                            Icon(Icons.arrow_forward, size: 20),
                           ],
                         ),
                 ),

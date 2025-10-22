@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'box_flow_controller.dart';
+import 'package:ethiomealkit/features/box/box_flow_controller.dart';
 
 class BoxDeliveryScreen extends ConsumerStatefulWidget {
   const BoxDeliveryScreen({super.key});
@@ -31,8 +31,9 @@ class _BoxDeliveryScreenState extends ConsumerState<BoxDeliveryScreen> {
       if (box.deliveryDate1 == null) {
         final now = DateTime.now();
         final daysUntilTuesday = (DateTime.tuesday - now.weekday) % 7;
-        final nextTuesday = now
-            .add(Duration(days: daysUntilTuesday == 0 ? 7 : daysUntilTuesday));
+        final nextTuesday = now.add(
+          Duration(days: daysUntilTuesday == 0 ? 7 : daysUntilTuesday),
+        );
         selectedDate = nextTuesday;
         box.setDelivery1(nextTuesday, '');
       } else {
@@ -71,10 +72,7 @@ class _BoxDeliveryScreenState extends ConsumerState<BoxDeliveryScreen> {
     final box = ref.watch(boxFlowProvider);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Delivery Details'),
-        elevation: 0,
-      ),
+      appBar: AppBar(title: const Text('Delivery Details'), elevation: 0),
       body: loading
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -143,12 +141,15 @@ class _BoxDeliveryScreenState extends ConsumerState<BoxDeliveryScreen> {
                       onTap: () async {
                         final date = await showDatePicker(
                           context: context,
-                          initialDate: selectedDate ??
+                          initialDate:
+                              selectedDate ??
                               DateTime.now().add(const Duration(days: 1)),
-                          firstDate:
-                              DateTime.now().add(const Duration(days: 1)),
-                          lastDate:
-                              DateTime.now().add(const Duration(days: 30)),
+                          firstDate: DateTime.now().add(
+                            const Duration(days: 1),
+                          ),
+                          lastDate: DateTime.now().add(
+                            const Duration(days: 30),
+                          ),
                         );
                         if (date != null) {
                           setState(() {
@@ -182,23 +183,26 @@ class _BoxDeliveryScreenState extends ConsumerState<BoxDeliveryScreen> {
                               Icon(
                                 Icons.schedule,
                                 size: 48,
-                                color: theme.colorScheme.onSurface
-                                    .withValues(alpha: 0.5),
+                                color: theme.colorScheme.onSurface.withValues(
+                                  alpha: 0.5,
+                                ),
                               ),
                               const SizedBox(height: 16),
                               Text(
                                 'No delivery windows available',
                                 style: theme.textTheme.bodyLarge?.copyWith(
-                                  color: theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.7),
+                                  color: theme.colorScheme.onSurface.withValues(
+                                    alpha: 0.7,
+                                  ),
                                 ),
                               ),
                               const SizedBox(height: 8),
                               Text(
                                 'Please select a different date',
                                 style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: theme.colorScheme.onSurface
-                                      .withValues(alpha: 0.5),
+                                  color: theme.colorScheme.onSurface.withValues(
+                                    alpha: 0.5,
+                                  ),
                                 ),
                               ),
                             ],
@@ -207,33 +211,35 @@ class _BoxDeliveryScreenState extends ConsumerState<BoxDeliveryScreen> {
                       ),
                     )
                   else
-                    ...availableWindows.map((window) => Card(
-                          margin: const EdgeInsets.only(bottom: 8),
-                          child: RadioListTile<String>(
-                            title: Text(
-                              window['label'] ?? 'Delivery Window',
-                              style:
-                                  const TextStyle(fontWeight: FontWeight.w500),
-                            ),
-                            subtitle: Text(
-                              '${window['start_time']} - ${window['end_time']}',
-                              style: theme.textTheme.bodyMedium?.copyWith(
-                                color: theme.colorScheme.onSurface
-                                    .withValues(alpha: 0.7),
+                    ...availableWindows.map(
+                      (window) => Card(
+                        margin: const EdgeInsets.only(bottom: 8),
+                        child: RadioListTile<String>(
+                          title: Text(
+                            window['label'] ?? 'Delivery Window',
+                            style: const TextStyle(fontWeight: FontWeight.w500),
+                          ),
+                          subtitle: Text(
+                            '${window['start_time']} - ${window['end_time']}',
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurface.withValues(
+                                alpha: 0.7,
                               ),
                             ),
-                            value: window['id'],
-                            groupValue: selectedWindowId,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedWindowId = value;
-                              });
-                              if (value != null && selectedDate != null) {
-                                box.setDelivery1(selectedDate!, value);
-                              }
-                            },
                           ),
-                        )),
+                          value: window['id'],
+                          groupValue: selectedWindowId,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedWindowId = value;
+                            });
+                            if (value != null && selectedDate != null) {
+                              box.setDelivery1(selectedDate!, value);
+                            }
+                          },
+                        ),
+                      ),
+                    ),
 
                   const SizedBox(height: 32),
 
@@ -244,11 +250,11 @@ class _BoxDeliveryScreenState extends ConsumerState<BoxDeliveryScreen> {
                     child: ElevatedButton(
                       onPressed:
                           selectedDate != null && selectedWindowId != null
-                              ? () {
-                                  box.confirmDeliveryPref();
-                                  context.go('/box/recipes');
-                                }
-                              : null,
+                          ? () {
+                              box.confirmDeliveryPref();
+                              context.go('/box/recipes');
+                            }
+                          : null,
                       child: const Text(
                         'Continue to Recipe Selection',
                         style: TextStyle(
@@ -272,10 +278,8 @@ class _BoxDeliveryScreenState extends ConsumerState<BoxDeliveryScreen> {
       'Thursday',
       'Friday',
       'Saturday',
-      'Sunday'
+      'Sunday',
     ];
     return days[date.weekday - 1];
   }
 }
-
-

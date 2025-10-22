@@ -35,7 +35,7 @@ class DeliveryWindow {
       'Sep',
       'Oct',
       'Nov',
-      'Dec'
+      'Dec',
     ];
     final days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
     return "${days[date.weekday - 1]}, ${months[date.month - 1]} ${date.day}";
@@ -48,18 +48,19 @@ class DeliveryWindow {
       "$humanDate • ${daypart.name._capitalize()} • ${location.label}";
 
   Map<String, dynamic> toJson() => {
-        'date': date.toIso8601String(),
-        'daypart': daypart.name,
-        'location_id': location.id,
-      };
+    'date': date.toIso8601String(),
+    'daypart': daypart.name,
+    'location_id': location.id,
+  };
 
   factory DeliveryWindow.fromJson(Map<String, dynamic> json) {
     final dp = (json['daypart'] as String) == 'morning'
         ? DeliveryDaypart.morning
         : DeliveryDaypart.afternoon;
     final locId = json['location_id'] as String;
-    final loc =
-        locId == 'home' ? DeliveryLocation.home : DeliveryLocation.office;
+    final loc = locId == 'home'
+        ? DeliveryLocation.home
+        : DeliveryLocation.office;
     final date = DateTime.parse(json['date'] as String);
     return DeliveryWindow(date: date, daypart: dp, location: loc);
   }
@@ -68,6 +69,3 @@ class DeliveryWindow {
 extension _Cap on String {
   String _capitalize() => isEmpty ? this : this[0].toUpperCase() + substring(1);
 }
-
-
-

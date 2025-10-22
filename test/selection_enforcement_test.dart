@@ -18,15 +18,19 @@ void main() {
   group('Recipe Selection Enforcement', () {
     test('toggleRecipeSelection returns ok=false when over limit', () async {
       // Setup: User has 3 meals/week plan, already selected 3
-      when(() => mockApi.toggleRecipeSelection(
-            recipeId: any(named: 'recipeId'),
-            select: true,
-          )).thenAnswer((_) async => {
-            'total_selected': 3,
-            'remaining': 0,
-            'allowed': 3,
-            'ok': false, // Over limit
-          });
+      when(
+        () => mockApi.toggleRecipeSelection(
+          recipeId: any(named: 'recipeId'),
+          select: true,
+        ),
+      ).thenAnswer(
+        (_) async => {
+          'total_selected': 3,
+          'remaining': 0,
+          'allowed': 3,
+          'ok': false, // Over limit
+        },
+      );
 
       // Act: Try to select 4th recipe
       final result = await mockApi.toggleRecipeSelection(
@@ -43,15 +47,19 @@ void main() {
 
     test('toggleRecipeSelection returns ok=true when within limit', () async {
       // Setup: User has 3 meals/week plan, selected 2
-      when(() => mockApi.toggleRecipeSelection(
-            recipeId: any(named: 'recipeId'),
-            select: true,
-          )).thenAnswer((_) async => {
-            'total_selected': 3,
-            'remaining': 0,
-            'allowed': 3,
-            'ok': true, // Within limit
-          });
+      when(
+        () => mockApi.toggleRecipeSelection(
+          recipeId: any(named: 'recipeId'),
+          select: true,
+        ),
+      ).thenAnswer(
+        (_) async => {
+          'total_selected': 3,
+          'remaining': 0,
+          'allowed': 3,
+          'ok': true, // Within limit
+        },
+      );
 
       // Act: Select 3rd recipe (within limit)
       final result = await mockApi.toggleRecipeSelection(
@@ -68,15 +76,19 @@ void main() {
 
     test('toggleRecipeSelection allows deselection even at limit', () async {
       // Setup: User at limit, wants to deselect
-      when(() => mockApi.toggleRecipeSelection(
-            recipeId: any(named: 'recipeId'),
-            select: false,
-          )).thenAnswer((_) async => {
-            'total_selected': 2,
-            'remaining': 1,
-            'allowed': 3,
-            'ok': true,
-          });
+      when(
+        () => mockApi.toggleRecipeSelection(
+          recipeId: any(named: 'recipeId'),
+          select: false,
+        ),
+      ).thenAnswer(
+        (_) async => {
+          'total_selected': 2,
+          'remaining': 1,
+          'allowed': 3,
+          'ok': true,
+        },
+      );
 
       // Act: Deselect a recipe
       final result = await mockApi.toggleRecipeSelection(

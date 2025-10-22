@@ -87,40 +87,40 @@ class Yf {
 
   /// Level 1 elevation - subtle hover
   static List<BoxShadow> get e1 => [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.04),
-          blurRadius: 4,
-          offset: const Offset(0, 1),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.04),
+      blurRadius: 4,
+      offset: const Offset(0, 1),
+    ),
+  ];
 
   /// Level 2 elevation - cards, standard elements
   static List<BoxShadow> get e2 => [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.06),
-          blurRadius: 8,
-          offset: const Offset(0, 2),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.06),
+      blurRadius: 8,
+      offset: const Offset(0, 2),
+    ),
+  ];
 
   /// Level 4 elevation - modals, popovers
   static List<BoxShadow> get e4 => [
-        BoxShadow(
-          color: Colors.black.withValues(alpha: 0.08),
-          blurRadius: 16,
-          offset: const Offset(0, 4),
-        ),
-      ];
+    BoxShadow(
+      color: Colors.black.withValues(alpha: 0.08),
+      blurRadius: 16,
+      offset: const Offset(0, 4),
+    ),
+  ];
 
   /// Legacy shadows (mapped to new system)
   static List<BoxShadow> get softShadow => e2;
   static List<BoxShadow> get brownShadow => [
-        BoxShadow(
-          color: brown.withValues(alpha: 0.15),
-          blurRadius: 12,
-          offset: const Offset(0, 4),
-        ),
-      ];
+    BoxShadow(
+      color: brown.withValues(alpha: 0.15),
+      blurRadius: 12,
+      offset: const Offset(0, 4),
+    ),
+  ];
 
   // =============================================================================
   // SPACING - 4/8pt grid system
@@ -157,15 +157,19 @@ class Yf {
 
   // Standard padding presets
   /// Screen edge padding - horizontal s24, vertical s20
-  static const screenPadding =
-      EdgeInsets.symmetric(horizontal: s24, vertical: s20);
+  static const screenPadding = EdgeInsets.symmetric(
+    horizontal: s24,
+    vertical: s20,
+  );
 
   /// Card internal padding
   static const cardPadding = EdgeInsets.all(s16);
 
   /// Button padding - min 48dp height compliance
-  static const buttonPadding =
-      EdgeInsets.symmetric(horizontal: s24, vertical: s16);
+  static const buttonPadding = EdgeInsets.symmetric(
+    horizontal: s24,
+    vertical: s16,
+  );
 
   // =============================================================================
   // MOTION - Material 3 motion system
@@ -239,8 +243,9 @@ class Yf {
   /// Info card decoration (with border)
   static BoxDecoration infoCardDecoration(BuildContext context) {
     return BoxDecoration(
-      color:
-          Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.3),
+      color: Theme.of(
+        context,
+      ).colorScheme.primaryContainer.withValues(alpha: 0.3),
       borderRadius: borderRadius16,
       border: Border.all(
         color: Theme.of(context).colorScheme.primary.withValues(alpha: 0.3),
@@ -259,9 +264,6 @@ class Yf {
 
   /// Hero image decoration (rounded with subtle shadow)
   static BoxDecoration heroImageDecoration() {
-    return BoxDecoration(
-      borderRadius: borderRadius20,
-      boxShadow: e2,
-    );
+    return BoxDecoration(borderRadius: borderRadius20, boxShadow: e2);
   }
 }

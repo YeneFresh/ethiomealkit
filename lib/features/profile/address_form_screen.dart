@@ -28,7 +28,8 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
       if (_isDefault) {
         await supa
             .from('addresses')
-            .update({'is_default': false}).eq('user_id', uid);
+            .update({'is_default': false})
+            .eq('user_id', uid);
       }
       await supa.from('addresses').insert({
         'user_id': uid,
@@ -42,13 +43,13 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
       });
       if (!mounted) return;
       Navigator.of(context).maybePop();
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Address saved.')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Address saved.')));
     } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Save failed: $e')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Save failed: $e')));
     } finally {
       if (mounted) setState(() => _saving = false);
     }
@@ -65,36 +66,47 @@ class _AddressFormScreenState extends State<AddressFormScreen> {
           child: ListView(
             children: [
               TextFormField(
-                  controller: _label,
-                  decoration: const InputDecoration(labelText: 'Label')),
+                controller: _label,
+                decoration: const InputDecoration(labelText: 'Label'),
+              ),
               TextFormField(
-                  controller: _line1,
-                  decoration: const InputDecoration(labelText: 'Line 1'),
-                  validator: (v) => v!.isEmpty ? 'Required' : null),
+                controller: _line1,
+                decoration: const InputDecoration(labelText: 'Line 1'),
+                validator: (v) => v!.isEmpty ? 'Required' : null,
+              ),
               TextFormField(
-                  controller: _line2,
-                  decoration:
-                      const InputDecoration(labelText: 'Line 2 (optional)')),
+                controller: _line2,
+                decoration: const InputDecoration(
+                  labelText: 'Line 2 (optional)',
+                ),
+              ),
               TextFormField(
-                  controller: _city,
-                  decoration: const InputDecoration(labelText: 'City'),
-                  validator: (v) => v!.isEmpty ? 'Required' : null),
+                controller: _city,
+                decoration: const InputDecoration(labelText: 'City'),
+                validator: (v) => v!.isEmpty ? 'Required' : null,
+              ),
               TextFormField(
-                  controller: _region,
-                  decoration: const InputDecoration(
-                      labelText: 'Subcity / Region (optional)')),
+                controller: _region,
+                decoration: const InputDecoration(
+                  labelText: 'Subcity / Region (optional)',
+                ),
+              ),
               TextFormField(
-                  controller: _notes,
-                  decoration: const InputDecoration(
-                      labelText: 'Delivery notes (optional)')),
+                controller: _notes,
+                decoration: const InputDecoration(
+                  labelText: 'Delivery notes (optional)',
+                ),
+              ),
               SwitchListTile(
-                  value: _isDefault,
-                  onChanged: (v) => setState(() => _isDefault = v),
-                  title: const Text('Make default')),
+                value: _isDefault,
+                onChanged: (v) => setState(() => _isDefault = v),
+                title: const Text('Make default'),
+              ),
               const SizedBox(height: 12),
               ElevatedButton(
-                  onPressed: _saving ? null : _save,
-                  child: Text(_saving ? 'Saving…' : 'Save Address')),
+                onPressed: _saving ? null : _save,
+                child: Text(_saving ? 'Saving…' : 'Save Address'),
+              ),
             ],
           ),
         ),

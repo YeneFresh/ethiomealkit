@@ -8,7 +8,7 @@ void main() {
       'title': 'Sample',
       'image_url': 'https://example.com/img.webp',
       'sort_order': 1,
-      'week_start': '2025-10-13'
+      'week_start': '2025-10-13',
     };
     expect(sample['id'], isNotNull);
     expect(sample['title'], isNotNull);

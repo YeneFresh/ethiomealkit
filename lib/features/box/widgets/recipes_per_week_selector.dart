@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../core/app_colors.dart';
-import '../providers/box_selection_providers.dart';
+import 'package:ethiomealkit/core/app_colors.dart';
+import 'package:ethiomealkit/features/box/providers/box_selection_providers.dart';
 
 /// Selector for number of meals per week with pricing
 class RecipesPerWeekSelector extends ConsumerWidget {
@@ -107,8 +107,9 @@ class _MealPlanCard extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color:
-                  isSelected ? AppColors.gold.withOpacity(0.1) : Colors.white,
+              color: isSelected
+                  ? AppColors.gold.withOpacity(0.1)
+                  : Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: isSelected
@@ -242,7 +243,7 @@ class _MealPlanCard extends StatelessWidget {
                         ),
                         child: Text(
                           'Save $discountPercent%',
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontSize: 10,
                             fontWeight: FontWeight.w600,
                             color: AppColors.success600,
@@ -267,6 +268,3 @@ class _MealPlanCard extends StatelessWidget {
     );
   }
 }
-
-
-

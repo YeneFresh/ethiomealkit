@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import '../bootstrap/env.dart' as bootstrap;
+import 'package:ethiomealkit/bootstrap/env.dart' as bootstrap;
 
 class Env {
   static Future<void> load() async {

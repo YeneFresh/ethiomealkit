@@ -125,11 +125,7 @@ class OnboardingProgressHeader extends StatelessWidget {
       ),
       child: Center(
         child: isCompleted
-            ? Icon(
-                Icons.check,
-                size: 16,
-                color: theme.colorScheme.onPrimary,
-              )
+            ? Icon(Icons.check, size: 16, color: theme.colorScheme.onPrimary)
             : Text(
                 '$stepNumber',
                 style: TextStyle(
@@ -145,16 +141,6 @@ class OnboardingProgressHeader extends StatelessWidget {
   }
 
   List<String> _getSteps() {
-    return [
-      'Box',
-      'Window',
-      'Recipes',
-      'Address',
-      'Checkout',
-    ];
+    return ['Box', 'Window', 'Recipes', 'Address', 'Checkout'];
   }
 }
-
-
-
-

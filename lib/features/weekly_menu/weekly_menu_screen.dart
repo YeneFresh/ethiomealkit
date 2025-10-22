@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'widgets/gate_card.dart';
-import '../delivery/delivery_gate_banner.dart';
-import 'weekly_menu_providers.dart';
+import 'package:ethiomealkit/features/weekly_menu/widgets/gate_card.dart';
+import 'package:ethiomealkit/features/delivery/delivery_gate_banner.dart';
+import 'package:ethiomealkit/features/weekly_menu/weekly_menu_providers.dart';
 
 class WeeklyMenuScreen extends ConsumerStatefulWidget {
   const WeeklyMenuScreen({super.key});
@@ -110,11 +110,7 @@ class _WeeklyMenuScreenState extends ConsumerState<WeeklyMenuScreen> {
       ),
       child: Column(
         children: [
-          Icon(
-            Icons.error_outline,
-            size: 48,
-            color: theme.colorScheme.error,
-          ),
+          Icon(Icons.error_outline, size: 48, color: theme.colorScheme.error),
           const SizedBox(height: 16),
           Text(
             'Failed to load weekly menu',
@@ -299,8 +295,9 @@ class _WeeklyMenuScreenState extends ConsumerState<WeeklyMenuScreen> {
                     Text(
                       'Choose your meals for this week',
                       style: theme.textTheme.bodySmall?.copyWith(
-                        color:
-                            theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                     ),
                   ],
@@ -312,24 +309,36 @@ class _WeeklyMenuScreenState extends ConsumerState<WeeklyMenuScreen> {
 
           // Mock recipe cards - in a real app, these would come from the weeklyMenuProvider
           _buildRecipeCard(
-              theme,
-              'Misir Wat',
-              'Spiced red lentils with berbere spice blend',
-              '25 min',
-              '450 kcal'),
+            theme,
+            'Misir Wat',
+            'Spiced red lentils with berbere spice blend',
+            '25 min',
+            '450 kcal',
+          ),
           const SizedBox(height: 12),
           _buildRecipeCard(
-              theme,
-              'Gomen',
-              'Collard greens sautéed with garlic and ginger',
-              '20 min',
-              '320 kcal'),
+            theme,
+            'Gomen',
+            'Collard greens sautéed with garlic and ginger',
+            '20 min',
+            '320 kcal',
+          ),
           const SizedBox(height: 12),
-          _buildRecipeCard(theme, 'Kitfo', 'Ethiopian beef tartare with spices',
-              '15 min', '520 kcal'),
+          _buildRecipeCard(
+            theme,
+            'Kitfo',
+            'Ethiopian beef tartare with spices',
+            '15 min',
+            '520 kcal',
+          ),
           const SizedBox(height: 12),
-          _buildRecipeCard(theme, 'Atkilt Alicha',
-              'Mild turmeric-spiced vegetables', '30 min', '280 kcal'),
+          _buildRecipeCard(
+            theme,
+            'Atkilt Alicha',
+            'Mild turmeric-spiced vegetables',
+            '30 min',
+            '280 kcal',
+          ),
 
           const SizedBox(height: 20),
           SizedBox(
@@ -349,7 +358,8 @@ class _WeeklyMenuScreenState extends ConsumerState<WeeklyMenuScreen> {
                     backgroundColor: theme.colorScheme.primary,
                     behavior: SnackBarBehavior.floating,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8)),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 );
               },
@@ -367,8 +377,13 @@ class _WeeklyMenuScreenState extends ConsumerState<WeeklyMenuScreen> {
     );
   }
 
-  Widget _buildRecipeCard(ThemeData theme, String name, String description,
-      String time, String calories) {
+  Widget _buildRecipeCard(
+    ThemeData theme,
+    String name,
+    String description,
+    String time,
+    String calories,
+  ) {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -435,8 +450,9 @@ class _WeeklyMenuScreenState extends ConsumerState<WeeklyMenuScreen> {
                     Text(
                       time,
                       style: theme.textTheme.labelSmall?.copyWith(
-                        color:
-                            theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                     ),
                     const SizedBox(width: 16),
@@ -449,8 +465,9 @@ class _WeeklyMenuScreenState extends ConsumerState<WeeklyMenuScreen> {
                     Text(
                       calories,
                       style: theme.textTheme.labelSmall?.copyWith(
-                        color:
-                            theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                        color: theme.colorScheme.onSurface.withValues(
+                          alpha: 0.7,
+                        ),
                       ),
                     ),
                   ],

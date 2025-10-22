@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../state/delivery_providers.dart';
-import 'delivery_window_editor.dart';
+import 'package:ethiomealkit/features/delivery/state/delivery_providers.dart';
+import 'package:ethiomealkit/features/delivery/ui/delivery_window_editor.dart';
 
 /// Apple Wallet-style order confirmation mini-receipt
 /// Shows after successful checkout
@@ -63,8 +63,10 @@ class ReceiptCard extends ConsumerWidget {
                   ),
                 ),
                 Container(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
                   decoration: BoxDecoration(
                     color: Colors.white.withValues(alpha: 0.3),
                     borderRadius: BorderRadius.circular(12),
@@ -92,8 +94,11 @@ class ReceiptCard extends ConsumerWidget {
                 // Delivery summary
                 Row(
                   children: [
-                    const Icon(Icons.local_shipping,
-                        size: 18, color: Color(0xFFC6903B)),
+                    const Icon(
+                      Icons.local_shipping,
+                      size: 18,
+                      color: Color(0xFFC6903B),
+                    ),
                     const SizedBox(width: 8),
                     Expanded(
                       child: Text(
@@ -135,8 +140,11 @@ class ReceiptCard extends ConsumerWidget {
                     ...badgeIcons.map(
                       (i) => Padding(
                         padding: const EdgeInsets.only(right: 6),
-                        child:
-                            Icon(i, size: 16, color: const Color(0xFFC6903B)),
+                        child: Icon(
+                          i,
+                          size: 16,
+                          color: const Color(0xFFC6903B),
+                        ),
                       ),
                     ),
                   ],
@@ -152,16 +160,16 @@ class ReceiptCard extends ConsumerWidget {
                     onPressed: dw == null
                         ? null
                         : () => showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              useSafeArea: true,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                  top: Radius.circular(24),
-                                ),
+                            context: context,
+                            isScrollControlled: true,
+                            useSafeArea: true,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                top: Radius.circular(24),
                               ),
-                              builder: (_) => DeliveryWindowEditor(initial: dw),
                             ),
+                            builder: (_) => DeliveryWindowEditor(initial: dw),
+                          ),
                     icon: const Icon(Icons.edit_outlined, size: 18),
                     label: const Text('Modify Delivery'),
                     style: OutlinedButton.styleFrom(
@@ -179,6 +187,3 @@ class ReceiptCard extends ConsumerWidget {
     );
   }
 }
-
-
-

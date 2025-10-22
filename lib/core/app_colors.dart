@@ -35,13 +35,9 @@ class AppColors {
   static const grey = Color(0xFF90A4AE);
 
   // Typography
-  static TextStyle get titleStyle => const TextStyle(
-        fontWeight: FontWeight.w700,
-        fontSize: 18,
-      );
+  static TextStyle get titleStyle =>
+      const TextStyle(fontWeight: FontWeight.w700, fontSize: 18);
 
-  static TextStyle get subtitleStyle => const TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: 13,
-      );
+  static TextStyle get subtitleStyle =>
+      const TextStyle(fontWeight: FontWeight.w500, fontSize: 13);
 }

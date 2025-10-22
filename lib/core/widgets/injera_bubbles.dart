@@ -18,7 +18,7 @@ class InjeraBubbles extends StatefulWidget {
   final double maxRadius;
   final int count;
   final double opacity; // overall intensity
-  final double speed;   // 0.5–1.5
+  final double speed; // 0.5–1.5
 
   @override
   State<InjeraBubbles> createState() => _InjeraBubblesState();
@@ -65,13 +65,13 @@ class _InjeraBubblesState extends State<InjeraBubbles>
 
 class _Bubble {
   _Bubble(Random rng)
-      : x = rng.nextDouble(),
-        y = rng.nextDouble(),
-        phase = rng.nextDouble(),
-        rMul = rng.nextDouble() * 0.8 + 0.2;
-  final double x, y;   // 0..1 relative
-  final double phase;  // random phase
-  final double rMul;   // radius multiplier
+    : x = rng.nextDouble(),
+      y = rng.nextDouble(),
+      phase = rng.nextDouble(),
+      rMul = rng.nextDouble() * 0.8 + 0.2;
+  final double x, y; // 0..1 relative
+  final double phase; // random phase
+  final double rMul; // radius multiplier
 }
 
 class _InjeraPainter extends CustomPainter {
@@ -97,7 +97,9 @@ class _InjeraPainter extends CustomPainter {
       final radius = (maxRadius * b.rMul) * (0.6 + 0.4 * bloom);
 
       // varied alpha per bubble
-      paint.color = color.withValues(alpha: (0.25 + 0.75 * b.rMul) * (color.opacity));
+      paint.color = color.withValues(
+        alpha: (0.25 + 0.75 * b.rMul) * (color.opacity),
+      );
 
       final offset = Offset(b.x * size.width, b.y * size.height);
       canvas.drawCircle(offset, radius, paint);
@@ -106,9 +108,7 @@ class _InjeraPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant _InjeraPainter old) =>
-      old.progress != progress || old.color != color || old.maxRadius != maxRadius;
+      old.progress != progress ||
+      old.color != color ||
+      old.maxRadius != maxRadius;
 }
-
-
-
-

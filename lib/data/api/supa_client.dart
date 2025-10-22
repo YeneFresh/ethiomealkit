@@ -33,7 +33,9 @@ class SupaClient {
   Future<Map<String, dynamic>> userReadiness() async {
     try {
       // Check if user has an active window
-      final response = await _client.from('user_active_window').select('''
+      final response = await _client
+          .from('user_active_window')
+          .select('''
             user_id,
             window_id,
             location_label,
@@ -44,7 +46,9 @@ class SupaClient {
               slot,
               city
             )
-          ''').limit(1).maybeSingle();
+          ''')
+          .limit(1)
+          .maybeSingle();
 
       if (response == null) {
         return {
@@ -109,7 +113,8 @@ class SupaClient {
       var query = _client
           .from('recipes')
           .select(
-              'id, title, slug, image_url, tags, sort_order, weeks!inner(week_start, is_current)')
+            'id, title, slug, image_url, tags, sort_order, weeks!inner(week_start, is_current)',
+          )
           .eq('is_active', true)
           .eq('weeks.is_current', true)
           .order('sort_order');
@@ -124,17 +129,19 @@ class SupaClient {
       final response = await query;
 
       // Flatten the nested weeks data
-      return List<Map<String, dynamic>>.from(response.map((item) {
-        return {
-          'id': item['id'],
-          'title': item['title'],
-          'slug': item['slug'],
-          'image_url': item['image_url'],
-          'tags': item['tags'],
-          'sort_order': item['sort_order'],
-          'week_start': item['weeks']['week_start'],
-        };
-      }));
+      return List<Map<String, dynamic>>.from(
+        response.map((item) {
+          return {
+            'id': item['id'],
+            'title': item['title'],
+            'slug': item['slug'],
+            'image_url': item['image_url'],
+            'tags': item['tags'],
+            'sort_order': item['sort_order'],
+            'week_start': item['weeks']['week_start'],
+          };
+        }),
+      );
     } catch (e) {
       throw SupaClientException('Failed to fetch weekly recipes: $e');
     }
@@ -151,8 +158,9 @@ class SupaClient {
       if (currentUser == null) {
         throw SupaClientException('No user session');
       }
-      final addressId =
-          locationLabel.toLowerCase().contains('office') ? 'office' : 'home';
+      final addressId = locationLabel.toLowerCase().contains('office')
+          ? 'office'
+          : 'home';
       await _client.rpc(
         'upsert_user_delivery_preference',
         params: {

@@ -1,5 +1,5 @@
-import '../entities/recipe.dart';
-import '../repositories/recipe_repository.dart';
+import 'package:ethiomealkit/domain/entities/recipe.dart';
+import 'package:ethiomealkit/domain/repositories/recipe_repository.dart';
 
 /// Use case: Get weekly menu recipes
 /// Encapsulates business logic for fetching weekly recipes
@@ -17,6 +17,3 @@ class GetWeeklyMenu {
     return recipes;
   }
 }
-
-
-

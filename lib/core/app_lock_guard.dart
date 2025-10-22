@@ -2,8 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../features/auth/pin_unlock_dialog.dart';
-import './pin_vault.dart';
+import 'package:ethiomealkit/features/auth/pin_unlock_dialog.dart';
+import 'package:ethiomealkit/core/pin_vault.dart';
 
 /// Wrap your MaterialApp with this to enable biometric lock on resume/cold start.
 /// - Locks after [inactivity] away from foreground when enabled in prefs.
@@ -61,7 +61,7 @@ class _AppLockGuardState extends State<AppLockGuard>
 
     final away = (last == null)
         ? widget.inactivity +
-            const Duration(seconds: 1) // force lock on first run
+              const Duration(seconds: 1) // force lock on first run
         : Duration(milliseconds: now - last);
 
     if (away >= widget.inactivity) {
@@ -93,7 +93,9 @@ class _AppLockGuardState extends State<AppLockGuard>
         state == AppLifecycleState.inactive) {
       final sp = await SharedPreferences.getInstance();
       await sp.setInt(
-          'biometric_lock_last_active', DateTime.now().millisecondsSinceEpoch);
+        'biometric_lock_last_active',
+        DateTime.now().millisecondsSinceEpoch,
+      );
     }
   }
 
@@ -117,7 +119,9 @@ class _AppLockGuardState extends State<AppLockGuard>
               useErrorDialogs: true,
             ),
           );
-        } catch (_) {/* fall through to PIN */}
+        } catch (_) {
+          /* fall through to PIN */
+        }
       }
 
       if (!unlocked && pinEnabled) {
@@ -131,8 +135,10 @@ class _AppLockGuardState extends State<AppLockGuard>
 
       if (unlocked) {
         final sp = await SharedPreferences.getInstance();
-        await sp.setInt('biometric_lock_last_active',
-            DateTime.now().millisecondsSinceEpoch);
+        await sp.setInt(
+          'biometric_lock_last_active',
+          DateTime.now().millisecondsSinceEpoch,
+        );
         if (mounted) setState(() => _locked = false);
       }
     } finally {
@@ -176,10 +182,12 @@ class _LockOverlay extends StatelessWidget {
                   children: [
                     Icon(Icons.lock_rounded, size: 56, color: c.primary),
                     const SizedBox(height: 12),
-                    Text('Locked',
-                        style: t.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.w700,
-                        )),
+                    Text(
+                      'Locked',
+                      style: t.headlineSmall?.copyWith(
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
                     const SizedBox(height: 8),
                     Text(
                       'Use Face ID / Touch ID to continue.',
@@ -193,7 +201,8 @@ class _LockOverlay extends StatelessWidget {
                           ? const SizedBox(
                               width: 18,
                               height: 18,
-                              child: CircularProgressIndicator(strokeWidth: 2))
+                              child: CircularProgressIndicator(strokeWidth: 2),
+                            )
                           : const Icon(Icons.fingerprint_rounded),
                       label: const Text('Unlock'),
                     ),

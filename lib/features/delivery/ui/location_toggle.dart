@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../state/delivery_providers.dart';
+import 'package:ethiomealkit/features/delivery/state/delivery_providers.dart';
 
 /// Quick Home/Office toggle (outside the editor modal)
 class LocationToggle extends ConsumerWidget {
@@ -85,6 +85,3 @@ class LocationToggle extends ConsumerWidget {
     );
   }
 }
-
-
-

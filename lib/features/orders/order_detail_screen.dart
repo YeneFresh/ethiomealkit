@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../core/design_tokens.dart';
+import 'package:ethiomealkit/core/design_tokens.dart';
 
 /// Order detail screen - Shows order items and delivery info
 class OrderDetailScreen extends ConsumerStatefulWidget {
@@ -75,15 +75,12 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Order Details'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(title: const Text('Order Details'), centerTitle: true),
       body: _loading
           ? _buildLoadingSkeleton()
           : _error != null
-              ? _buildErrorState(theme)
-              : _buildOrderDetails(theme),
+          ? _buildErrorState(theme)
+          : _buildOrderDetails(theme),
     );
   }
 
@@ -92,7 +89,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
       padding: Yf.screenPadding,
       children: List.generate(3, (index) {
         return Container(
-          margin: EdgeInsets.only(bottom: Yf.g16),
+          margin: const EdgeInsets.only(bottom: Yf.g16),
           height: 100,
           decoration: BoxDecoration(
             color: Colors.grey[200],
@@ -111,11 +108,11 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(Icons.error_outline, size: 64, color: theme.colorScheme.error),
-            SizedBox(height: Yf.g16),
+            const SizedBox(height: Yf.g16),
             Text('Error', style: theme.textTheme.titleLarge),
-            SizedBox(height: Yf.g8),
+            const SizedBox(height: Yf.g8),
             Text(_error!, textAlign: TextAlign.center),
-            SizedBox(height: Yf.g24),
+            const SizedBox(height: Yf.g24),
             ElevatedButton.icon(
               onPressed: _loadOrderDetails,
               icon: const Icon(Icons.refresh),
@@ -132,37 +129,32 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
       padding: Yf.screenPadding,
       children: [
         // Order Summary
-        _buildSection(
-          theme,
-          'Order Summary',
-          Icons.receipt_long,
-          [
-            _buildDetailRow(theme, 'Order ID',
-                widget.orderId.substring(0, 8).toUpperCase()),
-            _buildDetailRow(theme, 'Status', _order!['status']),
-            _buildDetailRow(
-                theme, 'Total Items', '${_order!['total_items']} recipes'),
-            _buildDetailRow(theme, 'Week', _order!['week_start'] ?? 'N/A'),
-          ],
-        ),
+        _buildSection(theme, 'Order Summary', Icons.receipt_long, [
+          _buildDetailRow(
+            theme,
+            'Order ID',
+            widget.orderId.substring(0, 8).toUpperCase(),
+          ),
+          _buildDetailRow(theme, 'Status', _order!['status']),
+          _buildDetailRow(
+            theme,
+            'Total Items',
+            '${_order!['total_items']} recipes',
+          ),
+          _buildDetailRow(theme, 'Week', _order!['week_start'] ?? 'N/A'),
+        ]),
 
-        SizedBox(height: Yf.g24),
+        const SizedBox(height: Yf.g24),
 
         // Delivery Info
         if (_window != null)
-          _buildSection(
-            theme,
-            'Delivery Window',
-            Icons.local_shipping,
-            [
-              _buildDetailRow(
-                  theme, 'Day', _formatWeekday(_window!['weekday'])),
-              _buildDetailRow(theme, 'Time', _window!['slot']),
-              _buildDetailRow(theme, 'Location', _window!['city']),
-            ],
-          ),
+          _buildSection(theme, 'Delivery Window', Icons.local_shipping, [
+            _buildDetailRow(theme, 'Day', _formatWeekday(_window!['weekday'])),
+            _buildDetailRow(theme, 'Time', _window!['slot']),
+            _buildDetailRow(theme, 'Location', _window!['city']),
+          ]),
 
-        SizedBox(height: Yf.g24),
+        const SizedBox(height: Yf.g24),
 
         // Order Items
         _buildSection(
@@ -175,7 +167,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
           }).toList(),
         ),
 
-        SizedBox(height: Yf.g24),
+        const SizedBox(height: Yf.g24),
 
         // Delivery Address
         if (_order!['address'] != null) _buildAddressSection(theme),
@@ -198,7 +190,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
             Row(
               children: [
                 Icon(icon, size: 20, color: theme.colorScheme.primary),
-                SizedBox(width: Yf.g8),
+                const SizedBox(width: Yf.g8),
                 Text(
                   title,
                   style: theme.textTheme.titleMedium?.copyWith(
@@ -207,7 +199,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                 ),
               ],
             ),
-            SizedBox(height: Yf.g16),
+            const SizedBox(height: Yf.g16),
             ...children,
           ],
         ),
@@ -217,7 +209,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
 
   Widget _buildDetailRow(ThemeData theme, String label, String value) {
     return Padding(
-      padding: EdgeInsets.only(bottom: Yf.g8),
+      padding: const EdgeInsets.only(bottom: Yf.g8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -248,15 +240,11 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
     if (recipe == null) return const SizedBox.shrink();
 
     return Padding(
-      padding: EdgeInsets.only(bottom: Yf.g12),
+      padding: const EdgeInsets.only(bottom: Yf.g12),
       child: Row(
         children: [
-          Icon(
-            Icons.restaurant,
-            size: 16,
-            color: theme.colorScheme.primary,
-          ),
-          SizedBox(width: Yf.g8),
+          Icon(Icons.restaurant, size: 16, color: theme.colorScheme.primary),
+          const SizedBox(width: Yf.g8),
           Expanded(
             child: Text(
               recipe['title'] ?? 'Recipe',
@@ -279,9 +267,12 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
           children: [
             Row(
               children: [
-                Icon(Icons.location_on,
-                    size: 20, color: theme.colorScheme.primary),
-                SizedBox(width: Yf.g8),
+                Icon(
+                  Icons.location_on,
+                  size: 20,
+                  color: theme.colorScheme.primary,
+                ),
+                const SizedBox(width: Yf.g8),
                 Text(
                   'Delivery Address',
                   style: theme.textTheme.titleMedium?.copyWith(
@@ -290,7 +281,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                 ),
               ],
             ),
-            SizedBox(height: Yf.g16),
+            const SizedBox(height: Yf.g16),
             _buildDetailRow(theme, 'Phone', address['phone'] ?? 'N/A'),
             _buildDetailRow(theme, 'Address', address['line1'] ?? 'N/A'),
             if (address['line2'] != null &&
@@ -314,12 +305,8 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
       'Wednesday',
       'Thursday',
       'Friday',
-      'Saturday'
+      'Saturday',
     ];
     return days[weekday];
   }
 }
-
-
-
-

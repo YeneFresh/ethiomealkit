@@ -61,16 +61,14 @@ class _$CartItemCopyWithImpl<$Res, $Val extends CartItem>
   $Res call({Object? mealKit = null, Object? quantity = null}) {
     return _then(
       _value.copyWith(
-            mealKit:
-                null == mealKit
-                    ? _value.mealKit
-                    : mealKit // ignore: cast_nullable_to_non_nullable
-                        as MealKit,
-            quantity:
-                null == quantity
-                    ? _value.quantity
-                    : quantity // ignore: cast_nullable_to_non_nullable
-                        as int,
+            mealKit: null == mealKit
+                ? _value.mealKit
+                : mealKit // ignore: cast_nullable_to_non_nullable
+                      as MealKit,
+            quantity: null == quantity
+                ? _value.quantity
+                : quantity // ignore: cast_nullable_to_non_nullable
+                      as int,
           )
           as $Val,
     );
@@ -118,16 +116,14 @@ class __$$CartItemImplCopyWithImpl<$Res>
   $Res call({Object? mealKit = null, Object? quantity = null}) {
     return _then(
       _$CartItemImpl(
-        mealKit:
-            null == mealKit
-                ? _value.mealKit
-                : mealKit // ignore: cast_nullable_to_non_nullable
-                    as MealKit,
-        quantity:
-            null == quantity
-                ? _value.quantity
-                : quantity // ignore: cast_nullable_to_non_nullable
-                    as int,
+        mealKit: null == mealKit
+            ? _value.mealKit
+            : mealKit // ignore: cast_nullable_to_non_nullable
+                  as MealKit,
+        quantity: null == quantity
+            ? _value.quantity
+            : quantity // ignore: cast_nullable_to_non_nullable
+                  as int,
       ),
     );
   }
@@ -243,11 +239,10 @@ class _$CartCopyWithImpl<$Res, $Val extends Cart>
   $Res call({Object? items = null}) {
     return _then(
       _value.copyWith(
-            items:
-                null == items
-                    ? _value.items
-                    : items // ignore: cast_nullable_to_non_nullable
-                        as List<CartItem>,
+            items: null == items
+                ? _value.items
+                : items // ignore: cast_nullable_to_non_nullable
+                      as List<CartItem>,
           )
           as $Val,
     );
@@ -279,11 +274,10 @@ class __$$CartImplCopyWithImpl<$Res>
   $Res call({Object? items = null}) {
     return _then(
       _$CartImpl(
-        items:
-            null == items
-                ? _value._items
-                : items // ignore: cast_nullable_to_non_nullable
-                    as List<CartItem>,
+        items: null == items
+            ? _value._items
+            : items // ignore: cast_nullable_to_non_nullable
+                  as List<CartItem>,
       ),
     );
   }

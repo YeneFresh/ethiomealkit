@@ -66,21 +66,18 @@ class _$OrderItemCopyWithImpl<$Res, $Val extends OrderItem>
   }) {
     return _then(
       _value.copyWith(
-            mealKit:
-                null == mealKit
-                    ? _value.mealKit
-                    : mealKit // ignore: cast_nullable_to_non_nullable
-                        as MealKit,
-            quantity:
-                null == quantity
-                    ? _value.quantity
-                    : quantity // ignore: cast_nullable_to_non_nullable
-                        as int,
-            unitPriceCents:
-                null == unitPriceCents
-                    ? _value.unitPriceCents
-                    : unitPriceCents // ignore: cast_nullable_to_non_nullable
-                        as int,
+            mealKit: null == mealKit
+                ? _value.mealKit
+                : mealKit // ignore: cast_nullable_to_non_nullable
+                      as MealKit,
+            quantity: null == quantity
+                ? _value.quantity
+                : quantity // ignore: cast_nullable_to_non_nullable
+                      as int,
+            unitPriceCents: null == unitPriceCents
+                ? _value.unitPriceCents
+                : unitPriceCents // ignore: cast_nullable_to_non_nullable
+                      as int,
           )
           as $Val,
     );
@@ -132,21 +129,18 @@ class __$$OrderItemImplCopyWithImpl<$Res>
   }) {
     return _then(
       _$OrderItemImpl(
-        mealKit:
-            null == mealKit
-                ? _value.mealKit
-                : mealKit // ignore: cast_nullable_to_non_nullable
-                    as MealKit,
-        quantity:
-            null == quantity
-                ? _value.quantity
-                : quantity // ignore: cast_nullable_to_non_nullable
-                    as int,
-        unitPriceCents:
-            null == unitPriceCents
-                ? _value.unitPriceCents
-                : unitPriceCents // ignore: cast_nullable_to_non_nullable
-                    as int,
+        mealKit: null == mealKit
+            ? _value.mealKit
+            : mealKit // ignore: cast_nullable_to_non_nullable
+                  as MealKit,
+        quantity: null == quantity
+            ? _value.quantity
+            : quantity // ignore: cast_nullable_to_non_nullable
+                  as int,
+        unitPriceCents: null == unitPriceCents
+            ? _value.unitPriceCents
+            : unitPriceCents // ignore: cast_nullable_to_non_nullable
+                  as int,
       ),
     );
   }
@@ -290,31 +284,26 @@ class _$OrderCopyWithImpl<$Res, $Val extends Order>
   }) {
     return _then(
       _value.copyWith(
-            id:
-                null == id
-                    ? _value.id
-                    : id // ignore: cast_nullable_to_non_nullable
-                        as String,
-            items:
-                null == items
-                    ? _value.items
-                    : items // ignore: cast_nullable_to_non_nullable
-                        as List<OrderItem>,
-            totalCents:
-                null == totalCents
-                    ? _value.totalCents
-                    : totalCents // ignore: cast_nullable_to_non_nullable
-                        as int,
-            status:
-                null == status
-                    ? _value.status
-                    : status // ignore: cast_nullable_to_non_nullable
-                        as String,
-            createdAt:
-                null == createdAt
-                    ? _value.createdAt
-                    : createdAt // ignore: cast_nullable_to_non_nullable
-                        as DateTime,
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as String,
+            items: null == items
+                ? _value.items
+                : items // ignore: cast_nullable_to_non_nullable
+                      as List<OrderItem>,
+            totalCents: null == totalCents
+                ? _value.totalCents
+                : totalCents // ignore: cast_nullable_to_non_nullable
+                      as int,
+            status: null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as String,
+            createdAt: null == createdAt
+                ? _value.createdAt
+                : createdAt // ignore: cast_nullable_to_non_nullable
+                      as DateTime,
           )
           as $Val,
     );
@@ -360,31 +349,26 @@ class __$$OrderImplCopyWithImpl<$Res>
   }) {
     return _then(
       _$OrderImpl(
-        id:
-            null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                    as String,
-        items:
-            null == items
-                ? _value._items
-                : items // ignore: cast_nullable_to_non_nullable
-                    as List<OrderItem>,
-        totalCents:
-            null == totalCents
-                ? _value.totalCents
-                : totalCents // ignore: cast_nullable_to_non_nullable
-                    as int,
-        status:
-            null == status
-                ? _value.status
-                : status // ignore: cast_nullable_to_non_nullable
-                    as String,
-        createdAt:
-            null == createdAt
-                ? _value.createdAt
-                : createdAt // ignore: cast_nullable_to_non_nullable
-                    as DateTime,
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as String,
+        items: null == items
+            ? _value._items
+            : items // ignore: cast_nullable_to_non_nullable
+                  as List<OrderItem>,
+        totalCents: null == totalCents
+            ? _value.totalCents
+            : totalCents // ignore: cast_nullable_to_non_nullable
+                  as int,
+        status: null == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as String,
+        createdAt: null == createdAt
+            ? _value.createdAt
+            : createdAt // ignore: cast_nullable_to_non_nullable
+                  as DateTime,
       ),
     );
   }
