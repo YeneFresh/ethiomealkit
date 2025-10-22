@@ -13,7 +13,7 @@ ThemeData buildLightTheme() {
       secondary: YfColors.gold,
     ),
     scaffoldBackgroundColor: Colors.white,
-    cardTheme: const CardTheme(elevation: 1),
+    cardTheme: const CardThemeData(elevation: 1),
   );
 }
 
@@ -26,5 +26,3 @@ ThemeData buildDarkTheme() {
     ),
   );
 }
-
-

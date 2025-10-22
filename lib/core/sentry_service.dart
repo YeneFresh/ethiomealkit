@@ -1,6 +1,5 @@
 import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
-import 'package:go_router/go_router.dart';
 
 class SentryService {
   static const String _dsn = ''; // Disabled for now - set to your actual DSN when ready

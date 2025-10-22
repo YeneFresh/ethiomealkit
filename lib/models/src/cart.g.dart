@@ -19,9 +19,10 @@ Map<String, dynamic> _$$CartItemImplToJson(_$CartItemImpl instance) =>
     };
 
 _$CartImpl _$$CartImplFromJson(Map<String, dynamic> json) => _$CartImpl(
-  items: (json['items'] as List<dynamic>)
-      .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
-      .toList(),
+  items:
+      (json['items'] as List<dynamic>)
+          .map((e) => CartItem.fromJson(e as Map<String, dynamic>))
+          .toList(),
 );
 
 Map<String, dynamic> _$$CartImplToJson(_$CartImpl instance) =>

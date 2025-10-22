@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/pin_vault.dart';
 import '../../core/sentry_service.dart';
 

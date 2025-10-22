@@ -12,10 +12,10 @@ Future<T?> showYfDialog<T>({
       title: Text(title),
       content: Text(message),
       actions: [
-        TextButton(onPressed: () => Navigator.of(ctx).pop(), child: Text(confirmLabel)),
+        TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(confirmLabel)),
       ],
     ),
   );
 }
-
-

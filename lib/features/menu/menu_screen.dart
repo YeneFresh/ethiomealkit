@@ -47,28 +47,7 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
     _bootstrap().then((_) => _refreshPricing());
 
     // Debug check in parallel
-    Future.microtask(() async {
-      try {
-        print('===== DEBUG: Checking Supabase Connection =====');
-
-        // 1. Check current week from server
-        final weekResp = await db.rpc('current_week_start_utc_str');
-        print('DEBUG: Week from server => $weekResp');
-
-        // 2. Check weekly menu data directly from RPC
-        final menuResp = await db.rpc('get_weekly_menu_current');
-        print('DEBUG: Menu rows => ${menuResp.length}');
-
-        for (final row in menuResp) {
-          print('DEBUG: Recipe => ${row['name']} (${row['categories']})');
-        }
-
-        print('===== END DEBUG =====');
-      } catch (e, st) {
-        print('DEBUG ERROR: $e');
-        print(st);
-      }
-    });
+    // Debug check completely removed to avoid permission issues
   }
 
   String _mondayUtcStr(DateTime d) {
@@ -129,8 +108,8 @@ class _MenuScreenState extends ConsumerState<MenuScreen> {
         }
       }
 
-      // 3) menu via RPC (joins weekly_menu + recipes on the server)
-      final rpc = await db.rpc('get_weekly_menu_current');
+      // 3) menu via direct meals query
+      final rpc = await db.from('meals').select();
       final list = List<Map<String, dynamic>>.from(rpc);
 
       recipes = list

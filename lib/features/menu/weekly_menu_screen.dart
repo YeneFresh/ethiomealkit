@@ -1,7 +1,6 @@
 // weekly_menu_screen.dart
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:intl/intl.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class WeeklyMenuScreen extends StatefulWidget {
@@ -45,7 +44,7 @@ class _WeeklyMenuScreenState extends State<WeeklyMenuScreen> {
               };
 
       // Load weekly menu
-      final rpc = await supa.rpc('get_weekly_menu_current');
+      final rpc = await supa.from('meals').select();
       final list = List<Map<String, dynamic>>.from(rpc);
       recipes = list
           .map((m) => {
@@ -61,17 +60,15 @@ class _WeeklyMenuScreenState extends State<WeeklyMenuScreen> {
           .toList();
 
       // Load existing selections
-      if (weekStr != null) {
-        final sel = await supa
-            .from('user_meal_selections')
-            .select('recipe_id')
-            .eq('user_id', uid)
-            .eq('week_start', weekStr);
-        picked = sel.isEmpty
-            ? <String>{}
-            : sel.map<String>((e) => e['recipe_id'] as String).toSet();
-      }
-
+      final sel = await supa
+          .from('user_meal_selections')
+          .select('recipe_id')
+          .eq('user_id', uid)
+          .eq('week_start', weekStr);
+      picked = sel.isEmpty
+          ? <String>{}
+          : sel.map<String>((e) => e['recipe_id'] as String).toSet();
+    
       setState(() => _loading = false);
     } catch (e) {
       if (mounted) {
@@ -129,9 +126,6 @@ class _WeeklyMenuScreenState extends State<WeeklyMenuScreen> {
     try {
       final supa = Supabase.instance.client;
       final uid = supa.auth.currentUser!.id;
-
-      // Create/find pending order
-      if (weekStr == null) throw 'Week string not available';
       final oid = await supa.rpc('place_order_from_selections', params: {
         '_user': uid,
         '_week': weekStr,

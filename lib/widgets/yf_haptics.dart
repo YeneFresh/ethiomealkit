@@ -6,5 +6,3 @@ class YfHaptics {
   static Future<void> warning() async => HapticFeedback.mediumImpact();
   static Future<void> error() async => HapticFeedback.heavyImpact();
 }
-
-

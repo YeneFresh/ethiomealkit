@@ -7,5 +7,3 @@ void main() {
     expect(Env.appEnv.isNotEmpty, true);
   });
 }
-
-

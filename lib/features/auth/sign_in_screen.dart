@@ -19,13 +19,25 @@ class _SignInScreenState extends State<SignInScreen> {
   String? _validateSupabaseUrl() {
     final client = SupabaseConfig.client;
     if (client == null) return 'Supabase client not initialized';
-    
+
     final url = Env.supabaseUrl;
     if (url.isEmpty) return 'Supabase URL is empty';
-    if (!url.startsWith('https://')) return 'Supabase URL must start with https://';
-    if (!url.contains('.supabase.co')) return 'Invalid Supabase URL format';
-    if (url.contains('<your-ref>')) return 'Please replace <your-ref> with your actual Supabase project reference';
-    
+
+    // Allow both production (https) and local development (http) URLs
+    if (!url.startsWith('https://') &&
+        !url.startsWith('http://localhost') &&
+        !url.startsWith('http://127.0.0.1')) {
+      return 'Supabase URL must start with https:// (production) or http://localhost/http://127.0.0.1 (local development)';
+    }
+
+    // For production URLs, check for .supabase.co
+    if (url.startsWith('https://') && !url.contains('.supabase.co')) {
+      return 'Invalid Supabase URL format - production URLs must contain .supabase.co';
+    }
+
+    if (url.contains('<your-ref>'))
+      return 'Please replace <your-ref> with your actual Supabase project reference';
+
     return null; // URL is valid
   }
 
@@ -54,20 +66,26 @@ $connectivity
    ${Env.getConfigStatus()}
 
 2. Verify your Supabase URL format:
-   • Should be: https://your-project-ref.supabase.co
+   • Production: https://your-project-ref.supabase.co
+   • Local development: http://127.0.0.1:54321 or http://localhost:54321
    • Current: ${Env.supabaseUrl}
 
-3. Network checks:
+3. For local development:
+   • Make sure Supabase is running: 'supabase status'
+   • Check if local Supabase is accessible in browser: ${Env.supabaseUrl}
+   • Restart Supabase: 'supabase stop' then 'supabase start'
+
+4. Network checks:
    • Try accessing your Supabase URL in a web browser
    • Check if you're behind a corporate firewall/proxy
    • Try using a different network (mobile hotspot)
 
-4. DNS troubleshooting:
+5. DNS troubleshooting:
    • Try flushing DNS cache (restart your device)
    • Check if DNS server is working
    • Try different DNS servers (8.8.8.8, 1.1.1.1)
 
-5. Development environment:
+6. Development environment:
    • Restart your Flutter app
    • Run 'flutter clean' then 'flutter pub get'
    • Check if other apps can access the internet
@@ -85,18 +103,19 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
       if (email.isEmpty) {
         throw const AuthException('Please enter your email');
       }
-      
+
       final client = SupabaseConfig.client;
       if (client == null) {
-        throw const AuthException('Authentication service is not available. Please check your configuration.');
+        throw const AuthException(
+            'Authentication service is not available. Please check your configuration.');
       }
-      
+
       // Validate URL before attempting connection
       final urlError = _validateSupabaseUrl();
       if (urlError != null) {
         throw AuthException('Configuration error: $urlError');
       }
-      
+
       await client.auth.signInWithOtp(email: email, emailRedirectTo: null);
       setState(() {
         _message = 'Check your email for a magic link';
@@ -104,7 +123,7 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
     } on SocketException catch (e) {
       final connectivity = await _testNetworkConnectivity();
       setState(() {
-        if (e.message.toLowerCase().contains('no such host') || 
+        if (e.message.toLowerCase().contains('no such host') ||
             e.message.toLowerCase().contains('host lookup failed') ||
             e.osError?.message.toLowerCase().contains('no such host') == true) {
           _message = _getDnsErrorTroubleshootingGuide(connectivity);
@@ -121,7 +140,7 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
       setState(() {
         // Check if the error message contains DNS-related issues
         final errorMsg = e.toString().toLowerCase();
-        if (errorMsg.contains('no such host') || 
+        if (errorMsg.contains('no such host') ||
             errorMsg.contains('host lookup') ||
             errorMsg.contains('dns') ||
             errorMsg.contains('name resolution')) {
@@ -146,7 +165,8 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
     try {
       final client = SupabaseConfig.client;
       if (client == null) {
-        throw const AuthException('Supabase client not initialized. Using mock backend.');
+        throw const AuthException(
+            'Supabase client not initialized. Using mock backend.');
       }
 
       final urlError = _validateSupabaseUrl();
@@ -156,35 +176,38 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
 
       // Test basic connectivity to Supabase
       final connectivity = await _testNetworkConnectivity();
-      
+
       // Try a simple request to test the connection
       await client.from('test_connection').select().limit(1);
-      
+
       setState(() {
-        _message = 'Connection test successful! ✅\n\n$connectivity\n\nSupabase is properly configured.';
+        _message =
+            'Connection test successful! ✅\n\n$connectivity\n\nSupabase is properly configured.';
       });
     } on SocketException catch (e) {
       final connectivity = await _testNetworkConnectivity();
       setState(() {
-        if (e.message.toLowerCase().contains('no such host') || 
+        if (e.message.toLowerCase().contains('no such host') ||
             e.message.toLowerCase().contains('host lookup failed') ||
             e.osError?.message.toLowerCase().contains('no such host') == true) {
           _message = _getDnsErrorTroubleshootingGuide(connectivity);
         } else {
-          _message = 'Network error during connection test: ${e.message}.\n\n$connectivity';
+          _message =
+              'Network error during connection test: ${e.message}.\n\n$connectivity';
         }
       });
     } catch (e) {
       final connectivity = await _testNetworkConnectivity();
       setState(() {
         final errorMsg = e.toString().toLowerCase();
-        if (errorMsg.contains('no such host') || 
+        if (errorMsg.contains('no such host') ||
             errorMsg.contains('host lookup') ||
             errorMsg.contains('dns') ||
             errorMsg.contains('name resolution')) {
           _message = _getDnsErrorTroubleshootingGuide(connectivity);
         } else {
-          _message = 'Connection test details:\n\n$connectivity\n\nError: ${e.toString()}';
+          _message =
+              'Connection test details:\n\n$connectivity\n\nError: ${e.toString()}';
         }
       });
     } finally {
@@ -211,7 +234,9 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: _loading ? null : _sendMagicLink,
-              child: _loading ? const CircularProgressIndicator() : const Text('Send magic link'),
+              child: _loading
+                  ? const CircularProgressIndicator()
+                  : const Text('Send magic link'),
             ),
             const SizedBox(height: 8),
             TextButton(
@@ -224,12 +249,14 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
                 height: 200, // Fixed height to make scrollable
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: _message!.startsWith('Check your email') || _message!.contains('✅')
-                      ? Colors.green.shade50 
+                  color: _message!.startsWith('Check your email') ||
+                          _message!.contains('✅')
+                      ? Colors.green.shade50
                       : Colors.red.shade50,
                   border: Border.all(
-                    color: _message!.startsWith('Check your email') || _message!.contains('✅')
-                        ? Colors.green 
+                    color: _message!.startsWith('Check your email') ||
+                            _message!.contains('✅')
+                        ? Colors.green
                         : Colors.red,
                   ),
                   borderRadius: BorderRadius.circular(8),
@@ -238,8 +265,9 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
                   child: Text(
                     _message!,
                     style: TextStyle(
-                      color: _message!.startsWith('Check your email') || _message!.contains('✅')
-                          ? Colors.green.shade800 
+                      color: _message!.startsWith('Check your email') ||
+                              _message!.contains('✅')
+                          ? Colors.green.shade800
                           : Colors.red.shade800,
                     ),
                   ),
@@ -257,7 +285,8 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
             Text(
               'Configuration: ${Env.getConfigStatus()}\n'
               'Backend: ${SupabaseConfig.isConfigured ? "Supabase" : "Mock"}\n'
-              '${SupabaseConfig.isConfigured ? "URL: ${Env.supabaseUrl}" : "To use Supabase: Update .env with real credentials"}',
+              '${SupabaseConfig.isConfigured ? "URL: ${Env.supabaseUrl}" : "To use Supabase: Update .env with real credentials"}\n'
+              'Environment: ${Env.supabaseUrl.startsWith('http://') ? "Local Development" : "Production"}',
               style: TextStyle(
                 fontSize: 12,
                 color: Colors.grey.shade600,
@@ -269,6 +298,3 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
     );
   }
 }
-
-
-

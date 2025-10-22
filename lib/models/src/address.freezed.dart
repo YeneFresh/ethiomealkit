@@ -88,46 +88,56 @@ class _$AddressCopyWithImpl<$Res, $Val extends Address>
   }) {
     return _then(
       _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            label: freezed == label
-                ? _value.label
-                : label // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            line1: null == line1
-                ? _value.line1
-                : line1 // ignore: cast_nullable_to_non_nullable
-                      as String,
-            line2: freezed == line2
-                ? _value.line2
-                : line2 // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            city: freezed == city
-                ? _value.city
-                : city // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            region: freezed == region
-                ? _value.region
-                : region // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            latitude: freezed == latitude
-                ? _value.latitude
-                : latitude // ignore: cast_nullable_to_non_nullable
-                      as double?,
-            longitude: freezed == longitude
-                ? _value.longitude
-                : longitude // ignore: cast_nullable_to_non_nullable
-                      as double?,
-            instructions: freezed == instructions
-                ? _value.instructions
-                : instructions // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            isDefault: null == isDefault
-                ? _value.isDefault
-                : isDefault // ignore: cast_nullable_to_non_nullable
-                      as bool,
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            label:
+                freezed == label
+                    ? _value.label
+                    : label // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            line1:
+                null == line1
+                    ? _value.line1
+                    : line1 // ignore: cast_nullable_to_non_nullable
+                        as String,
+            line2:
+                freezed == line2
+                    ? _value.line2
+                    : line2 // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            city:
+                freezed == city
+                    ? _value.city
+                    : city // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            region:
+                freezed == region
+                    ? _value.region
+                    : region // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            latitude:
+                freezed == latitude
+                    ? _value.latitude
+                    : latitude // ignore: cast_nullable_to_non_nullable
+                        as double?,
+            longitude:
+                freezed == longitude
+                    ? _value.longitude
+                    : longitude // ignore: cast_nullable_to_non_nullable
+                        as double?,
+            instructions:
+                freezed == instructions
+                    ? _value.instructions
+                    : instructions // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            isDefault:
+                null == isDefault
+                    ? _value.isDefault
+                    : isDefault // ignore: cast_nullable_to_non_nullable
+                        as bool,
           )
           as $Val,
     );
@@ -183,46 +193,56 @@ class __$$AddressImplCopyWithImpl<$Res>
   }) {
     return _then(
       _$AddressImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        label: freezed == label
-            ? _value.label
-            : label // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        line1: null == line1
-            ? _value.line1
-            : line1 // ignore: cast_nullable_to_non_nullable
-                  as String,
-        line2: freezed == line2
-            ? _value.line2
-            : line2 // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        city: freezed == city
-            ? _value.city
-            : city // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        region: freezed == region
-            ? _value.region
-            : region // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        latitude: freezed == latitude
-            ? _value.latitude
-            : latitude // ignore: cast_nullable_to_non_nullable
-                  as double?,
-        longitude: freezed == longitude
-            ? _value.longitude
-            : longitude // ignore: cast_nullable_to_non_nullable
-                  as double?,
-        instructions: freezed == instructions
-            ? _value.instructions
-            : instructions // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        isDefault: null == isDefault
-            ? _value.isDefault
-            : isDefault // ignore: cast_nullable_to_non_nullable
-                  as bool,
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        label:
+            freezed == label
+                ? _value.label
+                : label // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        line1:
+            null == line1
+                ? _value.line1
+                : line1 // ignore: cast_nullable_to_non_nullable
+                    as String,
+        line2:
+            freezed == line2
+                ? _value.line2
+                : line2 // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        city:
+            freezed == city
+                ? _value.city
+                : city // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        region:
+            freezed == region
+                ? _value.region
+                : region // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        latitude:
+            freezed == latitude
+                ? _value.latitude
+                : latitude // ignore: cast_nullable_to_non_nullable
+                    as double?,
+        longitude:
+            freezed == longitude
+                ? _value.longitude
+                : longitude // ignore: cast_nullable_to_non_nullable
+                    as double?,
+        instructions:
+            freezed == instructions
+                ? _value.instructions
+                : instructions // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        isDefault:
+            null == isDefault
+                ? _value.isDefault
+                : isDefault // ignore: cast_nullable_to_non_nullable
+                    as bool,
       ),
     );
   }

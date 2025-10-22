@@ -24,10 +24,8 @@ class DeepLinkService {
 
     // Handle links while app is running
     _sub = _appLinks.uriLinkStream.listen((uri) async {
-      if (uri != null) {
-        await _handleUri(uri, router);
-      }
-    }, onError: (_) {});
+      await _handleUri(uri, router);
+        }, onError: (_) {});
   }
 
   Future<void> _handleUri(Uri uri, GoRouter router) async {

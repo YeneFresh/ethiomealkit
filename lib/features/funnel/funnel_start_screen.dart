@@ -60,14 +60,14 @@ class FunnelStartScreen extends StatelessWidget {
               width: double.infinity,
               height: 56,
               child: ElevatedButton(
-                onPressed: () => context.go('/box'),
+                onPressed: () => context.go('/login'),
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
                 ),
                 child: const Text(
-                  'Start Ordering',
+                  'Get Started',
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,

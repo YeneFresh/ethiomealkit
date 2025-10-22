@@ -1,7 +1,6 @@
 // lib/core/auth_flow_state.dart
 import 'package:flutter/foundation.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'dart:io' show Platform;
 
 class AuthFlowState extends ChangeNotifier {
   String? _lastEmail;

@@ -76,30 +76,36 @@ class _$MealKitCopyWithImpl<$Res, $Val extends MealKit>
   }) {
     return _then(
       _value.copyWith(
-            id: null == id
-                ? _value.id
-                : id // ignore: cast_nullable_to_non_nullable
-                      as String,
-            title: null == title
-                ? _value.title
-                : title // ignore: cast_nullable_to_non_nullable
-                      as String,
-            description: freezed == description
-                ? _value.description
-                : description // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            priceCents: null == priceCents
-                ? _value.priceCents
-                : priceCents // ignore: cast_nullable_to_non_nullable
-                      as int,
-            imageUrl: freezed == imageUrl
-                ? _value.imageUrl
-                : imageUrl // ignore: cast_nullable_to_non_nullable
-                      as String?,
-            meals: freezed == meals
-                ? _value.meals
-                : meals // ignore: cast_nullable_to_non_nullable
-                      as List<Meal>?,
+            id:
+                null == id
+                    ? _value.id
+                    : id // ignore: cast_nullable_to_non_nullable
+                        as String,
+            title:
+                null == title
+                    ? _value.title
+                    : title // ignore: cast_nullable_to_non_nullable
+                        as String,
+            description:
+                freezed == description
+                    ? _value.description
+                    : description // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            priceCents:
+                null == priceCents
+                    ? _value.priceCents
+                    : priceCents // ignore: cast_nullable_to_non_nullable
+                        as int,
+            imageUrl:
+                freezed == imageUrl
+                    ? _value.imageUrl
+                    : imageUrl // ignore: cast_nullable_to_non_nullable
+                        as String?,
+            meals:
+                freezed == meals
+                    ? _value.meals
+                    : meals // ignore: cast_nullable_to_non_nullable
+                        as List<Meal>?,
           )
           as $Val,
     );
@@ -147,30 +153,36 @@ class __$$MealKitImplCopyWithImpl<$Res>
   }) {
     return _then(
       _$MealKitImpl(
-        id: null == id
-            ? _value.id
-            : id // ignore: cast_nullable_to_non_nullable
-                  as String,
-        title: null == title
-            ? _value.title
-            : title // ignore: cast_nullable_to_non_nullable
-                  as String,
-        description: freezed == description
-            ? _value.description
-            : description // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        priceCents: null == priceCents
-            ? _value.priceCents
-            : priceCents // ignore: cast_nullable_to_non_nullable
-                  as int,
-        imageUrl: freezed == imageUrl
-            ? _value.imageUrl
-            : imageUrl // ignore: cast_nullable_to_non_nullable
-                  as String?,
-        meals: freezed == meals
-            ? _value._meals
-            : meals // ignore: cast_nullable_to_non_nullable
-                  as List<Meal>?,
+        id:
+            null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                    as String,
+        title:
+            null == title
+                ? _value.title
+                : title // ignore: cast_nullable_to_non_nullable
+                    as String,
+        description:
+            freezed == description
+                ? _value.description
+                : description // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        priceCents:
+            null == priceCents
+                ? _value.priceCents
+                : priceCents // ignore: cast_nullable_to_non_nullable
+                    as int,
+        imageUrl:
+            freezed == imageUrl
+                ? _value.imageUrl
+                : imageUrl // ignore: cast_nullable_to_non_nullable
+                    as String?,
+        meals:
+            freezed == meals
+                ? _value._meals
+                : meals // ignore: cast_nullable_to_non_nullable
+                    as List<Meal>?,
       ),
     );
   }

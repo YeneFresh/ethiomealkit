@@ -70,12 +70,17 @@ final weeklyMenuProvider =
   final supa = Supabase.instance.client;
   final weekStart = ref.watch(weekStartProvider);
   final rows = await supa
-      .from('weekly_menu')
-      .select(
-          'week_start, recipes:recipe_id(id,slug,name,categories,cook_minutes,hero_image)')
-      .eq('week_start', weekStart.toIso8601String().substring(0, 10));
+      .from('meals')
+      .select('id,slug,title,description,price_cents,image_url');
   final list = (rows as List)
-      .map((r) => Recipe.fromJson(r['recipes'] as Map<String, dynamic>))
+      .map((r) => Recipe.fromJson({
+            'id': r['id'],
+            'slug': r['slug'],
+            'name': r['title'],
+            'categories': <String>[],
+            'cook_minutes': 30,
+            'hero_image': r['image_url'],
+          }))
       .toList();
   return list;
 });

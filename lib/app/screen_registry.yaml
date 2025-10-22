@@ -1,0 +1,80 @@
+# Screen Registry - Source of Truth for All Routes
+# This file defines all screens in the app with stable route IDs.
+# Never remove or rename existing route IDs without explicit deprecation process.
+
+screens:
+  # Auth Flow
+  - id: welcome
+    path: /welcome
+    description: "Welcome/funnel start screen"
+  - id: sign_in
+    path: /login
+    description: "User sign in screen"
+  - id: sign_up
+    path: /signup
+    description: "User sign up screen"
+  - id: reset_password
+    path: /reset
+    description: "Password reset screen"
+  - id: auth_callback
+    path: /auth-callback
+    description: "OAuth callback handler"
+  - id: auth_error
+    path: /auth-error
+    description: "Authentication error screen"
+
+  # Onboarding Flow (5 Steps)
+  - id: box_plan
+    path: /box
+    description: "Step 1: Box/plan size selection screen"
+  - id: auth
+    path: /auth
+    description: "Authentication screen (login/signup)"
+  - id: delivery_gate
+    path: /delivery
+    description: "Step 2: Delivery window selection screen"
+  - id: recipes
+    path: /meals
+    description: "Step 3: Recipe selection screen"
+  - id: delivery_address
+    path: /address
+    description: "Step 4: Delivery address input screen"
+  - id: checkout
+    path: /checkout
+    description: "Step 5: Checkout screen"
+  - id: home_feed
+    path: /home
+    description: "Main home feed screen"
+
+  # Navigation Shell Routes
+  - id: meals
+    path: /meals
+    description: "Meals list screen (shell navigation)"
+  - id: cart
+    path: /cart
+    description: "Shopping cart screen (shell navigation)"
+  - id: orders_list
+    path: /orders
+    description: "Orders history list screen"
+  - id: order_detail
+    path: /orders/:id
+    description: "Individual order detail screen"
+
+  # Profile & Settings
+  - id: profile
+    path: /profile
+    description: "User profile screen"
+  - id: address_form
+    path: /profile/address
+    description: "Address form screen"
+  - id: delivery_settings
+    path: /profile/delivery
+    description: "Delivery settings screen"
+
+  # Operations (Admin)
+  - id: ops_dashboard
+    path: /ops
+    description: "Operations dashboard screen"
+  - id: debug
+    path: /debug
+    description: "Debug tools screen (kDebugMode only)"
