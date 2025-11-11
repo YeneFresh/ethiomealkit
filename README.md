@@ -23,6 +23,26 @@ USE_MOCKS=true
 ## Scripts
 - Codegen: `dart run build_runner build --delete-conflicting-outputs`
 
+## Code Style Guidelines
+
+### UI Style Guard
+This project uses a UI Style Guard workflow to enforce Flutter 3.22+ best practices:
+
+- **withOpacity is blocked**: Use `Color.withValues(alpha: value)` instead of `Color.withOpacity(value)`
+- The workflow automatically checks all Dart files in `lib/` and `test/` directories
+- PRs with `withOpacity` usage will be blocked until fixed
+
+**Migration Example:**
+```dart
+// ❌ Old (blocked)
+final transparentRed = Colors.red.withOpacity(0.5);
+
+// ✅ New (preferred)
+final transparentRed = Colors.red.withValues(alpha: 0.5);
+```
+
+See: [Flutter Color.withValues documentation](https://api.flutter.dev/flutter/dart-ui/Color/withValues.html)
+
 
 A new Flutter project.
 
