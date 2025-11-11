@@ -1,0 +1,43 @@
+name: flutter-ci
+
+on:
+  pull_request:
+    branches: [ main, develop, feat/**, fix/** ]
+  push:
+    branches: [ main ]
+
+jobs:
+  test-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+
+      - name: Cache pub
+        uses: actions/cache@v4
+        with:
+          path: ~/.pub-cache
+          key: pub-${{ runner.os }}-${{ hashFiles('**/pubspec.lock') }}
+          restore-keys: |
+            pub-${{ runner.os }}-
+
+      - name: Pub get
+        run: flutter pub get
+
+      - name: Analyze (treat warnings as errors)
+        run: flutter analyze --no-preamble
+
+      - name: Tests (widget only, stable on CI)
+        run: flutter test --coverage
+
+      - name: Upload coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-lcov
+          path: coverage/lcov.info
+
