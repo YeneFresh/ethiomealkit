@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -105,8 +106,10 @@ class _AppLockGuardState extends State<AppLockGuard>
     try {
       final pinEnabled = await PinVault.isEnabled();
 
-      final canCheck =
-          await _la.canCheckBiometrics || await _la.isDeviceSupported();
+      // local_auth is not supported on web
+      final canCheck = kIsWeb
+          ? false
+          : (await _la.canCheckBiometrics || await _la.isDeviceSupported());
       bool unlocked = false;
 
       if (canCheck) {
@@ -167,7 +170,7 @@ class _LockOverlay extends StatelessWidget {
     final c = Theme.of(context).colorScheme;
     final t = Theme.of(context).textTheme;
     return Material(
-      color: c.surface.withValues(alpha: 0.98),
+      color: c.surface.withOpacity(0.98),
       child: SafeArea(
         child: Center(
           child: ConstrainedBox(

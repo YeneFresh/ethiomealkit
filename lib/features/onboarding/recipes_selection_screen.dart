@@ -52,11 +52,9 @@ class _RecipesSelectionScreenState
 
       // Pick top-rated or chef's choice recipes
       final autoSelectIds = recipes
-          .where(
-            (r) =>
-                r.tags.any((t) => t.toLowerCase().contains("chef")) ||
-                r.tags.any((t) => t.toLowerCase().contains("recommended")),
-          )
+          .where((r) =>
+              r.tags.any((t) => t.toLowerCase().contains("chef")) ||
+              r.tags.any((t) => t.toLowerCase().contains("recommended")))
           .take(quota)
           .map((r) => r.id)
           .toList();
@@ -136,7 +134,9 @@ class _RecipesSelectionScreenState
         children: [
           // Gradient background (dynamic based on time of day)
           if (dw != null)
-            Positioned.fill(child: DeliveryGradientBg(daypart: dw.daypart)),
+            Positioned.fill(
+              child: DeliveryGradientBg(daypart: dw.daypart),
+            ),
 
           // Main content
           CustomScrollView(
@@ -156,7 +156,9 @@ class _RecipesSelectionScreenState
               ),
 
               // Filter bar
-              const SliverToBoxAdapter(child: FilterBar()),
+              const SliverToBoxAdapter(
+                child: FilterBar(),
+              ),
 
               // Section header
               SliverToBoxAdapter(
@@ -194,15 +196,18 @@ class _RecipesSelectionScreenState
                     sliver: SliverGrid(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 16,
-                            crossAxisSpacing: 16,
-                            childAspectRatio: 0.72,
-                          ),
-                      delegate: SliverChildBuilderDelegate((context, index) {
-                        final recipe = filteredRecipes[index];
-                        return RecipeGridCard(recipe: recipe);
-                      }, childCount: filteredRecipes.length),
+                        crossAxisCount: 2,
+                        mainAxisSpacing: 16,
+                        crossAxisSpacing: 16,
+                        childAspectRatio: 0.72,
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          final recipe = filteredRecipes[index];
+                          return RecipeGridCard(recipe: recipe);
+                        },
+                        childCount: filteredRecipes.length,
+                      ),
                     ),
                   );
                 },
@@ -228,7 +233,9 @@ class _RecipesSelectionScreenState
               ),
 
               // Bottom padding for cart summary bar
-              const SliverToBoxAdapter(child: SizedBox(height: 110)),
+              const SliverToBoxAdapter(
+                child: SizedBox(height: 110),
+              ),
             ],
           ),
 

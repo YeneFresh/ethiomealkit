@@ -154,3 +154,5 @@ GRANT EXECUTE ON FUNCTION app.toggle_recipe_selection(uuid, boolean) TO anon, au
 
 
 
+
+

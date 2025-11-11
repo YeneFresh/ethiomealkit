@@ -125,13 +125,11 @@ class RecipeListItem extends StatelessWidget {
                                 imageUrl: imageUrl!,
                                 fit: BoxFit.cover,
                                 alignment: Alignment.topCenter,
-                                memCacheWidth:
-                                    (150 *
-                                            MediaQuery.of(
-                                              context,
-                                            ).devicePixelRatio *
-                                            1.5)
-                                        .round(),
+                                memCacheWidth: (150 *
+                                        MediaQuery.of(context)
+                                            .devicePixelRatio *
+                                        1.5)
+                                    .round(),
                                 placeholder: (context, url) => Container(
                                   color:
                                       theme.colorScheme.surfaceContainerHighest,
@@ -148,34 +146,34 @@ class RecipeListItem extends StatelessWidget {
                                 ),
                               )
                             : imageUrl != null
-                            ? Image.asset(
-                                imageUrl!,
-                                fit: BoxFit.cover,
-                                alignment: Alignment.topCenter,
-                                errorBuilder: (context, error, stackTrace) {
-                                  return Container(
+                                ? Image.asset(
+                                    imageUrl!,
+                                    fit: BoxFit.cover,
+                                    alignment: Alignment.topCenter,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        color: theme.colorScheme
+                                            .surfaceContainerHighest,
+                                        child: Icon(
+                                          Icons.restaurant_menu,
+                                          size: 40,
+                                          color: theme
+                                              .colorScheme.onSurfaceVariant
+                                              .withValues(alpha: 0.3),
+                                        ),
+                                      );
+                                    },
+                                  )
+                                : Container(
                                     color: theme
-                                        .colorScheme
-                                        .surfaceContainerHighest,
+                                        .colorScheme.surfaceContainerHighest,
                                     child: Icon(
                                       Icons.restaurant_menu,
                                       size: 40,
                                       color: theme.colorScheme.onSurfaceVariant
                                           .withValues(alpha: 0.3),
                                     ),
-                                  );
-                                },
-                              )
-                            : Container(
-                                color:
-                                    theme.colorScheme.surfaceContainerHighest,
-                                child: Icon(
-                                  Icons.restaurant_menu,
-                                  size: 40,
-                                  color: theme.colorScheme.onSurfaceVariant
-                                      .withValues(alpha: 0.3),
-                                ),
-                              ),
+                                  ),
                       ),
                       // Auto-selected ribbon
                       if (autoSelected)
@@ -203,7 +201,10 @@ class RecipeListItem extends StatelessWidget {
                         : theme.colorScheme.onSurface,
                   ),
                   onPressed: _handleTap,
-                  icon: Icon(selected ? Icons.check : Icons.add, size: 18),
+                  icon: Icon(
+                    selected ? Icons.check : Icons.add,
+                    size: 18,
+                  ),
                   label: Text(
                     selected ? 'Added' : 'Add',
                     style: const TextStyle(fontWeight: FontWeight.w600),

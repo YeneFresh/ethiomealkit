@@ -28,9 +28,9 @@ class DeliveryWindowChip extends ConsumerWidget {
             const SizedBox(width: 8),
             Text(
               'Selecting recommended delivery time…',
-              style: Theme.of(
-                context,
-              ).textTheme.bodyMedium?.copyWith(fontStyle: FontStyle.italic),
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    fontStyle: FontStyle.italic,
+                  ),
             ),
           ],
         ),
@@ -56,9 +56,10 @@ class DeliveryWindowChip extends ConsumerWidget {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
             decoration: BoxDecoration(
-              color: Theme.of(
-                context,
-              ).colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
+              color: Theme.of(context)
+                  .colorScheme
+                  .surfaceContainerHighest
+                  .withValues(alpha: 0.5),
               borderRadius: BorderRadius.circular(999),
               border: Border.all(
                 color: const Color(0xFFC6903B).withValues(alpha: 0.3),
@@ -94,3 +95,9 @@ class DeliveryWindowChip extends ConsumerWidget {
     );
   }
 }
+
+
+
+
+
+

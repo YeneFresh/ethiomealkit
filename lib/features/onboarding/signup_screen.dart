@@ -36,10 +36,9 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _shakeAnimation = Tween<double>(
-      begin: 0,
-      end: 10,
-    ).chain(CurveTween(curve: Curves.elasticIn)).animate(_shakeController);
+    _shakeAnimation = Tween<double>(begin: 0, end: 10)
+        .chain(CurveTween(curve: Curves.elasticIn))
+        .animate(_shakeController);
   }
 
   @override
@@ -62,9 +61,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
     });
 
     try {
-      await ref
-          .read(authProvider.notifier)
-          .signUpWithEmail(
+      await ref.read(authProvider.notifier).signUpWithEmail(
             _emailController.text.trim(),
             _passwordController.text,
           );
@@ -174,7 +171,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
         Text(
           'almost there,',
           style: theme.textTheme.titleMedium?.copyWith(
-            color: AppColors.darkBrown.withValues(alpha: 0.7),
+            color: AppColors.darkBrown.withOpacity(0.7),
             fontWeight: FontWeight.w400,
           ),
         ),
@@ -195,9 +192,11 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.error600.withValues(alpha: 0.1),
+        color: AppColors.error600.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.error600.withValues(alpha: 0.3)),
+        border: Border.all(
+          color: AppColors.error600.withOpacity(0.3),
+        ),
       ),
       child: Row(
         children: [
@@ -206,7 +205,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
           Expanded(
             child: Text(
               _errorMessage!,
-              style: const TextStyle(fontSize: 13, color: AppColors.error600),
+              style: const TextStyle(
+                fontSize: 13,
+                color: AppColors.error600,
+              ),
             ),
           ),
         ],
@@ -222,7 +224,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
         borderRadius: BorderRadius.circular(Layout.cardRadius),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
+            color: Colors.black.withOpacity(0.08),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -292,9 +294,8 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
                         height: 20,
                         child: CircularProgressIndicator(
                           strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.white,
-                          ),
+                          valueColor:
+                              AlwaysStoppedAnimation<Color>(Colors.white),
                         ),
                       )
                     : const Text(
@@ -320,7 +321,10 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
           padding: const EdgeInsets.symmetric(horizontal: 12),
           child: Text(
             'or sign up with',
-            style: TextStyle(color: Colors.grey[600], fontSize: 13),
+            style: TextStyle(
+              color: Colors.grey[600],
+              fontSize: 13,
+            ),
           ),
         ),
         const Expanded(child: Divider()),
@@ -334,13 +338,14 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
       height: 50,
       child: ElevatedButton.icon(
         onPressed: _isLoading ? null : _handleGoogleSignIn,
-        icon: const Icon(
-          Icons.g_mobiledata,
-          size: 28,
-        ), // Placeholder for Google icon
+        icon: const Icon(Icons.g_mobiledata,
+            size: 28), // Placeholder for Google icon
         label: const Text(
           'Continue with Google',
-          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 15,
+            fontWeight: FontWeight.w600,
+          ),
         ),
         style: ElevatedButton.styleFrom(
           backgroundColor: Colors.white,
@@ -358,11 +363,20 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
   Widget _buildTrustSection() {
     return const Row(
       children: [
-        TrustBadge(emoji: '🧾', text: 'No commitment'),
+        TrustBadge(
+          emoji: '🧾',
+          text: 'No commitment',
+        ),
         SizedBox(width: 8),
-        TrustBadge(emoji: '🚚', text: 'Free delivery\nin Addis'),
+        TrustBadge(
+          emoji: '🚚',
+          text: 'Free delivery\nin Addis',
+        ),
         SizedBox(width: 8),
-        TrustBadge(emoji: '❤️', text: 'Skip any\nweek'),
+        TrustBadge(
+          emoji: '❤️',
+          text: 'Skip any\nweek',
+        ),
       ],
     );
   }
@@ -377,7 +391,7 @@ class _SignUpScreenState extends ConsumerState<SignUpScreen>
         child: RichText(
           text: TextSpan(
             style: theme.textTheme.bodyMedium?.copyWith(
-              color: AppColors.darkBrown.withValues(alpha: 0.7),
+              color: AppColors.darkBrown.withOpacity(0.7),
             ),
             children: [
               const TextSpan(text: 'Already have an account? '),

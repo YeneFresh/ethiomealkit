@@ -27,7 +27,9 @@ class DeliverySummaryCompact extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(16, 12, 8, 8),
         decoration: BoxDecoration(
           border: Border(
-            bottom: BorderSide(color: theme.colorScheme.outlineVariant),
+            bottom: BorderSide(
+              color: theme.colorScheme.outlineVariant,
+            ),
           ),
         ),
         child: Row(
@@ -53,19 +55,21 @@ class DeliverySummaryCompact extends StatelessWidget {
                   const SizedBox(height: 2),
                   Text(
                     '$dateLabel • $timeLabel',
-                    style: const TextStyle(fontSize: 12, color: Colors.black54),
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.black54,
+                    ),
                   ),
                 ],
               ),
             ),
             TextButton.icon(
               onPressed: onEdit,
-              icon: const Icon(
-                Icons.edit_outlined,
-                size: 16,
-                color: Yf.brown700,
+              icon: const Icon(Icons.edit_outlined, size: 16, color: Yf.brown700),
+              label: const Text(
+                'Edit',
+                style: TextStyle(color: Yf.brown700),
               ),
-              label: const Text('Edit', style: TextStyle(color: Yf.brown700)),
               style: TextButton.styleFrom(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 visualDensity: VisualDensity.compact,
@@ -77,3 +81,10 @@ class DeliverySummaryCompact extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+

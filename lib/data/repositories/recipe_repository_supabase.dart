@@ -12,10 +12,9 @@ class RecipeRepositorySupabase implements RecipeRepository {
   @override
   Future<List<Recipe>> fetchWeekly(DateTime weekStart) async {
     try {
-      final res = await _sb.rpc(
-        'get_weekly_menu',
-        params: {'week_start': weekStart.toUtc().toIso8601String()},
-      );
+      final res = await _sb.rpc('get_weekly_menu', params: {
+        'week_start': weekStart.toUtc().toIso8601String(),
+      });
 
       return (res as List)
           .map((json) => RecipeDto.fromJson(json).toEntity())
@@ -48,11 +47,8 @@ class RecipeRepositorySupabase implements RecipeRepository {
   @override
   Future<Recipe?> fetchById(String id) async {
     try {
-      final res = await _sb
-          .from('recipes')
-          .select('*')
-          .eq('id', id)
-          .maybeSingle();
+      final res =
+          await _sb.from('recipes').select('*').eq('id', id).maybeSingle();
 
       if (res == null) return null;
 
@@ -65,20 +61,14 @@ class RecipeRepositorySupabase implements RecipeRepository {
 
   @override
   Future<void> saveUserSelection(
-    String userId,
-    List<String> recipeIds,
-    DateTime weekStart,
-  ) async {
+      String userId, List<String> recipeIds, DateTime weekStart) async {
     try {
       // Use RPC or direct insert depending on schema
-      await _sb.rpc(
-        'save_user_recipe_selection',
-        params: {
-          'p_user_id': userId,
-          'p_recipe_ids': recipeIds,
-          'p_week_start': weekStart.toUtc().toIso8601String(),
-        },
-      );
+      await _sb.rpc('save_user_recipe_selection', params: {
+        'p_user_id': userId,
+        'p_recipe_ids': recipeIds,
+        'p_week_start': weekStart.toUtc().toIso8601String(),
+      });
       print('✅ Saved ${recipeIds.length} recipe selections');
     } catch (e) {
       print('❌ Error saving selections: $e');
@@ -88,9 +78,7 @@ class RecipeRepositorySupabase implements RecipeRepository {
 
   @override
   Future<List<String>> loadUserSelection(
-    String userId,
-    DateTime weekStart,
-  ) async {
+      String userId, DateTime weekStart) async {
     try {
       final res = await _sb
           .from('user_recipe_selections')
@@ -105,3 +93,9 @@ class RecipeRepositorySupabase implements RecipeRepository {
     }
   }
 }
+
+
+
+
+
+

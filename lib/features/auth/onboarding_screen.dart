@@ -38,7 +38,9 @@ class OnboardingScreen extends StatelessWidget {
           ),
 
           // Warm overlay for text readability (brand-consistent)
-          Container(color: BrandColors.overlayWarm.withValues(alpha: 0.15)),
+          Container(
+            color: BrandColors.overlayWarm.withValues(alpha: 0.15),
+          ),
 
           // Subtle gradient for extra legibility near bottom
           IgnorePointer(

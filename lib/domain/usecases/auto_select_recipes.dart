@@ -10,9 +10,8 @@ class AutoSelectRecipes {
     Set<String>? excludeIds,
   }) {
     final exclude = excludeIds ?? {};
-    final candidates = availableRecipes
-        .where((r) => !exclude.contains(r.id))
-        .toList();
+    final candidates =
+        availableRecipes.where((r) => !exclude.contains(r.id)).toList();
 
     // Sort by pickScore (highest first)
     candidates.sort((a, b) => b.pickScore.compareTo(a.pickScore));

@@ -58,9 +58,8 @@ class _AuthErrorDialogState extends State<_AuthErrorDialog> {
     }
     setState(() => _loadingResend = true);
     try {
-      final redirect = kIsWeb
-          ? '$_origin/auth-callback'
-          : 'yenefresh://auth/callback';
+      final redirect =
+          kIsWeb ? '$_origin/auth-callback' : 'yenefresh://auth/callback';
       await Supabase.instance.client.auth.signInWithOtp(
         email: email,
         emailRedirectTo: redirect,
@@ -69,7 +68,10 @@ class _AuthErrorDialogState extends State<_AuthErrorDialog> {
       // Log success
       await AuthEventLogger.logMagicLinkSent(
         route: '/auth-error-dialog',
-        metadata: {'redirect_url': redirect, 'context': 'error_dialog_resend'},
+        metadata: {
+          'redirect_url': redirect,
+          'context': 'error_dialog_resend',
+        },
       );
 
       _snack('Magic link resent. Check your inbox.');
@@ -121,7 +123,9 @@ class _AuthErrorDialogState extends State<_AuthErrorDialog> {
       await AuthEventLogger.logSignInSuccess(
         provider: 'password',
         route: '/auth-error-dialog',
-        metadata: {'context': 'error_dialog_fallback'},
+        metadata: {
+          'context': 'error_dialog_fallback',
+        },
       );
 
       if (!mounted) return;
@@ -179,7 +183,10 @@ class _AuthErrorDialogState extends State<_AuthErrorDialog> {
       // Log success
       await AuthEventLogger.logPasswordReset(
         route: '/auth-error-dialog',
-        metadata: {'redirect_url': redirect, 'context': 'error_dialog_forgot'},
+        metadata: {
+          'redirect_url': redirect,
+          'context': 'error_dialog_forgot',
+        },
       );
 
       _snack('Reset link sent.');
@@ -288,11 +295,9 @@ class _AuthErrorDialogState extends State<_AuthErrorDialog> {
                         _showPasswordFallback = !_showPasswordFallback;
                       }),
                       icon: const Icon(Icons.lock_outline_rounded),
-                      label: Text(
-                        _showPasswordFallback
-                            ? 'Hide password login'
-                            : 'Use email & password',
-                      ),
+                      label: Text(_showPasswordFallback
+                          ? 'Hide password login'
+                          : 'Use email & password'),
                     ),
                   ),
                 ],
@@ -326,16 +331,14 @@ class _AuthErrorDialogState extends State<_AuthErrorDialog> {
                           children: [
                             Expanded(
                               child: FilledButton(
-                                onPressed: _loadingPwd
-                                    ? null
-                                    : _emailPasswordSignIn,
+                                onPressed:
+                                    _loadingPwd ? null : _emailPasswordSignIn,
                                 child: _loadingPwd
                                     ? const SizedBox(
                                         height: 20,
                                         width: 20,
                                         child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ),
+                                            strokeWidth: 2),
                                       )
                                     : const Text('Sign in'),
                               ),

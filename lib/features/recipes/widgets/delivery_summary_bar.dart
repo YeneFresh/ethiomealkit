@@ -24,10 +24,7 @@ class DeliverySummaryBar extends StatelessWidget {
       color: Yf.peach50,
       elevation: 0,
       child: Container(
-        padding: const EdgeInsets.symmetric(
-          horizontal: Yf.s16,
-          vertical: Yf.s12,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: Yf.s16, vertical: Yf.s12),
         decoration: BoxDecoration(
           border: Border(
             bottom: BorderSide(
@@ -82,17 +79,14 @@ class DeliverySummaryBar extends StatelessWidget {
             ),
             TextButton.icon(
               onPressed: onEdit,
-              icon: const Icon(
-                Icons.edit_outlined,
-                size: 16,
-                color: Yf.brown700,
+              icon: const Icon(Icons.edit_outlined, size: 16, color: Yf.brown700),
+              label: const Text(
+                'Edit',
+                style: TextStyle(color: Yf.brown700),
               ),
-              label: const Text('Edit', style: TextStyle(color: Yf.brown700)),
               style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: Yf.s12,
-                  vertical: Yf.s8,
-                ),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: Yf.s12, vertical: Yf.s8),
                 visualDensity: VisualDensity.compact,
               ),
             ),
@@ -102,3 +96,9 @@ class DeliverySummaryBar extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+

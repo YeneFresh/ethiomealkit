@@ -55,91 +55,109 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
   Widget build(BuildContext context) {
     if (!kDebugMode) {
       return const Scaffold(
-        body: Center(child: Text('Debug screen only available in debug mode')),
+        body: Center(
+          child: Text('Debug screen only available in debug mode'),
+        ),
       );
     }
 
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('🐛 Debug Info'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('🐛 Debug Info'),
+        centerTitle: true,
+      ),
       body: RefreshIndicator(
         onRefresh: _runHealthCheck,
         child: ListView(
           padding: Yf.screenPadding,
           children: [
             // Environment Info
-            _buildSection(theme, 'Environment', Icons.cloud_outlined, [
-              _buildInfoRow('Supabase URL', Env.supabaseUrl),
-              _buildInfoRow(
-                'Environment',
-                Env.supabaseUrl.startsWith('http://') ? 'Local' : 'Production',
-              ),
-              _buildInfoRow('Use Mocks', Env.useMocks ? 'Yes' : 'No'),
-              _buildInfoRow('Config Status', Env.getConfigStatus()),
-            ]),
+            _buildSection(
+              theme,
+              'Environment',
+              Icons.cloud_outlined,
+              [
+                _buildInfoRow('Supabase URL', Env.supabaseUrl),
+                _buildInfoRow(
+                    'Environment',
+                    Env.supabaseUrl.startsWith('http://')
+                        ? 'Local'
+                        : 'Production'),
+                _buildInfoRow('Use Mocks', Env.useMocks ? 'Yes' : 'No'),
+                _buildInfoRow('Config Status', Env.getConfigStatus()),
+              ],
+            ),
 
             const SizedBox(height: Yf.g24),
 
             // Build Info
-            _buildSection(theme, 'Build Info', Icons.info_outlined, [
-              _buildInfoRow('Flutter', 'Debug Mode'),
-              _buildInfoRow('Platform', kIsWeb ? 'Web' : 'Native'),
-              _buildInfoRow('Package', 'ethiomealkit 3.0.0'),
-            ]),
+            _buildSection(
+              theme,
+              'Build Info',
+              Icons.info_outlined,
+              [
+                _buildInfoRow('Flutter', 'Debug Mode'),
+                _buildInfoRow('Platform', kIsWeb ? 'Web' : 'Native'),
+                _buildInfoRow('Package', 'ethiomealkit 3.0.0'),
+              ],
+            ),
 
             const SizedBox(height: Yf.g24),
 
             // Health Check
-            _buildSection(theme, 'API Health', Icons.favorite_outlined, [
-              if (_loading)
-                const Center(child: CircularProgressIndicator())
-              else if (_healthCheck != null) ...[
-                _buildHealthRow(
-                  'Delivery Windows',
-                  _healthCheck!['delivery_windows'],
-                ),
-                _buildHealthRow(
-                  'User Readiness',
-                  _healthCheck!['user_readiness'],
-                ),
-                _buildHealthRow(
-                  'User Selections',
-                  _healthCheck!['user_selections'],
-                ),
-                _buildHealthRow(
-                  'Weekly Recipes',
-                  _healthCheck!['weekly_recipes'],
-                ),
-                const SizedBox(height: Yf.g16),
-                _buildInfoRow('Response Time', '${_pingMs}ms'),
-              ] else
-                const Text('Pull to refresh'),
-            ]),
+            _buildSection(
+              theme,
+              'API Health',
+              Icons.favorite_outlined,
+              [
+                if (_loading)
+                  const Center(child: CircularProgressIndicator())
+                else if (_healthCheck != null) ...[
+                  _buildHealthRow(
+                      'Delivery Windows', _healthCheck!['delivery_windows']),
+                  _buildHealthRow(
+                      'User Readiness', _healthCheck!['user_readiness']),
+                  _buildHealthRow(
+                      'User Selections', _healthCheck!['user_selections']),
+                  _buildHealthRow(
+                      'Weekly Recipes', _healthCheck!['weekly_recipes']),
+                  const SizedBox(height: Yf.g16),
+                  _buildInfoRow('Response Time', '${_pingMs}ms'),
+                ] else
+                  const Text('Pull to refresh'),
+              ],
+            ),
 
             const SizedBox(height: Yf.g24),
 
             // Actions
-            _buildSection(theme, 'Quick Actions', Icons.build_outlined, [
-              ElevatedButton.icon(
-                onPressed: _runHealthCheck,
-                icon: const Icon(Icons.refresh),
-                label: const Text('Refresh Health Check'),
-              ),
-              const SizedBox(height: Yf.g8),
-              ElevatedButton.icon(
-                onPressed: () async {
-                  await Supabase.instance.client.auth.signOut();
-                  if (mounted) {
-                    ScaffoldMessenger.of(
-                      context,
-                    ).showSnackBar(const SnackBar(content: Text('Signed out')));
-                  }
-                },
-                icon: const Icon(Icons.logout),
-                label: const Text('Sign Out'),
-              ),
-            ]),
+            _buildSection(
+              theme,
+              'Quick Actions',
+              Icons.build_outlined,
+              [
+                ElevatedButton.icon(
+                  onPressed: _runHealthCheck,
+                  icon: const Icon(Icons.refresh),
+                  label: const Text('Refresh Health Check'),
+                ),
+                const SizedBox(height: Yf.g8),
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    await Supabase.instance.client.auth.signOut();
+                    if (mounted) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(content: Text('Signed out')),
+                      );
+                    }
+                  },
+                  icon: const Icon(Icons.logout),
+                  label: const Text('Sign Out'),
+                ),
+              ],
+            ),
           ],
         ),
       ),
@@ -187,7 +205,10 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
             flex: 2,
             child: Text(
               label,
-              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+              style: const TextStyle(
+                fontWeight: FontWeight.w500,
+                fontSize: 13,
+              ),
             ),
           ),
           Expanded(
@@ -217,7 +238,12 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
             size: 16,
           ),
           const SizedBox(width: Yf.g8),
-          Expanded(child: Text(service, style: const TextStyle(fontSize: 13))),
+          Expanded(
+            child: Text(
+              service,
+              style: const TextStyle(fontSize: 13),
+            ),
+          ),
           Text(
             healthy == true ? 'OK' : 'FAIL',
             style: TextStyle(
@@ -231,3 +257,10 @@ class _DebugScreenState extends ConsumerState<DebugScreen> {
     );
   }
 }
+
+
+
+
+
+
+

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:crypto/crypto.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ethiomealkit/core/sentry_service.dart';
@@ -27,8 +28,13 @@ class PinVault {
   static Future<void> disable() async {
     final sp = await SharedPreferences.getInstance();
     await sp.setBool(_kEnabled, false);
-    await _storage.delete(key: _kHash);
-    await _storage.delete(key: _kSalt);
+    if (kIsWeb) {
+      await sp.remove(_kHash);
+      await sp.remove(_kSalt);
+    } else {
+      await _storage.delete(key: _kHash);
+      await _storage.delete(key: _kSalt);
+    }
     await sp.remove(_kAttempts);
     await sp.remove(_kLockUntil);
   }
@@ -42,8 +48,21 @@ class PinVault {
       final sp = await SharedPreferences.getInstance();
       final salt = DateTime.now().millisecondsSinceEpoch.toString();
       final hash = _hash(pin, salt);
-      await _storage.write(key: _kSalt, value: salt, aOptions: _androidOpts());
-      await _storage.write(key: _kHash, value: hash, aOptions: _androidOpts());
+      if (kIsWeb) {
+        await sp.setString(_kSalt, salt);
+        await sp.setString(_kHash, hash);
+      } else {
+        await _storage.write(
+          key: _kSalt,
+          value: salt,
+          aOptions: _androidOpts(),
+        );
+        await _storage.write(
+          key: _kHash,
+          value: hash,
+          aOptions: _androidOpts(),
+        );
+      }
       await sp.setBool(_kEnabled, true);
       await sp.setInt(_kAttempts, 0);
       await sp.remove(_kLockUntil);
@@ -67,7 +86,9 @@ class PinVault {
   }
 
   static Future<bool> hasPin() async {
-    final h = await _storage.read(key: _kHash, aOptions: _androidOpts());
+    final h = kIsWeb
+        ? (await SharedPreferences.getInstance()).getString(_kHash)
+        : await _storage.read(key: _kHash, aOptions: _androidOpts());
     return h != null && h.isNotEmpty;
   }
 
@@ -89,8 +110,12 @@ class PinVault {
     final rem = await lockRemainingSeconds();
     if (rem > 0) return false;
 
-    final salt = await _storage.read(key: _kSalt, aOptions: _androidOpts());
-    final h = await _storage.read(key: _kHash, aOptions: _androidOpts());
+    final salt = kIsWeb
+        ? sp.getString(_kSalt)
+        : await _storage.read(key: _kSalt, aOptions: _androidOpts());
+    final h = kIsWeb
+        ? sp.getString(_kHash)
+        : await _storage.read(key: _kHash, aOptions: _androidOpts());
     if (salt == null || h == null) return false;
 
     final ok = _hash(pin, salt) == h;

@@ -88,14 +88,19 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
     final base = ref.read(activeAddressProvider);
     final city = ref.read(selectedCityProvider);
 
-    final updated =
-        (base ?? Address(id: id, label: 'Home', line1: _line1.text, city: city))
-            .copyWith(
+    final updated = (base ??
+            Address(
+              id: id,
+              label: 'Home',
               line1: _line1.text,
-              line2: _line2.text.isEmpty ? null : _line2.text,
               city: city,
-              notes: _notes.text.isEmpty ? null : _notes.text,
-            );
+            ))
+        .copyWith(
+      line1: _line1.text,
+      line2: _line2.text.isEmpty ? null : _line2.text,
+      city: city,
+      notes: _notes.text.isEmpty ? null : _notes.text,
+    );
 
     ref.read(addressesProvider.notifier).upsert(updated);
 
@@ -151,7 +156,7 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: AppColors.darkBrown.withValues(alpha: 0.1),
+                    color: AppColors.darkBrown.withOpacity(0.1),
                   ),
                 ),
                 child: Center(
@@ -203,7 +208,10 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                 controller: _line1,
                 validator: _validateRequired,
               ),
-              right: _Input(label: 'Building/Community', controller: _line2),
+              right: _Input(
+                label: 'Building/Community',
+                controller: _line2,
+              ),
             ),
             _Input(
               label: 'Street name *',
@@ -302,7 +310,10 @@ class _AddressFormScreenState extends ConsumerState<AddressFormScreen> {
                 ),
                 child: const Text(
                   'Continue to Payment',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
@@ -378,22 +389,28 @@ class _Input extends StatelessWidget {
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Layout.cardRadius),
             borderSide: BorderSide(
-              color: AppColors.darkBrown.withValues(alpha: 0.2),
+              color: AppColors.darkBrown.withOpacity(0.2),
             ),
           ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Layout.cardRadius),
             borderSide: BorderSide(
-              color: AppColors.darkBrown.withValues(alpha: 0.2),
+              color: AppColors.darkBrown.withOpacity(0.2),
             ),
           ),
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Layout.cardRadius),
-            borderSide: const BorderSide(color: AppColors.gold, width: 2),
+            borderSide: const BorderSide(
+              color: AppColors.gold,
+              width: 2,
+            ),
           ),
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(Layout.cardRadius),
-            borderSide: const BorderSide(color: AppColors.error600, width: 2),
+            borderSide: const BorderSide(
+              color: AppColors.error600,
+              width: 2,
+            ),
           ),
         ),
       ),
@@ -419,9 +436,8 @@ class _Dropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return DropdownButtonFormField<String>(
       value: value,
-      items: items
-          .map((e) => DropdownMenuItem(value: e, child: Text(e)))
-          .toList(),
+      items:
+          items.map((e) => DropdownMenuItem(value: e, child: Text(e))).toList(),
       onChanged: onChanged,
       decoration: InputDecoration(
         labelText: label,
@@ -430,18 +446,21 @@ class _Dropdown extends StatelessWidget {
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Layout.cardRadius),
           borderSide: BorderSide(
-            color: AppColors.darkBrown.withValues(alpha: 0.2),
+            color: AppColors.darkBrown.withOpacity(0.2),
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Layout.cardRadius),
           borderSide: BorderSide(
-            color: AppColors.darkBrown.withValues(alpha: 0.2),
+            color: AppColors.darkBrown.withOpacity(0.2),
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(Layout.cardRadius),
-          borderSide: const BorderSide(color: AppColors.gold, width: 2),
+          borderSide: const BorderSide(
+            color: AppColors.gold,
+            width: 2,
+          ),
         ),
       ),
     );

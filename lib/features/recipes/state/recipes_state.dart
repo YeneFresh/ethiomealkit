@@ -14,9 +14,7 @@ enum RecipeTag {
 }
 
 /// Weekly recipes provider - fetches from Supabase
-final weeklyRecipesProvider = FutureProvider<List<Map<String, dynamic>>>((
-  ref,
-) async {
+final weeklyRecipesProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
   try {
     final api = SupaClient(Supabase.instance.client);
     final recipes = await api.currentWeeklyRecipes(limit: 15);
@@ -29,9 +27,7 @@ final weeklyRecipesProvider = FutureProvider<List<Map<String, dynamic>>>((
 });
 
 /// User selections provider - fetches from Supabase or local storage
-final userSelectionsProvider = FutureProvider<List<Map<String, dynamic>>>((
-  ref,
-) async {
+final userSelectionsProvider = FutureProvider<List<Map<String, dynamic>>>((ref) async {
   try {
     final api = SupaClient(Supabase.instance.client);
     final selections = await api.userSelections();
@@ -66,3 +62,10 @@ RecipeTag? recipeTagFromString(String tag) {
   }
   return null;
 }
+
+
+
+
+
+
+

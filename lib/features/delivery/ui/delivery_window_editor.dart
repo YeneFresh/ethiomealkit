@@ -123,9 +123,8 @@ class _DeliveryWindowEditorState extends ConsumerState<DeliveryWindowEditor> {
               height: 52,
               child: ElevatedButton(
                 onPressed: () async {
-                  final notifier = ref.read(
-                    deliveryWindowControllerProvider.notifier,
-                  );
+                  final notifier =
+                      ref.read(deliveryWindowControllerProvider.notifier);
                   await notifier.setAll(
                     locId: _locationId,
                     daypart: _daypart,
@@ -146,3 +145,9 @@ class _DeliveryWindowEditorState extends ConsumerState<DeliveryWindowEditor> {
     );
   }
 }
+
+
+
+
+
+

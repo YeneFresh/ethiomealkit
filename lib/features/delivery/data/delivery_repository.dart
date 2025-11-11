@@ -8,10 +8,10 @@ class DeliveryRepository {
   /// Get current user's window (null if not set)
   Future<DeliveryWindow?> getCurrent(String userId, DateTime week) async {
     try {
-      final res = await sb.rpc(
-        'get_current_user_window',
-        params: {'p_user': userId, 'p_week': week.toIso8601String()},
-      );
+      final res = await sb.rpc('get_current_user_window', params: {
+        'p_user': userId,
+        'p_week': week.toIso8601String(),
+      });
       return _fromRpc(res);
     } catch (e) {
       print('ℹ️ get_current_user_window RPC not available: $e');
@@ -22,10 +22,10 @@ class DeliveryRepository {
   /// Recommend a smart default window
   Future<DeliveryWindow> recommend(String userId, DateTime week) async {
     try {
-      final res = await sb.rpc(
-        'recommend_user_window',
-        params: {'p_user': userId, 'p_week': week.toIso8601String()},
-      );
+      final res = await sb.rpc('recommend_user_window', params: {
+        'p_user': userId,
+        'p_week': week.toIso8601String(),
+      });
       return _fromRpc(res)!;
     } catch (e) {
       print('ℹ️ recommend_user_window RPC not available, using fallback: $e');
@@ -47,16 +47,13 @@ class DeliveryRepository {
     required DateTime date,
   }) async {
     try {
-      final res = await sb.rpc(
-        'set_user_window',
-        params: {
-          'p_user': userId,
-          'p_week': week.toIso8601String(),
-          'p_location': locationId,
-          'p_daypart': daypart,
-          'p_date': date.toIso8601String(),
-        },
-      );
+      final res = await sb.rpc('set_user_window', params: {
+        'p_user': userId,
+        'p_week': week.toIso8601String(),
+        'p_location': locationId,
+        'p_daypart': daypart,
+        'p_date': date.toIso8601String(),
+      });
       return _fromRpc(res)!;
     } catch (e) {
       print('ℹ️ set_user_window RPC not available, using local-only: $e');
@@ -77,10 +74,15 @@ class DeliveryRepository {
         ? DeliveryDaypart.morning
         : DeliveryDaypart.afternoon;
     final locId = json['location_id'] as String; // 'home' or 'office'
-    final loc = locId == 'home'
-        ? DeliveryLocation.home
-        : DeliveryLocation.office;
+    final loc =
+        locId == 'home' ? DeliveryLocation.home : DeliveryLocation.office;
     final date = DateTime.parse(json['date'] as String);
     return DeliveryWindow(date: date, daypart: dp, location: loc);
   }
 }
+
+
+
+
+
+

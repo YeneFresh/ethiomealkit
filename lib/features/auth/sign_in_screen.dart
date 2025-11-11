@@ -108,8 +108,7 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
       final client = SupabaseConfig.client;
       if (client == null) {
         throw const AuthException(
-          'Authentication service is not available. Please check your configuration.',
-        );
+            'Authentication service is not available. Please check your configuration.');
       }
 
       // Validate URL before attempting connection
@@ -168,8 +167,7 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
       final client = SupabaseConfig.client;
       if (client == null) {
         throw const AuthException(
-          'Supabase client not initialized. Using mock backend.',
-        );
+            'Supabase client not initialized. Using mock backend.');
       }
 
       final urlError = _validateSupabaseUrl();
@@ -252,14 +250,12 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
                 height: 200, // Fixed height to make scrollable
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color:
-                      _message!.startsWith('Check your email') ||
+                  color: _message!.startsWith('Check your email') ||
                           _message!.contains('✅')
                       ? Colors.green.shade50
                       : Colors.red.shade50,
                   border: Border.all(
-                    color:
-                        _message!.startsWith('Check your email') ||
+                    color: _message!.startsWith('Check your email') ||
                             _message!.contains('✅')
                         ? Colors.green
                         : Colors.red,
@@ -270,8 +266,7 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
                   child: Text(
                     _message!,
                     style: TextStyle(
-                      color:
-                          _message!.startsWith('Check your email') ||
+                      color: _message!.startsWith('Check your email') ||
                               _message!.contains('✅')
                           ? Colors.green.shade800
                           : Colors.red.shade800,
@@ -293,7 +288,10 @@ If problem persists, your Supabase project might be down or URL is incorrect.'''
               'Backend: ${SupabaseConfig.isConfigured ? "Supabase" : "Mock"}\n'
               '${SupabaseConfig.isConfigured ? "URL: ${Env.supabaseUrl}" : "To use Supabase: Update .env with real credentials"}\n'
               'Environment: ${Env.supabaseUrl.startsWith('http://') ? "Local Development" : "Production"}',
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade600),
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.grey.shade600,
+              ),
             ),
           ],
         ),

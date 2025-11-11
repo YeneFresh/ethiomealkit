@@ -75,12 +75,15 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Order Details'), centerTitle: true),
+      appBar: AppBar(
+        title: const Text('Order Details'),
+        centerTitle: true,
+      ),
       body: _loading
           ? _buildLoadingSkeleton()
           : _error != null
-          ? _buildErrorState(theme)
-          : _buildOrderDetails(theme),
+              ? _buildErrorState(theme)
+              : _buildOrderDetails(theme),
     );
   }
 
@@ -129,30 +132,35 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
       padding: Yf.screenPadding,
       children: [
         // Order Summary
-        _buildSection(theme, 'Order Summary', Icons.receipt_long, [
-          _buildDetailRow(
-            theme,
-            'Order ID',
-            widget.orderId.substring(0, 8).toUpperCase(),
-          ),
-          _buildDetailRow(theme, 'Status', _order!['status']),
-          _buildDetailRow(
-            theme,
-            'Total Items',
-            '${_order!['total_items']} recipes',
-          ),
-          _buildDetailRow(theme, 'Week', _order!['week_start'] ?? 'N/A'),
-        ]),
+        _buildSection(
+          theme,
+          'Order Summary',
+          Icons.receipt_long,
+          [
+            _buildDetailRow(theme, 'Order ID',
+                widget.orderId.substring(0, 8).toUpperCase()),
+            _buildDetailRow(theme, 'Status', _order!['status']),
+            _buildDetailRow(
+                theme, 'Total Items', '${_order!['total_items']} recipes'),
+            _buildDetailRow(theme, 'Week', _order!['week_start'] ?? 'N/A'),
+          ],
+        ),
 
         const SizedBox(height: Yf.g24),
 
         // Delivery Info
         if (_window != null)
-          _buildSection(theme, 'Delivery Window', Icons.local_shipping, [
-            _buildDetailRow(theme, 'Day', _formatWeekday(_window!['weekday'])),
-            _buildDetailRow(theme, 'Time', _window!['slot']),
-            _buildDetailRow(theme, 'Location', _window!['city']),
-          ]),
+          _buildSection(
+            theme,
+            'Delivery Window',
+            Icons.local_shipping,
+            [
+              _buildDetailRow(
+                  theme, 'Day', _formatWeekday(_window!['weekday'])),
+              _buildDetailRow(theme, 'Time', _window!['slot']),
+              _buildDetailRow(theme, 'Location', _window!['city']),
+            ],
+          ),
 
         const SizedBox(height: Yf.g24),
 
@@ -243,7 +251,11 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
       padding: const EdgeInsets.only(bottom: Yf.g12),
       child: Row(
         children: [
-          Icon(Icons.restaurant, size: 16, color: theme.colorScheme.primary),
+          Icon(
+            Icons.restaurant,
+            size: 16,
+            color: theme.colorScheme.primary,
+          ),
           const SizedBox(width: Yf.g8),
           Expanded(
             child: Text(
@@ -267,11 +279,8 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
           children: [
             Row(
               children: [
-                Icon(
-                  Icons.location_on,
-                  size: 20,
-                  color: theme.colorScheme.primary,
-                ),
+                Icon(Icons.location_on,
+                    size: 20, color: theme.colorScheme.primary),
                 const SizedBox(width: Yf.g8),
                 Text(
                   'Delivery Address',
@@ -305,8 +314,15 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
       'Wednesday',
       'Thursday',
       'Friday',
-      'Saturday',
+      'Saturday'
     ];
     return days[weekday];
   }
 }
+
+
+
+
+
+
+

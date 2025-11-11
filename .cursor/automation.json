@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "automations": [
+    {
+      "name": "PitchWeek Progress Auto-Update",
+      "on": "git.commit",
+      "run": "dart run tools/update_pitchweek_progress.dart --message \"${message}\""
+    }
+  ]
+}
+

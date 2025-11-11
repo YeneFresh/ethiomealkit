@@ -32,7 +32,9 @@ class PeopleSelector extends ConsumerWidget {
 
             return Expanded(
               child: Padding(
-                padding: EdgeInsets.only(right: index < 3 ? 8 : 0),
+                padding: EdgeInsets.only(
+                  right: index < 3 ? 8 : 0,
+                ),
                 child: _PeopleChip(
                   value: value,
                   isSelected: isSelected,
@@ -79,7 +81,7 @@ class _PeopleChip extends StatelessWidget {
               border: Border.all(
                 color: isSelected
                     ? AppColors.gold
-                    : AppColors.darkBrown.withValues(alpha: 0.2),
+                    : AppColors.darkBrown.withOpacity(0.2),
                 width: 2,
               ),
             ),
@@ -106,7 +108,7 @@ class _PeopleChip extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     color: isSelected
-                        ? AppColors.darkBrown.withValues(alpha: 0.8)
+                        ? AppColors.darkBrown.withOpacity(0.8)
                         : Colors.grey[600],
                   ),
                 ),
@@ -118,3 +120,9 @@ class _PeopleChip extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+

@@ -12,7 +12,10 @@ import 'package:ethiomealkit/core/widgets/tag_chip.dart';
 class RecipeGridCard extends ConsumerWidget {
   final Recipe recipe;
 
-  const RecipeGridCard({super.key, required this.recipe});
+  const RecipeGridCard({
+    super.key,
+    required this.recipe,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,7 +31,7 @@ class RecipeGridCard extends ConsumerWidget {
     return GestureDetector(
       onTap: () {
         HapticFeedback.selectionClick();
-
+        
         // If at capacity and trying to add, show swap hint
         if (atCap && !isSelected) {
           ref.read(selectionNudgeProvider.notifier).nudgeSwapRequired();
@@ -43,9 +46,7 @@ class RecipeGridCard extends ConsumerWidget {
           duration: const Duration(milliseconds: 250),
           curve: Curves.easeInOut,
           decoration: BoxDecoration(
-            color: isSelected
-                ? AppColors.gold.withValues(alpha: 0.15)
-                : Colors.white,
+            color: isSelected ? AppColors.gold.withOpacity(0.15) : Colors.white,
             borderRadius: BorderRadius.circular(Layout.cardRadius),
             border: Border.all(
               color: isSelected ? AppColors.gold : Colors.transparent,
@@ -54,8 +55,8 @@ class RecipeGridCard extends ConsumerWidget {
             boxShadow: [
               BoxShadow(
                 color: isSelected
-                    ? AppColors.gold.withValues(alpha: 0.2)
-                    : Colors.black.withValues(alpha: 0.08),
+                    ? AppColors.gold.withOpacity(0.2)
+                    : Colors.black.withOpacity(0.08),
                 blurRadius: isSelected ? 8 : 4,
                 offset: const Offset(0, 2),
               ),
@@ -87,7 +88,7 @@ class RecipeGridCard extends ConsumerWidget {
                             shape: BoxShape.circle,
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withValues(alpha: 0.2),
+                                color: Colors.black.withOpacity(0.2),
                                 blurRadius: 4,
                               ),
                             ],
@@ -174,11 +175,8 @@ class RecipeGridCard extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(width: 10),
-                        Icon(
-                          Icons.local_fire_department,
-                          size: 14,
-                          color: Colors.grey[600],
-                        ),
+                        Icon(Icons.local_fire_department,
+                            size: 14, color: Colors.grey[600]),
                         const SizedBox(width: 4),
                         Text(
                           '${recipe.calories} cals',

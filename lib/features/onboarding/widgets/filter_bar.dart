@@ -29,7 +29,7 @@ class FilterBar extends ConsumerWidget {
         child: Row(
           children: _filterOptions.map((filter) {
             final isActive = activeFilters.contains(filter);
-
+            
             return Padding(
               padding: const EdgeInsets.only(right: 8),
               child: FilterChip(
@@ -44,13 +44,13 @@ class FilterBar extends ConsumerWidget {
                   }
                   ref.read(activeFiltersProvider.notifier).state = updated;
                 },
-                selectedColor: AppColors.gold.withValues(alpha: 0.2),
+                selectedColor: AppColors.gold.withOpacity(0.2),
                 checkmarkColor: AppColors.darkBrown,
                 backgroundColor: Colors.white,
                 side: BorderSide(
                   color: isActive
                       ? AppColors.gold
-                      : AppColors.darkBrown.withValues(alpha: 0.2),
+                      : AppColors.darkBrown.withOpacity(0.2),
                   width: isActive ? 2 : 1,
                 ),
                 labelStyle: TextStyle(
@@ -58,10 +58,7 @@ class FilterBar extends ConsumerWidget {
                   fontWeight: isActive ? FontWeight.w600 : FontWeight.w500,
                   fontSize: 13,
                 ),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 12,
-                  vertical: 8,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
               ),
             );
           }).toList(),
@@ -70,3 +67,10 @@ class FilterBar extends ConsumerWidget {
     );
   }
 }
+
+
+
+
+
+
+

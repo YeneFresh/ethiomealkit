@@ -14,8 +14,13 @@ final autoSelectRecipesProvider = Provider<AutoSelectRecipes>((ref) {
   return AutoSelectRecipes();
 });
 
-final getAvailableDeliverySlotsProvider = Provider<GetAvailableDeliverySlots>((
-  ref,
-) {
+final getAvailableDeliverySlotsProvider =
+    Provider<GetAvailableDeliverySlots>((ref) {
   return GetAvailableDeliverySlots(ref.watch(deliveryRepositoryProvider));
 });
+
+
+
+
+
+

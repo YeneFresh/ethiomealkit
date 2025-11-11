@@ -64,14 +64,11 @@ class DeliveryRepositorySupabase implements DeliveryRepository {
     required String addressId,
   }) async {
     try {
-      await _sb.rpc(
-        'upsert_user_delivery_preference',
-        params: {
-          'p_user_id': userId,
-          'p_window_id': slotId,
-          'p_address_id': addressId,
-        },
-      );
+      await _sb.rpc('upsert_user_delivery_preference', params: {
+        'p_user_id': userId,
+        'p_window_id': slotId,
+        'p_address_id': addressId,
+      });
       print('✅ Set delivery slot: $slotId for $addressId');
     } catch (e) {
       print('❌ Error setting delivery slot: $e');
@@ -79,3 +76,9 @@ class DeliveryRepositorySupabase implements DeliveryRepository {
     }
   }
 }
+
+
+
+
+
+

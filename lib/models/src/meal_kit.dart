@@ -15,6 +15,8 @@ class MealKit with _$MealKit {
     List<Meal>? meals,
   }) = _MealKit;
 
-  factory MealKit.fromJson(Map<String, dynamic> json) =>
-      _$MealKitFromJson(json);
+  factory MealKit.fromJson(Map<String, dynamic> json) => _$MealKitFromJson(json);
 }
+
+
+

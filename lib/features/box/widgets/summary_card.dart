@@ -24,7 +24,9 @@ class SummaryCard extends ConsumerWidget {
       decoration: BoxDecoration(
         color: AppColors.peach50,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
+        border: Border.all(
+          color: AppColors.darkBrown.withOpacity(0.1),
+        ),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,19 +88,26 @@ class _ReassuranceTag extends StatelessWidget {
   final IconData icon;
   final String text;
 
-  const _ReassuranceTag({required this.icon, required this.text});
+  const _ReassuranceTag({
+    required this.icon,
+    required this.text,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Icon(icon, size: 18, color: AppColors.success600),
+        Icon(
+          icon,
+          size: 18,
+          color: AppColors.success600,
+        ),
         const SizedBox(width: 8),
         Text(
           text,
           style: TextStyle(
             fontSize: 14,
-            color: AppColors.darkBrown.withValues(alpha: 0.8),
+            color: AppColors.darkBrown.withOpacity(0.8),
           ),
         ),
       ],

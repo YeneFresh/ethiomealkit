@@ -124,7 +124,10 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           children: [
             CircularProgressIndicator(),
             SizedBox(height: 24),
-            Text('Loading...', style: TextStyle(fontSize: 18)),
+            Text(
+              'Loading...',
+              style: TextStyle(fontSize: 18),
+            ),
           ],
         ),
       ),
@@ -140,7 +143,11 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Icon(Icons.error_outline, size: 64, color: Yf.error600),
+              const Icon(
+                Icons.error_outline,
+                size: 64,
+                color: Yf.error600,
+              ),
               const SizedBox(height: 16),
               Text(
                 'Something went wrong',
@@ -215,7 +222,10 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
         gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Yf.peach100, Yf.peach50],
+          colors: [
+            Yf.peach100,
+            Yf.peach50,
+          ],
         ),
         borderRadius: Yf.borderRadius20,
         boxShadow: Yf.e2,
@@ -305,10 +315,8 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           boxShadow: isSelected ? Yf.brownShadow : Yf.e1,
         ),
         child: ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: Yf.s20,
-            vertical: Yf.s8,
-          ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: Yf.s20, vertical: Yf.s8),
           leading: Container(
             padding: const EdgeInsets.all(Yf.s8),
             decoration: BoxDecoration(
@@ -407,10 +415,8 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           boxShadow: isSelected ? Yf.brownShadow : Yf.e1,
         ),
         child: ListTile(
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: Yf.s20,
-            vertical: Yf.s12,
-          ),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: Yf.s20, vertical: Yf.s12),
           leading: Container(
             padding: const EdgeInsets.all(Yf.s8),
             decoration: BoxDecoration(
@@ -439,10 +445,7 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
               if (isRecommended) ...[
                 const SizedBox(width: Yf.s8),
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: Yf.s8,
-                    vertical: 2,
-                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: Yf.s8, vertical: 2),
                   decoration: BoxDecoration(
                     color: Yf.success600.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
@@ -500,7 +503,9 @@ class _DeliveryGateScreenState extends ConsumerState<DeliveryGateScreen> {
           foregroundColor: theme.colorScheme.onPrimary,
           disabledBackgroundColor: theme.colorScheme.surfaceContainerHighest,
           disabledForegroundColor: theme.colorScheme.onSurfaceVariant,
-          shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
+          shape: RoundedRectangleBorder(
+            borderRadius: Yf.borderRadius16,
+          ),
           elevation: canContinue ? 2 : 0,
         ),
         child: _isSaving

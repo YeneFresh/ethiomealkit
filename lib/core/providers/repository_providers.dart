@@ -7,9 +7,8 @@ import 'package:ethiomealkit/data/repositories/delivery_repository_supabase.dart
 
 /// ===== Infrastructure Providers =====
 
-final supabaseProvider = Provider<SupabaseClient>(
-  (_) => Supabase.instance.client,
-);
+final supabaseProvider =
+    Provider<SupabaseClient>((_) => Supabase.instance.client);
 
 /// ===== Repository Providers =====
 
@@ -33,8 +32,13 @@ final currentWeekStartProvider = Provider<DateTime>((ref) {
   final now = DateTime.now();
   final today = DateTime(now.year, now.month, now.day);
   final daysToMonday = (8 - now.weekday) % 7;
-  final nextMonday = daysToMonday == 0
-      ? today
-      : today.add(Duration(days: daysToMonday));
+  final nextMonday =
+      daysToMonday == 0 ? today : today.add(Duration(days: daysToMonday));
   return nextMonday;
 });
+
+
+
+
+
+

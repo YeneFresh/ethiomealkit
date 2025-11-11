@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ethiomealkit/features/delivery/models/delivery_models.dart';
 import 'package:ethiomealkit/features/delivery/ui/delivery_gradient_bg.dart';
+import 'package:ethiomealkit/ui/brand/brand_logo.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -20,7 +21,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('YeneFresh'),
+        title: const BrandTitle(),
         elevation: 0,
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,

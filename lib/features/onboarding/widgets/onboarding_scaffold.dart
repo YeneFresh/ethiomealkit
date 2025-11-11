@@ -34,8 +34,7 @@ class OnboardingScaffold extends ConsumerWidget {
         leading: showBackButton
             ? IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed:
-                    onBack ??
+                onPressed: onBack ??
                     () {
                       ref
                           .read(userOnboardingProgressProvider.notifier)
@@ -68,10 +67,16 @@ class OnboardingScaffold extends ConsumerWidget {
 
                 return SlideTransition(
                   position: offset,
-                  child: FadeTransition(opacity: animation, child: child),
+                  child: FadeTransition(
+                    opacity: animation,
+                    child: child,
+                  ),
                 );
               },
-              child: KeyedSubtree(key: ValueKey(currentStep), child: child),
+              child: KeyedSubtree(
+                key: ValueKey(currentStep),
+                child: child,
+              ),
             ),
           ),
         ],
@@ -79,3 +84,9 @@ class OnboardingScaffold extends ConsumerWidget {
     );
   }
 }
+
+
+
+
+
+

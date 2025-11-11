@@ -9,10 +9,14 @@ final analyticsServiceProvider = Provider<AnalyticsService>((ref) {
 
 /// Helper: Track event from anywhere in the app
 extension AnalyticsRef on Ref {
-  Future<void> trackEvent(
-    String eventName, [
-    Map<String, dynamic>? properties,
-  ]) {
+  Future<void> trackEvent(String eventName, [Map<String, dynamic>? properties]) {
     return read(analyticsServiceProvider).track(eventName, properties);
   }
 }
+
+
+
+
+
+
+

@@ -70,9 +70,8 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                     Text(
                       'Enter your delivery address to complete your order',
                       style: theme.textTheme.bodyLarge?.copyWith(
-                        color: theme.colorScheme.onSurface.withValues(
-                          alpha: 0.7,
-                        ),
+                        color:
+                            theme.colorScheme.onSurface.withValues(alpha: 0.7),
                       ),
                     ),
                     const SizedBox(height: 32),
@@ -90,9 +89,8 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
-                            color: theme.colorScheme.outline.withValues(
-                              alpha: 0.3,
-                            ),
+                            color: theme.colorScheme.outline
+                                .withValues(alpha: 0.3),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -125,9 +123,8 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
-                            color: theme.colorScheme.outline.withValues(
-                              alpha: 0.3,
-                            ),
+                            color: theme.colorScheme.outline
+                                .withValues(alpha: 0.3),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -161,9 +158,8 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
-                            color: theme.colorScheme.outline.withValues(
-                              alpha: 0.3,
-                            ),
+                            color: theme.colorScheme.outline
+                                .withValues(alpha: 0.3),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -200,9 +196,8 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(16),
                           borderSide: BorderSide(
-                            color: theme.colorScheme.outline.withValues(
-                              alpha: 0.3,
-                            ),
+                            color: theme.colorScheme.outline
+                                .withValues(alpha: 0.3),
                           ),
                         ),
                         focusedBorder: OutlineInputBorder(
@@ -220,14 +215,12 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: theme.colorScheme.primaryContainer.withValues(
-                          alpha: 0.3,
-                        ),
+                        color: theme.colorScheme.primaryContainer
+                            .withValues(alpha: 0.3),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: theme.colorScheme.primary.withValues(
-                            alpha: 0.3,
-                          ),
+                          color:
+                              theme.colorScheme.primary.withValues(alpha: 0.3),
                           width: 1,
                         ),
                       ),
@@ -289,9 +282,8 @@ class _DeliveryAddressScreenState extends ConsumerState<DeliveryAddressScreen> {
                           height: 20,
                           child: CircularProgressIndicator(
                             strokeWidth: 2,
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                              Colors.white,
-                            ),
+                            valueColor:
+                                AlwaysStoppedAnimation<Color>(Colors.white),
                           ),
                         )
                       : const Row(

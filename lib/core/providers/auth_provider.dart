@@ -8,9 +8,8 @@ final supabaseClientProvider = Provider<SupabaseClient>((ref) {
 });
 
 /// Auth state provider
-final authProvider = StateNotifierProvider<AuthController, AsyncValue<User?>>((
-  ref,
-) {
+final authProvider =
+    StateNotifierProvider<AuthController, AsyncValue<User?>>((ref) {
   return AuthController(ref);
 });
 
@@ -121,3 +120,9 @@ class AuthController extends StateNotifier<AsyncValue<User?>> {
     }
   }
 }
+
+
+
+
+
+

@@ -66,7 +66,7 @@ class MapPickerScreen extends ConsumerWidget {
                     color: Colors.grey[200],
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: AppColors.darkBrown.withValues(alpha: 0.1),
+                      color: AppColors.darkBrown.withOpacity(0.1),
                     ),
                   ),
                   child: Center(
@@ -123,15 +123,17 @@ class MapPickerScreen extends ConsumerWidget {
               // Persist pin coords to active address
               final id = ref.read(activeAddressIdProvider);
               final current = ref.read(activeAddressProvider);
-              final updated =
-                  (current ??
-                          Address(
-                            id: id,
-                            label: 'Home',
-                            line1: city,
-                            city: city,
-                          ))
-                      .copyWith(lat: lat ?? 9.0108, lng: lng ?? 38.7613);
+              final updated = (current ??
+                      Address(
+                        id: id,
+                        label: 'Home',
+                        line1: city,
+                        city: city,
+                      ))
+                  .copyWith(
+                lat: lat ?? 9.0108,
+                lng: lng ?? 38.7613,
+              );
               ref.read(addressesProvider.notifier).upsert(updated);
 
               // Navigate to address form
@@ -165,12 +167,15 @@ class _SearchBar extends StatelessWidget {
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
           borderSide: BorderSide(
-            color: AppColors.darkBrown.withValues(alpha: 0.1),
+            color: AppColors.darkBrown.withOpacity(0.1),
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(24),
-          borderSide: const BorderSide(color: AppColors.gold, width: 2),
+          borderSide: const BorderSide(
+            color: AppColors.gold,
+            width: 2,
+          ),
         ),
         contentPadding: const EdgeInsets.symmetric(
           horizontal: 16,
@@ -204,7 +209,11 @@ class _CenterPin extends ConsumerWidget {
           size: 48,
           color: AppColors.gold,
           shadows: [
-            Shadow(color: Colors.black26, blurRadius: 4, offset: Offset(0, 2)),
+            Shadow(
+              color: Colors.black26,
+              blurRadius: 4,
+              offset: Offset(0, 2),
+            ),
           ],
         ),
       ),
@@ -222,11 +231,11 @@ class _TooltipBubble extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: AppColors.darkBrown.withValues(alpha: 0.9),
+        color: AppColors.darkBrown.withOpacity(0.9),
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.2),
+            color: Colors.black.withOpacity(0.2),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -235,9 +244,9 @@ class _TooltipBubble extends StatelessWidget {
       child: Text(
         text,
         textAlign: TextAlign.center,
-        style: Theme.of(
-          context,
-        ).textTheme.bodyMedium?.copyWith(color: Colors.white),
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              color: Colors.white,
+            ),
       ),
     );
   }
@@ -271,7 +280,7 @@ class _FooterCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.08),
+            color: Colors.black.withOpacity(0.08),
             blurRadius: 12,
             offset: const Offset(0, -2),
           ),
@@ -324,7 +333,10 @@ class _FooterCard extends StatelessWidget {
                 ),
                 child: const Text(
                   'Complete address details',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ),
@@ -334,7 +346,7 @@ class _FooterCard extends StatelessWidget {
               child: Text(
                 'Go back',
                 style: theme.textTheme.bodyMedium?.copyWith(
-                  color: AppColors.darkBrown.withValues(alpha: 0.7),
+                  color: AppColors.darkBrown.withOpacity(0.7),
                   decoration: TextDecoration.underline,
                 ),
               ),

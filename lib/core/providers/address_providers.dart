@@ -61,8 +61,8 @@ class AddressesController extends StateNotifier<List<Address>> {
 
 final addressesProvider =
     StateNotifierProvider<AddressesController, List<Address>>(
-      (ref) => AddressesController(),
-    );
+  (ref) => AddressesController(),
+);
 
 /// Currently active address ID with persistence
 class ActiveAddressIdNotifier extends StateNotifier<String> {
@@ -86,8 +86,8 @@ class ActiveAddressIdNotifier extends StateNotifier<String> {
 
 final activeAddressIdProvider =
     StateNotifierProvider<ActiveAddressIdNotifier, String>(
-      (ref) => ActiveAddressIdNotifier(),
-    );
+  (ref) => ActiveAddressIdNotifier(),
+);
 
 /// Active address (derived from ID)
 final activeAddressProvider = Provider<Address?>((ref) {

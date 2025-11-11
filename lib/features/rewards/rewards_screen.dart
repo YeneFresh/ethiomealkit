@@ -29,10 +29,7 @@ class RewardsScreen extends ConsumerWidget {
   }
 
   Widget _buildContent(
-    BuildContext context,
-    Map<String, dynamic> stats,
-    ThemeData theme,
-  ) {
+      BuildContext context, Map<String, dynamic> stats, ThemeData theme) {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
@@ -110,31 +107,25 @@ class RewardsScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            AppColors.gold.withValues(alpha: 0.15),
-            AppColors.gold.withValues(alpha: 0.08),
+            AppColors.gold.withOpacity(0.15),
+            AppColors.gold.withOpacity(0.08),
           ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-          color: AppColors.gold.withValues(alpha: 0.3),
-          width: 1.5,
-        ),
+        border: Border.all(color: AppColors.gold.withOpacity(0.3), width: 1.5),
       ),
       child: Row(
         children: [
           Container(
             padding: const EdgeInsets.all(14),
             decoration: BoxDecoration(
-              color: AppColors.gold.withValues(alpha: 0.2),
+              color: AppColors.gold.withOpacity(0.2),
               shape: BoxShape.circle,
             ),
-            child: const Icon(
-              Icons.local_fire_department,
-              color: AppColors.gold,
-              size: 32,
-            ),
+            child: const Icon(Icons.local_fire_department,
+                color: AppColors.gold, size: 32),
           ),
           const SizedBox(width: 16),
           Expanded(
@@ -152,7 +143,7 @@ class RewardsScreen extends ConsumerWidget {
                 Text(
                   'Keep cooking to maintain your streak',
                   style: theme.textTheme.bodyMedium?.copyWith(
-                    color: AppColors.darkBrown.withValues(alpha: 0.7),
+                    color: AppColors.darkBrown.withOpacity(0.7),
                   ),
                 ),
               ],
@@ -173,7 +164,7 @@ class RewardsScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
+        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -210,7 +201,9 @@ class RewardsScreen extends ConsumerWidget {
           const SizedBox(height: 8),
           Text(
             '${(1000 - (points % 1000))} pts to Platinum',
-            style: theme.textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
+            style: theme.textTheme.bodySmall?.copyWith(
+              color: Colors.grey[600],
+            ),
           ),
         ],
       ),
@@ -234,8 +227,8 @@ class RewardsScreen extends ConsumerWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: isComplete
-              ? AppColors.success600.withValues(alpha: 0.3)
-              : AppColors.darkBrown.withValues(alpha: 0.1),
+              ? AppColors.success600.withOpacity(0.3)
+              : AppColors.darkBrown.withOpacity(0.1),
         ),
       ),
       child: Row(
@@ -270,7 +263,7 @@ class RewardsScreen extends ConsumerWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
             decoration: BoxDecoration(
-              color: AppColors.gold.withValues(alpha: 0.1),
+              color: AppColors.gold.withOpacity(0.1),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Text(
@@ -294,7 +287,7 @@ class RewardsScreen extends ConsumerWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
+        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -362,8 +355,8 @@ class RewardsScreen extends ConsumerWidget {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: isEarned
-                  ? AppColors.gold.withValues(alpha: 0.3)
-                  : Colors.grey.withValues(alpha: 0.2),
+                  ? AppColors.gold.withOpacity(0.3)
+                  : Colors.grey.withOpacity(0.2),
             ),
           ),
           child: Column(

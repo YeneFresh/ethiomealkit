@@ -6,7 +6,10 @@ import 'package:ethiomealkit/core/app_colors.dart';
 class AppBottomNav extends StatelessWidget {
   final int selectedIndex;
 
-  const AppBottomNav({super.key, required this.selectedIndex});
+  const AppBottomNav({
+    super.key,
+    required this.selectedIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class AppBottomNav extends StatelessWidget {
         }
       },
       backgroundColor: Colors.white,
-      indicatorColor: AppColors.gold.withValues(alpha: 0.15),
+      indicatorColor: AppColors.gold.withOpacity(0.15),
       labelBehavior: NavigationDestinationLabelBehavior.alwaysShow,
       destinations: const [
         NavigationDestination(
@@ -64,3 +67,10 @@ class AppBottomNav extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+

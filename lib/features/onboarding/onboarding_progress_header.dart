@@ -144,3 +144,5 @@ class OnboardingProgressHeader extends StatelessWidget {
     return ['Box', 'Window', 'Recipes', 'Address', 'Checkout'];
   }
 }
+
+

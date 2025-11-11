@@ -7,6 +7,7 @@ import 'package:ethiomealkit/core/env.dart';
 import 'package:ethiomealkit/core/router.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ethiomealkit/features/dev/debug_route_menu.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 // If you have AppLockGuard in your project:
 class AppLockGuard extends StatelessWidget {
@@ -25,7 +26,11 @@ Future<void> main() async {
   // Initialize Supabase (v2 API)
   await SupaBootstrap.init();
 
-  runApp(const ProviderScope(child: MyApp()));
+  await SentryFlutter.init((o) {
+    o.dsn = const String.fromEnvironment('SENTRY_DSN', defaultValue: '');
+    o.tracesSampleRate = 0.2;
+    o.profilesSampleRate = 0.2;
+  }, appRunner: () => runApp(const ProviderScope(child: MyApp())));
 }
 
 class MyApp extends ConsumerStatefulWidget {
@@ -36,6 +41,20 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      // Precache brand PNG fallbacks once
+      precacheImage(const AssetImage('assets/brand/logo_primary.png'), context);
+      precacheImage(
+        const AssetImage('assets/brand/monogram_gold.png'),
+        context,
+      );
+    });
+  }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();

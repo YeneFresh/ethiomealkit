@@ -39,9 +39,8 @@ class _MiniCartDrawer extends ConsumerWidget {
 
     final selectedIds = ref.watch(selectedRecipesProvider);
     final allRecipes = ref.watch(recipesProvider).value ?? [];
-    final selectedRecipes = allRecipes
-        .where((r) => selectedIds.contains(r.id))
-        .toList();
+    final selectedRecipes =
+        allRecipes.where((r) => selectedIds.contains(r.id)).toList();
 
     final theme = Theme.of(context);
 
@@ -87,11 +86,8 @@ class _MiniCartDrawer extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(
-                      Icons.info_outline,
-                      size: 20,
-                      color: AppColors.darkBrown,
-                    ),
+                    const Icon(Icons.info_outline,
+                        size: 20, color: AppColors.darkBrown),
                     const SizedBox(width: 12),
                     Expanded(
                       child: Text(
@@ -325,7 +321,7 @@ class _TotalsBlock extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: AppColors.darkBrown.withValues(alpha: 0.1)),
+        border: Border.all(color: AppColors.darkBrown.withOpacity(0.1)),
       ),
       child: Column(
         children: [
@@ -345,13 +341,13 @@ class _TotalsBlock extends StatelessWidget {
                     li.isFree
                         ? 'FREE'
                         : (li.value >= 0 ? '' : '−') +
-                              _formatCurrency(li.value.abs()),
+                            _formatCurrency(li.value.abs()),
                     style: theme.textTheme.bodyMedium?.copyWith(
                       color: li.isFree
                           ? AppColors.success600
                           : li.value < 0
-                          ? AppColors.success600
-                          : AppColors.darkBrown,
+                              ? AppColors.success600
+                              : AppColors.darkBrown,
                       fontWeight: li.isFree || li.value < 0
                           ? FontWeight.w600
                           : FontWeight.w400,
@@ -408,9 +404,9 @@ class _PromoRow extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        color: AppColors.success600.withValues(alpha: 0.1),
+        color: AppColors.success600.withOpacity(0.1),
         borderRadius: BorderRadius.circular(8),
-        border: Border.all(color: AppColors.success600.withValues(alpha: 0.3)),
+        border: Border.all(color: AppColors.success600.withOpacity(0.3)),
       ),
       child: Row(
         children: [

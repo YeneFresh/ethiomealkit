@@ -56,8 +56,14 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
     final theme = Theme.of(context);
 
     return Scaffold(
-      appBar: AppBar(title: const Text('My Orders'), centerTitle: true),
-      body: RefreshIndicator(onRefresh: _loadOrders, child: _buildBody(theme)),
+      appBar: AppBar(
+        title: const Text('My Orders'),
+        centerTitle: true,
+      ),
+      body: RefreshIndicator(
+        onRefresh: _loadOrders,
+        child: _buildBody(theme),
+      ),
     );
   }
 
@@ -166,9 +172,16 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Icon(Icons.error_outline, size: 64, color: theme.colorScheme.error),
+            Icon(
+              Icons.error_outline,
+              size: 64,
+              color: theme.colorScheme.error,
+            ),
             const SizedBox(height: Yf.g16),
-            Text('Failed to Load Orders', style: theme.textTheme.titleLarge),
+            Text(
+              'Failed to Load Orders',
+              style: theme.textTheme.titleLarge,
+            ),
             const SizedBox(height: Yf.g8),
             Text(
               _error!,
@@ -215,7 +228,11 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
                       color: statusColor.withValues(alpha: 0.2),
                       borderRadius: Yf.borderRadius12,
                     ),
-                    child: Icon(statusIcon, color: statusColor, size: 20),
+                    child: Icon(
+                      statusIcon,
+                      color: statusColor,
+                      size: 20,
+                    ),
                   ),
                   const SizedBox(width: Yf.g12),
                   Expanded(
@@ -232,9 +249,8 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
                         Text(
                           '$totalItems recipes • $status',
                           style: theme.textTheme.bodySmall?.copyWith(
-                            color: theme.colorScheme.onSurface.withValues(
-                              alpha: 0.6,
-                            ),
+                            color: theme.colorScheme.onSurface
+                                .withValues(alpha: 0.6),
                           ),
                         ),
                       ],
@@ -249,10 +265,7 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
               const SizedBox(height: Yf.g12),
               if (weekStart != null)
                 _buildInfoChip(
-                  theme,
-                  'Week of $weekStart',
-                  Icons.calendar_today,
-                ),
+                    theme, 'Week of $weekStart', Icons.calendar_today),
               if (createdAt != null)
                 _buildInfoChip(
                   theme,
@@ -329,3 +342,10 @@ class _OrdersListScreenState extends ConsumerState<OrdersListScreen> {
     }
   }
 }
+
+
+
+
+
+
+

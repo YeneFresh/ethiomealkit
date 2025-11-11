@@ -49,12 +49,11 @@ class AutoPickNotifier extends StateNotifier<AutoPickState> {
     // 2. Popular (user-tested)
     // 3. Quick recipes (low friction)
     final all = ref.read(filteredRecipesProvider);
-    final candidates = [...all]
-      ..sort((a, b) {
-        int scoreA = _getRecipeScore(a);
-        int scoreB = _getRecipeScore(b);
-        return scoreA.compareTo(scoreB);
-      });
+    final candidates = [...all]..sort((a, b) {
+      int scoreA = _getRecipeScore(a);
+      int scoreB = _getRecipeScore(b);
+      return scoreA.compareTo(scoreB);
+    });
 
     final toPick = <String>[];
     for (final recipe in candidates) {
@@ -84,23 +83,23 @@ class AutoPickNotifier extends StateNotifier<AutoPickState> {
 
   int _getRecipeScore(Recipe recipe) {
     int score = 0;
-
+    
     // Chef's Choice = highest priority
     if (recipe.tags.contains("Chef's Choice")) score += 100;
-
+    
     // Popular = user-tested
     if (recipe.tags.contains('Popular')) score += 50;
-
+    
     // Quick recipes = low friction
     final totalTime = recipe.prepMinutes + recipe.cookMinutes;
     if (totalTime <= 30) score += 30;
-
+    
     // Express = fast
     if (recipe.tags.contains('Express')) score += 20;
-
+    
     // Prefer lower cook time for ease
     score -= totalTime ~/ 5;
-
+    
     return score;
   }
 
@@ -115,7 +114,8 @@ class AutoPickNotifier extends StateNotifier<AutoPickState> {
   }
 }
 
-final autoPickProvider = StateNotifierProvider<AutoPickNotifier, AutoPickState>(
+final autoPickProvider =
+    StateNotifierProvider<AutoPickNotifier, AutoPickState>(
   (ref) => AutoPickNotifier(ref),
 );
 
@@ -136,3 +136,10 @@ final canAddMoreProvider = Provider<bool>((ref) {
   final quota = ref.watch(boxQuotaProvider);
   return quota > 0 && !ref.watch(atCapacityProvider);
 });
+
+
+
+
+
+
+

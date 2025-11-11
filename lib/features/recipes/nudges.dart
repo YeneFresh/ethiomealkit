@@ -6,7 +6,10 @@ import 'package:ethiomealkit/core/design_tokens.dart';
 class HandpickedBanner extends StatelessWidget {
   final VoidCallback onDismiss;
 
-  const HandpickedBanner({super.key, required this.onDismiss});
+  const HandpickedBanner({
+    super.key,
+    required this.onDismiss,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -57,9 +60,8 @@ class HandpickedBanner extends StatelessWidget {
                 Text(
                   'We selected recipes based on your preferences. Swap any time!',
                   style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onPrimaryContainer.withValues(
-                      alpha: 0.8,
-                    ),
+                    color: theme.colorScheme.onPrimaryContainer
+                        .withValues(alpha: 0.8),
                   ),
                 ),
               ],
@@ -114,8 +116,8 @@ class SelectionProgress extends StatelessWidget {
                 isComplete
                     ? '✅ Selection Complete!'
                     : total > 0
-                    ? 'Selected $selected / $total Recipes'
-                    : 'Select recipes for this week',
+                        ? 'Selected $selected / $total Recipes'
+                        : 'Select recipes for this week',
                 style: theme.textTheme.titleMedium?.copyWith(
                   fontWeight: FontWeight.w600,
                 ),
@@ -189,23 +191,27 @@ class SelectionProgress extends StatelessWidget {
 
 /// Quota full indicator shown when user tries to exceed allowance.
 class QuotaFullSnackBar extends SnackBar {
-  QuotaFullSnackBar({super.key, required BuildContext context})
-    : super(
-        content: const Row(
-          children: [
-            Icon(Icons.info_outline, color: Colors.white),
-            SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                'Max reached — swap one to add',
-                style: TextStyle(fontWeight: FontWeight.w500),
+  QuotaFullSnackBar({
+    super.key,
+    required BuildContext context,
+  }) : super(
+          content: const Row(
+            children: [
+              Icon(Icons.info_outline, color: Colors.white),
+              SizedBox(width: 12),
+              Expanded(
+                child: Text(
+                  'Max reached — swap one to add',
+                  style: TextStyle(fontWeight: FontWeight.w500),
+                ),
               ),
-            ),
-          ],
-        ),
-        backgroundColor: Theme.of(context).colorScheme.error,
-        duration: const Duration(seconds: 3),
-        behavior: SnackBarBehavior.floating,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      );
+            ],
+          ),
+          backgroundColor: Theme.of(context).colorScheme.error,
+          duration: const Duration(seconds: 3),
+          behavior: SnackBarBehavior.floating,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12),
+          ),
+        );
 }

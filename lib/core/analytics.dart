@@ -16,7 +16,8 @@ class Analytics {
     if (!_enabled) return;
 
     if (kDebugMode) {
-      debugPrint('📊 Analytics: $event ${properties ?? ""}');
+      debugPrint(
+          '📊 Analytics: $event ${properties ?? ""}');
     }
 
     // TODO: Add PostHog integration
@@ -74,8 +75,12 @@ class Analytics {
     });
   }
 
-  static void recipesAutoSelected({required int count}) {
-    track('recipes_auto_selected', {'count': count});
+  static void recipesAutoSelected({
+    required int count,
+  }) {
+    track('recipes_auto_selected', {
+      'count': count,
+    });
   }
 
   static void filterToggled({
@@ -100,8 +105,12 @@ class Analytics {
     });
   }
 
-  static void orderConfirmed({required String orderId}) {
-    track('order_confirmed', {'order_id': orderId});
+  static void orderConfirmed({
+    required String orderId,
+  }) {
+    track('order_confirmed', {
+      'order_id': orderId,
+    });
   }
 
   // =============================================================================
@@ -116,7 +125,10 @@ class Analytics {
     track('user_signed_in', {'method': method});
   }
 
-  static void planSelected({required int boxSize, required int mealsPerWeek}) {
+  static void planSelected({
+    required int boxSize,
+    required int mealsPerWeek,
+  }) {
     track('plan_selected', {
       'box_size': boxSize,
       'meals_per_week': mealsPerWeek,
@@ -132,6 +144,10 @@ class Analytics {
     String? screen,
     Map<String, dynamic>? context,
   }) {
-    track('error', {'error': error, 'screen': screen, ...?context});
+    track('error', {
+      'error': error,
+      'screen': screen,
+      ...?context,
+    });
   }
 }

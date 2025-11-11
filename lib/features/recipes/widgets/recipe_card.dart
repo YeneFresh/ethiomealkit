@@ -47,34 +47,34 @@ class _RecipeCardState extends State<RecipeCard> {
     final tagSet = widget.tags.map((t) => t.toLowerCase()).toSet();
 
     if (tagSet.contains("chef's choice") || tagSet.contains('chef_choice')) {
-      badges.add(
-        _BadgeData(label: "Chef's Choice", color: Yf.gold600, icon: Icons.star),
-      );
+      badges.add(_BadgeData(
+        label: "Chef's Choice",
+        color: Yf.gold600,
+        icon: Icons.star,
+      ));
     }
     if (tagSet.contains('express') ||
         tagSet.contains('quick') ||
         tagSet.contains('30-min')) {
-      badges.add(
-        _BadgeData(label: 'Express', color: Yf.success600, icon: Icons.bolt),
-      );
+      badges.add(_BadgeData(
+        label: 'Express',
+        color: Yf.success600,
+        icon: Icons.bolt,
+      ));
     }
     if (tagSet.contains('family') || tagSet.contains('family-friendly')) {
-      badges.add(
-        _BadgeData(
-          label: 'Family',
-          color: const Color(0xFF1565C0),
-          icon: Icons.people,
-        ),
-      );
+      badges.add(_BadgeData(
+        label: 'Family',
+        color: const Color(0xFF1565C0),
+        icon: Icons.people,
+      ));
     }
     if (tagSet.contains('new')) {
-      badges.add(
-        _BadgeData(
-          label: 'New',
-          color: const Color(0xFF4CAF50),
-          icon: Icons.fiber_new,
-        ),
-      );
+      badges.add(_BadgeData(
+        label: 'New',
+        color: const Color(0xFF4CAF50),
+        icon: Icons.fiber_new,
+      ));
     }
 
     return badges;
@@ -136,9 +136,7 @@ class _RecipeCardState extends State<RecipeCard> {
                   // Badges overlay (top-left, below ribbon)
                   if (badges.isNotEmpty)
                     Positioned(
-                      top: widget.autoSelected
-                          ? 36
-                          : Yf.s8, // Offset if ribbon present
+                      top: widget.autoSelected ? 36 : Yf.s8, // Offset if ribbon present
                       left: Yf.s8,
                       child: Wrap(
                         spacing: Yf.s8,
@@ -179,9 +177,8 @@ class _RecipeCardState extends State<RecipeCard> {
                           shape: const StadiumBorder(),
                           side: BorderSide(
                             color: widget.isSelected
-                                ? theme.colorScheme.primary.withValues(
-                                    alpha: 0.5,
-                                  )
+                                ? theme.colorScheme.primary
+                                    .withValues(alpha: 0.5)
                                 : Colors.black12,
                           ),
                           padding: const EdgeInsets.symmetric(vertical: 12),
@@ -189,9 +186,8 @@ class _RecipeCardState extends State<RecipeCard> {
                               ? theme.colorScheme.primary
                               : Colors.black87,
                           backgroundColor: widget.isSelected
-                              ? theme.colorScheme.primary.withValues(
-                                  alpha: 0.08,
-                                )
+                              ? theme.colorScheme.primary
+                                  .withValues(alpha: 0.08)
                               : null,
                         ),
                         onPressed: _handleTap,
@@ -219,10 +215,7 @@ class _RecipeCardState extends State<RecipeCard> {
                         ),
                         label: Text(
                           _showNote ? 'Hide note' : 'Chef\'s note',
-                          style: const TextStyle(
-                            color: Yf.brown700,
-                            fontSize: 13,
-                          ),
+                          style: const TextStyle(color: Yf.brown700, fontSize: 13),
                         ),
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
@@ -368,7 +361,11 @@ class _BadgeData {
   final Color color;
   final IconData icon;
 
-  _BadgeData({required this.label, required this.color, required this.icon});
+  _BadgeData({
+    required this.label,
+    required this.color,
+    required this.icon,
+  });
 }
 
 class _BadgeChip extends StatelessWidget {
@@ -379,17 +376,26 @@ class _BadgeChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8,
+        vertical: 3,
+      ),
       margin: const EdgeInsets.only(right: 6, bottom: 6),
       decoration: BoxDecoration(
         color: badge.color.withValues(alpha: 0.9),
         borderRadius: BorderRadius.circular(999),
-        border: Border.all(color: badge.color.withValues(alpha: 0.5)),
+        border: Border.all(
+          color: badge.color.withValues(alpha: 0.5),
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(badge.icon, size: 12, color: Colors.white),
+          Icon(
+            badge.icon,
+            size: 12,
+            color: Colors.white,
+          ),
           const SizedBox(width: 4),
           Text(
             badge.label,

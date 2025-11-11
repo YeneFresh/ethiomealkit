@@ -87,3 +87,9 @@ final cartTotalsProvider = Provider<CartTotals>((ref) {
     total: total,
   );
 });
+
+
+
+
+
+

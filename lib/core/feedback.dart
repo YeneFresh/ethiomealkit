@@ -59,7 +59,9 @@ class Feedback {
 
   /// Show feedback dialog (alternative to email)
   /// For use with Typeform/Google Form if preferred
-  static Future<void> sendFeedbackForm({required String formUrl}) async {
+  static Future<void> sendFeedbackForm({
+    required String formUrl,
+  }) async {
     final uri = Uri.parse(formUrl);
 
     if (await canLaunchUrl(uri)) {
@@ -71,3 +73,10 @@ class Feedback {
     }
   }
 }
+
+
+
+
+
+
+

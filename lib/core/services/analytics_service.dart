@@ -9,13 +9,10 @@ class AnalyticsService {
   AnalyticsService(this._sb);
 
   /// Track any event with optional properties
-  Future<void> track(
-    String eventName, [
-    Map<String, dynamic>? properties,
-  ]) async {
+  Future<void> track(String eventName, [Map<String, dynamic>? properties]) async {
     try {
       final user = _sb.auth.currentUser;
-
+      
       await _sb.from('analytics_events').insert({
         'event_name': eventName,
         'user_id': user?.id ?? 'guest',
@@ -106,8 +103,12 @@ class AnalyticsService {
     });
   }
 
-  Future<void> streakGained({required int streakWeeks}) async {
-    await track('streak_gained', {'streak_weeks': streakWeeks});
+  Future<void> streakGained({
+    required int streakWeeks,
+  }) async {
+    await track('streak_gained', {
+      'streak_weeks': streakWeeks,
+    });
   }
 
   Future<void> welcomeGetStarted() async {
@@ -118,14 +119,20 @@ class AnalyticsService {
     required int people,
     required int meals,
   }) async {
-    await track('box_selection_complete', {'people': people, 'meals': meals});
+    await track('box_selection_complete', {
+      'people': people,
+      'meals': meals,
+    });
   }
 
   Future<void> signUpComplete({
     required String email,
     required String method, // 'email' | 'google'
   }) async {
-    await track('signup_complete', {'email': email, 'method': method});
+    await track('signup_complete', {
+      'email': email,
+      'method': method,
+    });
   }
 
   // ===== Session management =====
@@ -204,3 +211,10 @@ SELECT
   step_5_checkout_start - step_6_checkout_success
 FROM analytics_funnel;
 ''';
+
+
+
+
+
+
+

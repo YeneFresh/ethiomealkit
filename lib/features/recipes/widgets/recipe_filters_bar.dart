@@ -28,15 +28,9 @@ class _RecipeFiltersBarState extends State<RecipeFiltersBar> {
   static const _filterOptions = [
     _FilterOption(key: 'healthy', label: 'Healthy', icon: Icons.eco),
     _FilterOption(
-      key: 'spicy',
-      label: 'Spicy',
-      icon: Icons.local_fire_department,
-    ),
+        key: 'spicy', label: 'Spicy', icon: Icons.local_fire_department),
     _FilterOption(
-      key: 'veggie',
-      label: 'Veggie',
-      icon: Icons.energy_savings_leaf,
-    ),
+        key: 'veggie', label: 'Veggie', icon: Icons.energy_savings_leaf),
     _FilterOption(key: '30-min', label: '<30 min', icon: Icons.schedule),
     _FilterOption(key: 'ethiopian', label: 'Ethiopian', icon: Icons.flag),
     _FilterOption(key: 'beef', label: 'Beef', icon: Icons.restaurant),
@@ -99,7 +93,10 @@ class _RecipeFiltersBarState extends State<RecipeFiltersBar> {
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
         border: Border(
-          bottom: BorderSide(color: theme.colorScheme.outlineVariant, width: 1),
+          bottom: BorderSide(
+            color: theme.colorScheme.outlineVariant,
+            width: 1,
+          ),
         ),
       ),
       child: Column(
@@ -230,7 +227,10 @@ class _FilterChip extends StatelessWidget {
                   : theme.colorScheme.surfaceContainerHighest,
               borderRadius: Yf.borderRadius20,
               border: isActive
-                  ? Border.all(color: theme.colorScheme.primary, width: 2)
+                  ? Border.all(
+                      color: theme.colorScheme.primary,
+                      width: 2,
+                    )
                   : null,
             ),
             child: Row(

@@ -11,7 +11,10 @@ import 'package:ethiomealkit/features/delivery/ui/receipt_card.dart';
 class DeliveryConfirmationScreen extends ConsumerWidget {
   final String orderId;
 
-  const DeliveryConfirmationScreen({super.key, required this.orderId});
+  const DeliveryConfirmationScreen({
+    super.key,
+    required this.orderId,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -19,29 +22,26 @@ class DeliveryConfirmationScreen extends ConsumerWidget {
     final selectedRecipes = ref.watch(selectedRecipesProvider);
 
     // Calculate week number (simple: week of year)
-    final weekNumber =
-        ((DateTime.now()
-                    .difference(DateTime(DateTime.now().year, 1, 1))
-                    .inDays) /
-                7)
-            .ceil();
+    final weekNumber = ((DateTime.now()
+                .difference(DateTime(DateTime.now().year, 1, 1))
+                .inDays) /
+            7)
+        .ceil();
 
     return Scaffold(
       backgroundColor: AppColors.offWhite,
       body: SafeArea(
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(
-              maxWidth: LayoutConstants.maxContentWidth,
-            ),
+            constraints:
+                const BoxConstraints(maxWidth: LayoutConstants.maxContentWidth),
             child: ListView(
               padding: const EdgeInsets.all(LayoutConstants.cardPaddingLarge),
               children: [
                 // Success icon
                 Container(
-                  padding: const EdgeInsets.all(
-                    LayoutConstants.cardPaddingLarge,
-                  ),
+                  padding:
+                      const EdgeInsets.all(LayoutConstants.cardPaddingLarge),
                   decoration: BoxDecoration(
                     color: AppColors.success600.withValues(alpha: 0.1),
                     shape: BoxShape.circle,
@@ -96,9 +96,8 @@ class DeliveryConfirmationScreen extends ConsumerWidget {
                   padding: const EdgeInsets.all(LayoutConstants.cardPadding),
                   decoration: BoxDecoration(
                     color: AppColors.peach50,
-                    borderRadius: BorderRadius.circular(
-                      LayoutConstants.radiusLarge,
-                    ),
+                    borderRadius:
+                        BorderRadius.circular(LayoutConstants.radiusLarge),
                     border: Border.all(
                       color: AppColors.darkBrown.withValues(alpha: 0.1),
                     ),
@@ -136,9 +135,8 @@ class DeliveryConfirmationScreen extends ConsumerWidget {
                       foregroundColor: Colors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(
-                          LayoutConstants.radiusLarge,
-                        ),
+                        borderRadius:
+                            BorderRadius.circular(LayoutConstants.radiusLarge),
                       ),
                     ),
                     child: const Text(
@@ -195,8 +193,8 @@ class _ReassuranceRow extends StatelessWidget {
           child: Text(
             text,
             style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: AppColors.darkBrown.withValues(alpha: 0.7),
-            ),
+                  color: AppColors.darkBrown.withValues(alpha: 0.7),
+                ),
           ),
         ),
       ],

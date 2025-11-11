@@ -14,16 +14,8 @@ class OrdersScreen extends StatelessWidget {
         'id': 'order-$i',
         'week': 'Week ${i + 1}',
         'date': i == 0 ? 'Thu, 17 Oct' : 'Week of Oct ${10 + i * 7}',
-        'window': i % 3 == 0
-            ? 'Morning (8–10 am)'
-            : i % 3 == 1
-            ? 'Afternoon (2–4 pm)'
-            : 'Evening (6–8 pm)',
-        'status': i == 0
-            ? 'Upcoming'
-            : i < 4
-            ? 'Delivered'
-            : 'Completed',
+        'window': i % 3 == 0 ? 'Morning (8–10 am)' : i % 3 == 1 ? 'Afternoon (2–4 pm)' : 'Evening (6–8 pm)',
+        'status': i == 0 ? 'Upcoming' : i < 4 ? 'Delivered' : 'Completed',
         'recipes': i == 0 ? 4 : 4,
       },
     );
@@ -63,8 +55,8 @@ class OrdersScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(14),
                   border: Border.all(
                     color: isUpcoming
-                        ? AppColors.gold.withValues(alpha: 0.3)
-                        : AppColors.darkBrown.withValues(alpha: 0.1),
+                        ? AppColors.gold.withOpacity(0.3)
+                        : AppColors.darkBrown.withOpacity(0.1),
                     width: isUpcoming ? 1.5 : 1,
                   ),
                 ),
@@ -74,7 +66,7 @@ class OrdersScreen extends StatelessWidget {
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
                         color: (isUpcoming ? AppColors.gold : Colors.grey)
-                            .withValues(alpha: 0.1),
+                            .withOpacity(0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
@@ -106,12 +98,8 @@ class OrdersScreen extends StatelessWidget {
                           Text(
                             '${order['recipes']} recipes • ${order['status']}',
                             style: theme.textTheme.bodySmall?.copyWith(
-                              color: isUpcoming
-                                  ? AppColors.gold
-                                  : Colors.grey[600],
-                              fontWeight: isUpcoming
-                                  ? FontWeight.w600
-                                  : FontWeight.w400,
+                              color: isUpcoming ? AppColors.gold : Colors.grey[600],
+                              fontWeight: isUpcoming ? FontWeight.w600 : FontWeight.w400,
                             ),
                           ),
                         ],

@@ -21,16 +21,10 @@ class _DebugRouteMenuState extends State<DebugRouteMenu> {
     _RouteItem('  Step 1: Box', '/onboarding/box', Icons.inventory_2),
     _RouteItem('  Step 2: Sign Up', '/onboarding/signup', Icons.person_add),
     _RouteItem(
-      '  Step 3: Recipes',
-      '/onboarding/recipes',
-      Icons.restaurant_menu,
-    ),
+        '  Step 3: Recipes', '/onboarding/recipes', Icons.restaurant_menu),
     _RouteItem('  Step 4a: Map Picker', '/onboarding/map-picker', Icons.map),
     _RouteItem(
-      '  Step 4b: Address Form',
-      '/onboarding/address-form',
-      Icons.home,
-    ),
+        '  Step 4b: Address Form', '/onboarding/address-form', Icons.home),
     _RouteItem('  Step 5: Pay', '/onboarding/pay', Icons.payment),
     _RouteItem('  ✅ Success', '/order-success', Icons.check_circle),
     _RouteItem('', '', null), // Divider
@@ -64,7 +58,7 @@ class _DebugRouteMenuState extends State<DebugRouteMenu> {
                 borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.2),
+                    color: Colors.black.withOpacity(0.2),
                     blurRadius: 12,
                     offset: const Offset(0, 4),
                   ),

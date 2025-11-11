@@ -29,7 +29,10 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen>
   @override
   void initState() {
     super.initState();
-    _fadeController = AnimationController(vsync: this, duration: Yf.d300);
+    _fadeController = AnimationController(
+      vsync: this,
+      duration: Yf.d300,
+    );
     _fadeAnimation = CurvedAnimation(
       parent: _fadeController,
       curve: Yf.standard,
@@ -202,7 +205,9 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen>
         // Headline
         Text(
           'YeneFresh',
-          style: theme.textTheme.displaySmall?.copyWith(color: Yf.brown900),
+          style: theme.textTheme.displaySmall?.copyWith(
+            color: Yf.brown900,
+          ),
           textAlign: TextAlign.center,
         ),
         const SizedBox(height: Yf.s12),
@@ -228,11 +233,16 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen>
         style: FilledButton.styleFrom(
           backgroundColor: Yf.brown900,
           foregroundColor: Colors.white,
-          shape: RoundedRectangleBorder(borderRadius: Yf.borderRadius16),
+          shape: RoundedRectangleBorder(
+            borderRadius: Yf.borderRadius16,
+          ),
         ),
         child: const Text(
           'Get Started',
-          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          style: TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
@@ -317,7 +327,9 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen>
   }) {
     return TextButton(
       onPressed: onTap,
-      style: TextButton.styleFrom(minimumSize: const Size(double.infinity, 48)),
+      style: TextButton.styleFrom(
+        minimumSize: const Size(double.infinity, 48),
+      ),
       child: Text(
         label,
         style: const TextStyle(
@@ -338,7 +350,9 @@ class _WelcomeScreenState extends ConsumerState<WelcomeScreen>
       ),
       child: Text(
         'Debug: ${_isSignedIn ? "Signed in" : "Not signed in"}',
-        style: theme.textTheme.labelSmall?.copyWith(fontFamily: 'monospace'),
+        style: theme.textTheme.labelSmall?.copyWith(
+          fontFamily: 'monospace',
+        ),
         textAlign: TextAlign.center,
       ),
     );

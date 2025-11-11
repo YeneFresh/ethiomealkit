@@ -4,9 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:ethiomealkit/features/recipes/auto_select.dart';
 
 /// User's box size (from onboarding) - determines how many recipes they can select
-final userBoxSizeProvider = StateProvider<int>(
-  (_) => 4,
-); // Default 4 for guests
+final userBoxSizeProvider =
+    StateProvider<int>((_) => 4); // Default 4 for guests
 
 /// Selected recipe IDs (local state)
 class SelectionState extends StateNotifier<Set<String>> {
@@ -28,8 +27,8 @@ class SelectionState extends StateNotifier<Set<String>> {
 
 final selectedRecipesProvider =
     StateNotifierProvider<SelectionState, Set<String>>(
-      (ref) => SelectionState(),
-    );
+  (ref) => SelectionState(),
+);
 
 /// Auto-selected recipe IDs (to show ribbons)
 final autoSelectedIdsProvider = StateProvider<Set<String>>((_) => {});
@@ -83,7 +82,6 @@ Future<List<String>> autoSelectIfNeeded({
   await prefs.setBool('auto_select_applied:$weekKey', true);
 
   print(
-    '🤖 Auto-selected ${choice.toSelect.length} recipes: ${choice.toSelect}',
-  );
+      '🤖 Auto-selected ${choice.toSelect.length} recipes: ${choice.toSelect}');
   return choice.toSelect;
 }

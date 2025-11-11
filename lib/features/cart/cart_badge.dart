@@ -7,7 +7,7 @@ class CartBadge extends ConsumerWidget {
   final Color? backgroundColor;
   final Color? textColor;
   final double size;
-
+  
   const CartBadge({
     super.key,
     this.backgroundColor,
@@ -37,7 +37,10 @@ class CartBadge extends ConsumerWidget {
                 color: backgroundColor ?? Colors.red,
                 borderRadius: BorderRadius.circular(size / 2),
               ),
-              constraints: BoxConstraints(minWidth: size, minHeight: size),
+              constraints: BoxConstraints(
+                minWidth: size,
+                minHeight: size,
+              ),
               child: Text(
                 itemCount > 99 ? '99+' : itemCount.toString(),
                 style: TextStyle(

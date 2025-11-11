@@ -24,10 +24,10 @@ class PromoBanner extends ConsumerWidget {
       child: Container(
         padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: AppColors.success600.withValues(alpha: 0.1),
+          color: AppColors.success600.withOpacity(0.1),
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: AppColors.success600.withValues(alpha: 0.3),
+            color: AppColors.success600.withOpacity(0.3),
           ),
         ),
         child: Row(
@@ -47,7 +47,9 @@ class PromoBanner extends ConsumerWidget {
                   children: [
                     TextSpan(
                       text: "'$promoCode'",
-                      style: const TextStyle(fontWeight: FontWeight.w700),
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
                     TextSpan(
                       text:
@@ -61,13 +63,16 @@ class PromoBanner extends ConsumerWidget {
               icon: Icon(
                 Icons.close,
                 size: 18,
-                color: AppColors.darkBrown.withValues(alpha: 0.6),
+                color: AppColors.darkBrown.withOpacity(0.6),
               ),
               onPressed: () {
                 ref.read(promoNotifierProvider.notifier).togglePromo();
               },
               padding: EdgeInsets.zero,
-              constraints: const BoxConstraints(minWidth: 32, minHeight: 32),
+              constraints: const BoxConstraints(
+                minWidth: 32,
+                minHeight: 32,
+              ),
             ),
           ],
         ),

@@ -16,7 +16,11 @@ class YeneFreshSplash extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           // Animated background
-          const InjeraBubbles(opacity: 0.14, maxRadius: 9, count: 42),
+          const InjeraBubbles(
+            opacity: 0.14,
+            maxRadius: 9,
+            count: 42,
+          ),
 
           // Content
           Center(
@@ -77,3 +81,10 @@ class YeneFreshSplash extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+

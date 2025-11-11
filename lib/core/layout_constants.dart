@@ -44,3 +44,5 @@ class LayoutConstants {
   static const double maxContentWidth = 600.0;
   static const double maxWideContentWidth = 1200.0;
 }
+
+

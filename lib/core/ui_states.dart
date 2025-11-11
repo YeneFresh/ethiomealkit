@@ -41,16 +41,10 @@ class RecipeCardSkeleton extends StatelessWidget {
                 Row(
                   children: [
                     _SkeletonBox(
-                      width: 60,
-                      height: 24,
-                      borderRadius: Yf.borderRadius12,
-                    ),
+                        width: 60, height: 24, borderRadius: Yf.borderRadius12),
                     const SizedBox(width: Yf.s8),
                     _SkeletonBox(
-                      width: 80,
-                      height: 24,
-                      borderRadius: Yf.borderRadius12,
-                    ),
+                        width: 80, height: 24, borderRadius: Yf.borderRadius12),
                   ],
                 ),
                 const SizedBox(height: Yf.s12),
@@ -80,10 +74,7 @@ class OrderListSkeleton extends StatelessWidget {
             Row(
               children: [
                 _SkeletonBox(
-                  width: 40,
-                  height: 40,
-                  borderRadius: Yf.borderRadius12,
-                ),
+                    width: 40, height: 40, borderRadius: Yf.borderRadius12),
                 const SizedBox(width: Yf.s12),
                 const Expanded(
                   child: Column(
@@ -134,10 +125,9 @@ class _SkeletonBoxState extends State<_SkeletonBox>
       vsync: this,
       duration: const Duration(milliseconds: 1200),
     )..repeat();
-    _animation = Tween<double>(
-      begin: -1.0,
-      end: 2.0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
+    _animation = Tween<double>(begin: -1.0, end: 2.0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
   }
 
   @override
@@ -425,3 +415,10 @@ class LoadingError extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+
+

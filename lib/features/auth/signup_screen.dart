@@ -57,20 +57,17 @@ class _SignupScreenState extends State<SignupScreen> {
       final r = result.$2;
       final pref = result.$3;
       if (p != null && r != null) {
-        await Supabase.instance.client.rpc(
-          'save_checkout_draft',
-          params: {
-            '_user': Supabase.instance.client.auth.currentUser!.id,
-            '_week_start': mondayUtcStr(DateTime.now()),
-            '_step': 3,
-            '_payload': {
-              'people': p,
-              'recipes': r,
-              'pref': pref ?? 'bit_of_everything',
-              'address_hint': 'Home', // optional
-            },
-          },
-        );
+        await Supabase.instance.client.rpc('save_checkout_draft', params: {
+          '_user': Supabase.instance.client.auth.currentUser!.id,
+          '_week_start': mondayUtcStr(DateTime.now()),
+          '_step': 3,
+          '_payload': {
+            'people': p,
+            'recipes': r,
+            'pref': pref ?? 'bit_of_everything',
+            'address_hint': 'Home', // optional
+          }
+        });
       }
       await DraftCache.setStep(3);
       if (!mounted) return;
@@ -109,10 +106,8 @@ class _SignupScreenState extends State<SignupScreen> {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Text(
-              'Let\'s get started',
-              style: Theme.of(context).textTheme.headlineSmall,
-            ),
+            Text('Let\'s get started',
+                style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 12),
             TextField(
               controller: _emailCtrl,
@@ -136,8 +131,7 @@ class _SignupScreenState extends State<SignupScreen> {
               leading: Icon(Icons.info_outline),
               title: Text('No commitment. Skip or cancel any time.'),
               subtitle: Text(
-                'Easily skip any delivery week or cancel your subscription any time.',
-              ),
+                  'Easily skip any delivery week or cancel your subscription any time.'),
             ),
           ],
         ),

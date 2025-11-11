@@ -35,7 +35,7 @@ class RecipeDto {
       calories: json['calories'] as int? ?? 0,
       tags:
           (json['tags'] as List<dynamic>?)?.map((e) => e.toString()).toList() ??
-          [],
+              [],
       heroImageUrl: json['hero_image_url'] as String?,
       shelfDays: json['shelf_days'] as int? ?? 3,
     );
@@ -85,3 +85,9 @@ class RecipeDto {
     );
   }
 }
+
+
+
+
+
+

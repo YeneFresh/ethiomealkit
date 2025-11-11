@@ -30,9 +30,8 @@ class Recipe {
   });
 
   factory Recipe.fromMap(Map<String, dynamic> map) {
-    final tagsList = map['tags'] is List
-        ? List<String>.from(map['tags'])
-        : <String>[];
+    final tagsList =
+        map['tags'] is List ? List<String>.from(map['tags']) : <String>[];
 
     return Recipe(
       id: map['id'] ?? '',
@@ -126,8 +125,8 @@ class SelectedRecipesNotifier extends StateNotifier<Set<String>> {
 
 final selectedRecipesProvider =
     StateNotifierProvider<SelectedRecipesNotifier, Set<String>>(
-      (ref) => SelectedRecipesNotifier(ref),
-    );
+  (ref) => SelectedRecipesNotifier(ref),
+);
 
 // boxQuotaProvider is defined in lib/features/box/providers/box_selection_providers.dart
 // Import it from there when needed to avoid duplication
@@ -144,11 +143,9 @@ final filteredRecipesProvider = Provider<List<Recipe>>((ref) {
 
   return recipes.where((recipe) {
     // Match if recipe has any of the active filter tags
-    return recipe.tags.any(
-      (tag) =>
-          filters.contains(tag) ||
-          filters.any((f) => tag.toLowerCase().contains(f.toLowerCase())),
-    );
+    return recipe.tags.any((tag) =>
+        filters.contains(tag) ||
+        filters.any((f) => tag.toLowerCase().contains(f.toLowerCase())));
   }).toList();
 });
 
@@ -192,8 +189,8 @@ class SelectionNudgeController extends StateNotifier<SelectionNudgeState> {
 
 final selectionNudgeProvider =
     StateNotifierProvider<SelectionNudgeController, SelectionNudgeState>(
-      (ref) => SelectionNudgeController(ref),
-    );
+  (ref) => SelectionNudgeController(ref),
+);
 
 /// Auto-select controller for filling remaining slots
 class AutoSelectController {
@@ -211,8 +208,7 @@ class AutoSelectController {
     final all = ref.read(filteredRecipesProvider);
 
     // Sort by priority: Chef's Choice > Popular > shortest cook time
-    final candidates = [...all]
-      ..sort((a, b) {
+    final candidates = [...all]..sort((a, b) {
         int score(Recipe r) =>
             (r.tags.contains("Chef's Choice") ? 0 : 2) +
             (r.tags.contains("Popular") ? 0 : 1) +

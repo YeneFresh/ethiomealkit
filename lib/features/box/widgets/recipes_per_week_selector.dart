@@ -107,19 +107,18 @@ class _MealPlanCard extends StatelessWidget {
           child: Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: isSelected
-                  ? AppColors.gold.withValues(alpha: 0.1)
-                  : Colors.white,
+              color:
+                  isSelected ? AppColors.gold.withOpacity(0.1) : Colors.white,
               borderRadius: BorderRadius.circular(12),
               border: Border.all(
                 color: isSelected
                     ? AppColors.gold
-                    : AppColors.darkBrown.withValues(alpha: 0.15),
+                    : AppColors.darkBrown.withOpacity(0.15),
                 width: isSelected ? 2 : 1,
               ),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.08),
+                  color: Colors.black.withOpacity(0.08),
                   blurRadius: 6,
                   offset: const Offset(0, 2),
                 ),
@@ -238,7 +237,7 @@ class _MealPlanCard extends StatelessWidget {
                           vertical: 2,
                         ),
                         decoration: BoxDecoration(
-                          color: AppColors.success600.withValues(alpha: 0.1),
+                          color: AppColors.success600.withOpacity(0.1),
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: Text(
@@ -268,3 +267,9 @@ class _MealPlanCard extends StatelessWidget {
     );
   }
 }
+
+
+
+
+
+

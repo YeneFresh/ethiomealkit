@@ -36,7 +36,7 @@ class CartSummaryBar extends ConsumerWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
             border: Border.all(
-              color: AppColors.darkBrown.withValues(alpha: 0.1),
+              color: AppColors.darkBrown.withOpacity(0.1),
             ),
           ),
           child: Row(
@@ -58,7 +58,7 @@ class CartSummaryBar extends ConsumerWidget {
                     Text(
                       'Total: ${_formatCurrency(totals.total)}',
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: AppColors.darkBrown.withValues(alpha: 0.7),
+                        color: AppColors.darkBrown.withOpacity(0.7),
                       ),
                     ),
                   ],
@@ -82,7 +82,10 @@ class CartSummaryBar extends ConsumerWidget {
                 ),
                 child: const Text(
                   'Review & Pay',
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
+                  style: TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],

@@ -62,3 +62,5 @@ final userStatsProvider = FutureProvider<Map<String, dynamic>>((ref) async {
     'weeklyProgress': 3,
   };
 });
+
+

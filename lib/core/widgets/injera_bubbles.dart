@@ -112,3 +112,5 @@ class _InjeraPainter extends CustomPainter {
       old.color != color ||
       old.maxRadius != maxRadius;
 }
+
+

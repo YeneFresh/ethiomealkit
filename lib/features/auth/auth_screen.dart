@@ -60,7 +60,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                       ? 'Sign up to start your meal planning journey'
                       : 'Sign in to continue with your meal plan',
                   style: theme.textTheme.bodyLarge?.copyWith(
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                    color: theme.colorScheme.onSurface.withOpacity(0.7),
                   ),
                 ),
                 const SizedBox(height: 32),
@@ -131,9 +131,8 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                             height: 20,
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
-                              valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.white,
-                              ),
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
                             ),
                           )
                         : Text(
@@ -181,7 +180,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   child: Text(
                     'Continue as Guest',
                     style: TextStyle(
-                      color: theme.colorScheme.onSurface.withValues(alpha: 0.7),
+                      color: theme.colorScheme.onSurface.withOpacity(0.7),
                     ),
                   ),
                 ),
@@ -253,8 +252,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text(
-              '✅ Connection test successful! Supabase is working properly.',
-            ),
+                '✅ Connection test successful! Supabase is working properly.'),
             backgroundColor: Colors.green,
             duration: Duration(seconds: 3),
           ),
@@ -300,9 +298,8 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text(
-                'Account created! Please check your email to verify.',
-              ),
+              content:
+                  Text('Account created! Please check your email to verify.'),
               backgroundColor: Colors.green,
             ),
           );
@@ -329,13 +326,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       if (pending != null) {
         try {
           final api = Supabase.instance.client;
-          await api.rpc(
-            'app.set_onboarding_plan',
-            params: {
-              'box_size': pending['boxSize'],
-              'meals_per_week': pending['mealsPerWeek'],
-            },
-          );
+          await api.rpc('app.set_onboarding_plan', params: {
+            'box_size': pending['boxSize'],
+            'meals_per_week': pending['mealsPerWeek'],
+          });
         } catch (_) {
           // ignore; user can re-set later
         }
