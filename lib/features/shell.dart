@@ -18,7 +18,14 @@ class ShellScaffold extends StatelessWidget {
     final location = GoRouterState.of(context).uri.toString();
     final index = _indexForLocation(location);
     return Scaffold(
-      appBar: AppBar(title: const Text('Ethio Meal Kit'), actions: const [ProfileMenu()]),
+      appBar: AppBar(title: const Text('Ethio Meal Kit'), actions: [
+        IconButton(
+          tooltip: 'Weekly menu',
+          icon: const Icon(Icons.event_available),
+          onPressed: () => context.go('/weekly'),
+        ),
+        const ProfileMenu(),
+      ]),
       body: child,
       bottomNavigationBar: NavigationBar(
         selectedIndex: index,
