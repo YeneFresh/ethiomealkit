@@ -2,29 +2,42 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import '../../supabase_client.dart';
 
 final currentUserProvider = Provider<User?>((ref) {
-  return Supabase.instance.client.auth.currentUser;
+  final client = SupabaseConfig.client;
+  return client?.auth.currentUser;
 });
 
 final authStateStreamProvider = StreamProvider<AuthState>((ref) {
-  return Supabase.instance.client.auth.onAuthStateChange;
+  final client = SupabaseConfig.client;
+  if (client == null) {
+    // Return a stream that emits an unauthenticated state
+    return Stream.value(const AuthState(AuthChangeEvent.signedOut, null));
+  }
+  return client.auth.onAuthStateChange;
 });
 
 class AuthChangeNotifier extends ChangeNotifier {
-  late final StreamSubscription _sub;
+  StreamSubscription? _sub;
 
   AuthChangeNotifier() {
-    _sub = Supabase.instance.client.auth.onAuthStateChange.listen((_) {
-      notifyListeners();
-    });
+    final client = SupabaseConfig.client;
+    if (client != null) {
+      _sub = client.auth.onAuthStateChange.listen((_) {
+        notifyListeners();
+      });
+    }
   }
 
-  User? get currentUser => Supabase.instance.client.auth.currentUser;
+  User? get currentUser {
+    final client = SupabaseConfig.client;
+    return client?.auth.currentUser;
+  }
 
   @override
   void dispose() {
-    _sub.cancel();
+    _sub?.cancel();
     super.dispose();
   }
 }

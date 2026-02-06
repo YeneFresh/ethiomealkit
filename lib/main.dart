@@ -10,19 +10,38 @@ import 'repo/meals_repository.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: '.env', isOptional: true);
-  // TODO: Replace with your Supabase project URL and anon key
-  final supabaseUrl = Env.supabaseUrl;
-  final supabaseAnonKey = Env.supabaseAnonKey;
-  if (supabaseUrl.isNotEmpty && supabaseAnonKey.isNotEmpty) {
-    await Supabase.initialize(url: supabaseUrl, anonKey: supabaseAnonKey);
-  }
-  final useMocks = Env.useMocks || supabaseUrl.isEmpty;
-  final apiClient = useMocks ? MockApiClient() : SupabaseApiClient(Supabase.instance.client);
+  await Env.load();
 
-  runApp(ProviderScope(overrides: [
-    apiClientProvider.overrideWithValue(apiClient),
-  ], child: const MyApp()));
+  // Check if environment variables are properly configured (not placeholders)
+  final hasValidSupabaseUrl = Env.supabaseUrl.isNotEmpty && 
+      !Env.supabaseUrl.contains('<your-ref>') &&
+      Env.supabaseUrl.startsWith('https://') && 
+      Env.supabaseUrl.contains('.supabase.co');
+  final hasValidSupabaseKey = Env.supabaseAnonKey.isNotEmpty && 
+      !Env.supabaseAnonKey.contains('<your-anon-public-key>');
+  
+  final shouldUseSupabase = hasValidSupabaseUrl && hasValidSupabaseKey && !Env.useMocks;
+
+  if (shouldUseSupabase) {
+    await Supabase.initialize(
+      url: Env.supabaseUrl,
+      anonKey: Env.supabaseAnonKey,
+    );
+    print('✅ Using Supabase backend');
+  } else {
+    print('🔧 Using mock backend (update .env with real Supabase credentials to use live backend)');
+  }
+
+  final apiClient = shouldUseSupabase 
+      ? SupabaseApiClient(Supabase.instance.client) 
+      : MockApiClient();
+
+  runApp(
+    ProviderScope(
+      overrides: [apiClientProvider.overrideWithValue(apiClient)],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
